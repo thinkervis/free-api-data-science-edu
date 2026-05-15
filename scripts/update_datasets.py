@@ -9,6 +9,7 @@ from typing import Any, Iterable
 from urllib.parse import urlencode
 
 import requests
+from requests import RequestException
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -32,15 +33,26 @@ def range_for_scope(scope: str) -> tuple[date, date]:
     return add_years(today, -5), end
 
 
+def fetch(url: str) -> requests.Response:
+    last_error: Exception | None = None
+    for timeout in (45, 90, 150):
+        try:
+            r = requests.get(url, timeout=timeout, headers=HEADERS)
+            r.raise_for_status()
+            return r
+        except RequestException as exc:
+            last_error = exc
+            print(f"retryable fetch error timeout={timeout}: {exc}")
+    assert last_error is not None
+    raise last_error
+
+
 def get_json(url: str) -> Any:
-    r = requests.get(url, timeout=45, headers=HEADERS)
-    r.raise_for_status()
-    return r.json()
+    return fetch(url).json()
 
 
 def get_text(url: str) -> str:
-    r = requests.get(url, timeout=45, headers=HEADERS)
-    r.raise_for_status()
+    r = fetch(url)
     try:
         return r.content.decode("utf-8")
     except UnicodeDecodeError:
