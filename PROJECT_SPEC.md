@@ -9,7 +9,7 @@
 핵심 목표:
 
 - 학생과 교사가 무료 API와 CSV 데이터를 직접 테스트한다.
-- GitHub Pages에서 데이터 확인, JSON 변환, 시각화까지 브라우저에서 실행한다.
+- GitHub Pages에서 데이터 확인, CSV 로드, 시각화까지 브라우저에서 실행한다.
 - Streamlit으로 대시보드를 빠르게 만든다.
 - Raspberry Pi **Pico 2 WH + Grove Shield**로 공공/API 데이터를 받아보는 피지컬 컴퓨팅 활동을 한다.
 - API 후보는 공식 문서와 실제 테스트를 거쳐 검증된 것만 데이터셋으로 승격한다.
@@ -89,8 +89,8 @@ python3 scripts/update_datasets.py --scope all
 - CSV 미리보기
 - 브라우저 직접 테스트 버튼
   - CSV fetch
-  - CSV → JSON 변환
-  - JSON 샘플 표시
+  - CSV → CSV 로드
+  - CSV 표 미리보기 표시
   - 숫자 컬럼 자동 SVG 시각화
 - Streamlit 기본 코드
 - Pico 2 WH + Grove Shield 기본 코드
@@ -109,7 +109,7 @@ python3 scripts/update_datasets.py --scope all
 5. `docs/data/`에 Pages용 복사본이 있다.
 6. 데이터셋 개별 HTML 페이지가 있다.
 7. 페이지 안에 fetch 코드가 있다.
-8. 페이지 안에 CSV→JSON 변환 코드가 있다.
+8. 페이지 안에 CSV 직접 로드 코드가 있다.
 9. 페이지 안에 브라우저 시각화 코드가 있다.
 10. Streamlit/Pico 2 WH 코드가 있다.
 

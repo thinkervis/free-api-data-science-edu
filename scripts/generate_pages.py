@@ -193,7 +193,7 @@ DATASETS = [
         "auth": "불필요",
         "pico": "중간",
         "streamlit": "높음",
-        "note": "최근 5년 발사 기록 기본. POST query로 기간 필터링하며 Pages에서는 CSV→JSON 변환/시각화 제공",
+        "note": "최근 5년 발사 기록 기본. POST query로 기간 필터링하며 Pages에서는 CSV 직접 로드/시각화 제공",
     },
     {
         "id": "frankfurter-usd-krw",
@@ -249,6 +249,24 @@ DATASETS = [
     },
 
 ]
+
+TOP10_DATASET_IDS = [
+    "open-meteo-weather", "open-meteo-air-quality", "nasa-power-seoul", "usgs-earthquakes", "frankfurter-usd-krw",
+    "worldbank-korea", "restcountries-world", "nager-korea-holidays", "spacex-launches", "gbif-korea",
+]
+
+TOP10_REASONS = {
+    "open-meteo-weather": "날씨 시계열·그래프·평균/최댓값 비교 수업에 가장 쉽게 활용",
+    "open-meteo-air-quality": "미세먼지와 환경 데이터 탐구에 적합",
+    "nasa-power-seoul": "NASA 공식 데이터로 기상·에너지·태양광 주제 연결 가능",
+    "usgs-earthquakes": "GeoJSON/지도/지구과학 융합 수업에 좋음",
+    "frankfurter-usd-krw": "환율 변화와 경제 시계열 분석 입문에 적합",
+    "worldbank-korea": "인구·GDP·기대수명·교육 지표를 함께 비교 가능",
+    "restcountries-world": "국가별 인구·면적·위치 데이터로 지도/비교 활동 가능",
+    "nager-korea-holidays": "날짜·달력·문화 데이터를 다루기 쉬워 초급 수업에 좋음",
+    "spacex-launches": "우주/과학 흥미도가 높고 성공 여부·발사 횟수 분석 가능",
+    "gbif-korea": "생물다양성·위치 데이터·생태 탐구 프로젝트에 적합",
+}
 
 MORE_CANDIDATES = [
     ["NASA POWER", "기상/태양광/에너지", "불필요", "https://power.larc.nasa.gov/docs/services/api/"],
@@ -380,8 +398,9 @@ def dataset_page(ds: dict[str, str]) -> str:
   <p><b>원천:</b> {html.escape(ds['source'])}</p>
   <p><b>설명:</b> {html.escape(ds['note'])}</p>
   <p><a href="{html.escape(csv_url)}">CSV 직접 열기</a> · <a href="{html.escape(ds['test_url'])}">원천 API/CSV 직접 테스트</a> · <a href="{html.escape(ds['doc_url'])}">공식 문서</a></p>
-  <button onclick="testCsvJsonAndChart('{html.escape(csv_url)}')">GitHub Pages에서 JSON 변환 + 시각화 테스트</button>
-  <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 fetch한 뒤 JSON으로 변환하고, 숫자 컬럼을 자동 시각화합니다.</pre>
+  <button onclick="testCsvAndChart('{html.escape(csv_url)}')">GitHub Pages에서 CSV 로드 + 시각화 테스트</button>
+  <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 직접 fetch하고, 앞부분 표와 숫자 컬럼 시각화를 표시합니다.</pre>
+  <div id="browser-preview"></div>
   <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
 <h2>CSV 미리보기</h2>
@@ -391,21 +410,61 @@ def dataset_page(ds: dict[str, str]) -> str:
 <h2>Pico 2 WH + Grove Shield 기본 코드</h2>
 <pre>{html.escape(pico_code(ds['csv']))}</pre>
 <script>
-function parseCsv(text) {{
-  const rows = text.trim().split(/\r?\n/).map(line => line.split(','));
-  const headers = rows.shift() || [];
-  return rows.filter(r => r.length).map(row => Object.fromEntries(headers.map((h, i) => [h, row[i] ?? ''])));
+function parseCsvRows(text) {{
+  const rows = [];
+  let row = [];
+  let cell = '';
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {{
+    const ch = text[i];
+    const next = text[i + 1];
+    if (ch === '"') {{
+      if (inQuotes && next === '"') {{ cell += '"'; i++; }}
+      else {{ inQuotes = !inQuotes; }}
+    }} else if (ch === ',' && !inQuotes) {{
+      row.push(cell); cell = '';
+    }} else if ((ch === '\\n' || ch === '\\r') && !inQuotes) {{
+      if (ch === '\\r' && next === '\\n') i++;
+      row.push(cell); cell = '';
+      if (row.some(v => v !== '')) rows.push(row);
+      row = [];
+    }} else {{
+      cell += ch;
+    }}
+  }}
+  row.push(cell);
+  if (row.some(v => v !== '')) rows.push(row);
+  return rows;
 }}
 
-function drawChart(data) {{
+function renderPreview(rows) {{
+  const target = document.getElementById('browser-preview');
+  const headers = rows[0] || [];
+  const bodyRows = rows.slice(1, 6);
+  const head = headers.map(h => `<th>${{escapeHtml(h)}}</th>`).join('');
+  const body = bodyRows.map(r => '<tr>' + headers.map((_, i) => `<td>${{escapeHtml(r[i] ?? '')}}</td>`).join('') + '</tr>').join('');
+  target.innerHTML = `<h3>브라우저에서 방금 읽은 CSV 표 미리보기</h3><table><thead><tr>${{head}}</tr></thead><tbody>${{body}}</tbody></table>`;
+}}
+
+function escapeHtml(value) {{
+  return String(value).replace(/[&<>"']/g, ch => ({{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[ch]));
+}}
+
+function drawCsvChart(rows) {{
   const chart = document.getElementById('chart');
-  const keys = Object.keys(data[0] || {{}});
-  const numericKey = keys.find(k => data.some(row => Number.isFinite(Number(row[k]))));
-  if (!numericKey) {{
+  const headers = rows[0] || [];
+  const dataRows = rows.slice(1);
+  const numericIndex = headers.findIndex((_, idx) => dataRows.some(row => Number.isFinite(Number(row[idx]))));
+  if (numericIndex < 0) {{
     chart.innerHTML = '<p>숫자 컬럼을 찾지 못해 시각화를 생략했습니다.</p>';
     return;
   }}
-  const values = data.slice(0, 80).map(row => Number(row[numericKey])).filter(Number.isFinite);
+  const label = headers[numericIndex];
+  const values = dataRows.slice(0, 80).map(row => Number(row[numericIndex])).filter(Number.isFinite);
+  if (!values.length) {{
+    chart.innerHTML = '<p>시각화할 숫자 값이 없습니다.</p>';
+    return;
+  }}
   const width = 760, height = 260, pad = 30;
   const min = Math.min(...values), max = Math.max(...values);
   const range = max - min || 1;
@@ -414,8 +473,8 @@ function drawChart(data) {{
     const y = height - pad - ((v - min) / range) * (height - pad * 2);
     return `${{x.toFixed(1)}},${{y.toFixed(1)}}`;
   }}).join(' ');
-  chart.innerHTML = `<h3>브라우저 직접 시각화: ${{numericKey}}</h3>
-  <svg viewBox="0 0 ${{width}} ${{height}}" role="img" aria-label="${{numericKey}} line chart" style="max-width:100%;border:1px solid #d0d7de;border-radius:8px;background:#fff">
+  chart.innerHTML = `<h3>브라우저 직접 시각화: ${{escapeHtml(label)}}</h3>
+  <svg viewBox="0 0 ${{width}} ${{height}}" role="img" aria-label="${{escapeHtml(label)}} line chart" style="max-width:100%;border:1px solid #d0d7de;border-radius:8px;background:#fff">
     <line x1="${{pad}}" y1="${{height-pad}}" x2="${{width-pad}}" y2="${{height-pad}}" stroke="#888"/>
     <line x1="${{pad}}" y1="${{pad}}" x2="${{pad}}" y2="${{height-pad}}" stroke="#888"/>
     <polyline fill="none" stroke="#0969da" stroke-width="2" points="${{points}}"/>
@@ -424,14 +483,16 @@ function drawChart(data) {{
   </svg>`;
 }}
 
-async function testCsvJsonAndChart(url) {{
+async function testCsvAndChart(url) {{
   const out = document.getElementById('test-output');
   try {{
     const r = await fetch(url);
+    if (!r.ok) throw new Error(`HTTP ${{r.status}}`);
     const text = await r.text();
-    const jsonRows = parseCsv(text);
-    drawChart(jsonRows);
-    out.textContent = `status=${{r.status}} bytes=${{text.length}} json_rows=${{jsonRows.length}}\nJSON sample:\n` + JSON.stringify(jsonRows.slice(0, 3), null, 2);
+    const rows = parseCsvRows(text);
+    renderPreview(rows);
+    drawCsvChart(rows);
+    out.textContent = `status=${{r.status}} bytes=${{text.length}} csv_rows≈${{Math.max(0, rows.length - 1)}} columns=${{(rows[0] || []).length}}`;
   }} catch (e) {{
     out.textContent = 'ERROR: ' + e;
   }}
@@ -465,11 +526,19 @@ def main() -> None:
 </div>''')
 
     more_rows = "".join(f"<tr><td>{html.escape(a)}</td><td>{html.escape(b)}</td><td>{html.escape(c)}</td><td><a href='{html.escape(d)}'>문서</a></td></tr>" for a, b, c, d in MORE_CANDIDATES)
+    by_id = {ds["id"]: ds for ds in DATASETS}
+    top10_items = []
+    for rank, dataset_id in enumerate(TOP10_DATASET_IDS, start=1):
+        ds = by_id[dataset_id]
+        _, _, count = read_preview(ds["csv"])
+        top10_items.append(f"""<li><b>{rank}. <a href="datasets/{ds['id']}.html">{html.escape(ds['title'])}</a></b> <span class="badge">{count} rows</span><br>{html.escape(TOP10_REASONS[dataset_id])}</li>""")
     index = f'''
 <h1>초·중·고 정보 교육을 위한 무료 데이터 과학 API & CSV</h1>
 <p>모든 기본 CSV는 최근 5년치 중심으로 생성되며, <code>python3 scripts/update_datasets.py --scope all</code>로 가능한 전체 기간을 받을 수 있습니다.</p>
-<p>데이터별 페이지에서 CSV→JSON 직접 테스트, 원천 API 테스트, 브라우저 시각화, Streamlit 기본 코드, Pico 2 WH + Grove Shield 기본 코드를 제공합니다.</p>
+<p>데이터별 페이지에서 CSV 직접 로드, 원천 API 테스트, 브라우저 시각화, Streamlit 기본 코드, Pico 2 WH + Grove Shield 기본 코드를 제공합니다.</p>
 <p><a href="data/manifest.json">갱신 manifest</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub repo</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/CONTRIBUTING.md">사람용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/AI_CONTRIBUTING.md">AI용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/REWARDS.md">리워드 설계</a></p>
+<h2>베스트 추천 데이터 TOP 10</h2>
+<ol>{''.join(top10_items)}</ol>
 <h2>바로 테스트 가능한 데이터셋</h2>
 {''.join(cards)}
 <h2>추가 API 후보</h2>

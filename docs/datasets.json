@@ -179,7 +179,7 @@
     "auth": "불필요",
     "pico": "중간",
     "streamlit": "높음",
-    "note": "최근 5년 발사 기록 기본. POST query로 기간 필터링하며 Pages에서는 CSV→JSON 변환/시각화 제공"
+    "note": "최근 5년 발사 기록 기본. POST query로 기간 필터링하며 Pages에서는 CSV 직접 로드/시각화 제공"
   },
   {
     "id": "frankfurter-usd-krw",

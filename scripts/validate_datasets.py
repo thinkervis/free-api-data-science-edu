@@ -72,10 +72,11 @@ def main() -> None:
             text = page.read_text(encoding="utf-8")
             checks = {
                 "direct fetch test code": "fetch(" in text,
-                "CSV to JSON test code": "parseCsv" in text and "JSON sample" in text,
-                "browser visualization code": "drawChart" in text and "<svg" in text,
+                "CSV browser parse code": "parseCsvRows" in text and "csv_rows" in text,
+                "browser preview code": "renderPreview" in text and "browser-preview" in text,
+                "browser visualization code": "drawCsvChart" in text and "<svg" in text,
                 "Streamlit code": "streamlit" in text.lower(),
-                "Pico W code": "Pico W" in text or "MicroPython" in text,
+                "Pico 2 WH Grove code": "Pico 2 WH" in text and "Grove Shield" in text,
             }
             for label, ok in checks.items():
                 if not ok:

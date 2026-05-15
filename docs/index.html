@@ -20,8 +20,10 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 
 <h1>초·중·고 정보 교육을 위한 무료 데이터 과학 API & CSV</h1>
 <p>모든 기본 CSV는 최근 5년치 중심으로 생성되며, <code>python3 scripts/update_datasets.py --scope all</code>로 가능한 전체 기간을 받을 수 있습니다.</p>
-<p>데이터별 페이지에서 CSV→JSON 직접 테스트, 원천 API 테스트, 브라우저 시각화, Streamlit 기본 코드, Pico 2 WH + Grove Shield 기본 코드를 제공합니다.</p>
+<p>데이터별 페이지에서 CSV 직접 로드, 원천 API 테스트, 브라우저 시각화, Streamlit 기본 코드, Pico 2 WH + Grove Shield 기본 코드를 제공합니다.</p>
 <p><a href="data/manifest.json">갱신 manifest</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub repo</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/CONTRIBUTING.md">사람용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/AI_CONTRIBUTING.md">AI용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/REWARDS.md">리워드 설계</a></p>
+<h2>베스트 추천 데이터 TOP 10</h2>
+<ol><li><b>1. <a href="datasets/open-meteo-weather.html">서울 5년 일별 기상</a></b> <span class="badge">1826 rows</span><br>날씨 시계열·그래프·평균/최댓값 비교 수업에 가장 쉽게 활용</li><li><b>2. <a href="datasets/open-meteo-air-quality.html">서울 5년 시간별 대기질</a></b> <span class="badge">43824 rows</span><br>미세먼지와 환경 데이터 탐구에 적합</li><li><b>3. <a href="datasets/nasa-power-seoul.html">NASA POWER 서울 일별 기상/에너지</a></b> <span class="badge">1826 rows</span><br>NASA 공식 데이터로 기상·에너지·태양광 주제 연결 가능</li><li><b>4. <a href="datasets/usgs-earthquakes.html">전세계 규모 6+ 지진 5년</a></b> <span class="badge">651 rows</span><br>GeoJSON/지도/지구과학 융합 수업에 좋음</li><li><b>5. <a href="datasets/frankfurter-usd-krw.html">USD/KRW 환율 일별</a></b> <span class="badge">1281 rows</span><br>환율 변화와 경제 시계열 분석 입문에 적합</li><li><b>6. <a href="datasets/worldbank-korea.html">한국 5년 World Bank 지표</a></b> <span class="badge">20 rows</span><br>인구·GDP·기대수명·교육 지표를 함께 비교 가능</li><li><b>7. <a href="datasets/restcountries-world.html">세계 국가 기본 정보 스냅샷</a></b> <span class="badge">250 rows</span><br>국가별 인구·면적·위치 데이터로 지도/비교 활동 가능</li><li><b>8. <a href="datasets/nager-korea-holidays.html">한국 공휴일 5년</a></b> <span class="badge">94 rows</span><br>날짜·달력·문화 데이터를 다루기 쉬워 초급 수업에 좋음</li><li><b>9. <a href="datasets/spacex-launches.html">SpaceX 발사 기록</a></b> <span class="badge">79 rows</span><br>우주/과학 흥미도가 높고 성공 여부·발사 횟수 분석 가능</li><li><b>10. <a href="datasets/gbif-korea.html">한국 생물종 관측 샘플</a></b> <span class="badge">300 rows</span><br>생물다양성·위치 데이터·생태 탐구 프로젝트에 적합</li></ol>
 <h2>바로 테스트 가능한 데이터셋</h2>
 
 <div class="card">
@@ -105,7 +107,7 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 <div class="card">
   <h2><a href="datasets/spacex-launches.html">SpaceX 발사 기록</a></h2>
   <p><span class="badge">우주/과학</span><span class="badge">불필요</span><span class="badge">79 rows</span></p>
-  <p>최근 5년 발사 기록 기본. POST query로 기간 필터링하며 Pages에서는 CSV→JSON 변환/시각화 제공</p>
+  <p>최근 5년 발사 기록 기본. POST query로 기간 필터링하며 Pages에서는 CSV 직접 로드/시각화 제공</p>
   <p><a href="data/spacex_launches.csv">CSV</a> · <a href="https://api.spacexdata.com/v5/launches/latest">직접 테스트</a> · <a href="https://github.com/r-spacex/SpaceX-API/tree/master/docs">공식 문서</a></p>
 </div>
 <div class="card">
