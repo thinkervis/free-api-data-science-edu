@@ -96,6 +96,16 @@ python3 scripts/validate_datasets.py
 - Pico 2 WH + Grove Shield로 현재 날씨/공공 데이터 받아 Grove OLED/LCD 또는 USB 시리얼 출력
 
 
+
+## 후속 작업자/AI를 위한 기준 문서
+
+후속 작업자는 작업 전 아래 문서를 먼저 확인하세요.
+
+- `PROJECT_SPEC.md` — 프로젝트 목표, 데이터셋 승격 기준, 검증 기준, 완료 보고 형식
+- `AI_HANDOFF.md` — 다른 AI 에이전트용 빠른 인수인계 문서
+- `AI_CONTRIBUTING.md` — AI 기여 규칙
+- `hardware/pico2wh-grove-shield.md` — Pico 2 WH + Grove Shield 기준
+
 ## public-apis 기반 추가 검토
 
 `public-apis/public-apis` 전체 목록을 참고해 API 후보를 하나씩 검토하기 위한 감사 자료를 추가했습니다.
