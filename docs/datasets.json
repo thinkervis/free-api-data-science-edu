@@ -23,7 +23,7 @@
     "auth": "불필요",
     "pico": "중간",
     "streamlit": "높음",
-    "note": "시간별 데이터라 CSV가 큼. Pico W는 최근 몇 줄만 쓰는 예제로 권장"
+    "note": "시간별 데이터라 CSV가 큼. Pico 2 WH + Grove Shield에서는 최근 몇 줄만 쓰는 예제로 권장"
   },
   {
     "id": "worldbank-korea",

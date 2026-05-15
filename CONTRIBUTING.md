@@ -7,7 +7,7 @@
 - 수업에 쓰기 좋은 무료 API/CSV 데이터 추천
 - 최근 5년치 CSV 자동 갱신 스크립트 추가
 - Streamlit 예제 개선
-- Raspberry Pi Pico W / MicroPython 예제 개선
+- Raspberry Pi Pico 2 WH + Grove Shield / MicroPython 예제 개선
 - 데이터별 설명 문서, 수업 활동지, 질문 예시 추가
 - 오타 수정, 링크 검증, 라이선스/출처 확인
 - 초등/중등/고등 난이도별 활동 아이디어 제안
@@ -40,7 +40,7 @@ PR을 보내기 전에 확인해주세요.
 - [ ] `python3 scripts/update_datasets.py --scope recent5` 실행 성공
 - [ ] `python3 scripts/generate_pages.py` 실행 성공
 - [ ] `python3 scripts/validate_datasets.py` 실행 성공
-- [ ] 데이터별 Streamlit/Pico W 기본 코드가 GitHub Pages에 노출됩니다.
+- [ ] 데이터별 Streamlit/Pico 2 WH + Grove Shield 기본 코드가 GitHub Pages에 노출됩니다.
 - [ ] 출처와 라이선스/이용 조건을 문서에 적었습니다.
 
 ## 제안만 하고 싶다면
@@ -69,6 +69,6 @@ GitHub Issue에 아래 형식으로 남겨주세요.
 
 - “날씨와 따릉이 대여량 관계 분석”처럼 질문이 분명한 데이터 묶음
 - “초등: 그래프 읽기 / 중등: 평균과 상관 / 고등: 회귀분석”처럼 난이도별 활동 제안
-- Pico W에서 메모리 문제 없이 작동하도록 작은 응답 예제 제공
+- Pico 2 WH + Grove Shield에서 메모리 문제 없이 작동하도록 작은 응답 예제 제공
 
 감사합니다. 작은 오타 수정도 교육 자료를 더 믿을 수 있게 만듭니다.

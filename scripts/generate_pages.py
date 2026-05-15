@@ -37,7 +37,7 @@ DATASETS = [
         "auth": "불필요",
         "pico": "중간",
         "streamlit": "높음",
-        "note": "시간별 데이터라 CSV가 큼. Pico W는 최근 몇 줄만 쓰는 예제로 권장",
+        "note": "시간별 데이터라 CSV가 큼. Pico 2 WH + Grove Shield에서는 최근 몇 줄만 쓰는 예제로 권장",
     },
     {
         "id": "worldbank-korea",
@@ -299,7 +299,42 @@ def streamlit_code(csv_name: str) -> str:
 
 
 def pico_code(csv_name: str) -> str:
-    return f'''# Raspberry Pi Pico W / MicroPython basic CSV fetch\nimport network, urequests, time\n\nSSID = "YOUR_WIFI"\nPASSWORD = "YOUR_PASSWORD"\nURL = "https://thinkervis.github.io/free-api-data-science-edu/data/{csv_name}"\n\nwlan = network.WLAN(network.STA_IF)\nwlan.active(True)\nwlan.connect(SSID, PASSWORD)\nwhile not wlan.isconnected():\n    time.sleep(1)\n\nr = urequests.get(URL)\ntext = r.text\nr.close()\n\n# 메모리 보호: 앞부분만 확인\nlines = text.split("\\n")[:6]\nfor line in lines:\n    print(line)\n'''
+    return f'''# Raspberry Pi Pico 2 WH + Grove Shield / MicroPython basic CSV fetch
+# 기본 출력: USB 시리얼. 선택 출력: Grove I2C OLED/LCD(SDA=GP4, SCL=GP5 예시).
+import network, urequests, time
+from machine import Pin
+
+SSID = "YOUR_WIFI"
+PASSWORD = "YOUR_PASSWORD"
+URL = "https://thinkervis.github.io/free-api-data-science-edu/data/{csv_name}"
+
+led = Pin("LED", Pin.OUT)
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(SSID, PASSWORD)
+while not wlan.isconnected():
+    led.toggle()
+    time.sleep(0.5)
+led.on()
+
+r = urequests.get(URL)
+text = r.text
+r.close()
+
+# Pico 메모리 보호: 큰 CSV는 앞부분만 확인
+lines = text.split("\\n")[:6]
+for line in lines:
+    print(line)
+
+# 선택: Grove I2C OLED/LCD 표시
+# from machine import I2C
+# import ssd1306
+# i2c = I2C(0, scl=Pin(5), sda=Pin(4))
+# oled = ssd1306.SSD1306_I2C(128, 64, i2c)
+# for i, line in enumerate(lines[:4]):
+#     oled.text(line[:16], 0, i * 12)
+# oled.show()
+'''
 
 
 def html_table(headers: list[str], rows: list[list[str]]) -> str:
@@ -353,7 +388,7 @@ def dataset_page(ds: dict[str, str]) -> str:
 {preview}
 <h2>Streamlit 기본 코드</h2>
 <pre>{html.escape(streamlit_code(ds['csv']))}</pre>
-<h2>Pico W 기본 코드</h2>
+<h2>Pico 2 WH + Grove Shield 기본 코드</h2>
 <pre>{html.escape(pico_code(ds['csv']))}</pre>
 <script>
 function parseCsv(text) {{
@@ -433,7 +468,7 @@ def main() -> None:
     index = f'''
 <h1>초·중·고 정보 교육을 위한 무료 데이터 과학 API & CSV</h1>
 <p>모든 기본 CSV는 최근 5년치 중심으로 생성되며, <code>python3 scripts/update_datasets.py --scope all</code>로 가능한 전체 기간을 받을 수 있습니다.</p>
-<p>데이터별 페이지에서 CSV→JSON 직접 테스트, 원천 API 테스트, 브라우저 시각화, Streamlit 기본 코드, Pico W 기본 코드를 제공합니다.</p>
+<p>데이터별 페이지에서 CSV→JSON 직접 테스트, 원천 API 테스트, 브라우저 시각화, Streamlit 기본 코드, Pico 2 WH + Grove Shield 기본 코드를 제공합니다.</p>
 <p><a href="data/manifest.json">갱신 manifest</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub repo</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/CONTRIBUTING.md">사람용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/AI_CONTRIBUTING.md">AI용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/REWARDS.md">리워드 설계</a></p>
 <h2>바로 테스트 가능한 데이터셋</h2>
 {''.join(cards)}

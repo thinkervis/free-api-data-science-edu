@@ -21,7 +21,7 @@
 1. 후보를 공식 문서/테스트 URL 기준으로 하나씩 확인
 2. no-auth + JSON/CORS 가능 + 교육 적합 후보 우선 반영
 3. 최근 5년치 CSV 자동화가 가능한 후보는 `scripts/update_datasets.py`에 추가
-4. GitHub Pages에 JSON 변환 + 시각화 + Streamlit/Pico W 예제 제공
+4. GitHub Pages에 JSON 변환 + 시각화 + Streamlit/Pico 2 WH + Grove Shield 예제 제공
 
 ## 상위 후보 예시
 
