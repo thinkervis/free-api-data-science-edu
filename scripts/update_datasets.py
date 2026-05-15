@@ -228,11 +228,19 @@ def update_fred_fedfunds(scope: str) -> dict[str, Any]:
     if scope == "all":
         start = date(1954, 7, 1)
     url = "https://fred.stlouisfed.org/graph/fredgraph.csv?" + urlencode({"id": "FEDFUNDS", "cosd": start.isoformat(), "coed": end.isoformat()})
-    text = get_text(url)
     path = DATA / "fred_fedfunds.csv"
-    path.write_text(text, encoding="utf-8")
+    try:
+        text = get_text(url)
+        path.write_text(text, encoding="utf-8")
+        source = url
+    except RequestException as exc:
+        if not path.exists():
+            raise
+        print(f"FRED fetch failed; keeping existing checked-in CSV: {exc}")
+        text = path.read_text(encoding="utf-8")
+        source = f"{url} (fallback: existing checked-in CSV)"
     rows = max(0, len(text.splitlines()) - 1)
-    return {"file": str(path.relative_to(ROOT)), "rows": rows, "scope": scope, "source": url}
+    return {"file": str(path.relative_to(ROOT)), "rows": rows, "scope": scope, "source": source}
 
 
 def update_owid_co2(scope: str) -> dict[str, Any]:
