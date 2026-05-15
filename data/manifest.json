@@ -1,0 +1,10 @@
+{
+  "updated_at_utc": "2026-05-15T22:50:18.551852+00:00",
+  "files": [
+    "data/mlb_schedule_sample.csv",
+    "data/open_meteo_seoul_current.csv",
+    "data/seoul_bike_sample.csv",
+    "data/stooq_aapl_quote.csv",
+    "data/worldbank_korea_population.csv"
+  ]
+}
