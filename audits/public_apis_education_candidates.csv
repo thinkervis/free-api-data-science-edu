@@ -1,0 +1,515 @@
+education_score,category,name,url,description,auth,https,cors
+8,Currency Exchange,FreeForexAPI,https://freeforexapi.com/Home/Api,Real-time foreign exchange rates for major currency pairs,No,Yes,No
+8,Environment,National Grid ESO,https://data.nationalgrideso.com/,Open data from Great Britain’s Electricity System Operator,No,Yes,Unknown
+8,Transportation,ADS-B Exchange,https://www.adsbexchange.com/data/,Access real-time and historical data of any and all airborne aircraft,No,Yes,Unknown
+6,Cryptocurrency,CoinCap,https://docs.coincap.io/,Real time Cryptocurrency prices through a RESTful API,No,Yes,Unknown
+6,Cryptocurrency,Solana JSON RPC,https://docs.solana.com/developing/clients/jsonrpc-api,Provides various endpoints to interact with the Solana Blockchain,No,Yes,Unknown
+6,Cryptocurrency,ZMOK,https://zmok.io,Ethereum JSON RPC API and Web3 provider,No,Yes,Unknown
+6,Currency Exchange,Frankfurter,https://www.frankfurter.app/docs,"Exchange rates, currency conversion and time series",No,Yes,Yes
+6,Currency Exchange,National Bank of Poland,http://api.nbp.pl/en.html,A collection of currency exchange rates (data in XML and JSON),No,Yes,Yes
+6,Development,Cloudflare Trace,https://github.com/fawazahmed0/cloudflare-trace-api,"Get IP Address, Timestamp, User Agent, Country Code, IATA, HTTP Version, TLS/SSL Version & More",No,Yes,Yes
+6,Environment,PM2.5 Open Data Portal,https://pm25.lass-net.org/#apis,Open low-cost PM2.5 sensor data,No,Yes,Unknown
+6,Government,Bank Negara Malaysia Open Data,https://apikijangportal.bnm.gov.my/,Malaysia Central Bank Open Data,No,Yes,Unknown
+6,Government,Brazil,https://brasilapi.com.br/,Community driven API for Brazil Public Data,No,Yes,Yes
+6,Government,Brazil Central Bank Open Data,https://dadosabertos.bcb.gov.br/,Brazil Central Bank Open Data,No,Yes,Unknown
+6,Government,Brazilian Chamber of Deputies Open Data,https://dadosabertos.camara.leg.br/swagger/api.html,"Provides legislative information in Apis XML and JSON, as well as files in various formats",No,Yes,No
+6,Government,"City, Berlin",https://daten.berlin.de/,Berlin(DE) City Open Data,No,Yes,Unknown
+6,Government,"City, Gdańsk",https://ckan.multimediagdansk.pl/en,Gdańsk (PL) City Open Data,No,Yes,Unknown
+6,Government,"City, Helsinki",https://hri.fi/en_gb/,Helsinki(FI) City Open Data,No,Yes,Unknown
+6,Government,"City, Lviv",https://opendata.city-adm.lviv.ua/,Lviv(UA) City Open Data,No,Yes,Unknown
+6,Government,"City, New York Open Data",https://opendata.cityofnewyork.us/,New York (US) City Open Data,No,Yes,Unknown
+6,Government,"City, Toronto Open Data",https://open.toronto.ca/,Toronto (CA) City Open Data,No,Yes,Yes
+6,Government,Colorado Information Marketplace,https://data.colorado.gov/,Colorado State Government Open Data,No,Yes,Unknown
+6,Government,Data USA,https://datausa.io/about/api/,US Public Data,No,Yes,Unknown
+6,Government,District of Columbia Open Data,http://opendata.dc.gov/pages/using-apis,"Contains D.C. government public datasets, including crime, GIS, financial data, and so on",No,Yes,Unknown
+6,Government,EPA,https://www.epa.gov/developers/data-data-products#apis,Web services and data sets from the US Environmental Protection Agency,No,Yes,Unknown
+6,Government,Istanbul (İBB) Open Data,https://data.ibb.gov.tr,Data sets from the İstanbul Metropolitan Municipality (İBB),No,Yes,Unknown
+6,Government,"Open Government, ACT",https://www.data.act.gov.au/,Australian Capital Territory Open Data,No,Yes,Unknown
+6,Government,"Open Government, Argentina",https://datos.gob.ar/,Argentina Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Australia",https://www.data.gov.au/,Australian Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Austria",https://www.data.gv.at/,Austria Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Belgium",https://data.gov.be/,Belgium Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Cyprus",https://data.gov.cy/?language=en,Cyprus Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Czech Republic",https://data.gov.cz/english/,Czech Republic Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Denmark",https://www.opendata.dk/,Denmark Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Finland",https://www.avoindata.fi/en,Finland Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Germany",https://www.govdata.de/daten/-/details/govdata-metadatenkatalog,Germany Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Ireland",https://data.gov.ie/pages/developers,Ireland Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Italy",https://www.dati.gov.it/,Italy Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Lithuania",https://data.gov.lt/public/api/1,Lithuania Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Mexico",https://www.inegi.org.mx/datos/,Mexican Statistical Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Mexico",https://datos.gob.mx/,Mexico Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Netherlands",https://data.overheid.nl/en/ondersteuning/data-publiceren/api,Netherlands Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, New Zealand",https://www.data.govt.nz/,New Zealand Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Norway",https://data.norge.no/dataservices,Norwegian Government Open Data,No,Yes,Yes
+6,Government,"Open Government, Peru",https://www.datosabiertos.gob.pe/,Peru Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Poland",https://dane.gov.pl/en,Poland Government Open Data,No,Yes,Yes
+6,Government,"Open Government, Portugal",https://dados.gov.pt/en/docapi/,Portugal Government Open Data,No,Yes,Yes
+6,Government,"Open Government, Queensland Government",https://www.data.qld.gov.au/,Queensland Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Saudi Arabia",https://data.gov.sa,Saudi Arabia Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Singapore",https://data.gov.sg/developer,Singapore Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Slovakia",https://data.gov.sk/en/,Slovakia Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Slovenia",https://podatki.gov.si/,Slovenia Government Open Data,No,Yes,No
+6,Government,"Open Government, South Australian Government",https://data.sa.gov.au/,South Australian Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Spain",https://datos.gob.es/en,Spain Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Sweden",https://www.dataportal.se/en/dataservice/91_29789/api-for-the-statistical-database,Sweden Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Switzerland",https://handbook.opendata.swiss/de/content/nutzen/api-nutzen.html,Switzerland Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Taiwan",https://data.gov.tw/,Taiwan Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, UK",https://data.gov.uk/,UK Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, USA",https://www.data.gov/,United States Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, Victoria State Government",https://www.data.vic.gov.au/,Victoria State Government Open Data,No,Yes,Unknown
+6,Government,"Open Government, West Australia",https://data.wa.gov.au/,West Australia Open Data,No,Yes,Unknown
+6,Health,COVID-ID,https://data.covid19.go.id/public/api/prov.json,Indonesian government Covid data per province,No,Yes,Yes
+6,Health,Coronavirus in the UK,https://coronavirus.data.gov.uk/details/developers-guide,"UK Government coronavirus data, including deaths and cases by region",No,Yes,Unknown
+6,Health,Covid-19,https://github.com/M-Media-Group/Covid-19-API,"Covid 19 cases, deaths and recovery per country",No,Yes,Yes
+6,Health,Covid-19 Datenhub,https://npgeo-corona-npgeo-de.hub.arcgis.com,"Maps, datasets, applications and more in the context of COVID-19",No,Yes,Unknown
+6,Health,Covid-19 Government Response,https://covidtracker.bsg.ox.ac.uk,Government measures tracker to fight against the Covid-19 pandemic,No,Yes,Yes
+6,Health,Covid-19 India,https://data.covid19india.org/,"Covid 19 statistics state and district wise about cases, vaccinations, recovery within India",No,Yes,Unknown
+6,Health,Covid-19 Live Data,https://github.com/mathdroid/covid-19-api,"Global and countrywise data of Covid 19 daily Summary, confirmed cases, recovered and deaths",No,Yes,Yes
+6,Health,Dataflow Kit COVID-19,https://covid-19.dataflowkit.com,COVID-19 live statistics into sites per hour,No,Yes,Unknown
+6,Health,Healthcare.gov,https://www.healthcare.gov/developers/,Educational content about the US Health Insurance Marketplace,No,Yes,Unknown
+6,Health,Open Data NHS Scotland,https://www.opendata.nhs.scot,Medical reference data and statistics by Public Health Scotland,No,Yes,Unknown
+6,Open Data,API Setu,https://www.apisetu.gov.in/,"An Indian Government platform that provides a lot of APIS for KYC, business, education & employment",No,Yes,Yes
+6,Open Data,CollegeScoreCard.ed.gov,https://collegescorecard.ed.gov/data/,Data on higher education institutions in the United States,No,Yes,Unknown
+6,Open Data,French Address Search,https://geo.api.gouv.fr/adresse,Address search via the French Government,No,Yes,Unknown
+6,Open Data,Open Data Minneapolis,https://opendata.minneapolismn.gov/,Spatial (GIS) and non-spatial city data for Minneapolis,No,Yes,No
+6,Open Data,Umeå Open Data,https://opendata.umea.se/api/,Open data of the city Umeå in northen Sweden,No,Yes,Yes
+6,Science & Math,Purple Air,https://www2.purpleair.com/,Real Time Air Quality Monitoring,No,Yes,Unknown
+6,Science & Math,USGS Earthquake Hazards Program,https://earthquake.usgs.gov/fdsnws/event/1/,Earthquakes data real-time,No,Yes,No
+6,Transportation,AviationAPI,https://docs.aviationapi.com,"FAA Aeronautical Charts and Publications, Airport Information, and Airport Weather",No,Yes,No
+6,Transportation,BC Ferries,https://www.bcferriesapi.ca,Sailing times and capacities for BC Ferries,No,Yes,Yes
+6,Transportation,OpenSky Network,https://opensky-network.org/apidoc/index.html,Free real-time ADS-B aviation data,No,Yes,Unknown
+6,Transportation,"Transport for Los Angeles, US",https://developer.metro.net/api/,Data about positions of Metro vehicles in real time and travel their routes,No,Yes,Unknown
+6,Transportation,Transport for Norway,https://developer.entur.org/,Transport APIs and dataset for Norway,No,Yes,Unknown
+6,Transportation,"Velib metropolis, Paris, France",https://www.velib-metropole.fr/donnees-open-data-gbfs-du-service-velib-metropole,Velib Open Data API,No,Yes,No
+6,Transportation,airportsapi,https://airport-web.appspot.com/api/docs/,Get name and website-URL for airports by ICAO code,No,Yes,Unknown
+6,Weather,wttr.in,https://wttr.in/:help,"Weather in your terminal, supports JSON output",No,Yes,Yes
+5,Cryptocurrency,Bitmex,https://www.bitmex.com/app/apiOverview,Real-Time Cryptocurrency derivatives trading platform based in Hong Kong,`apiKey`,Yes,Unknown
+5,Cryptocurrency,Brave NewCoin,https://bravenewcoin.com/developers,Real-time and historic crypto data from more than 200+ exchanges,`apiKey`,Yes,Unknown
+5,Cryptocurrency,BtcTurk,https://docs.btcturk.com/,"Real-time cryptocurrency data, graphs and API that allows buy&sell",`apiKey`,Yes,Yes
+5,Cryptocurrency,Coinlayer,https://coinlayer.com?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers,Real-time Crypto Currency Exchange Rates,`apiKey`,Yes,Unknown
+5,Cryptocurrency,Nomics,https://nomics.com/docs/,Historical and realtime cryptocurrency prices and market data,`apiKey`,Yes,Yes
+5,Cryptocurrency,PumpFunData,https://pumpfundata.com/docs,Historical Pump.fun and PumpSwap AMM swap data as hourly Parquet files,`apiKey`,Yes,Unknown
+5,Currency Exchange,CurrencyFreaks,https://currencyfreaks.com/,Provides current and historical currency exchange rates with free plan 1K requests/month,`apiKey`,Yes,Yes
+5,Currency Exchange,CurrencyScoop,https://currencyscoop.com/api-documentation,Real-time and historical currency rates JSON API,`apiKey`,Yes,Yes
+5,Environment,Cloverly,https://www.cloverly.com/carbon-offset-documentation,API calculates the impact of common carbon-intensive activities in real time,`apiKey`,Yes,Unknown
+5,Finance,Finage,https://finage.co.uk,"Finage is a stock, currency, cryptocurrency, indices, and ETFs real-time & historical data provider",`apiKey`,Yes,Unknown
+5,Finance,Yahoo Finance,https://www.yahoofinanceapi.com/,"Real time low latency Yahoo Finance API for stock market, crypto currencies, and currency exchange",`apiKey`,Yes,Yes
+5,Geocoding,CountryStateCity,https://countrystatecity.in/,"World countries, states, regions, provinces, cities & towns in JSON, SQL, XML, YAML, & CSV format",`apiKey`,Yes,Yes
+5,Geocoding,IPInfoDB,https://www.ipinfodb.com/api,"Free Geolocation tools and APIs for country, region, city and time zone lookup by IP address",`apiKey`,Yes,Unknown
+5,Government,"City, Gdynia",http://otwartedane.gdynia.pl/en/api_doc.html,Gdynia (PL) City Open Data,No,No,Unknown
+5,Government,"City, Nantes Open Data",https://data.nantesmetropole.fr/pages/home/,Nantes(FR) City Open Data,`apiKey`,Yes,Unknown
+5,Government,"City, Prague Open Data",http://opendata.praha.eu/en,Prague(CZ) City Open Data,No,No,Unknown
+5,Government,Data.parliament.uk,https://explore.data.parliament.uk/?learnmore=Members,"Contains live datasets including information about petitions, bills, MP votes, attendance and more",No,No,Unknown
+5,Government,INEI,http://iinei.inei.gob.pe/microdatos/,Peruvian Statistical Government Open Data,No,No,Unknown
+5,Government,"Open Government, Canada",http://open.canada.ca/en,Canadian Government Open Data,No,No,Unknown
+5,Government,"Open Government, Colombia",https://www.dane.gov.co/,Colombia Government Open Data,No,No,Unknown
+5,Government,"Open Government, Estonia",https://avaandmed.eesti.ee/instructions/opendata-dataset-api,Estonia Government Open Data,`apiKey`,Yes,Unknown
+5,Government,"Open Government, France",https://www.data.gouv.fr/,French Government Open Data,`apiKey`,Yes,Unknown
+5,Government,"Open Government, Greece",https://data.gov.gr/,Greece Government Open Data,`OAuth`,Yes,Unknown
+5,Government,"Open Government, India",https://data.gov.in/,Indian Government Open Data,`apiKey`,Yes,Unknown
+5,Government,"Open Government, Korea",https://www.data.go.kr/,Korea Government Open Data,`apiKey`,Yes,Unknown
+5,Government,"Open Government, Luxembourg",https://data.public.lu,Luxembourgish Government Open Data,`apiKey`,Yes,Unknown
+5,Government,"Open Government, New South Wales",https://api.nsw.gov.au/,New South Wales Government Open Data,`apiKey`,Yes,Unknown
+5,Government,"Open Government, Romania",http://data.gov.ro/,Romania Government Open Data,No,No,Unknown
+5,Government,"Open Government, Thailand",https://data.go.th/,Thailand Government Open Data,`apiKey`,Yes,Unknown
+5,Government,OpenRegistry,https://openregistry.sophymarine.com,"Real-time queries to 27 national company registries (UK, FR, DE, IT, ES, KR + 21 more)",`OAuth`,Yes,Unknown
+5,Open Data,18F,http://18f.github.io/API-All-the-X/,Unofficial US Federal Government API Development,No,No,Unknown
+5,Open Data,Socrata,https://dev.socrata.com/,"Access to Open Data from Governments, Non-profits and NGOs around the world",`OAuth`,Yes,Yes
+5,Security,Privacy.com,https://privacy.com/developer/docs,Generate merchant-specific and one-time use credit card numbers that link back to your bank,`apiKey`,Yes,Unknown
+5,Transportation,CTS,https://api.cts-strasbourg.eu/,CTS Realtime API,`apiKey`,Yes,Yes
+5,Transportation,Schiphol Airport,https://developer.schiphol.nl/,Schiphol,`apiKey`,Yes,Unknown
+5,Transportation,Tankerkoenig,https://creativecommons.tankerkoenig.de/swagger/,German realtime gas/diesel prices,`apiKey`,Yes,Yes
+5,Transportation,"Transport for Paris, France",http://data.ratp.fr/api/v1/console/datasets/1.0/search/,RATP Open Data API,No,No,Unknown
+5,Transportation,Transport for Switzerland,https://opentransportdata.swiss/en/,Official Swiss Public Transport Open Data,`apiKey`,Yes,Unknown
+5,Transportation,Transport for UK,https://developer.transportapi.com,Transport API and dataset for UK,`apiKey`,Yes,Unknown
+5,Transportation,apilayer aviationstack,https://aviationstack.com/,Real-time Flight Status & Global Aviation Data API,`OAuth`,Yes,Unknown
+5,Video,JSON2Video,https://json2video.com,"Create and edit videos programmatically: watermarks,resizing,slideshows,voice-over,text animations",`apiKey`,Yes,No
+5,Weather,7Timer!,http://www.7timer.info/doc.php?lang=en,"Weather, especially for Astroweather",No,No,Unknown
+5,Weather,Euskalmet,https://opendata.euskadi.eus/api-euskalmet/-/api-de-euskalmet/,Meteorological data of the Basque Country,`apiKey`,Yes,Unknown
+5,Weather,Micro Weather,https://m3o.com/weather/api,Real time weather forecasts and historic data,`apiKey`,Yes,Unknown
+5,Weather,Oikolab,https://docs.oikolab.com,"70+ years of global, hourly historical and forecast weather data from NOAA and ECMWF",`apiKey`,Yes,Yes
+5,Weather,OpenUV,https://www.openuv.io,Real-time UV Index Forecast,`apiKey`,Yes,Unknown
+5,Weather,Visual Crossing,https://www.visualcrossing.com/weather-api,Global historical and weather forecast data,`apiKey`,Yes,Yes
+5,Weather,Weatherstack,https://weatherstack.com/?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers,Real-Time & Historical World Weather Data API,`apiKey`,Yes,Unknown
+4,Animals,Dogs,https://dog.ceo/dog-api/,Based on the Stanford Dogs Dataset,No,Yes,Yes
+4,Animals,FishWatch,https://www.fishwatch.gov/developers,Information and pictures about individual fish species,No,Yes,Yes
+4,Animals,Movebank,https://github.com/movebank/movebank-api-doc,Movement and Migration data of animals,No,Yes,Yes
+4,Blockchain,Walltime,https://walltime.info/api.html,To retrieve Walltime's market info,No,Yes,Unknown
+4,Business,Tenders in Hungary,https://tenders.guru/hu/api,Get data for procurements in Hungary in JSON format,No,Yes,Unknown
+4,Business,Tenders in Poland,https://tenders.guru/pl/api,Get data for procurements in Poland in JSON format,No,Yes,Unknown
+4,Business,Tenders in Romania,https://tenders.guru/ro/api,Get data for procurements in Romania in JSON format,No,Yes,Unknown
+4,Business,Tenders in Spain,https://tenders.guru/es/api,Get data for procurements in Spain in JSON format,No,Yes,Unknown
+4,Business,Tenders in Ukraine,https://tenders.guru/ua/api,Get data for procurements in Ukraine in JSON format,No,Yes,Unknown
+4,Calendar,UK Bank Holidays,https://www.gov.uk/bank-holidays.json,"Bank holidays in England and Wales, Scotland and Northern Ireland",No,Yes,Unknown
+4,Cloud Storage & File Sharing,FileUp,https://github.com/RealSinaSnp/FileUp,"Temporary file hosting with upload API, expiration times, and view limits",No,Yes,Unknown
+4,Cloud Storage & File Sharing,Pantry,https://getpantry.cloud/,Free JSON storage for small projects,No,Yes,Yes
+4,Cryptocurrency,0x,https://0x.org/api,API for querying token and pool stats across various liquidity pools,No,Yes,Yes
+4,Cryptocurrency,1inch,https://1inch.io/api/,API for querying decentralize exchange,No,Yes,Unknown
+4,Cryptocurrency,Alpha (Mossland),https://alpha.moss.land/developers,Korean crypto channel stance + RAG Q&A + canonical entity/topic/event store,No,Yes,Yes
+4,Cryptocurrency,Bitcambio,https://nova.bitcambio.com.br/api/v3/docs#a-public,Get the list of all traded assets in the exchange,No,Yes,Unknown
+4,Cryptocurrency,BitcoinCharts,https://bitcoincharts.com/about/exchanges/,Financial and Technical Data related to the Bitcoin Network,No,Yes,Unknown
+4,Cryptocurrency,CoinDesk,https://old.coindesk.com/coindesk-api/,CoinDesk's Bitcoin Price Index (BPI) in multiple currencies,No,Yes,Unknown
+4,Cryptocurrency,CoinGecko,http://www.coingecko.com/api,"Cryptocurrency Price, Market, and Developer/Social Data",No,Yes,Yes
+4,Cryptocurrency,CoinStats,https://documenter.getpostman.com/view/5734027/RzZ6Hzr3?version=latest,Crypto Tracker,No,Yes,Unknown
+4,Cryptocurrency,Coinlore,https://www.coinlore.com/cryptocurrency-data-api,"Cryptocurrencies prices, volume and more",No,Yes,Unknown
+4,Cryptocurrency,Coinpaprika,https://api.coinpaprika.com,"Cryptocurrencies prices, volume and more",No,Yes,Yes
+4,Cryptocurrency,CryptAPI,https://docs.cryptapi.io/,Cryptocurrency Payment Processor,No,Yes,Unknown
+4,Cryptocurrency,CryptingUp,https://www.cryptingup.com/apidoc/#introduction,Cryptocurrency data,No,Yes,Unknown
+4,Cryptocurrency,CryptoCompare,https://www.cryptocompare.com/api#,Cryptocurrencies Comparison,No,Yes,Unknown
+4,Cryptocurrency,Cryptonator,https://www.cryptonator.com/api/,Cryptocurrencies Exchange Rates,No,Yes,Unknown
+4,Cryptocurrency,Gemini,https://docs.gemini.com/rest-api/,Cryptocurrencies Exchange,No,Yes,Unknown
+4,Cryptocurrency,Localbitcoins,https://localbitcoins.com/api-docs/,P2P platform to buy and sell Bitcoins,No,Yes,Unknown
+4,Cryptocurrency,Mempool,https://mempool.space/api,Bitcoin API Service focusing on the transaction fee,No,Yes,No
+4,Cryptocurrency,MercadoBitcoin,https://www.mercadobitcoin.com.br/api-doc/,Brazilian Cryptocurrency Information,No,Yes,Unknown
+4,Cryptocurrency,Messari,https://messari.io/api,Provides API endpoints for thousands of crypto assets,No,Yes,Unknown
+4,Currency Exchange,Bank of Russia,https://www.cbr.ru/development/SXML/,Exchange rates and currency conversion,No,Yes,Unknown
+4,Currency Exchange,Currency-api,https://github.com/fawazahmed0/currency-api#readme,Free Currency Exchange Rates API with 150+ Currencies & No Rate Limits,No,Yes,Yes
+4,Currency Exchange,Czech National Bank,https://www.cnb.cz/cs/financni_trhy/devizovy_trh/kurzy_devizoveho_trhu/denni_kurz.xml,A collection of exchange rates,No,Yes,Unknown
+4,Currency Exchange,Economia.Awesome,https://docs.awesomeapi.com.br/api-de-moedas,Portuguese free currency prices and conversion with no rate limits,No,Yes,Unknown
+4,Currency Exchange,Exchangerate.host,https://exchangerate.host?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers,Free foreign exchange & crypto rates API,No,Yes,Unknown
+4,Currency Exchange,VATComply.com,https://www.vatcomply.com/documentation,"Exchange rates, geolocation and VAT number validation",No,Yes,Yes
+4,Currency Exchange,paralelo.bo,https://paralelo.bo/api,"Bolivia parallel-market USD/BOB exchange rate, aggregated from P2P sources every 60s",No,Yes,Yes
+4,Development,BrewPage,https://brewpage.app,"Free hosting for HTML, JSON, key-value, files, multi-file sites with short URLs and TTL retention",No,Yes,No
+4,Development,DigitalOcean Status,https://status.digitalocean.com/api,Status of all DigitalOcean services,No,Yes,Unknown
+4,Development,ExtendsClass JSON Storage,https://extendsclass.com/json-storage.html,A simple JSON store API,No,Yes,Yes
+4,Development,Icanhazepoch,https://icanhazepoch.com,Get Epoch time,No,Yes,Yes
+4,Development,JSON 2 JSONP,https://json2jsonp.com/,Convert JSON to JSONP (on-the-fly) for easy cross-domain data requests using client-side JavaScript,No,Yes,Unknown
+4,Development,JSONPlaceholder,https://jsonplaceholder.typicode.com,Fake REST API for testing and prototyping,No,Yes,Yes
+4,Development,Mocky,https://designer.mocky.io/,Mock user defined test JSON for REST API endpoints,No,Yes,Yes
+4,Development,RSS feed to JSON,https://rss-to-json-serverless-api.vercel.app,Returns RSS feed in JSON format using feed URL,No,Yes,Yes
+4,Development,ip-fast.com,https://ip-fast.com/docs/,"IP address, country and city",No,Yes,Yes
+4,Documents & Productivity,WakaTime,https://wakatime.com/developers,Automated time tracking leaderboards for programmers,No,Yes,Unknown
+4,Entertainment,Techy,https://techy-api.vercel.app/,JSON and Plaintext API for tech-savvy sounding phrases,No,Yes,Unknown
+4,Entertainment,chucknorris.io,https://api.chucknorris.io,JSON API for hand curated Chuck Norris jokes,No,Yes,Unknown
+4,Environment,CO2 Offset,https://co2offset.io/api.html,API calculates and validates the carbon footprint,No,Yes,Unknown
+4,Environment,Danish data service Energi,https://www.energidataservice.dk/,Open energy data from Energinet to society,No,Yes,Unknown
+4,Environment,Luchtmeetnet,https://api-docs.luchtmeetnet.nl/,Predicted and actual air quality components for The Netherlands (RIVM),No,Yes,Unknown
+4,Environment,UK Carbon Intensity,https://carbon-intensity.github.io/api-definitions/#carbon-intensity-api-v1-0-0,The Official Carbon Intensity API for Great Britain developed by National Grid,No,Yes,Unknown
+4,Environment,Website Carbon,https://api.websitecarbon.com/,API to estimate the carbon footprint of loading web pages,No,Yes,Unknown
+4,Finance,IBANforge,https://api.ibanforge.com,IBAN validation and BIC/SWIFT lookup for 75+ countries with 121K+ bank entries,No,Yes,Yes
+4,Finance,Razorpay IFSC,https://razorpay.com/docs/,Indian Financial Systems Code (Bank Branch Codes),No,Yes,Unknown
+4,Finance,WallstreetBets,https://dashboard.nbshare.io/apps/reddit/api/,WallstreetBets Stock Comments Sentiment Analysis,No,Yes,Unknown
+4,Games & Comics,xkcd,https://xkcd.com/json.html,Retrieve xkcd comics as JSON,No,Yes,No
+4,Geocoding,Airtel IP,https://sys.airtel.lv/ip2country/1.1.1.1/?full=true,IP Geolocation API. Collecting data from multiple sources,No,Yes,Unknown
+4,Geocoding,CitySDK,http://www.citysdk.eu/citysdk-toolkit/,Open APIs for select European cities,No,Yes,Unknown
+4,Geocoding,Country,http://country.is/,Get your visitor's country from their IP,No,Yes,Yes
+4,Geocoding,Ducks Unlimited,https://gis.ducks.org/datasets/du-university-chapters/api,API explorer that gives a query URL with a JSON response of locations and cities,No,Yes,No
+4,Geocoding,GeographQL,https://geographql.netlify.app,"A Country, State, and City GraphQL API",No,Yes,Yes
+4,Geocoding,Graph Countries,https://github.com/lennertVanSever/graphcountries,"Country-related data like currencies, languages, flags, regions+subregions and bordering countries",No,Yes,Unknown
+4,Geocoding,IBGE,https://servicodados.ibge.gov.br/api/docs/,Aggregate services of IBGE (Brazilian Institute of Geography and Statistics),No,Yes,Unknown
+4,Geocoding,IP 2 Country,https://ip2country.info,Map an IP to a country,No,Yes,Unknown
+4,Geocoding,OnWater,https://onwater.io/,Determine if a lat/lon is on water or land,No,Yes,Unknown
+4,Geocoding,Open Topo Data,https://www.opentopodata.org,Elevation and ocean depth for a latitude and longitude,No,Yes,No
+4,Geocoding,PostalCodes,https://postalcodes.info/api,"Postal code search, country exports, and address validation data",No,Yes,Unknown
+4,Geocoding,Rwanda Locations,https://rapidapi.com/victorkarangwa4/api/rwanda,"Rwanda Provences, Districts, Cities, Capital City, Sector, cells, villages and streets",No,Yes,Unknown
+4,Geocoding,SLF,https://github.com/slftool/slftool.github.io/blob/master/API.md,"German city, country, river, database",No,Yes,Yes
+4,Geocoding,Ziptastic,https://ziptasticapi.com/,"Get the country, state, and city of any US zip-code",No,Yes,Unknown
+4,Geocoding,administrative-divisons-db,https://github.com/kamikazechaser/administrative-divisions-db,Get all administrative divisions of a country,No,Yes,Yes
+4,Geocoding,geoPlugin,https://www.geoplugin.com,IP geolocation and currency conversion,No,Yes,Yes
+4,Government,Brazil Receita WS,https://www.receitaws.com.br/,Consult companies by CNPJ for Brazilian companies,No,Yes,Unknown
+4,Government,Census.gov,https://www.census.gov/data/developers/data-sets.html,The US Census Bureau provides various APIs and data sets on demographics and businesses,No,Yes,Unknown
+4,Government,FBI Wanted,https://www.fbi.gov/wanted/api,Access information on the FBI Wanted program,No,Yes,Unknown
+4,Government,Federal Register,https://www.federalregister.gov/reader-aids/developer-resources/rest-api,The Daily Journal of the United States Government,No,Yes,Unknown
+4,Government,Indian Pincode,https://indianpincode.com/,"Free India PIN code lookup with GPS coordinates, 165k+ post offices, state & district data",No,Yes,Yes
+4,Government,Interpol Red Notices,https://interpol.api.bund.dev/,Access and search Interpol Red Notices,No,Yes,Unknown
+4,Government,LocalGov.jp,https://localgov.jp/,"Japan grants and subsidies (central J-Grants + 1,916 municipalities)",No,Yes,Yes
+4,Government,PRC Exam Schedule,https://api.whenisthenextboardexam.com/docs/,Unofficial Philippine Professional Regulation Commission's examination schedule,No,Yes,Yes
+4,Government,Represent by Open North,https://represent.opennorth.ca/,Find Canadian Government Representatives,No,Yes,Unknown
+4,Government,US Presidential Election Data by TogaTech,https://uselection.togatech.org/api/,Basic candidate data and live electoral vote counts for top two parties in US presidential election,No,Yes,No
+4,Government,USAspending.gov,https://api.usaspending.gov/,US federal spending data,No,Yes,Unknown
+4,Health,COVID-19 Tracker Canada,https://api.covid19tracker.ca/docs/1.0/overview,Details on Covid-19 cases across Canada,No,Yes,Unknown
+4,Health,COVID-19 Tracker Sri Lanka,https://www.hpb.health.gov.lk/en/api-documentation,Provides situation of the COVID-19 patients reported in Sri Lanka,No,Yes,Unknown
+4,Health,Coronavirus,https://pipedream.com/@pravin/http-api-for-latest-wuhan-coronavirus-data-2019-ncov-p_G6CLVM/readme,HTTP API for Latest Covid-19 Data,No,Yes,Unknown
+4,Health,Covid Tracking Project,https://covidtracking.com/data/api/version-2,Covid-19  data for the US,No,Yes,No
+4,Health,Covid-19,https://covid19api.com/,"Covid 19 spread, infection and recovery",No,Yes,Yes
+4,Health,Covid-19 JHU CSSE,https://nuttaphat.com/covid19-api/,Open-source API for exploring Covid19 cases based on JHU CSSE,No,Yes,Yes
+4,Health,Covid-19 Philippines,https://github.com/Simperfy/Covid-19-API-Philippines-DOH,Unofficial Covid-19 Web API for Philippines from data collected by DOH,No,Yes,Yes
+4,Health,Humanitarian Data Exchange,https://data.humdata.org/,Humanitarian Data Exchange (HDX) is open platform for sharing data across crises and organisations,No,Yes,Unknown
+4,Health,LAPIS,https://cov-spectrum.ethz.ch/public,SARS-CoV-2 genomic sequences from public sources,No,Yes,Yes
+4,Health,MyVaccination,https://documenter.getpostman.com/view/16605343/Tzm8GG7u,Vaccination data for Malaysia,No,Yes,Unknown
+4,Health,NPPES,https://npiregistry.cms.hhs.gov/registry/help-api,"National Plan & Provider Enumeration System, info on healthcare providers registered in US",No,Yes,Unknown
+4,Health,Open Disease,https://disease.sh/,API for Current cases and more stuff about COVID-19 and Influenza,No,Yes,Yes
+4,Health,Quarantine,https://quarantine.country/coronavirus/api/,Coronavirus API with free COVID-19 live updates,No,Yes,Yes
+4,Machine Learning,TensorFeed,https://tensorfeed.ai/developers,"Real-time AI news, model pricing, service status, and agent activity feeds",No,Yes,Yes
+4,News,Florida Man,https://github.com/juliayxhuang/florida-man-api#readme,"Static JSON dataset of 10,000+ Florida Man headlines by date",No,Yes,Yes
+4,News,Graphs for Coronavirus,https://corona.dnsforfamily.com/api.txt,Each Country separately and Worldwide Graphs for Coronavirus. Daily updates,No,Yes,Yes
+4,News,Spaceflight News,https://spaceflightnewsapi.net,Spaceflight related news 🚀,No,Yes,Yes
+4,Open Data,Archive.org,https://archive.readme.io/docs,The Internet Archive,No,Yes,No
+4,Open Data,BotsArchive,https://botsarchive.com/docs.html,JSON formatted details about Telegram Bots available in database,No,Yes,Unknown
+4,Open Data,Callook.info,https://callook.info,United States ham radio callsigns,No,Yes,Unknown
+4,Open Data,Lowy Asia Power Index,https://github.com/0x0is1/lowy-index-api-docs,Get measure resources and influence to rank the relative power of states in Asia,No,Yes,Unknown
+4,Open Data,Microlink.io,https://microlink.io,Extract structured data from any website,No,Yes,Yes
+4,Open Data,ModelPartFinder Error Codes,https://modelpartfinder.com/docs/api,"Lookup appliance and equipment error codes by brand and code, with recommended replacement parts",No,Yes,Yes
+4,Open Data,Nobel Prize,https://www.nobelprize.org/about/developer-zone-2/,Open data about nobel prizes and events,No,Yes,Yes
+4,Open Data,Onyx Bazaar,https://onyx-actions.onrender.com/bazaar,Free public leaderboard of x402 paid HTTP services indexed from Coinbase CDP discovery API,No,Yes,Unknown
+4,Open Data,OpenSanctions,https://www.opensanctions.org/docs/api/,"Data on international sanctions, crime and politically exposed persons",No,Yes,Yes
+4,Open Data,Teleport,https://developers.teleport.org/,Quality of Life Data,No,Yes,Unknown
+4,Open Data,Universities List,https://github.com/Hipo/university-domains-list,"University names, countries and domains",No,Yes,Unknown
+4,Open Data,University of Oslo,https://data.uio.no/,"Courses, lecture videos, detailed information for courses etc. for the University of Oslo (Norway)",No,Yes,Unknown
+4,Open Data,Voidly,https://voidly.ai/api-docs,"Internet censorship measurements, incidents, and ISP-level blocking data across 126 countries",No,Yes,No
+4,Open Data,Wikipedia,https://www.mediawiki.org/wiki/API:Main_page,Mediawiki Encyclopedia,No,Yes,Unknown
+4,Open Data,openAFRICA,https://africaopendata.org/,Large datasets repository of African open data,No,Yes,Unknown
+4,Open Source Projects,GitHub ReadMe Stats,https://github.com/anuraghazra/github-readme-stats,Add dynamically generated statistics to your GitHub profile ReadMe,No,Yes,Yes
+4,Science & Math,CodeCogs,https://editor.codecogs.com/docs/4-LaTeX_rendering.php,"Render LaTeX equations in PNG, GIF, SVG, EMF, PDF, JSON, or download formats with styling options",No,Yes,Unknown
+4,Science & Math,ISRO,https://isro.vercel.app,ISRO Space Crafts Information,No,Yes,No
+4,Science & Math,Launch Library 2,https://thespacedevs.com/llapi,Spaceflight launches and events database,No,Yes,Yes
+4,Science & Math,NASA,https://api.nasa.gov,"NASA data, including imagery",No,Yes,No
+4,Science & Math,Ocean Facts,https://oceanfacts.herokuapp.com/,Facts pertaining to the physical science of Oceanography,No,Yes,Unknown
+4,Science & Math,Remote Calc,https://github.com/elizabethadegbaju/remotecalc,Decodes base64 encoding and parses it to return a solution to the calculation in JSON,No,Yes,Yes
+4,Science & Math,SHARE,https://share.osf.io/api/v2/,"A free, open, dataset about research and scholarly activities",No,Yes,No
+4,Science & Math,SpaceX,https://github.com/r-spacex/SpaceX-API,"Company, vehicle, launchpad and launch data",No,Yes,No
+4,Science & Math,SpaceX,https://api.spacex.land/graphql/,"GraphQL, Company, Ships, launchpad and launch data",No,Yes,Unknown
+4,Science & Math,Sunrise and Sunset,https://sunrise-sunset.org/api,Sunset and sunrise times for a given latitude and longitude,No,Yes,No
+4,Science & Math,Times Adder,https://github.com/FranP-code/API-Times-Adder,With this API you can add each of the times introduced in the array sended,No,Yes,No
+4,Science & Math,USGS Water Services,https://waterservices.usgs.gov/,Water quality and level info for rivers and lakes,No,Yes,No
+4,Science & Math,World Bank,https://datahelpdesk.worldbank.org/knowledgebase/topics/125589,World Data,No,Yes,No
+4,Science & Math,arXiv,https://arxiv.org/help/api/user-manual,"Curated research-sharing platform: physics, mathematics, quantitative finance, and economics",No,Yes,Unknown
+4,Science & Math,inspirehep.net,https://github.com/inspirehep/rest-api-doc,High Energy Physics info. system,No,Yes,Unknown
+4,Social,Doge-Meme,https://api.doge-meme.lol/docs,Top meme posts from r/dogecoin which include 'Meme' flair,No,Yes,Yes
+4,Sports & Fitness,City Bikes,https://api.citybik.es/v2/,City Bikes around the world,No,Yes,Unknown
+4,Sports & Fitness,NBA Stats,https://any-api.com/nba_com/nba_com/docs/API_Description,Current and historical NBA Statistics,No,Yes,Unknown
+4,Sports & Fitness,NHL Records and Stats,https://gitlab.com/dword4/nhlapi,NHL historical data and statistics,No,Yes,Unknown
+4,Sports & Fitness,RacingHub,https://racinghub.net/api/v1/docs#/,Formula 1 historical data and statistics,No,Yes,Unknown
+4,Transportation,AIS Hub,http://www.aishub.net/api,Real-time data of any marine and inland vessel equipped with AIS tracking system,`apiKey`,No,Unknown
+4,Transportation,Apimetro,https://apimetro.dev/swagger/index.html,"Geospatial data for Mexico City public transport system (Metro, Metrobús, Cablebús, RTP, etc.)",No,Yes,Yes
+4,Transportation,Community Transit,https://github.com/transitland/transitland-datastore/blob/master/README.md#api-endpoints,Transitland API,No,Yes,Unknown
+4,Transportation,Icelandic APIs,http://docs.apis.is/,Open APIs that deliver services in or regarding Iceland,No,Yes,Unknown
+4,Transportation,REFUGE Restrooms,https://www.refugerestrooms.org/api/docs/#!/restrooms,"Provides safe restroom access for transgender, intersex and gender nonconforming individuals",No,Yes,Unknown
+4,Transportation,TransitLand,https://www.transit.land/documentation/datastore/api-endpoints.html,Transit Aggregation,No,Yes,Unknown
+4,Transportation,"Transport for Auckland, New Zealand",https://dev-portal.at.govt.nz/,Auckland Transport,No,Yes,Unknown
+4,Transportation,Transport for Belgium,https://docs.irail.be/,The iRail API is a third-party API for Belgian public transport by train,No,Yes,Yes
+4,Transportation,"Transport for Berlin, Germany",https://github.com/derhuerst/vbb-rest/blob/3/docs/index.md,Third-party VBB API,No,Yes,Unknown
+4,Transportation,"Transport for Budapest, Hungary",https://bkkfutar.docs.apiary.io,Budapest public transport API,No,Yes,Unknown
+4,Transportation,Transport for Czech Republic,https://www.chaps.cz/eng/products/idos-internet,Czech transport API,No,Yes,Unknown
+4,Transportation,Transport for Finland,https://digitransit.fi/en/developers/,Finnish transport API,No,Yes,Unknown
+4,Transportation,"Transport for Hessen, Germany",https://opendata.rmv.de/site/start.html,RMV API (Public Transport in Hessen),No,Yes,Unknown
+4,Transportation,Transport for Spain,https://data.renfe.com/api/1/util/snippet/api_info.html?resource_id=a2368cff-1562-4dde-8466-9635ea3a572a,Public trains of Spain,No,Yes,Unknown
+4,Transportation,Transport for Switzerland,https://transport.opendata.ch/,Swiss public transport API,No,Yes,Unknown
+4,Transportation,Transport for The Netherlands,https://github.com/skywave/KV78Turbo-OVAPI/wiki,"OVAPI, country-wide public transport",No,Yes,Unknown
+4,Transportation,"Transport for Toronto, Canada",https://myttc.ca/developers,TTC,No,Yes,Unknown
+4,Transportation,transport.rest,https://transport.rest,"Community maintained, developer-friendly public transport API",No,Yes,Yes
+4,Video,Dune,https://github.com/ywalia01/dune-api,"A simple API which provides you with book, character, movie and quotes JSON data",No,Yes,Yes
+4,Video,Final Space,https://finalspaceapi.com/docs/,Final Space API,No,Yes,Yes
+4,Weather,AviationWeather,https://www.aviationweather.gov/dataserver,NOAA aviation weather forecasts and observations,No,Yes,Unknown
+4,Weather,Hong Kong Obervatory,https://www.hko.gov.hk/en/abouthko/opendata_intro.htm,"Provide weather information, earthquake information, and climate data",No,Yes,Unknown
+4,Weather,IPMA,https://api.ipma.pt/open-data/,Portuguese weather and climate data,No,Yes,Unknown
+4,Weather,MetaWeather,https://www.metaweather.com/api/,Weather,No,Yes,No
+4,Weather,Open-Meteo,https://open-meteo.com/,Global weather forecast API for non-commercial use,No,Yes,Yes
+4,Weather,Pirate Weather,https://pirateweather.net/en/latest/,Free weather API with forecast data similar to Dark Sky,No,Yes,Yes
+4,Weather,RainViewer,https://www.rainviewer.com/api.html,Radar data collected from different websites across the Internet,No,Yes,Unknown
+4,Weather,US Weather,https://www.weather.gov/documentation/services-web-api,US National Weather Service,No,Yes,Yes
+4,Weather,openSenseMap,https://api.opensensemap.org/,Data from Personal Weather Stations called senseBoxes,No,Yes,Yes
+4,Weather,weather-api,https://github.com/robertoduessmann/weather-api,A RESTful free API to check the weather,No,Yes,No
+3,Anti-Malware,MalDatabase,https://maldatabase.com/api-doc.html,Provide malware datasets and threat intelligence feeds,`apiKey`,Yes,Unknown
+3,Business,SwiftKanban,https://www.digite.com/knowledge-base/swiftkanban/article/api-for-swift-kanban-web-services/#restapi,"Kanban software, Visualize Work, Increase Organizations Lead Time, Throughput & Productivity",`apiKey`,Yes,Unknown
+3,Calendar,Hebrew Calendar,https://www.hebcal.com/home/developer-apis,"Convert between Gregorian and Hebrew, fetch Shabbat and Holiday times, etc",No,No,Unknown
+3,Calendar,Holidays,https://holidayapi.com/,Historical data regarding holidays,`apiKey`,Yes,Unknown
+3,Cloud Storage & File Sharing,Web3 Storage,https://web3.storage/,File Sharing and Storage for Free with 1TB Space,`apiKey`,Yes,Yes
+3,Cryptocurrency,Alchemy Ethereum,https://docs.alchemy.com/alchemy/,Ethereum Node-as-a-Service Provider,`apiKey`,Yes,Yes
+3,Cryptocurrency,Binance,https://github.com/binance/binance-spot-api-docs,Exchange for Trading Cryptocurrencies based in China,`apiKey`,Yes,Unknown
+3,Cryptocurrency,BitcoinAverage,https://apiv2.bitcoinaverage.com/,Digital Asset Price Data for the blockchain industry,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Bitfinex,https://docs.bitfinex.com/docs,Cryptocurrency Trading Platform,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Bittrex,https://bittrex.github.io/api/v3,Next Generation Crypto Trading Platform,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Block,https://block.io/docs/basic,"Bitcoin Payment, Wallet & Transaction Data",`apiKey`,Yes,Unknown
+3,Cryptocurrency,Blockchain,https://www.blockchain.com/api,"Bitcoin Payment, Wallet & Transaction Data",`apiKey`,Yes,Unknown
+3,Cryptocurrency,Bybit,https://bybit-exchange.github.io/docs/linear/#t-introduction,Cryptocurrency data feed and algorithmic trading,`apiKey`,Yes,Unknown
+3,Cryptocurrency,CoinAPI,https://docs.coinapi.io/,All Currency Exchanges integrate under a single api,`apiKey`,Yes,No
+3,Cryptocurrency,CoinDCX,https://docs.coindcx.com/,Cryptocurrency Trading Platform,`apiKey`,Yes,Unknown
+3,Cryptocurrency,CoinMarketCap,https://coinmarketcap.com/api/,Cryptocurrencies Prices,`apiKey`,Yes,Unknown
+3,Cryptocurrency,CoinRanking,https://developers.coinranking.com/api/documentation,Live Cryptocurrency data,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Coinbase,https://developers.coinbase.com,"Bitcoin, Bitcoin Cash, Litecoin and Ethereum Prices",`apiKey`,Yes,Unknown
+3,Cryptocurrency,Coinbase Pro,https://docs.pro.coinbase.com/#api,Cryptocurrency Trading Platform,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Coinigy,https://coinigy.docs.apiary.io,Interacting with Coinigy Accounts and Exchange Directly,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Coinlib,https://coinlib.io/apidocs,Crypto Currency Prices,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Coinremitter,https://coinremitter.com/docs,Cryptocurrencies Payment & Prices,`apiKey`,Yes,Unknown
+3,Cryptocurrency,CryptoMarket,https://api.exchange.cryptomkt.com/,Cryptocurrencies Trading platform,`apiKey`,Yes,Yes
+3,Cryptocurrency,EXMO,https://documenter.getpostman.com/view/10287440/SzYXWKPi,Cryptocurrencies exchange based in UK,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Ethplorer,https://github.com/EverexIO/Ethplorer/wiki/Ethplorer-API,"Ethereum tokens, balances, addresses, history of transactions, contracts, and custom structures",`apiKey`,Yes,Unknown
+3,Cryptocurrency,FTX,https://docs.ftx.com/,"Complete REST, websocket, and FTX APIs to suit your algorithmic trading needs",`apiKey`,Yes,Yes
+3,Cryptocurrency,Gateio,https://www.gate.io/api2,"API provides spot, margin and futures trading operations",`apiKey`,Yes,Unknown
+3,Cryptocurrency,Hirak Exchange Rates,https://rates.hirak.site/,"Exchange rates between 162 currency & 300 crypto currency update each 5 min, accurate, no limits",`apiKey`,Yes,Unknown
+3,Cryptocurrency,Huobi,https://huobiapi.github.io/docs/spot/v1/en/,Seychelles based cryptocurrency exchange,`apiKey`,Yes,Unknown
+3,Cryptocurrency,INFURA Ethereum,https://infura.io/product/ethereum,Interaction with the Ethereum mainnet and several testnets,`apiKey`,Yes,Yes
+3,Cryptocurrency,Indodax,https://github.com/btcid/indodax-official-api-docs,Trade your Bitcoin and other assets with rupiah,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Kraken,https://docs.kraken.com/rest/,Cryptocurrencies Exchange,`apiKey`,Yes,Unknown
+3,Cryptocurrency,KuCoin,https://docs.kucoin.com/,Cryptocurrency Trading Platform,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Nexchange,https://nexchange2.docs.apiary.io/,Automated cryptocurrency exchange service,No,No,Yes
+3,Cryptocurrency,NovaDax,https://doc.novadax.com/en-US/#introduction,"NovaDAX API to access all market data, trading management endpoints",`apiKey`,Yes,Unknown
+3,Cryptocurrency,OKEx,https://www.okex.com/docs/,Cryptocurrency exchange based in Seychelles,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Poloniex,https://docs.poloniex.com,US based digital asset exchange,`apiKey`,Yes,Unknown
+3,Cryptocurrency,Technical Analysis,https://technical-analysis-api.com,Cryptocurrency prices and technical analysis,`apiKey`,Yes,No
+3,Cryptocurrency,VALR,https://docs.valr.com/,Cryptocurrency Exchange based in South Africa,`apiKey`,Yes,Unknown
+3,Cryptocurrency,WorldCoinIndex,https://www.worldcoinindex.com/apiservice,Cryptocurrencies Prices,`apiKey`,Yes,Unknown
+3,Cryptocurrency,blockfrost Cardano,https://blockfrost.io/,Interaction with the Cardano mainnet and several testnets,`apiKey`,Yes,Unknown
+3,Cryptocurrency,dYdX,https://docs.dydx.exchange/,Decentralized cryptocurrency exchange,`apiKey`,Yes,Unknown
+3,Cryptocurrency,icy.tools,https://developers.icy.tools/,GraphQL based NFT API,`apiKey`,Yes,Unknown
+3,Currency Exchange,1Forge,https://1forge.com/forex-data-api/api-documentation,Forex currency market data,`apiKey`,Yes,Unknown
+3,Currency Exchange,Amdoren,https://www.amdoren.com/currency-api/,Free currency API with over 150 currencies,`apiKey`,Yes,Unknown
+3,Currency Exchange,Currencylayer,https://currencylayer.com?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers,Exchange rates and currency conversion,`apiKey`,Yes,Unknown
+3,Currency Exchange,ExchangeRate-API,https://www.exchangerate-api.com,Free currency conversion,`apiKey`,Yes,Yes
+3,Currency Exchange,Exchangeratesapi.io,https://exchangeratesapi.io?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers,Exchange rates with currency conversion,`apiKey`,Yes,Yes
+3,Data Validation,US Autocomplete,https://www.smarty.com/docs/cloud/us-autocomplete-pro-api,Enter address data quickly with real-time address suggestions,`apiKey`,Yes,Yes
+3,Development,Azure DevOps,https://docs.microsoft.com/en-us/rest/api/azure/devops,The Azure DevOps basic components of a REST API request/response pair,`apiKey`,Yes,Unknown
+3,Development,Databricks,https://docs.databricks.com/dev-tools/api/latest/index.html,"Service to manage your databricks account,clusters, notebooks, jobs and workspaces",`apiKey`,Yes,Yes
+3,Development,JSONbin.io,https://jsonbin.io,"Free JSON storage service. Ideal for small scale Web apps, Websites and Mobile apps",`apiKey`,Yes,Yes
+3,Development,Userstack,https://userstack.com/?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers,Secure User-Agent String Lookup JSON API,`OAuth`,Yes,Unknown
+3,Development,scrapestack,https://scrapestack.com/,"Real-time, Scalable Proxy & Web Scraping REST API",`apiKey`,Yes,Unknown
+3,Development,serpstack,https://serpstack.com/,Real-Time & Accurate Google Search Results API,`apiKey`,Yes,Yes
+3,Documents & Productivity,Airtable,https://airtable.com/api,Integrate with Airtable,`apiKey`,Yes,Unknown
+3,Documents & Productivity,Code::Stats,https://codestats.net/api-docs,Automatic time tracking for programmers,`apiKey`,Yes,No
+3,Documents & Productivity,PrexView,https://prexview.com,"Data from XML or JSON to PDF, HTML or Image",`apiKey`,Yes,Unknown
+3,Email,Mailtrap,https://mailtrap.docs.apiary.io/#,A service for the safe testing of emails sent from the development and staging environments,`apiKey`,Yes,Unknown
+3,Environment,BreezoMeter Pollen,https://docs.breezometer.com/api-documentation/pollen-api/v2/,Daily Forecast pollen conditions data for a specific location,`apiKey`,Yes,Unknown
+3,Environment,Carbon Interface,https://docs.carboninterface.com/,API to calculate carbon (C02) emissions estimates for common C02 emitting activities,`apiKey`,Yes,Yes
+3,Environment,Climatiq,https://docs.climatiq.io,Calculate the environmental footprint created by a broad range of emission-generating activities,`apiKey`,Yes,Yes
+3,Environment,GrünstromIndex,https://gruenstromindex.de/,Green Power Index for Germany (Grünstromindex/GSI),No,No,Yes
+3,Environment,IQAir,https://www.iqair.com/air-pollution-data-api,Air quality and weather data,`apiKey`,Yes,Unknown
+3,Environment,OpenAQ,https://docs.openaq.org/,Open air quality data,`apiKey`,Yes,Unknown
+3,Environment,PVWatts,https://developer.nrel.gov/docs/solar/pvwatts/v6/,Energy production photovoltaic (PV) energy systems,`apiKey`,Yes,Unknown
+3,Environment,Srp Energy,https://srpenergy-api-client-python.readthedocs.io/en/latest/api.html,Hourly usage energy report for Srp customers,`apiKey`,Yes,No
+3,Finance,Alpaca,https://alpaca.markets/docs/api-documentation/api-v2/market-data/alpaca-data-api-v2/,Realtime and historical market data on all US equities and ETFs,`apiKey`,Yes,Yes
+3,Finance,Alpha Vantage,https://www.alphavantage.co/,Realtime and historical stock data,`apiKey`,Yes,Unknown
+3,Finance,Bank Data API,https://apilayer.com/marketplace/bank_data-api,Instant IBAN and SWIFT number validation across the globe,`apiKey`,Yes,Unknown
+3,Finance,FRED,https://fred.stlouisfed.org/docs/api/fred/,Economic data from the Federal Reserve Bank of St. Louis,`apiKey`,Yes,Yes
+3,Finance,Financial Modeling Prep,https://site.financialmodelingprep.com/developer/docs,Realtime and historical stock data,`apiKey`,Yes,Unknown
+3,Finance,Finnhub,https://finnhub.io/docs/api,"Real-Time RESTful APIs and Websocket for Stocks, Currencies, and Crypto",`apiKey`,Yes,Unknown
+3,Finance,Front Accounting APIs,https://frontaccounting.com/fawiki/index.php?n=Devel.SimpleAPIModule,Front accounting is multilingual and multicurrency software for small businesses,`OAuth`,Yes,Yes
+3,Finance,IEX Cloud,https://iexcloud.io/docs/api/,Realtime & Historical Stock and Market Data,`apiKey`,Yes,Yes
+3,Finance,Marketstack,https://marketstack.com/?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers,"Real-Time, Intraday & Historical Market Data API",`apiKey`,Yes,Unknown
+3,Finance,Mono,https://mono.co/,Connect with users’ bank accounts and access transaction data in Africa,`apiKey`,Yes,Unknown
+3,Finance,Nordigen,https://nordigen.com/en/account_information_documenation/integration/quickstart_guide/,Connect to bank accounts using official bank APIs and get raw transaction data,`apiKey`,Yes,Unknown
+3,Finance,Plaid,https://www.plaid.com/docs,Connect with user's bank accounts and access transaction data,`apiKey`,YES,
+3,Finance,Polygon,https://polygon.io/,Historical stock market data,`apiKey`,Yes,Unknown
+3,Finance,StockData,https://www.StockData.org,"Real-Time, Intraday & Historical Market Data, News and Sentiment API",`apiKey`,Yes,Yes
+3,Finance,Styvio,https://www.Styvio.com,Realtime and historical stock data and current stock sentiment,`apiKey`,Yes,Unknown
+3,Finance,Tradier,https://developer.tradier.com,"US equity/option market data (delayed, intraday, historical)",`OAuth`,Yes,Yes
+3,Finance,Twelve Data,https://twelvedata.com/,Stock market data (real-time & historical),`apiKey`,Yes,Unknown
+3,Games & Comics,Battle.net,https://develop.battle.net/documentation/guides/getting-started,"Diablo III, Hearthstone, StarCraft II and World of Warcraft game data APIs",`OAuth`,Yes,Yes
+3,Games & Comics,Hearthstone,http://hearthstoneapi.com/,Hearthstone Cards Information,`X-Mashape-Key`,Yes,Unknown
+3,Games & Comics,SpaceTradersAPI,https://spacetraders.io?rel=pub-apis,A playable inter-galactic space trading MMOAPI,`OAuth`,Yes,Yes
+3,Geocoding,GeoDB Cities,http://geodb-cities-api.wirefreethought.com/,"Get global city, region, and country data",`apiKey`,Yes,Unknown
+3,Geocoding,GeoDataSource,https://www.geodatasource.com/web-service,Geocoding of city name by using latitude and longitude coordinates,`apiKey`,Yes,Unknown
+3,Geocoding,Google Earth Engine,https://developers.google.com/earth-engine/,A cloud-based platform for planetary-scale environmental data analysis,`apiKey`,Yes,Unknown
+3,Geocoding,Hirak IP to Country,https://iplocation.hirak.site/,"Ip to location with country code, currency code & currency name, fast response, unlimited requests",`apiKey`,Yes,Unknown
+3,Geocoding,OpenCage,https://opencagedata.com,Forward and reverse geocoding using open data,`apiKey`,Yes,Yes
+3,Geocoding,TomTom,https://developer.tomtom.com/,"Maps, Directions, Places and Traffic APIs",`apiKey`,Yes,Yes
+3,Geocoding,Zippopotam.us,http://www.zippopotam.us,"Get information about place such as country, city, state, etc",No,No,Unknown
+3,Geocoding,ipapi.com,https://ipapi.com/?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers,Real-time Geolocation & Reverse IP Lookup REST API,`apiKey`,Yes,Unknown
+3,Geocoding,keycdn IP Location Finder,https://tools.keycdn.com/geo,Get the IP geolocation data through the simple REST API. All the responses are JSON encoded,`apiKey`,Yes,Unknown
+3,Government,BCLaws,https://www.bclaws.gov.bc.ca/civix/template/complete/api/index.html,Access to the laws of British Columbia,No,No,Unknown
+3,Government,CPFHub,https://cpfhub.io,"Brazilian CPF lookup — returns full name, birth date, and gender for any CPF",`apiKey`,Yes,Yes
+3,Government,Code.gov,https://code.gov,The primary platform for Open Source and code sharing for the U.S. Federal Government,`apiKey`,Yes,Unknown
+3,Government,Data.gov,https://api.data.gov/,US Government Data,`apiKey`,Yes,Unknown
+3,Government,Deutscher Bundestag DIP,https://dip.bundestag.de/documents/informationsblatt_zur_dip_api_v01.pdf,"This API provides read access to DIP entities (e.g. activities, persons, printed material)",`apiKey`,Yes,Unknown
+3,Government,FEC,https://api.open.fec.gov/developers/,Information on campaign donations in federal elections,`apiKey`,Yes,Unknown
+3,Government,Food Standards Agency,http://ratings.food.gov.uk/open-data/en-GB,UK food hygiene rating data API,No,No,Unknown
+3,Government,"Gazette Data, UK",https://www.thegazette.co.uk/data,UK official public record API,`OAuth`,Yes,Unknown
+3,Government,Gun Policy,https://www.gunpolicy.org/api,International firearm injury prevention and policy,`apiKey`,Yes,Unknown
+3,Government,"National Park Service, US",https://www.nps.gov/subjects/developer/,Data from the US National Park Service,`apiKey`,Yes,Yes
+3,Government,UK Companies House,https://developer.company-information.service.gov.uk/,UK Companies House Data from the UK government,`OAuth`,Yes,Unknown
+3,Government,USA.gov,https://www.usa.gov/developer,"Authoritative information on U.S. programs, events, services and more",`apiKey`,Yes,Unknown
+3,Health,CMS.gov,https://data.cms.gov/provider-data/,Access to the data from the CMS - medicare.gov,`apiKey`,Yes,Unknown
+3,Health,Edamam,https://developer.edamam.com/,Food and nutrition data API with recipe search,`apiKey`,Yes,Unknown
+3,Health,FoodData Central,https://fdc.nal.usda.gov/,National Nutrient Database for Standard Reference,`apiKey`,Yes,Unknown
+3,Health,Infermedica,https://developer.infermedica.com/docs/,NLP based symptom checker and patient triage API for health diagnosis from text,`apiKey`,Yes,Yes
+3,Health,Lexigram,https://docs.lexigram.io/,"NLP that extracts mentions of clinical concepts from text, gives access to clinical ontology",`apiKey`,Yes,Unknown
+3,Health,Makeup,http://makeup-api.herokuapp.com/,Makeup Information,No,No,Unknown
+3,Health,Nutritionix,https://developer.nutritionix.com/,Worlds largest verified nutrition database,`apiKey`,Yes,Unknown
+3,Health,Orion Health,https://developer.orionhealth.io/,Medical platform which allows the development of applications for different healthcare scenarios,`OAuth`,Yes,Unknown
+3,Health,openFDA,https://open.fda.gov,"Public FDA data about drugs, devices and foods",`apiKey`,Yes,Unknown
+3,Jobs,USAJOBS,https://developer.usajobs.gov/,US government job board,`apiKey`,Yes,Unknown
+3,Machine Learning,Irisnet,https://irisnet.de/api/,Realtime content moderation API that blocks or blurs unwanted images in real-time,`apiKey`,Yes,Yes
+3,Machine Learning,NLP Cloud,https://nlpcloud.io,"NLP API using spaCy and transformers for NER, sentiments, classification, summarization, and more",`apiKey`,Yes,Unknown
+3,Machine Learning,Time Door,https://timedoor.io,A time series analysis API,`apiKey`,Yes,Yes
+3,Machine Learning,Unplugg,https://unplu.gg/test_api.html,Forecasting API for timeseries data,`apiKey`,Yes,Unknown
+3,News,Currents,https://currentsapi.services/,Real-time and historical global news with multilingual support,`apiKey`,Yes,Yes
+3,News,MarketAux,https://www.marketaux.com/,Live stock market news with tagged tickers + sentiment and stats JSON API,`apiKey`,Yes,Yes
+3,News,New York Times,https://developer.nytimes.com/,The New York Times Developer Network,`apiKey`,Yes,Unknown
+3,News,TheNews,https://www.thenewsapi.com/,"Aggregated headlines, top story and live news JSON API",`apiKey`,Yes,Yes
+3,Open Data,AcreLens,https://www.acrelens.com,"Land suitability scoring API for any US property: off-grid, rural, recreational, investment",`apiKey`,Yes,Unknown
+3,Open Data,Black History Facts,https://www.blackhistoryapi.io/docs,Contribute or search one of the largest black history fact databases on the web,`apiKey`,Yes,Yes
+3,Open Data,CARTO,https://carto.com/,Location Information Prediction,`apiKey`,Yes,Unknown
+3,Open Data,Enigma Public,https://developers.enigma.com/docs,Broadest collection of public data,`apiKey`,Yes,Yes
+3,Open Data,GENESIS,https://www.destatis.de/EN/Service/OpenData/api-webservice.html,Federal Statistical Office Germany,`OAuth`,Yes,Unknown
+3,Open Data,Joshua Project,https://api.joshuaproject.net/,People groups of the world with the fewest followers of Christ,`apiKey`,Yes,Unknown
+3,Open Data,Kaggle,https://www.kaggle.com/docs/api,"Create and interact with Datasets, Notebooks, and connect with Kaggle",`apiKey`,Yes,Unknown
+3,Open Data,LinkPreview,https://www.linkpreview.net,"Get JSON formatted summary with title, description and preview image for any requested URL",`apiKey`,Yes,Yes
+3,Open Data,Nasdaq Data Link,https://docs.data.nasdaq.com/,Stock market data,`apiKey`,Yes,Unknown
+3,Open Data,OpenCorporates,http://api.opencorporates.com/documentation/API-Reference,Data on corporate entities and directors in many countries,`apiKey`,Yes,Unknown
+3,Open Data,PeakMetrics,https://rapidapi.com/peakmetrics-peakmetrics-default/api/peakmetrics-news,News articles and public datasets,`apiKey`,Yes,Unknown
+3,Open Data,Recreation Information Database,https://ridb.recreation.gov/,"Recreational areas, federal lands, historic sites, museums, and other attractions/resources(US)",`apiKey`,Yes,Unknown
+3,Open Data,UPC database,https://upcdatabase.org/api,More than 1.5 million barcode numbers from all around the world,`apiKey`,Yes,Unknown
+3,Open Data,Urban Observatory,https://urbanobservatory.ac.uk,The largest set of publicly available real time urban data in the UK,No,No,No
+3,Open Data,Wikidata,https://www.wikidata.org/w/api.php?action=help,Collaboratively edited knowledge base operated by the Wikimedia Foundation,`OAuth`,Yes,Unknown
+3,Open Data,Yelp,https://www.yelp.com/developers/documentation/v3,Find Local Business,`OAuth`,Yes,Unknown
+3,Programming,Hackerearth,https://www.hackerearth.com/docs/wiki/developers/v4/,For compiling and running code in several languages,`apiKey`,Yes,Unknown
+3,Science & Math,NASA ADS,https://ui.adsabs.harvard.edu/help/api/api-docs.html,NASA Astrophysics Data System,`OAuth`,Yes,Yes
+3,Security,Application Environment Verification,https://github.com/fingerprintjs/aev,"Android library and API to verify the safety of user devices, detect rooted devices and other risks",`apiKey`,Yes,Yes
+3,Security,GreyNoise,https://docs.greynoise.io/reference/get_v3-community-ip,Query IPs in the GreyNoise dataset and retrieve a subset of the full IP context data,`apiKey`,Yes,Unknown
+3,Security,Pulsedive,https://pulsedive.com/api/,"Scan, search and collect threat intelligence data in real-time",`apiKey`,Yes,Unknown
+3,Security,SecurityTrails,https://securitytrails.com/corp/apidocs,Domain and IP related information such as current and historical WHOIS and DNS records,`apiKey`,Yes,Unknown
+3,Shopping,Dummy Products,https://dummyproducts-api.herokuapp.com/,An api to fetch dummy e-commerce products JSON data with placeholder images,`apiKey`,Yes,Yes
+3,Shopping,WooCommerce,https://woocommerce.github.io/woocommerce-rest-api-docs/,"WooCommerce REST APIS to create, read, update, and delete data on wordpress website in JSON format",`apiKey`,Yes,Yes
+3,Sports & Fitness,Canadian Football League (CFL),http://api.cfl.ca/,"Official JSON API providing real-time league, team and player statistics about the CFL",`apiKey`,Yes,No
+3,Sports & Fitness,Cloudbet,https://www.cloudbet.com/api/,Official Cloudbet API provides real-time sports odds and betting API to place bets programmatically,`apiKey`,Yes,Yes
+3,Sports & Fitness,CollegeFootballData.com,https://collegefootballdata.com,"Unofficial detailed American college football statistics, records, and results API",`apiKey`,Yes,Unknown
+3,Sports & Fitness,MLB Records and Stats,https://appac.github.io/mlb-data-api-docs/,Current and historical MLB statistics,No,No,Unknown
+3,Sports & Fitness,NBA Data,https://rapidapi.com/api-sports/api/api-nba/,"All NBA Stats DATA, Games, Livescore, Standings, Statistics",`apiKey`,Yes,Unknown
+3,Sports & Fitness,Premier League Standings,https://rapidapi.com/heisenbug/api/premier-league-live-scores/,All Current Premier League Standings and Statistics,`apiKey`,Yes,Unknown
+3,Sports & Fitness,Sportmonks Cricket,https://docs.sportmonks.com/cricket/,"Live cricket score, player statistics and fantasy API",`apiKey`,Yes,Unknown
+3,Sports & Fitness,SuredBits,https://suredbits.com/api/,"Query sports data, including teams, players, games, scores and statistics",No,No,No
+3,Sports & Fitness,Tredict,https://www.tredict.com/blog/oauth_docs/,"Get and set activities, health data and more",`OAuth`,Yes,Unknown
+3,Test Data,FakeJSON,https://fakejson.com,Service to generate test and fake data,`apiKey`,Yes,Yes
+3,Test Data,GeneradorDNI,https://api.generadordni.es,"Data generator API. Profiles, vehicles, banks and cards, etc",`apiKey`,Yes,Unknown
+3,Test Data,JSONPlaceholder,http://jsonplaceholder.typicode.com/,Fake data for testing and prototyping,No,No,Unknown
+3,Test Data,Mockaroo,https://www.mockaroo.com/docs,"Generate fake data to JSON, CSV, TXT, SQL and XML",`apiKey`,Yes,Unknown
+3,Text Analysis,Google Cloud Natural,https://cloud.google.com/natural-language/docs/,"Natural language understanding technology, including sentiment, entity and syntax analysis",`apiKey`,Yes,Unknown
+3,Text Analysis,Semantria,https://semantria.readme.io/docs,"Text Analytics with sentiment analysis, categorization & named entity extraction",`OAuth`,Yes,Unknown
+3,Text Analysis,Sentiment Analysis,https://www.meaningcloud.com/developer/sentiment-analysis,Multilingual sentiment analysis of texts from different sources,`apiKey`,Yes,Yes
+3,Text Analysis,apilayer languagelayer,https://languagelayer.com/,Language Detection JSON API supporting 173 languages,`OAuth`,Yes,Unknown
+3,Transportation,AZ511,https://www.az511.com/developers/doc,Access traffic data from the ADOT API,`apiKey`,Yes,Unknown
+3,Transportation,Amadeus for Developers,https://developers.amadeus.com/self-service,Travel Search - Limited usage,`OAuth`,Yes,Unknown
+3,Transportation,BIC-Boxtech,https://docs.bic-boxtech.org/,Container technical detail for the global container fleet,`OAuth`,Yes,Unknown
+3,Transportation,BlaBlaCar,https://dev.blablacar.com,Search car sharing trips,`apiKey`,Yes,Unknown
+3,Transportation,Boston MBTA Transit,https://www.mbta.com/developers/v3-api,Stations and predicted arrivals for MBTA,`apiKey`,Yes,Unknown
+3,Transportation,Compare Flight Prices,https://rapidapi.com/obryan-software-obryan-software-default/api/compare-flight-prices/,API for comparing flight prices across platforms,`apiKey`,Yes,Unknown
+3,Transportation,Grab,https://developer.grab.com/docs/,"Track deliveries, ride fares, payments and loyalty points",`OAuth`,Yes,Unknown
+3,Transportation,GraphHopper,https://docs.graphhopper.com/,A-to-B routing with turn-by-turn instructions,`apiKey`,Yes,Unknown
+3,Transportation,Impala Hotel Bookings,https://docs.impala.travel/docs/booking-api/,"Hotel content, rates and room bookings",`apiKey`,Yes,No
+3,Transportation,Izi,http://api-docs.izi.travel/,Audio guide for travellers,`apiKey`,Yes,Unknown
+3,Transportation,Metro Lisboa,http://app.metrolisboa.pt/status/getLinhas.php,Delays in subway lines,No,No,No
+3,Transportation,Navitia,https://doc.navitia.io/,The open API for building cool stuff with transport data,`apiKey`,Yes,Unknown
+3,Transportation,Open Charge Map,https://openchargemap.org/site/develop/api,Global public registry of electric vehicle charging locations,`apiKey`,Yes,Yes
+3,Transportation,Railway Transport for France,https://www.digital.sncf.com/startup/api,SNCF public API,`apiKey`,Yes,Unknown
+3,Transportation,Sabre for Developers,https://developer.sabre.com/guides/travel-agency/quickstart/getting-started-in-travel,Travel Search - Limited usage,`apiKey`,Yes,Unknown
+3,Transportation,"Transport for Atlanta, US",http://www.itsmarta.com/app-developer-resources.aspx,Marta,No,No,Unknown
+3,Transportation,"Transport for Bordeaux, France",https://opendata.bordeaux-metropole.fr/explore/,Bordeaux Métropole public transport and more (France),`apiKey`,Yes,Unknown
+3,Transportation,"Transport for Denver, US",http://www.rtd-denver.com/gtfs-developer-guide.shtml,RTD,No,No,Unknown
+3,Transportation,"Transport for Grenoble, France",https://www.mobilites-m.fr/pages/opendata/OpenDataApi.html,Grenoble public transport,No,No,No
+3,Transportation,"Transport for Lisbon, Portugal",https://emel.city-platform.com/opendata/,"Data about buses routes, parking and traffic",`apiKey`,Yes,Unknown
+3,Transportation,"Transport for London, England",https://api.tfl.gov.uk,TfL API,`apiKey`,Yes,Unknown
+3,Transportation,"Transport for Manchester, England",https://developer.tfgm.com/,TfGM transport network data,`apiKey`,Yes,No
+3,Transportation,"Transport for Ottawa, Canada",https://www.octranspo.com/en/plan-your-trip/travel-tools/developers,OC Transpo API,`apiKey`,Yes,Unknown
+3,Transportation,"Transport for Philadelphia, US",http://www3.septa.org/hackathon/,SEPTA APIs,No,No,Unknown
+3,Transportation,Transport for Sweden,https://www.trafiklab.se/api,Public Transport consumer,`OAuth`,Yes,Unknown
+3,Transportation,Transport for United States,https://retro.umoiq.com/xmlFeedDocs/NextBusXMLFeed.pdf,NextBus API,No,No,Unknown
+3,Transportation,"Transport for Vancouver, Canada",https://developer.translink.ca/,TransLink,`OAuth`,Yes,Unknown
+3,Transportation,"Transport for Washington, US",https://developer.wmata.com/,Washington Metro transport API,`OAuth`,Yes,Unknown
+3,Transportation,Tripadvisor,https://developer-tripadvisor.com/home/,"Rating content for a hotel, restaurant, attraction or destination",`apiKey`,Yes,Unknown
+3,Transportation,Uber,https://developer.uber.com/products,Uber ride requests and price estimation,`OAuth`,Yes,Yes
+3,Weather,APIXU,https://www.apixu.com/doc/request.aspx,Weather,`apiKey`,Yes,Unknown
+3,Weather,AQICN,https://aqicn.org/api/,Air Quality Index Data for over 1000 cities,`apiKey`,Yes,Unknown
+3,Weather,Aemet,https://opendata.aemet.es/centrodedescargas/inicio,Weather and forecast data from Spain,`apiKey`,Yes,Unknown
+3,Weather,ColorfulClouds,https://open.caiyunapp.com/ColorfulClouds_Weather_API,Weather,`apiKey`,Yes,Yes
+3,Weather,Foreca,https://developer.foreca.com,Weather,`OAuth`,Yes,Unknown
+3,Weather,HG Weather,https://hgbrasil.com/status/weather,Provides weather forecast data for cities in Brazil,`apiKey`,Yes,Yes
+3,Weather,Meteorologisk Institutt,https://api.met.no/weatherapi/documentation,Weather and climate data,`User-Agent`,Yes,Unknown
+3,Weather,ODWeather,http://api.oceandrivers.com/static/docs.html,Weather and weather webcams,No,No,Unknown
+3,Weather,OpenWeatherMap,https://openweathermap.org/api,Weather,`apiKey`,Yes,Unknown
+3,Weather,QWeather,https://dev.qweather.com/en/,Location-based weather data,`apiKey`,Yes,Yes
+3,Weather,Storm Glass,https://stormglass.io/,Global marine weather from multiple sources,`apiKey`,Yes,Yes
+3,Weather,Tomorrow,https://docs.tomorrow.io,Weather API Powered by Proprietary Technology,`apiKey`,Yes,Unknown
+3,Weather,WeatherAPI,https://www.weatherapi.com/,Weather API with other stuff like Astronomy and Geolocation API,`apiKey`,Yes,Yes
+3,Weather,Weatherbit,https://www.weatherbit.io/api,Weather,`apiKey`,Yes,Unknown
+3,Weather,Yandex.Weather,https://yandex.com/dev/weather/,Assesses weather condition in specific locations,`apiKey`,Yes,No

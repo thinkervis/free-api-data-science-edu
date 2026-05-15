@@ -94,6 +94,18 @@ python3 scripts/validate_datasets.py
 - 버스 도착/야구 스코어보드/유동인구 히트맵
 - Pico W로 현재 날씨/공공 데이터 받아 OLED 또는 시리얼 출력
 
+
+## public-apis 기반 추가 검토
+
+`public-apis/public-apis` 전체 목록을 참고해 API 후보를 하나씩 검토하기 위한 감사 자료를 추가했습니다.
+
+- 전체 파싱 목록: `audits/public_apis_catalog.csv`
+- 교육 후보 1차 필터: `audits/public_apis_education_candidates.csv`
+- 검토 요약: `audits/public-apis-review.md`
+- 재실행 스크립트: `python3 scripts/audit_public_apis.py`
+
+현재 기준 전체 1,529개 API, 51개 카테고리, 교육 후보 514개를 1차 분류했습니다. 이후 no-auth/JSON/CORS/시각화 가능 후보부터 데이터셋과 Pages에 반영합니다.
+
 ## 기여 안내
 
 선생님, 학생, 개발자, 시민 누구나 기여할 수 있습니다.
