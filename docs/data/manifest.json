@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-05-15T23:31:05.253230+00:00",
+  "updated_at_utc": "2026-05-15T23:33:03.126748+00:00",
   "default_scope": "recent5",
   "files": [
     "data/artic_recent_artworks_sample.csv",
@@ -30,13 +30,13 @@
       "file": "data/open_meteo_seoul_daily_weather.csv",
       "rows": 1826,
       "scope": "recent5",
-      "source": "https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&longitude=126.978&start_date=2021-05-16&end_date=2026-05-15&daily=temperature_2m_max%2Ctemperature_2m_min%2Ctemperature_2m_mean%2Cprecipitation_sum%2Cwind_speed_10m_max&timezone=Asia%2FSeoul"
+      "source": "https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&longitude=126.978&start_date=2021-05-15&end_date=2026-05-14&daily=temperature_2m_max%2Ctemperature_2m_min%2Ctemperature_2m_mean%2Cprecipitation_sum%2Cwind_speed_10m_max&timezone=Asia%2FSeoul"
     },
     {
       "file": "data/open_meteo_seoul_air_quality_hourly.csv",
       "rows": 43824,
       "scope": "recent5",
-      "source": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.5665&longitude=126.978&start_date=2021-05-16&end_date=2026-05-15&hourly=pm10%2Cpm2_5%2Ccarbon_monoxide%2Cnitrogen_dioxide%2Cozone&timezone=Asia%2FSeoul"
+      "source": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.5665&longitude=126.978&start_date=2021-05-15&end_date=2026-05-14&hourly=pm10%2Cpm2_5%2Ccarbon_monoxide%2Cnitrogen_dioxide%2Cozone&timezone=Asia%2FSeoul"
     },
     {
       "file": "data/worldbank_korea_indicators.csv",
@@ -46,21 +46,21 @@
     },
     {
       "file": "data/usgs_major_earthquakes.csv",
-      "rows": 652,
+      "rows": 651,
       "scope": "recent5",
-      "source": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-05-16&endtime=2026-05-15&minmagnitude=6&orderby=time-asc&limit=20000"
+      "source": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-05-15&endtime=2026-05-14&minmagnitude=6&orderby=time-asc&limit=20000"
     },
     {
       "file": "data/mlb_schedule.csv",
-      "rows": 2782,
+      "rows": 2783,
       "scope": "recent5",
-      "source": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=2021-05-16&endDate=2026-05-15"
+      "source": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=2021-05-15&endDate=2026-05-14"
     },
     {
       "file": "data/fred_fedfunds.csv",
       "rows": 60,
       "scope": "recent5",
-      "source": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS&cosd=2021-05-16&coed=2026-05-15"
+      "source": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS&cosd=2021-05-15&coed=2026-05-14 (fallback: existing checked-in CSV)"
     },
     {
       "file": "data/owid_co2_korea_world.csv",
@@ -90,7 +90,7 @@
       "file": "data/nasa_power_seoul_daily.csv",
       "rows": 1826,
       "scope": "recent5",
-      "source": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CWS2M&community=RE&longitude=126.978&latitude=37.5665&start=20210516&end=20260515&format=JSON"
+      "source": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CWS2M&community=RE&longitude=126.978&latitude=37.5665&start=20210515&end=20260514&format=JSON"
     },
     {
       "file": "data/bls_us_cpi_monthly.csv",
@@ -100,21 +100,21 @@
     },
     {
       "file": "data/nager_korea_public_holidays.csv",
-      "rows": 93,
+      "rows": 95,
       "scope": "recent5",
       "source": "https://date.nager.at/api/v3/PublicHolidays/2021/KR"
     },
     {
       "file": "data/spacex_launches.csv",
-      "rows": 78,
+      "rows": 79,
       "scope": "recent5",
       "source": "https://api.spacexdata.com/v5/launches/query"
     },
     {
       "file": "data/frankfurter_usd_krw_daily.csv",
-      "rows": 1282,
+      "rows": 1281,
       "scope": "recent5",
-      "source": "https://api.frankfurter.app/2021-05-16..2026-05-15?from=USD&to=KRW"
+      "source": "https://api.frankfurter.app/2021-05-15..2026-05-14?from=USD&to=KRW"
     },
     {
       "file": "data/who_korea_life_expectancy.csv",
@@ -132,7 +132,7 @@
       "file": "data/eia_california_electricity_daily.csv",
       "rows": 5000,
       "scope": "recent5",
-      "source": "https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&data%5B0%5D=value&facets%5Brespondent%5D%5B%5D=CAL&start=2021-05-16&end=2026-05-15&sort%5B0%5D%5Bcolumn%5D=period&sort%5B0%5D%5Bdirection%5D=asc&offset=0&length=5000&api_key=DEMO_KEY"
+      "source": "https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&data%5B0%5D=value&facets%5Brespondent%5D%5B%5D=CAL&start=2021-05-15&end=2026-05-14&sort%5B0%5D%5Bcolumn%5D=period&sort%5B0%5D%5Bdirection%5D=asc&offset=0&length=5000&api_key=DEMO_KEY"
     }
   ]
 }
