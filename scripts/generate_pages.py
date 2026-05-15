@@ -240,8 +240,9 @@ def dataset_page(ds: dict[str, str]) -> str:
   <p><b>원천:</b> {html.escape(ds['source'])}</p>
   <p><b>설명:</b> {html.escape(ds['note'])}</p>
   <p><a href="{html.escape(csv_url)}">CSV 직접 열기</a> · <a href="{html.escape(ds['test_url'])}">원천 API/CSV 직접 테스트</a> · <a href="{html.escape(ds['doc_url'])}">공식 문서</a></p>
-  <button onclick="testCsv('{html.escape(csv_url)}')">GitHub Pages에서 CSV fetch 테스트</button>
-  <pre id="test-output">버튼을 누르면 이 페이지에서 직접 CSV를 fetch합니다.</pre>
+  <button onclick="testCsvJsonAndChart('{html.escape(csv_url)}')">GitHub Pages에서 JSON 변환 + 시각화 테스트</button>
+  <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 fetch한 뒤 JSON으로 변환하고, 숫자 컬럼을 자동 시각화합니다.</pre>
+  <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
 <h2>CSV 미리보기</h2>
 {preview}
@@ -250,13 +251,47 @@ def dataset_page(ds: dict[str, str]) -> str:
 <h2>Pico W 기본 코드</h2>
 <pre>{html.escape(pico_code(ds['csv']))}</pre>
 <script>
-async function testCsv(url) {{
+function parseCsv(text) {{
+  const rows = text.trim().split(/\r?\n/).map(line => line.split(','));
+  const headers = rows.shift() || [];
+  return rows.filter(r => r.length).map(row => Object.fromEntries(headers.map((h, i) => [h, row[i] ?? ''])));
+}}
+
+function drawChart(data) {{
+  const chart = document.getElementById('chart');
+  const keys = Object.keys(data[0] || {{}});
+  const numericKey = keys.find(k => data.some(row => Number.isFinite(Number(row[k]))));
+  if (!numericKey) {{
+    chart.innerHTML = '<p>숫자 컬럼을 찾지 못해 시각화를 생략했습니다.</p>';
+    return;
+  }}
+  const values = data.slice(0, 80).map(row => Number(row[numericKey])).filter(Number.isFinite);
+  const width = 760, height = 260, pad = 30;
+  const min = Math.min(...values), max = Math.max(...values);
+  const range = max - min || 1;
+  const points = values.map((v, i) => {{
+    const x = pad + i * ((width - pad * 2) / Math.max(1, values.length - 1));
+    const y = height - pad - ((v - min) / range) * (height - pad * 2);
+    return `${{x.toFixed(1)}},${{y.toFixed(1)}}`;
+  }}).join(' ');
+  chart.innerHTML = `<h3>브라우저 직접 시각화: ${{numericKey}}</h3>
+  <svg viewBox="0 0 ${{width}} ${{height}}" role="img" aria-label="${{numericKey}} line chart" style="max-width:100%;border:1px solid #d0d7de;border-radius:8px;background:#fff">
+    <line x1="${{pad}}" y1="${{height-pad}}" x2="${{width-pad}}" y2="${{height-pad}}" stroke="#888"/>
+    <line x1="${{pad}}" y1="${{pad}}" x2="${{pad}}" y2="${{height-pad}}" stroke="#888"/>
+    <polyline fill="none" stroke="#0969da" stroke-width="2" points="${{points}}"/>
+    <text x="${{pad}}" y="18" font-size="12">max=${{max}}</text>
+    <text x="${{pad}}" y="${{height-8}}" font-size="12">min=${{min}}</text>
+  </svg>`;
+}}
+
+async function testCsvJsonAndChart(url) {{
   const out = document.getElementById('test-output');
   try {{
     const r = await fetch(url);
     const text = await r.text();
-    const lines = text.trim().split(/\n/);
-    out.textContent = `status=${{r.status}} bytes=${{text.length}} rows≈${{Math.max(0, lines.length - 1)}}\n` + lines.slice(0, 4).join('\n');
+    const jsonRows = parseCsv(text);
+    drawChart(jsonRows);
+    out.textContent = `status=${{r.status}} bytes=${{text.length}} json_rows=${{jsonRows.length}}\nJSON sample:\n` + JSON.stringify(jsonRows.slice(0, 3), null, 2);
   }} catch (e) {{
     out.textContent = 'ERROR: ' + e;
   }}
@@ -293,7 +328,7 @@ def main() -> None:
     index = f'''
 <h1>초·중·고 정보 교육을 위한 무료 데이터 과학 API & CSV</h1>
 <p>모든 기본 CSV는 최근 5년치 중심으로 생성되며, <code>python3 scripts/update_datasets.py --scope all</code>로 가능한 전체 기간을 받을 수 있습니다.</p>
-<p>데이터별 페이지에서 CSV 직접 테스트, 원천 API 테스트, Streamlit 기본 코드, Pico W 기본 코드를 제공합니다.</p>
+<p>데이터별 페이지에서 CSV→JSON 직접 테스트, 원천 API 테스트, 브라우저 시각화, Streamlit 기본 코드, Pico W 기본 코드를 제공합니다.</p>
 <p><a href="data/manifest.json">갱신 manifest</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub repo</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/CONTRIBUTING.md">사람용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/AI_CONTRIBUTING.md">AI용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/REWARDS.md">리워드 설계</a></p>
 <h2>바로 테스트 가능한 데이터셋</h2>
 {''.join(cards)}

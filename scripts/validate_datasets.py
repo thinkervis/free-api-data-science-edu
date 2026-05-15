@@ -60,8 +60,18 @@ def main() -> None:
     for page in required_pages:
         if not page.exists():
             failures.append(f"missing page: {page.relative_to(ROOT)}")
-        elif page.name not in {"datasets.json", "index.html"} and "fetch(" not in page.read_text(encoding="utf-8"):
-            failures.append(f"page lacks direct fetch test code: {page.relative_to(ROOT)}")
+        elif page.name not in {"datasets.json", "index.html"}:
+            text = page.read_text(encoding="utf-8")
+            checks = {
+                "direct fetch test code": "fetch(" in text,
+                "CSV to JSON test code": "parseCsv" in text and "JSON sample" in text,
+                "browser visualization code": "drawChart" in text and "<svg" in text,
+                "Streamlit code": "streamlit" in text.lower(),
+                "Pico W code": "Pico W" in text or "MicroPython" in text,
+            }
+            for label, ok in checks.items():
+                if not ok:
+                    failures.append(f"page lacks {label}: {page.relative_to(ROOT)}")
 
     manifest = DATA / "manifest.json"
     if manifest.exists():

@@ -25,11 +25,12 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
   <p><b>원천:</b> 서울 열린데이터광장</p>
   <p><b>설명:</b> 샘플키는 5건 제한. 정식키로 전체 대여소 자동화 가능</p>
   <p><a href="../data/seoul_bike_sample.csv">CSV 직접 열기</a> · <a href="http://openapi.seoul.go.kr:8088/sample/json/bikeList/1/5/">원천 API/CSV 직접 테스트</a> · <a href="https://data.seoul.go.kr/">공식 문서</a></p>
-  <button onclick="testCsv('../data/seoul_bike_sample.csv')">GitHub Pages에서 CSV fetch 테스트</button>
-  <pre id="test-output">버튼을 누르면 이 페이지에서 직접 CSV를 fetch합니다.</pre>
+  <button onclick="testCsvJsonAndChart('../data/seoul_bike_sample.csv')">GitHub Pages에서 JSON 변환 + 시각화 테스트</button>
+  <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 fetch한 뒤 JSON으로 변환하고, 숫자 컬럼을 자동 시각화합니다.</pre>
+  <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
 <h2>CSV 미리보기</h2>
-<table><thead><tr><th>rackTotCnt</th><th>stationName</th><th>parkingBikeTotCnt</th><th>shared</th><th>stationLatitude</th><th>stationLongitude</th><th>stationId</th></tr></thead><tbody><tr><td>15</td><td>102. 망원역 1번출구 앞</td><td>0</td><td>0</td><td>37.55564880</td><td>126.91062927</td><td>ST-4</td></tr><tr><td>14</td><td>103. 망원역 2번출구 앞</td><td>1</td><td>7</td><td>37.55495071</td><td>126.91083527</td><td>ST-5</td></tr><tr><td>13</td><td>104. 합정역 1번출구 앞</td><td>0</td><td>0</td><td>37.55073929</td><td>126.91508484</td><td>ST-6</td></tr><tr><td>5</td><td>105. 합정역 5번출구 앞</td><td>1</td><td>20</td><td>37.55000687</td><td>126.91482544</td><td>ST-7</td></tr><tr><td>12</td><td>106. 합정역 7번출구 앞</td><td>0</td><td>0</td><td>37.54864502</td><td>126.91282654</td><td>ST-8</td></tr></tbody></table>
+<table><thead><tr><th>rackTotCnt</th><th>stationName</th><th>parkingBikeTotCnt</th><th>shared</th><th>stationLatitude</th><th>stationLongitude</th><th>stationId</th></tr></thead><tbody><tr><td>15</td><td>102. 망원역 1번출구 앞</td><td>1</td><td>7</td><td>37.55564880</td><td>126.91062927</td><td>ST-4</td></tr><tr><td>14</td><td>103. 망원역 2번출구 앞</td><td>1</td><td>7</td><td>37.55495071</td><td>126.91083527</td><td>ST-5</td></tr><tr><td>13</td><td>104. 합정역 1번출구 앞</td><td>0</td><td>0</td><td>37.55073929</td><td>126.91508484</td><td>ST-6</td></tr><tr><td>5</td><td>105. 합정역 5번출구 앞</td><td>1</td><td>20</td><td>37.55000687</td><td>126.91482544</td><td>ST-7</td></tr><tr><td>12</td><td>106. 합정역 7번출구 앞</td><td>0</td><td>0</td><td>37.54864502</td><td>126.91282654</td><td>ST-8</td></tr></tbody></table>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st
@@ -70,16 +71,50 @@ for line in lines:
     print(line)
 </pre>
 <script>
-async function testCsv(url) {
+function parseCsv(text) {
+  const rows = text.trim().split(/?
+/).map(line => line.split(','));
+  const headers = rows.shift() || [];
+  return rows.filter(r => r.length).map(row => Object.fromEntries(headers.map((h, i) => [h, row[i] ?? ''])));
+}
+
+function drawChart(data) {
+  const chart = document.getElementById('chart');
+  const keys = Object.keys(data[0] || {});
+  const numericKey = keys.find(k => data.some(row => Number.isFinite(Number(row[k]))));
+  if (!numericKey) {
+    chart.innerHTML = '<p>숫자 컬럼을 찾지 못해 시각화를 생략했습니다.</p>';
+    return;
+  }
+  const values = data.slice(0, 80).map(row => Number(row[numericKey])).filter(Number.isFinite);
+  const width = 760, height = 260, pad = 30;
+  const min = Math.min(...values), max = Math.max(...values);
+  const range = max - min || 1;
+  const points = values.map((v, i) => {
+    const x = pad + i * ((width - pad * 2) / Math.max(1, values.length - 1));
+    const y = height - pad - ((v - min) / range) * (height - pad * 2);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  chart.innerHTML = `<h3>브라우저 직접 시각화: ${numericKey}</h3>
+  <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${numericKey} line chart" style="max-width:100%;border:1px solid #d0d7de;border-radius:8px;background:#fff">
+    <line x1="${pad}" y1="${height-pad}" x2="${width-pad}" y2="${height-pad}" stroke="#888"/>
+    <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${height-pad}" stroke="#888"/>
+    <polyline fill="none" stroke="#0969da" stroke-width="2" points="${points}"/>
+    <text x="${pad}" y="18" font-size="12">max=${max}</text>
+    <text x="${pad}" y="${height-8}" font-size="12">min=${min}</text>
+  </svg>`;
+}
+
+async function testCsvJsonAndChart(url) {
   const out = document.getElementById('test-output');
   try {
     const r = await fetch(url);
     const text = await r.text();
-    const lines = text.trim().split(/
-/);
-    out.textContent = `status=${r.status} bytes=${text.length} rows≈${Math.max(0, lines.length - 1)}
-` + lines.slice(0, 4).join('
-');
+    const jsonRows = parseCsv(text);
+    drawChart(jsonRows);
+    out.textContent = `status=${r.status} bytes=${text.length} json_rows=${jsonRows.length}
+JSON sample:
+` + JSON.stringify(jsonRows.slice(0, 3), null, 2);
   } catch (e) {
     out.textContent = 'ERROR: ' + e;
   }

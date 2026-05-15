@@ -25,8 +25,9 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
   <p><b>원천:</b> USGS Earthquake API</p>
   <p><b>설명:</b> 지도 시각화/GeoJSON 수업에 적합</p>
   <p><a href="../data/usgs_major_earthquakes.csv">CSV 직접 열기</a> · <a href="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&amp;starttime=2021-01-01&amp;endtime=2021-01-31&amp;minmagnitude=6">원천 API/CSV 직접 테스트</a> · <a href="https://earthquake.usgs.gov/fdsnws/event/1/">공식 문서</a></p>
-  <button onclick="testCsv('../data/usgs_major_earthquakes.csv')">GitHub Pages에서 CSV fetch 테스트</button>
-  <pre id="test-output">버튼을 누르면 이 페이지에서 직접 CSV를 fetch합니다.</pre>
+  <button onclick="testCsvJsonAndChart('../data/usgs_major_earthquakes.csv')">GitHub Pages에서 JSON 변환 + 시각화 테스트</button>
+  <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 fetch한 뒤 JSON으로 변환하고, 숫자 컬럼을 자동 시각화합니다.</pre>
+  <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
 <h2>CSV 미리보기</h2>
 <table><thead><tr><th>id</th><th>time_utc</th><th>magnitude</th><th>place</th><th>longitude</th><th>latitude</th><th>depth_km</th><th>type</th><th>url</th></tr></thead><tbody><tr><td>us7000e4aw</td><td>2021-05-19T00:42:19.688000+00:00</td><td>6.7</td><td>southern East Pacific Rise</td><td>-109.3943</td><td>-33.0647</td><td>10</td><td>earthquake</td><td>https://earthquake.usgs.gov/earthquakes/eventpage/us7000e4aw</td></tr><tr><td>us7000e532</td><td>2021-05-21T13:48:37.193000+00:00</td><td>6.1</td><td>25 km NW of Dali, China</td><td>100.0082</td><td>25.7274</td><td>9</td><td>earthquake</td><td>https://earthquake.usgs.gov/earthquakes/eventpage/us7000e532</td></tr><tr><td>us7000e54r</td><td>2021-05-21T18:04:13.565000+00:00</td><td>7.3</td><td>Southern Qinghai, China</td><td>98.2513</td><td>34.5983</td><td>10</td><td>earthquake</td><td>https://earthquake.usgs.gov/earthquakes/eventpage/us7000e54r</td></tr><tr><td>us7000e579</td><td>2021-05-21T22:13:18.379000+00:00</td><td>6.5</td><td>265 km SSE of Alo, Wallis and Futuna</td><td>-177.3725</td><td>-16.6009</td><td>10</td><td>earthquake</td><td>https://earthquake.usgs.gov/earthquakes/eventpage/us7000e579</td></tr><tr><td>ak0216xu2rod</td><td>2021-05-31T06:59:55.581000+00:00</td><td>6.1</td><td>73 km N of Chickaloon, Alaska</td><td>-148.2512</td><td>62.4492</td><td>44</td><td>earthquake</td><td>https://earthquake.usgs.gov/earthquakes/eventpage/ak0216xu2rod</td></tr></tbody></table>
@@ -70,16 +71,50 @@ for line in lines:
     print(line)
 </pre>
 <script>
-async function testCsv(url) {
+function parseCsv(text) {
+  const rows = text.trim().split(/?
+/).map(line => line.split(','));
+  const headers = rows.shift() || [];
+  return rows.filter(r => r.length).map(row => Object.fromEntries(headers.map((h, i) => [h, row[i] ?? ''])));
+}
+
+function drawChart(data) {
+  const chart = document.getElementById('chart');
+  const keys = Object.keys(data[0] || {});
+  const numericKey = keys.find(k => data.some(row => Number.isFinite(Number(row[k]))));
+  if (!numericKey) {
+    chart.innerHTML = '<p>숫자 컬럼을 찾지 못해 시각화를 생략했습니다.</p>';
+    return;
+  }
+  const values = data.slice(0, 80).map(row => Number(row[numericKey])).filter(Number.isFinite);
+  const width = 760, height = 260, pad = 30;
+  const min = Math.min(...values), max = Math.max(...values);
+  const range = max - min || 1;
+  const points = values.map((v, i) => {
+    const x = pad + i * ((width - pad * 2) / Math.max(1, values.length - 1));
+    const y = height - pad - ((v - min) / range) * (height - pad * 2);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  chart.innerHTML = `<h3>브라우저 직접 시각화: ${numericKey}</h3>
+  <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${numericKey} line chart" style="max-width:100%;border:1px solid #d0d7de;border-radius:8px;background:#fff">
+    <line x1="${pad}" y1="${height-pad}" x2="${width-pad}" y2="${height-pad}" stroke="#888"/>
+    <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${height-pad}" stroke="#888"/>
+    <polyline fill="none" stroke="#0969da" stroke-width="2" points="${points}"/>
+    <text x="${pad}" y="18" font-size="12">max=${max}</text>
+    <text x="${pad}" y="${height-8}" font-size="12">min=${min}</text>
+  </svg>`;
+}
+
+async function testCsvJsonAndChart(url) {
   const out = document.getElementById('test-output');
   try {
     const r = await fetch(url);
     const text = await r.text();
-    const lines = text.trim().split(/
-/);
-    out.textContent = `status=${r.status} bytes=${text.length} rows≈${Math.max(0, lines.length - 1)}
-` + lines.slice(0, 4).join('
-');
+    const jsonRows = parseCsv(text);
+    drawChart(jsonRows);
+    out.textContent = `status=${r.status} bytes=${text.length} json_rows=${jsonRows.length}
+JSON sample:
+` + JSON.stringify(jsonRows.slice(0, 3), null, 2);
   } catch (e) {
     out.textContent = 'ERROR: ' + e;
   }

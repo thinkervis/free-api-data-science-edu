@@ -25,8 +25,9 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
   <p><b>원천:</b> GBIF Occurrence API</p>
   <p><b>설명:</b> 위치 기반 생물종 관측 지도 샘플. 기본 300건 제한</p>
   <p><a href="../data/gbif_korea_occurrences_sample.csv">CSV 직접 열기</a> · <a href="https://api.gbif.org/v1/occurrence/search?country=KR&amp;limit=3">원천 API/CSV 직접 테스트</a> · <a href="https://techdocs.gbif.org/en/openapi/">공식 문서</a></p>
-  <button onclick="testCsv('../data/gbif_korea_occurrences_sample.csv')">GitHub Pages에서 CSV fetch 테스트</button>
-  <pre id="test-output">버튼을 누르면 이 페이지에서 직접 CSV를 fetch합니다.</pre>
+  <button onclick="testCsvJsonAndChart('../data/gbif_korea_occurrences_sample.csv')">GitHub Pages에서 JSON 변환 + 시각화 테스트</button>
+  <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 fetch한 뒤 JSON으로 변환하고, 숫자 컬럼을 자동 시각화합니다.</pre>
+  <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
 <h2>CSV 미리보기</h2>
 <table><thead><tr><th>key</th><th>scientificName</th><th>vernacularName</th><th>eventDate</th><th>year</th><th>country</th><th>locality</th><th>decimalLatitude</th><th>decimalLongitude</th><th>basisOfRecord</th></tr></thead><tbody><tr><td>5938029622</td><td>Anas acuta Linnaeus, 1758</td><td></td><td>2026-01-01T12:35</td><td>2026</td><td>Korea, Republic of</td><td></td><td>36.814395</td><td>126.282603</td><td>HUMAN_OBSERVATION</td></tr><tr><td>5938030059</td><td>Suthora webbiana Gould, 1852</td><td></td><td>2026-01-02T10:38:03</td><td>2026</td><td>Korea, Republic of</td><td></td><td>36.394635</td><td>127.410015</td><td>HUMAN_OBSERVATION</td></tr><tr><td>5938033017</td><td>Emberiza rustica Pallas, 1776</td><td></td><td>2026-01-02T08:48</td><td>2026</td><td>Korea, Republic of</td><td></td><td>36.832283</td><td>126.278982</td><td>HUMAN_OBSERVATION</td></tr><tr><td>5938035768</td><td>Sittiparus varius (Temminck &amp; Schlegel, 1847)</td><td></td><td>2026-01-01T13:18:27</td><td>2026</td><td>Korea, Republic of</td><td></td><td>37.325272</td><td>127.074495</td><td>HUMAN_OBSERVATION</td></tr><tr><td>5938038410</td><td>Columba livia var. domestica J.F.Gmelin, 1789</td><td></td><td>2026-01-03T16:26</td><td>2026</td><td>Korea, Republic of</td><td></td><td>37.508592</td><td>127.099913</td><td>HUMAN_OBSERVATION</td></tr></tbody></table>
@@ -70,16 +71,50 @@ for line in lines:
     print(line)
 </pre>
 <script>
-async function testCsv(url) {
+function parseCsv(text) {
+  const rows = text.trim().split(/?
+/).map(line => line.split(','));
+  const headers = rows.shift() || [];
+  return rows.filter(r => r.length).map(row => Object.fromEntries(headers.map((h, i) => [h, row[i] ?? ''])));
+}
+
+function drawChart(data) {
+  const chart = document.getElementById('chart');
+  const keys = Object.keys(data[0] || {});
+  const numericKey = keys.find(k => data.some(row => Number.isFinite(Number(row[k]))));
+  if (!numericKey) {
+    chart.innerHTML = '<p>숫자 컬럼을 찾지 못해 시각화를 생략했습니다.</p>';
+    return;
+  }
+  const values = data.slice(0, 80).map(row => Number(row[numericKey])).filter(Number.isFinite);
+  const width = 760, height = 260, pad = 30;
+  const min = Math.min(...values), max = Math.max(...values);
+  const range = max - min || 1;
+  const points = values.map((v, i) => {
+    const x = pad + i * ((width - pad * 2) / Math.max(1, values.length - 1));
+    const y = height - pad - ((v - min) / range) * (height - pad * 2);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  chart.innerHTML = `<h3>브라우저 직접 시각화: ${numericKey}</h3>
+  <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${numericKey} line chart" style="max-width:100%;border:1px solid #d0d7de;border-radius:8px;background:#fff">
+    <line x1="${pad}" y1="${height-pad}" x2="${width-pad}" y2="${height-pad}" stroke="#888"/>
+    <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${height-pad}" stroke="#888"/>
+    <polyline fill="none" stroke="#0969da" stroke-width="2" points="${points}"/>
+    <text x="${pad}" y="18" font-size="12">max=${max}</text>
+    <text x="${pad}" y="${height-8}" font-size="12">min=${min}</text>
+  </svg>`;
+}
+
+async function testCsvJsonAndChart(url) {
   const out = document.getElementById('test-output');
   try {
     const r = await fetch(url);
     const text = await r.text();
-    const lines = text.trim().split(/
-/);
-    out.textContent = `status=${r.status} bytes=${text.length} rows≈${Math.max(0, lines.length - 1)}
-` + lines.slice(0, 4).join('
-');
+    const jsonRows = parseCsv(text);
+    drawChart(jsonRows);
+    out.textContent = `status=${r.status} bytes=${text.length} json_rows=${jsonRows.length}
+JSON sample:
+` + JSON.stringify(jsonRows.slice(0, 3), null, 2);
   } catch (e) {
     out.textContent = 'ERROR: ' + e;
   }
