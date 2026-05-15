@@ -19,6 +19,14 @@ MIN_ROWS = {
     "gbif_korea_occurrences_sample.csv": 100,
     "artic_recent_artworks_sample.csv": 50,
     "seoul_bike_sample.csv": 5,
+    "nasa_power_seoul_daily.csv": 365 * 4,
+    "bls_us_cpi_monthly.csv": 48,
+    "nager_korea_public_holidays.csv": 50,
+    "spacex_launches.csv": 50,
+    "frankfurter_usd_krw_daily.csv": 1000,
+    "who_korea_life_expectancy.csv": 3,
+    "restcountries_world_snapshot.csv": 190,
+    "eia_california_electricity_daily.csv": 1000,
 }
 
 

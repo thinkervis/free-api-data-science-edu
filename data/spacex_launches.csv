@@ -1,0 +1,79 @@
+flight_number,name,date_utc,success,details,wikipedia,webcast
+128,Starlink-28 (v1.0),2021-05-26T18:59:00.000Z,True,"This mission launches the 28th batch of operational Starlink satellites, which were version 1.0, from SLC-40. It was the 29th Starlink launch overall. The satellites plan to be delivered to low Earth orbit and will spend a few weeks maneuvering to their operational altitude. The booster is expected to land on ASDS JRTI.",https://en.wikipedia.org/wiki/Starlink,https://youtu.be/xRu-ekesDyY
+129,CRS-22 & IROSA,2021-06-03T17:29:00.000Z,True,"SpaceX's 22nd ISS resupply mission on behalf of NASA, this mission sends essential supplies to the International Space Station using the cargo variant of SpaceX's Dragon 2 spacecraft. The external payload for this mission is the first pair of ISS Roll Out Solar Arrays. Falcon 9 and Dragon launch from LC-39A, Kennedy Space Center and the booster is expected to land on an ASDS. The mission will be complete with splashdown and recovery of the capsule and down cargo.",https://en.wikipedia.org/wiki/SpaceX_CRS-22,https://youtu.be/QXf9mRWbXDM
+130,SXM-8,2021-06-06T04:26:00.000Z,True,"SpaceX launches the second of two next generation satellites for SiriusXM from SLC-40, Cape Canaveral Space Force Station. The spacecraft will be delivered into a sub-synchronous geostationary transfer orbit and will replace XM-4 in geostationary orbit. The booster for this mission will land on an ASDS.",https://en.wikipedia.org/wiki/Sirius_XM#Satellites,https://youtu.be/bgtDRR2F2wA
+131,GPS III SV05,2021-06-17T16:09:00.000Z,True,"SpaceX's fourth GPS III launch will use the first stage from the previous GPS mission. This will be the first time a National Security Space Launch has flown on a flight proven booster. Falcon 9 will launch from SLC-40, Cape Canaveral and the booster will land downrange on a drone ship. GPS III is the third generation of the U.S. Space Force's NAVSTAR Global Positioning System satellites, developed by Lockheed Martin. The GPS III constellation will feature a cross-linked command and control architecture, allowing the entire GPS constellation to be updated simultaneously from a single ground station. A new spot beam capability for enhanced military coverage and increased resistance to hostile jamming will be incorporated.",https://en.wikipedia.org/wiki/GPS_Block_III,https://youtu.be/QJXxVtp3KqI
+132,Transporter-2,2021-06-30T19:31:00.000Z,True,"Falcon 9 launches to sun-synchronous polar orbit from Florida as part of SpaceX's Rideshare program dedicated to smallsat customers. The mission lifts off from SLC-40, Cape Canaveral on a southward azimuth and performs a dogleg maneuver. The booster for this mission is expected to return to LZ-1 based on FCC communications filings. This rideshare takes approximately 90 satellites and hosted payloads into orbit on a variety of deployers including three free-flying spacecraft which dispense their customers' satellites after separation from the SpaceX stack.",,https://youtu.be/sSiuW1HcGjA
+133,CRS-23,2021-08-29T07:14:00.000Z,True,"SpaceX's 23rd ISS resupply mission on behalf of NASA, this mission brings essential supplies to the International Space Station using the cargo variant of SpaceX's Dragon 2 spacecraft. Cargo includes several science experiments. The booster for this mission is expected to land on an ASDS. The mission will be complete with return and recovery of the Dragon capsule and down cargo.",https://en.wikipedia.org/wiki/SpaceX_CRS-23,https://youtu.be/x-KiDqxAMU0
+134,Starlink 2-1 (v1.5),2021-09-14T03:55:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/4372QYiPZB4
+135,Inspiration4,2021-09-16T00:02:00.000Z,True,"Inspiration4 is the world’s first all-civilian mission to space. The mission will be commanded by Jared Isaacman, the 37-year-old founder and Chief Executive Officer of Shift4 Payments and an accomplished pilot and adventurer. Inspiration4 will leave Earth from Kennedy Space Center’s historic Launch Complex 39A, the embarkation point for Apollo and Space Shuttle missions, and travel across a low earth orbit on a multi-day journey that will continually eclipse more than 90% of the earth’s population. Named in recognition of the four-person crew that will raise awareness and funds for St. Jude Children’s Research Hospital, this milestone represents a new era for human spaceflight and exploration.",https://en.wikipedia.org/wiki/Inspiration4,https://youtu.be/3pv01sSq44w
+136,Crew-3,2021-11-11T02:03:00.000Z,True,"SpaceX will launch the third operational mission of its Crew Dragon vehicle as part of NASA's Commercial Crew Program, carrying four astronauts to the International Space Station, including 1 international partner This mission will fly on a new capsule and a once used booster. The booster will land downrange on a drone ship. The Crew-2 mission returns from the space station in November.",https://en.wikipedia.org/wiki/SpaceX_Crew-3,https://youtu.be/WZvtrnFItNs
+137,Starlink 4-1 (v1.5),2021-11-13T12:40:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/AtmtP4vouSY
+138,DART,2021-11-24T06:20:00.000Z,True,"NASA's Double Asteroid Redirect Test (DART) will demonstrate the use of a kinetic impactor to alter an asteroid's trajectory, an intervention that could be used in the future to prevent devastating Earth impacts. The target system consists of Didymos, 780 meters in diameter, and its moonlet Dimorphos, 160 meters. The DART spacecraft will intercept the double asteroid, using autonomous guidance to crash into the smaller one. Moving at about 6 km/s, the transferred momentum should alter Dimorphos's 12 hour orbital period around its companion by several minutes. The mission tests several technologies, including the Small-body Maneuvering Autonomous Real-Time Navigation (SMART Nav) used to differentiate and steer toward the target body and Roll-Out Solar Arrays (ROSA) with Transformational Solar Array concentrators. NASA’s Evolutionary Xenon Thruster — Commercial (NEXT–C) ion engine will also be demonstrated, although the spacecraft's primary propulsion is hydrazine thrusters. DART should arrive at Didymos in late September 2022, when it is about 11 million kilometers from Earth. Ten days before impact, the Italian Space Agency's cubesat LICIACube will be deployed to observe the collision and ejecta with its two cameras. Earth-based telescopes will be used to measure the altered orbit.",https://en.wikipedia.org/wiki/Double_Asteroid_Redirection_Test,https://youtu.be/XKRf6-NcMqI
+139,Starlink 4-3 (v1.5),2021-12-01T23:20:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/594TbXriaAk
+140,IXPE,2021-12-09T06:00:00.000Z,True,,https://en.wikipedia.org/wiki/IXPE,https://youtu.be/CpmHsN5GUn8
+141,Starlink 4-4 (v1.5),2021-12-18T12:41:40.000Z,True,The mission consists in launching 52 Starlink v1.5 satellites to Shell number 4 at 53.2°. This is unusual as the mission is launching from Vandenberg as these missions usually launch from the East Coast.,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/q4Ed3EBx90s
+142,Türksat 5B,2021-12-19T03:58:00.000Z,True,"The Türksat 5B communication satellite, which its construction work continues at Airbus Defense and Space's facilities in Toulouse, France, will soon be sent to the Cape Canaveral Space Launch Station located in Florida, United States. The satellite will be launched into space onboard the Falcon 9 rocket following pre-launch preparations. With an estimated in-orbit lifetime of 30 years and the aim of securing Turkey’s orbital and frequency rights, Türksat 5B will be launched into an orbital slot at 42 degrees East. With 12 kW power, Türksat 5B will provide TV broadcasting and data communication services over a wide coverage area that reaches the entire Middle East, the Persian Gulf, the Red Sea, the Mediterranean, North Africa, East Africa, South Africa and Nigeria. Apart from that, the satellite will also provide customized services for airlines and commercial ship operators around the world thanks to the fact that it operates in Ka-Band.",https://en.wikipedia.org/wiki/T%C3%BCrksat_5B,https://youtu.be/JBGjE9_aosc
+143,CRS-24,2021-12-21T10:06:00.000Z,True,"SpaceX's 24th ISS resupply mission on behalf of NASA, this mission brings essential supplies to the International Space Station using the cargo variant of SpaceX's Dragon 2 spacecraft. Cargo includes several science experiments. The booster for this mission is expected to land on an ASDS. The mission will be complete with return and recovery of the Dragon capsule and down cargo.",,https://youtu.be/gEv6HLHYhWo
+144,Starlink 4-5 (v1.5),2022-01-06T21:49:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/4_ePBpwMhns
+145,Transporter-3,2022-01-13T15:25:00.000Z,True,,,https://youtu.be/mFBeuSAvhUQ
+146,Starlink 4-6 (v1.5),2022-01-19T00:04:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/Yov854ZT1lg
+147,CSG-2,2022-01-31T23:11:12.000Z,True,"Falcon 9 launches to sun-synchronous polar orbit from Florida as part of CSG-2 Mission. The mission lifts off from SLC-40, Cape Canaveral on a southward azimuth and performs a dogleg maneuver. The booster for this mission is expected to return to LZ-1 based on FCC communications filings",,https://youtu.be/AbFoi68L-GQ
+148,NROL-87,2022-02-02T20:18:00.000Z,True,,,https://youtu.be/bVk8XyjhTKo
+149,Starlink 4-7 (v1.5),2022-02-03T18:13:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/UY3fZ6PwuUY
+150,Starlink 4-8 (v1.5),2022-02-21T14:44:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/eiKOMCRymsw
+151,Starlink 4-11 (v1.5),2022-02-25T17:12:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/nnVOfKOzXHE
+152,Starlink 4-9 (v1.5),2022-03-03T14:35:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/ypb2sDdUkRo
+153,Starlink 4-10 (v1.5),2022-03-09T13:45:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/uqAppamdGyo
+154,Starlink 4-12 (v1.5),2022-03-19T03:24:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/0giA6VZOICs
+155,Transporter-4,2022-04-01T16:24:00.000Z,True,,,https://youtu.be/4NqSoHnkKEM
+156,Ax-1,2022-04-08T15:17:00.000Z,True,"Axiom Mission 1 (or Ax-1) is a planned SpaceX Crew Dragon mission to the International Space Station (ISS), operated by SpaceX on behalf of Axiom Space. The flight will launch no earlier than 31 March 2022 and send four people to the ISS for an eight-day stay",https://en.wikipedia.org/wiki/Axiom_Mission_1,https://youtu.be/5nLk_Vqp7nw
+157,NROL-85,2022-04-17T13:13:00.000Z,True,,https://en.wikipedia.org/wiki/National_Reconnaissance_Office,https://youtu.be/mMcmf1g4qSA
+158,Starlink 4-14 (v1.5),2022-04-21T15:16:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/s6yBwQSrtFY
+159,Crew-4,2022-04-27T07:52:00.000Z,True,,https://en.wikipedia.org/wiki/SpaceX_Crew-4,https://youtu.be/orN0PaqQECs
+160,Starlink 4-16 (v1.5),2022-04-29T21:27:00.000Z,True,,https://en.wikipedia.org/wiki/Starlink,https://youtu.be/skNrXnubpwA
+161,Starlink 4-17 (v1.5),2022-05-06T09:42:00.000Z,True,,,https://youtu.be/KzpVUXxdc68
+162,Starlink 4-13 (v1.5),2022-05-13T22:07:00.000Z,True,,,https://youtu.be/bG6AwvGPd-E
+163,Starlink 4-15 (v1.5),2022-05-14T20:40:00.000Z,True,,,https://youtu.be/nFDkWL2Hmh8
+164,Starlink 4-18 (v1.5),2022-05-18T10:40:00.000Z,True,,,https://youtu.be/dQTgX40R-IQ
+165,Transporter-5,2022-05-25T18:27:00.000Z,True,,,https://youtu.be/KHt3MyimuqU
+167,Starlink 4-19 (v1.5),2022-06-01T17:08:50.000Z,True,,,https://youtu.be/oCN-BMU9-hM
+166,Nilesat-301,2022-06-08T21:04:00.000Z,True,,https://en.wikipedia.org/wiki/Nilesat,https://youtu.be/UpCZu89zb5Y
+168,SARah 1,2022-06-18T14:19:00.000Z,True,,,https://youtu.be/lCX-KUCn4A4
+169,Globalstar FM15,2022-06-19T04:27:00.000Z,True,,https://en.wikipedia.org/wiki/Globalstar,https://youtu.be/94cClvOFWH4
+170,SES-22,2022-06-29T21:04:00.000Z,True,,,https://youtu.be/ZjUvXWg2_fE
+171,Starlink 4-21 (v1.5),2022-07-07T13:11:00.000Z,True,,,https://youtu.be/u_A7xdnVllM
+172,Starlink 3-1 (v1.5),2022-07-11T01:39:00.000Z,,,,https://youtu.be/_c738Z_zQR0
+173,CRS-25,2022-07-15T00:44:00.000Z,True,,,https://youtu.be/mnowEqqMiFs
+174,Starlink 4-22 (v1.5),2022-07-17T14:50:00.000Z,True,,,https://youtu.be/7VWcjgYfJ9U
+175,Starlink 3-2 (v1.5),2022-07-21T17:13:00.000Z,True,,,https://youtu.be/BuXdtORWrpg
+176,Starlink 4-25 (v1.5),2022-07-24T00:00:00.000Z,True,,,
+177,KPLO,2022-08-04T23:08:00.000Z,True,,,https://youtu.be/rTrkHZjiO_8
+178,Starlink 4-26 (v1.5),2022-08-09T22:57:00.000Z,True,,,https://youtu.be/ck5z0uMGz8s
+179,Starlink 3-3 (v1.5),2022-08-12T21:30:00.000Z,True,,,https://youtu.be/SU5FbiCbjic
+180,Starlink 4-27 (v1.5),2022-08-19T19:24:00.000Z,True,,,https://youtu.be/M018DAaNd_E
+181,Starlink 4-23 (v1.5),2022-08-28T02:22:00.000Z,True,,,https://youtu.be/07RGJ04HRns
+182,Starlink 3-4 (v1.5),2022-08-31T05:40:00.000Z,True,,,https://youtu.be/zSJWK_pmXVw
+183,Starlink 4-20 (v1.5) & Sherpa LTC-2/Varuna-TDM,2022-09-05T02:09:00.000Z,True,,,https://youtu.be/NONM-xsKMSs
+184,Starlink 4-2 (v1.5) & Blue Walker 3,2022-09-11T01:10:00.000Z,True,,,
+185,Starlink 4-34 (v1.5),2022-09-17T01:05:00.000Z,True,,,https://youtu.be/ZlQHF_yBkMQ
+186,Starlink 4-35 (v1.5),2022-09-24T23:30:00.000Z,True,,,https://youtu.be/VVu2bSJJhgI
+187,Crew-5,2022-10-05T16:00:00.000Z,True,,https://en.wikipedia.org/wiki/SpaceX_Crew-5,https://youtu.be/5EwW8ZkArL4
+188,Galaxy 33 (15R) & 34 (12R),2022-10-08T23:05:00.000Z,,,,
+188,Hotbird 13F,2022-10-15T05:22:00.000Z,,,,
+188,Starlink 4-36 (v1.5),2022-10-20T14:50:00.000Z,,,,https://youtu.be/iYtH2khNIgU
+196,"O3b mPower 1,2",2022-11-01T00:00:00.000Z,,,,
+195,Starlink 4-37 (v1.5),2022-11-01T00:00:00.000Z,,,,https://youtu.be/wcq7xiTOPRg
+198,SES-18 & SES-19,2022-11-01T00:00:00.000Z,,,,
+188,USSF-44,2022-11-01T13:41:00.000Z,,,,https://youtu.be/pY628jRd6gM
+189,Hotbird 13G,2022-11-03T03:24:00.000Z,,,,
+191,Galaxy 31 (23R) & 32 (17R),2022-11-08T00:00:00.000Z,,,,
+192,Eutelsat 10B,2022-11-15T00:00:00.000Z,,,,
+194,CRS-26,2022-11-18T22:00:00.000Z,,,,
+193,ispace Mission 1 & Rashid,2022-11-22T00:00:00.000Z,,,,
+200,WorldView Legion 1 & 2,2022-12-01T00:00:00.000Z,,,,
+203,O3b mPower 3.4,2022-12-01T00:00:00.000Z,,,,
+199,TTL-1,2022-12-01T00:00:00.000Z,,,,
+202,Viasat-3 & Arcturus,2022-12-01T00:00:00.000Z,,,,
+198,Transporter-6,2022-12-01T00:00:00.000Z,,,,
+197,SWOT,2022-12-05T00:00:00.000Z,,,,

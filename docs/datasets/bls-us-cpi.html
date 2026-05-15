@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>서울 5년 일별 기상</title>
+<title>미국 소비자물가지수 CPI 월별</title>
 <style>
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.6; max-width: 1120px; }
 a { color: #0969da; }
@@ -19,25 +19,25 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 <body>
 
 <p><a href="../index.html">← 전체 목록</a></p>
-<h1>서울 5년 일별 기상</h1>
-<p><span class="badge">기상</span><span class="badge">인증: 불필요</span><span class="badge">행 수: 1826</span></p>
+<h1>미국 소비자물가지수 CPI 월별</h1>
+<p><span class="badge">경제/통계</span><span class="badge">인증: 제한 내 불필요 / 대량 사용은 무료 키 권장</span><span class="badge">행 수: 64</span></p>
 <div class="card">
-  <p><b>원천:</b> Open-Meteo Historical Weather API</p>
-  <p><b>설명:</b> 최근 5년치 CSV 기본 제공, --scope all로 가능한 전체 기간 요청 가능</p>
-  <p><a href="../data/open_meteo_seoul_daily_weather.csv">CSV 직접 열기</a> · <a href="https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&amp;longitude=126.9780&amp;start_date=2021-01-01&amp;end_date=2021-01-03&amp;daily=temperature_2m_max,temperature_2m_min,precipitation_sum&amp;timezone=Asia%2FSeoul">원천 API/CSV 직접 테스트</a> · <a href="https://open-meteo.com/en/docs/historical-weather-api">공식 문서</a></p>
-  <button onclick="testCsvJsonAndChart('../data/open_meteo_seoul_daily_weather.csv')">GitHub Pages에서 JSON 변환 + 시각화 테스트</button>
+  <p><b>원천:</b> U.S. Bureau of Labor Statistics Public API</p>
+  <p><b>설명:</b> 물가/인플레이션 수업용 월별 시계열. --scope all은 공개 API 제한을 고려해 2005년 이후로 제한</p>
+  <p><a href="../data/bls_us_cpi_monthly.csv">CSV 직접 열기</a> · <a href="https://api.bls.gov/publicAPI/v2/timeseries/data/CUUR0000SA0?startyear=2021&amp;endyear=2025">원천 API/CSV 직접 테스트</a> · <a href="https://www.bls.gov/developers/api_signature_v2.htm">공식 문서</a></p>
+  <button onclick="testCsvJsonAndChart('../data/bls_us_cpi_monthly.csv')">GitHub Pages에서 JSON 변환 + 시각화 테스트</button>
   <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 fetch한 뒤 JSON으로 변환하고, 숫자 컬럼을 자동 시각화합니다.</pre>
   <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
 <h2>CSV 미리보기</h2>
-<table><thead><tr><th>location</th><th>latitude</th><th>longitude</th><th>time</th><th>temperature_2m_max</th><th>temperature_2m_min</th><th>temperature_2m_mean</th><th>precipitation_sum</th><th>wind_speed_10m_max</th></tr></thead><tbody><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-16</td><td>20.7</td><td>13.9</td><td>18.2</td><td>77.0</td><td>16.3</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-17</td><td>17.2</td><td>13.8</td><td>15.1</td><td>5.1</td><td>9.4</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-18</td><td>22.2</td><td>12.1</td><td>15.8</td><td>0.0</td><td>17.3</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-19</td><td>23.5</td><td>10.9</td><td>17.3</td><td>0.0</td><td>14.7</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-20</td><td>22.2</td><td>13.9</td><td>16.9</td><td>11.8</td><td>18.1</td></tr></tbody></table>
+<table><thead><tr><th>series_id</th><th>year</th><th>month</th><th>date</th><th>cpi_value</th><th>footnotes</th></tr></thead><tbody><tr><td>CUUR0000SA0</td><td>2021</td><td>M01</td><td>2021-01-01</td><td>261.582</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2021</td><td>M02</td><td>2021-02-01</td><td>263.014</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2021</td><td>M03</td><td>2021-03-01</td><td>264.877</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2021</td><td>M04</td><td>2021-04-01</td><td>267.054</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2021</td><td>M05</td><td>2021-05-01</td><td>269.195</td><td></td></tr></tbody></table>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st
 
-URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/open_meteo_seoul_daily_weather.csv&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/bls_us_cpi_monthly.csv&quot;
 
-st.title(&quot;open_meteo_seoul_daily_weather.csv&quot;)
+st.title(&quot;bls_us_cpi_monthly.csv&quot;)
 df = pd.read_csv(URL)
 st.write(df.shape)
 st.dataframe(df.head(100))
@@ -53,7 +53,7 @@ import network, urequests, time
 
 SSID = &quot;YOUR_WIFI&quot;
 PASSWORD = &quot;YOUR_PASSWORD&quot;
-URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/open_meteo_seoul_daily_weather.csv&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/bls_us_cpi_monthly.csv&quot;
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)

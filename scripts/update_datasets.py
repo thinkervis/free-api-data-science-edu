@@ -310,6 +310,207 @@ def update_seoul_bike_sample(_: str) -> dict[str, Any]:
     write_csv(path, rows)
     return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": "sample", "source": url}
 
+def update_nasa_power_seoul_daily(scope: str) -> dict[str, Any]:
+    start, end = range_for_scope(scope)
+    if scope == "all":
+        start = max(start, date(1984, 1, 1))
+    params = {
+        "parameters": "T2M,T2M_MAX,T2M_MIN,PRECTOTCORR,WS2M",
+        "community": "RE",
+        "longitude": 126.9780,
+        "latitude": 37.5665,
+        "start": start.strftime("%Y%m%d"),
+        "end": end.strftime("%Y%m%d"),
+        "format": "JSON",
+    }
+    url = "https://power.larc.nasa.gov/api/temporal/daily/point?" + urlencode(params)
+    data = get_json(url)
+    params_data = data.get("properties", {}).get("parameter", {})
+    dates = sorted(next(iter(params_data.values())).keys()) if params_data else []
+    rows = []
+    for ymd in dates:
+        rows.append({
+            "location": "Seoul",
+            "date": f"{ymd[:4]}-{ymd[4:6]}-{ymd[6:]}",
+            "temperature_2m_c": params_data.get("T2M", {}).get(ymd),
+            "temperature_max_c": params_data.get("T2M_MAX", {}).get(ymd),
+            "temperature_min_c": params_data.get("T2M_MIN", {}).get(ymd),
+            "precipitation_mm_day": params_data.get("PRECTOTCORR", {}).get(ymd),
+            "wind_speed_2m_m_s": params_data.get("WS2M", {}).get(ymd),
+        })
+    path = DATA / "nasa_power_seoul_daily.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": url}
+
+
+def update_bls_us_cpi(scope: str) -> dict[str, Any]:
+    start, end = range_for_scope(scope)
+    start_year = max(2005, start.year) if scope == "all" else start.year
+    url = f"https://api.bls.gov/publicAPI/v2/timeseries/data/CUUR0000SA0?startyear={start_year}&endyear={end.year}"
+    data = get_json(url)
+    rows = []
+    for item in data.get("Results", {}).get("series", [{}])[0].get("data", []):
+        period = item.get("period", "")
+        if not period.startswith("M"):
+            continue
+        rows.append({
+            "series_id": "CUUR0000SA0",
+            "year": item.get("year"),
+            "month": period,
+            "date": f"{item.get('year')}-{period[1:]}-01",
+            "cpi_value": item.get("value"),
+            "footnotes": "; ".join(f.get("text", "") for f in item.get("footnotes", []) if f.get("text")),
+        })
+    rows.sort(key=lambda r: r["date"])
+    path = DATA / "bls_us_cpi_monthly.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": url}
+
+
+def update_nager_korea_holidays(scope: str) -> dict[str, Any]:
+    start, end = range_for_scope(scope)
+    start_year = 1970 if scope == "all" else start.year
+    rows = []
+    source_urls = []
+    for year in range(start_year, end.year + 1):
+        url = f"https://date.nager.at/api/v3/PublicHolidays/{year}/KR"
+        source_urls.append(url)
+        for item in get_json(url):
+            rows.append({
+                "date": item.get("date"),
+                "localName": item.get("localName"),
+                "name": item.get("name"),
+                "countryCode": item.get("countryCode"),
+                "global": item.get("global"),
+                "types": ",".join(item.get("types", [])),
+            })
+    rows.sort(key=lambda r: r["date"])
+    path = DATA / "nager_korea_public_holidays.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": source_urls[0] if source_urls else "https://date.nager.at/"}
+
+
+def update_spacex_launches(scope: str) -> dict[str, Any]:
+    start, end = range_for_scope(scope)
+    if scope == "all":
+        start = date(2006, 1, 1)
+    url = "https://api.spacexdata.com/v5/launches/query"
+    payload = {
+        "query": {"date_utc": {"$gte": f"{start.isoformat()}T00:00:00.000Z", "$lte": f"{end.isoformat()}T23:59:59.999Z"}},
+        "options": {"limit": 500, "sort": {"date_utc": "asc"}, "select": ["name", "date_utc", "success", "flight_number", "details", "links"]},
+    }
+    r = requests.post(url, json=payload, timeout=45, headers=HEADERS)
+    r.raise_for_status()
+    data = r.json()
+    rows = []
+    for item in data.get("docs", []):
+        rows.append({
+            "flight_number": item.get("flight_number"),
+            "name": item.get("name"),
+            "date_utc": item.get("date_utc"),
+            "success": item.get("success"),
+            "details": item.get("details"),
+            "wikipedia": item.get("links", {}).get("wikipedia"),
+            "webcast": item.get("links", {}).get("webcast"),
+        })
+    path = DATA / "spacex_launches.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": url}
+
+
+def update_frankfurter_usd_krw(scope: str) -> dict[str, Any]:
+    start, end = range_for_scope(scope)
+    if scope == "all":
+        start = max(start, date(1999, 1, 4))
+    url = f"https://api.frankfurter.app/{start.isoformat()}..{end.isoformat()}?from=USD&to=KRW"
+    data = get_json(url)
+    rows = []
+    for day, rates in data.get("rates", {}).items():
+        rows.append({"date": day, "base": data.get("base"), "quote": "KRW", "rate": rates.get("KRW")})
+    rows.sort(key=lambda r: r["date"])
+    path = DATA / "frankfurter_usd_krw_daily.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": url}
+
+
+def update_who_korea_life_expectancy(scope: str) -> dict[str, Any]:
+    start, end = range_for_scope(scope)
+    start_year = 2000 if scope == "all" else start.year
+    filter_q = f"SpatialDim eq 'KOR' and TimeDim ge {start_year} and TimeDim le {end.year}"
+    url = "https://ghoapi.azureedge.net/api/WHOSIS_000001?" + urlencode({"$filter": filter_q, "$top": 1000})
+    data = get_json(url)
+    rows = []
+    for item in data.get("value", []):
+        rows.append({
+            "indicator": item.get("IndicatorCode"),
+            "year": item.get("TimeDim"),
+            "country": item.get("SpatialDim"),
+            "sex": item.get("Dim1"),
+            "value": item.get("NumericValue"),
+            "display": item.get("Value"),
+        })
+    rows.sort(key=lambda r: (str(r.get("sex")), r.get("year") or 0))
+    path = DATA / "who_korea_life_expectancy.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": url}
+
+
+def update_restcountries_world_snapshot(_: str) -> dict[str, Any]:
+    url = "https://restcountries.com/v3.1/all?fields=name,cca3,region,subregion,population,area,latlng"
+    data = get_json(url)
+    rows = []
+    for item in data:
+        latlng = item.get("latlng") or [None, None]
+        rows.append({
+            "name": item.get("name", {}).get("common"),
+            "official_name": item.get("name", {}).get("official"),
+            "cca3": item.get("cca3"),
+            "region": item.get("region"),
+            "subregion": item.get("subregion"),
+            "population": item.get("population"),
+            "area": item.get("area"),
+            "latitude": latlng[0] if len(latlng) > 0 else None,
+            "longitude": latlng[1] if len(latlng) > 1 else None,
+        })
+    rows.sort(key=lambda r: r.get("name") or "")
+    path = DATA / "restcountries_world_snapshot.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": "snapshot", "source": url}
+
+
+def update_eia_california_electricity(scope: str) -> dict[str, Any]:
+    start, end = range_for_scope(scope)
+    if scope == "all":
+        start = max(start, date(2018, 7, 1))
+    params = [
+        ("frequency", "daily"),
+        ("data[0]", "value"),
+        ("facets[respondent][]", "CAL"),
+        ("start", start.isoformat()),
+        ("end", end.isoformat()),
+        ("sort[0][column]", "period"),
+        ("sort[0][direction]", "asc"),
+        ("offset", "0"),
+        ("length", "5000"),
+        ("api_key", "DEMO_KEY"),
+    ]
+    url = "https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?" + urlencode(params)
+    data = get_json(url)
+    rows = []
+    for item in data.get("response", {}).get("data", []):
+        rows.append({
+            "date": item.get("period"),
+            "respondent": item.get("respondent"),
+            "respondent_name": item.get("respondent-name"),
+            "type": item.get("type"),
+            "type_name": item.get("type-name"),
+            "value": item.get("value"),
+            "unit": item.get("value-units"),
+        })
+    path = DATA / "eia_california_electricity_daily.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": url}
+
 
 JOBS = [
     update_open_meteo_seoul_daily,
@@ -322,6 +523,14 @@ JOBS = [
     update_gbif_korea_occurrences,
     update_artic_recent_artworks,
     update_seoul_bike_sample,
+    update_nasa_power_seoul_daily,
+    update_bls_us_cpi,
+    update_nager_korea_holidays,
+    update_spacex_launches,
+    update_frankfurter_usd_krw,
+    update_who_korea_life_expectancy,
+    update_restcountries_world_snapshot,
+    update_eia_california_electricity,
 ]
 
 

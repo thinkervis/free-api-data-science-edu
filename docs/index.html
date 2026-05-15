@@ -44,13 +44,13 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 </div>
 <div class="card">
   <h2><a href="datasets/usgs-earthquakes.html">전세계 규모 6+ 지진 5년</a></h2>
-  <p><span class="badge">지질/지도</span><span class="badge">불필요</span><span class="badge">651 rows</span></p>
+  <p><span class="badge">지질/지도</span><span class="badge">불필요</span><span class="badge">652 rows</span></p>
   <p>지도 시각화/GeoJSON 수업에 적합</p>
   <p><a href="data/usgs_major_earthquakes.csv">CSV</a> · <a href="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&amp;starttime=2021-01-01&amp;endtime=2021-01-31&amp;minmagnitude=6">직접 테스트</a> · <a href="https://earthquake.usgs.gov/fdsnws/event/1/">공식 문서</a></p>
 </div>
 <div class="card">
   <h2><a href="datasets/mlb-schedule.html">MLB 경기 일정/결과 5년</a></h2>
-  <p><span class="badge">야구/스포츠</span><span class="badge">불필요</span><span class="badge">2783 rows</span></p>
+  <p><span class="badge">야구/스포츠</span><span class="badge">불필요</span><span class="badge">2782 rows</span></p>
   <p>스코어보드, 승률, 팀별 득점 분석 가능</p>
   <p><a href="data/mlb_schedule.csv">CSV</a> · <a href="https://statsapi.mlb.com/api/v1/schedule?sportId=1&amp;date=2024-03-28">직접 테스트</a> · <a href="https://github.com/toddrob99/MLB-StatsAPI/wiki">공식 문서</a></p>
 </div>
@@ -83,6 +83,54 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
   <p><span class="badge">대중교통/도시</span><span class="badge">샘플키 가능 / 정식은 무료 키 권장</span><span class="badge">5 rows</span></p>
   <p>샘플키는 5건 제한. 정식키로 전체 대여소 자동화 가능</p>
   <p><a href="data/seoul_bike_sample.csv">CSV</a> · <a href="http://openapi.seoul.go.kr:8088/sample/json/bikeList/1/5/">직접 테스트</a> · <a href="https://data.seoul.go.kr/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/nasa-power-seoul.html">NASA POWER 서울 일별 기상/에너지</a></h2>
+  <p><span class="badge">기상/에너지/과학</span><span class="badge">불필요</span><span class="badge">1826 rows</span></p>
+  <p>public-apis 확장 후보에서 승격. 최근 5년치 기본, --scope all은 NASA POWER 일별 제공 시작 시점부터 요청</p>
+  <p><a href="data/nasa_power_seoul_daily.csv">CSV</a> · <a href="https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR&amp;community=RE&amp;longitude=126.9780&amp;latitude=37.5665&amp;start=20210101&amp;end=20210105&amp;format=JSON">직접 테스트</a> · <a href="https://power.larc.nasa.gov/docs/services/api/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/bls-us-cpi.html">미국 소비자물가지수 CPI 월별</a></h2>
+  <p><span class="badge">경제/통계</span><span class="badge">제한 내 불필요 / 대량 사용은 무료 키 권장</span><span class="badge">64 rows</span></p>
+  <p>물가/인플레이션 수업용 월별 시계열. --scope all은 공개 API 제한을 고려해 2005년 이후로 제한</p>
+  <p><a href="data/bls_us_cpi_monthly.csv">CSV</a> · <a href="https://api.bls.gov/publicAPI/v2/timeseries/data/CUUR0000SA0?startyear=2021&amp;endyear=2025">직접 테스트</a> · <a href="https://www.bls.gov/developers/api_signature_v2.htm">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/nager-korea-holidays.html">한국 공휴일 5년</a></h2>
+  <p><span class="badge">달력/사회/문화</span><span class="badge">불필요</span><span class="badge">93 rows</span></p>
+  <p>날짜/캘린더/지역 문화 수업에 적합. --scope all은 1970년 이후 연도별 조회</p>
+  <p><a href="data/nager_korea_public_holidays.csv">CSV</a> · <a href="https://date.nager.at/api/v3/PublicHolidays/2024/KR">직접 테스트</a> · <a href="https://date.nager.at/Api">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/spacex-launches.html">SpaceX 발사 기록</a></h2>
+  <p><span class="badge">우주/과학</span><span class="badge">불필요</span><span class="badge">78 rows</span></p>
+  <p>최근 5년 발사 기록 기본. POST query로 기간 필터링하며 Pages에서는 CSV→JSON 변환/시각화 제공</p>
+  <p><a href="data/spacex_launches.csv">CSV</a> · <a href="https://api.spacexdata.com/v5/launches/latest">직접 테스트</a> · <a href="https://github.com/r-spacex/SpaceX-API/tree/master/docs">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/frankfurter-usd-krw.html">USD/KRW 환율 일별</a></h2>
+  <p><span class="badge">경제/환율</span><span class="badge">불필요</span><span class="badge">1282 rows</span></p>
+  <p>환율 시계열/변화율 수업용. --scope all은 API 제공 시작 시점 이후</p>
+  <p><a href="data/frankfurter_usd_krw_daily.csv">CSV</a> · <a href="https://api.frankfurter.app/2021-01-01..2021-01-05?from=USD&amp;to=KRW">직접 테스트</a> · <a href="https://www.frankfurter.app/docs/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/who-korea-life-expectancy.html">WHO 한국 기대수명</a></h2>
+  <p><span class="badge">보건/국제통계</span><span class="badge">불필요</span><span class="badge">3 rows</span></p>
+  <p>보건/인구/국제비교 수업용. 최근 5년 범위에 값이 적을 수 있어 WHO 제공 연도 기준으로 검증</p>
+  <p><a href="data/who_korea_life_expectancy.csv">CSV</a> · <a href="https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27KOR%27&amp;$top=5">직접 테스트</a> · <a href="https://www.who.int/data/gho/info/gho-odata-api">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/restcountries-world.html">세계 국가 기본 정보 스냅샷</a></h2>
+  <p><span class="badge">지리/국가/인구</span><span class="badge">불필요</span><span class="badge">250 rows</span></p>
+  <p>시계열이 아닌 현재 스냅샷 데이터. 국가별 인구/면적/지역 비교와 지도 수업용</p>
+  <p><a href="data/restcountries_world_snapshot.csv">CSV</a> · <a href="https://restcountries.com/v3.1/all?fields=name,cca3,region,population,area,latlng">직접 테스트</a> · <a href="https://restcountries.com/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/eia-california-electricity.html">EIA 캘리포니아 전력 일별</a></h2>
+  <p><span class="badge">에너지/전력/환경</span><span class="badge">DEMO_KEY 가능 / 안정 사용은 무료 키 권장</span><span class="badge">5000 rows</span></p>
+  <p>전력 수요/공급/에너지 데이터 수업용. DEMO_KEY 제한을 명시하고 무료 키 사용 권장</p>
+  <p><a href="data/eia_california_electricity_daily.csv">CSV</a> · <a href="https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&amp;data[0]=value&amp;facets[respondent][]=CAL&amp;start=2021-01-01&amp;end=2021-01-05&amp;sort[0][column]=period&amp;sort[0][direction]=asc&amp;api_key=DEMO_KEY">직접 테스트</a> · <a href="https://www.eia.gov/opendata/documentation.php">공식 문서</a></p>
 </div>
 <h2>추가 API 후보</h2>
 <table><thead><tr><th>이름</th><th>분야</th><th>인증</th><th>공식 문서</th></tr></thead><tbody><tr><td>NASA POWER</td><td>기상/태양광/에너지</td><td>불필요</td><td><a href='https://power.larc.nasa.gov/docs/services/api/'>문서</a></td></tr><tr><td>NOAA CO-OPS</td><td>해양/조위/기상</td><td>불필요</td><td><a href='https://api.tidesandcurrents.noaa.gov/api/prod/'>문서</a></td></tr><tr><td>U.S. Census ACS 5-Year</td><td>인구/교육/소득</td><td>키 선택</td><td><a href='https://www.census.gov/data/developers/data-sets/acs-5year.html'>문서</a></td></tr><tr><td>BLS Public Data</td><td>노동/물가</td><td>제한 내 불필요</td><td><a href='https://www.bls.gov/developers/api_signature_v2.htm'>문서</a></td></tr><tr><td>WHO GHO</td><td>보건</td><td>불필요</td><td><a href='https://ghoapi.azureedge.net/api'>문서</a></td></tr><tr><td>CDC/Socrata</td><td>보건/공공데이터</td><td>토큰 선택</td><td><a href='https://dev.socrata.com/'>문서</a></td></tr><tr><td>GB Carbon Intensity</td><td>에너지/탄소</td><td>불필요</td><td><a href='https://carbon-intensity.github.io/api-definitions/'>문서</a></td></tr><tr><td>EIA Open Data</td><td>에너지</td><td>무료 키</td><td><a href='https://www.eia.gov/opendata/documentation.php'>문서</a></td></tr><tr><td>서울 실시간 도시데이터</td><td>유동인구/도시</td><td>샘플키/무료키</td><td><a href='https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 생활인구</td><td>유동인구</td><td>파일 다운로드</td><td><a href='https://data.seoul.go.kr/dataList/OA-14991/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 지하철 승하차</td><td>대중교통</td><td>파일 다운로드</td><td><a href='https://data.seoul.go.kr/dataList/OA-12914/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 시간별 대기질</td><td>대기질</td><td>샘플키/무료키</td><td><a href='https://data.seoul.go.kr/'>문서</a></td></tr><tr><td>Korea TourAPI</td><td>관광/문화</td><td>공공데이터 키</td><td><a href='https://api.visitkorea.or.kr/'>문서</a></td></tr><tr><td>KOSIS</td><td>한국 인구통계</td><td>무료 키</td><td><a href='https://kosis.kr/openapi/index/index.jsp'>문서</a></td></tr><tr><td>한국은행 ECOS</td><td>경제/금융</td><td>무료 키</td><td><a href='https://ecos.bok.or.kr/api/#/'>문서</a></td></tr><tr><td>TMDB</td><td>영화</td><td>회원가입+키</td><td><a href='https://developer.themoviedb.org/docs/getting-started'>문서</a></td></tr><tr><td>OMDb</td><td>영화</td><td>키</td><td><a href='https://www.omdbapi.com/'>문서</a></td></tr><tr><td>IMDb Non-Commercial Datasets</td><td>영화</td><td>불필요/비상업 약관</td><td><a href='https://developer.imdb.com/non-commercial-datasets/'>문서</a></td></tr><tr><td>Met Museum Collection</td><td>문화/예술</td><td>불필요</td><td><a href='https://metmuseum.github.io/'>문서</a></td></tr><tr><td>Nominatim</td><td>지도</td><td>불필요/정책 준수</td><td><a href='https://nominatim.org/release-docs/latest/api/Overview/'>문서</a></td></tr><tr><td>Overpass API</td><td>지도/POI</td><td>불필요/정책 준수</td><td><a href='https://wiki.openstreetmap.org/wiki/Overpass_API'>문서</a></td></tr><tr><td>Kakao Local</td><td>한국 지도</td><td>회원가입+키</td><td><a href='https://developers.kakao.com/docs/latest/ko/local/dev-guide'>문서</a></td></tr><tr><td>Google Maps</td><td>지도</td><td>키+결제 가능성</td><td><a href='https://developers.google.com/maps/documentation/javascript/get-api-key'>문서</a></td></tr><tr><td>Citi Bike System Data</td><td>자전거/대중교통</td><td>불필요</td><td><a href='https://www.citibikenyc.com/system-data'>문서</a></td></tr><tr><td>Alpha Vantage</td><td>주식</td><td>키</td><td><a href='https://www.alphavantage.co/documentation/'>문서</a></td></tr><tr><td>FMP</td><td>주식/재무</td><td>회원가입+키</td><td><a href='https://site.financialmodelingprep.com/developer/docs'>문서</a></td></tr><tr><td>Finnhub</td><td>주식</td><td>회원가입+키</td><td><a href='https://finnhub.io/docs/api'>문서</a></td></tr><tr><td>금융위원회 주식시세</td><td>한국 주식</td><td>공공데이터포털 키</td><td><a href='https://www.data.go.kr/data/15094808/openapi.do'>문서</a></td></tr><tr><td>기상청 단기예보</td><td>한국 기상</td><td>공공데이터포털 키</td><td><a href='https://www.data.go.kr/data/15084084/openapi.do'>문서</a></td></tr><tr><td>Retrosheet</td><td>야구</td><td>불필요</td><td><a href='https://www.retrosheet.org/game.htm'>문서</a></td></tr></tbody></table>

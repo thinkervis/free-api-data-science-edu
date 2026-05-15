@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>서울 5년 일별 기상</title>
+<title>WHO 한국 기대수명</title>
 <style>
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.6; max-width: 1120px; }
 a { color: #0969da; }
@@ -19,25 +19,25 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 <body>
 
 <p><a href="../index.html">← 전체 목록</a></p>
-<h1>서울 5년 일별 기상</h1>
-<p><span class="badge">기상</span><span class="badge">인증: 불필요</span><span class="badge">행 수: 1826</span></p>
+<h1>WHO 한국 기대수명</h1>
+<p><span class="badge">보건/국제통계</span><span class="badge">인증: 불필요</span><span class="badge">행 수: 3</span></p>
 <div class="card">
-  <p><b>원천:</b> Open-Meteo Historical Weather API</p>
-  <p><b>설명:</b> 최근 5년치 CSV 기본 제공, --scope all로 가능한 전체 기간 요청 가능</p>
-  <p><a href="../data/open_meteo_seoul_daily_weather.csv">CSV 직접 열기</a> · <a href="https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&amp;longitude=126.9780&amp;start_date=2021-01-01&amp;end_date=2021-01-03&amp;daily=temperature_2m_max,temperature_2m_min,precipitation_sum&amp;timezone=Asia%2FSeoul">원천 API/CSV 직접 테스트</a> · <a href="https://open-meteo.com/en/docs/historical-weather-api">공식 문서</a></p>
-  <button onclick="testCsvJsonAndChart('../data/open_meteo_seoul_daily_weather.csv')">GitHub Pages에서 JSON 변환 + 시각화 테스트</button>
+  <p><b>원천:</b> WHO Global Health Observatory API</p>
+  <p><b>설명:</b> 보건/인구/국제비교 수업용. 최근 5년 범위에 값이 적을 수 있어 WHO 제공 연도 기준으로 검증</p>
+  <p><a href="../data/who_korea_life_expectancy.csv">CSV 직접 열기</a> · <a href="https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27KOR%27&amp;$top=5">원천 API/CSV 직접 테스트</a> · <a href="https://www.who.int/data/gho/info/gho-odata-api">공식 문서</a></p>
+  <button onclick="testCsvJsonAndChart('../data/who_korea_life_expectancy.csv')">GitHub Pages에서 JSON 변환 + 시각화 테스트</button>
   <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 fetch한 뒤 JSON으로 변환하고, 숫자 컬럼을 자동 시각화합니다.</pre>
   <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
 <h2>CSV 미리보기</h2>
-<table><thead><tr><th>location</th><th>latitude</th><th>longitude</th><th>time</th><th>temperature_2m_max</th><th>temperature_2m_min</th><th>temperature_2m_mean</th><th>precipitation_sum</th><th>wind_speed_10m_max</th></tr></thead><tbody><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-16</td><td>20.7</td><td>13.9</td><td>18.2</td><td>77.0</td><td>16.3</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-17</td><td>17.2</td><td>13.8</td><td>15.1</td><td>5.1</td><td>9.4</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-18</td><td>22.2</td><td>12.1</td><td>15.8</td><td>0.0</td><td>17.3</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-19</td><td>23.5</td><td>10.9</td><td>17.3</td><td>0.0</td><td>14.7</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-20</td><td>22.2</td><td>13.9</td><td>16.9</td><td>11.8</td><td>18.1</td></tr></tbody></table>
+<table><thead><tr><th>indicator</th><th>year</th><th>country</th><th>sex</th><th>value</th><th>display</th></tr></thead><tbody><tr><td>WHOSIS_000001</td><td>2021</td><td>KOR</td><td>SEX_BTSX</td><td>83.79982334</td><td>83.8 [83.8-83.9]</td></tr><tr><td>WHOSIS_000001</td><td>2021</td><td>KOR</td><td>SEX_FMLE</td><td>86.65826663</td><td>86.7 [86.6-86.8]</td></tr><tr><td>WHOSIS_000001</td><td>2021</td><td>KOR</td><td>SEX_MLE</td><td>80.70510387</td><td>80.7 [80.7-80.8]</td></tr></tbody></table>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st
 
-URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/open_meteo_seoul_daily_weather.csv&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/who_korea_life_expectancy.csv&quot;
 
-st.title(&quot;open_meteo_seoul_daily_weather.csv&quot;)
+st.title(&quot;who_korea_life_expectancy.csv&quot;)
 df = pd.read_csv(URL)
 st.write(df.shape)
 st.dataframe(df.head(100))
@@ -53,7 +53,7 @@ import network, urequests, time
 
 SSID = &quot;YOUR_WIFI&quot;
 PASSWORD = &quot;YOUR_PASSWORD&quot;
-URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/open_meteo_seoul_daily_weather.csv&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/who_korea_life_expectancy.csv&quot;
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
