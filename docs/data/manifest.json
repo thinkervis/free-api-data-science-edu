@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-05-15T23:33:03.126748+00:00",
+  "updated_at_utc": "2026-05-15T23:37:06.755796+00:00",
   "default_scope": "recent5",
   "files": [
     "data/artic_recent_artworks_sample.csv",
@@ -100,7 +100,7 @@
     },
     {
       "file": "data/nager_korea_public_holidays.csv",
-      "rows": 95,
+      "rows": 94,
       "scope": "recent5",
       "source": "https://date.nager.at/api/v3/PublicHolidays/2021/KR"
     },
