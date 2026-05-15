@@ -33,9 +33,9 @@ def range_for_scope(scope: str) -> tuple[date, date]:
     return add_years(today, -5), end
 
 
-def fetch(url: str) -> requests.Response:
+def fetch(url: str, timeouts: tuple[int, ...] = (45, 90, 150)) -> requests.Response:
     last_error: Exception | None = None
-    for timeout in (45, 90, 150):
+    for timeout in timeouts:
         try:
             r = requests.get(url, timeout=timeout, headers=HEADERS)
             r.raise_for_status()
@@ -51,8 +51,8 @@ def get_json(url: str) -> Any:
     return fetch(url).json()
 
 
-def get_text(url: str) -> str:
-    r = fetch(url)
+def get_text(url: str, timeouts: tuple[int, ...] = (45, 90, 150)) -> str:
+    r = fetch(url, timeouts=timeouts)
     try:
         return r.content.decode("utf-8")
     except UnicodeDecodeError:
@@ -230,7 +230,7 @@ def update_fred_fedfunds(scope: str) -> dict[str, Any]:
     url = "https://fred.stlouisfed.org/graph/fredgraph.csv?" + urlencode({"id": "FEDFUNDS", "cosd": start.isoformat(), "coed": end.isoformat()})
     path = DATA / "fred_fedfunds.csv"
     try:
-        text = get_text(url)
+        text = get_text(url, timeouts=(10, 20, 30))
         path.write_text(text, encoding="utf-8")
         source = url
     except RequestException as exc:
