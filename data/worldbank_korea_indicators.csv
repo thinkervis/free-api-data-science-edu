@@ -1,0 +1,21 @@
+country,countryiso3code,indicator_id,indicator,date,value
+"Korea, Rep.",KOR,NY.GDP.MKTP.CD,GDP (current US$),2021,1942313560965.9
+"Korea, Rep.",KOR,NY.GDP.MKTP.CD,GDP (current US$),2022,1799363116866.52
+"Korea, Rep.",KOR,NY.GDP.MKTP.CD,GDP (current US$),2023,1844800934391.54
+"Korea, Rep.",KOR,NY.GDP.MKTP.CD,GDP (current US$),2024,1875388209406.8
+"Korea, Rep.",KOR,NY.GDP.MKTP.CD,GDP (current US$),2025,
+"Korea, Rep.",KOR,SE.SEC.ENRR,"School enrollment, secondary (% gross)",2021,98.0692291259766
+"Korea, Rep.",KOR,SE.SEC.ENRR,"School enrollment, secondary (% gross)",2022,97.8181304931641
+"Korea, Rep.",KOR,SE.SEC.ENRR,"School enrollment, secondary (% gross)",2023,96.2983932495117
+"Korea, Rep.",KOR,SE.SEC.ENRR,"School enrollment, secondary (% gross)",2024,96.2539901733398
+"Korea, Rep.",KOR,SE.SEC.ENRR,"School enrollment, secondary (% gross)",2025,
+"Korea, Rep.",KOR,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2021,83.5268292682927
+"Korea, Rep.",KOR,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2022,82.6804878048781
+"Korea, Rep.",KOR,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2023,83.4292682926829
+"Korea, Rep.",KOR,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2024,83.6292682926829
+"Korea, Rep.",KOR,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2025,
+"Korea, Rep.",KOR,SP.POP.TOTL,"Population, total",2021,51769539
+"Korea, Rep.",KOR,SP.POP.TOTL,"Population, total",2022,51672569
+"Korea, Rep.",KOR,SP.POP.TOTL,"Population, total",2023,51712619
+"Korea, Rep.",KOR,SP.POP.TOTL,"Population, total",2024,51751065
+"Korea, Rep.",KOR,SP.POP.TOTL,"Population, total",2025,

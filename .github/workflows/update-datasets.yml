@@ -1,7 +1,16 @@
-name: Update CSV datasets
+name: Update CSV datasets and Pages
 
 on:
   workflow_dispatch:
+    inputs:
+      scope:
+        description: "Dataset range: recent5 or all"
+        required: true
+        default: "recent5"
+        type: choice
+        options:
+          - recent5
+          - all
   schedule:
     # 22:00 UTC = 07:00 KST
     - cron: "0 22 * * *"
@@ -20,9 +29,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Update datasets
-        run: python scripts/update_datasets.py
+        run: python scripts/update_datasets.py --scope "${{ github.event.inputs.scope || 'recent5' }}"
+      - name: Generate GitHub Pages
+        run: python scripts/generate_pages.py
+      - name: Validate datasets and pages
+        run: python scripts/validate_datasets.py
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore(data): update CSV datasets"
-          file_pattern: data/*.csv data/manifest.json
+          commit_message: "chore(data): update CSV datasets and pages"
+          file_pattern: data/*.csv data/manifest.json docs/**

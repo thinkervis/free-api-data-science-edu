@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>무료 데이터 과학 교육 API &amp; CSV</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.6; max-width: 1120px; }
+a { color: #0969da; }
+.card { border: 1px solid #d0d7de; border-radius: 12px; padding: 1rem; margin: 1rem 0; }
+table { border-collapse: collapse; width: 100%; overflow-x: auto; display: block; }
+th, td { border: 1px solid #d0d7de; padding: .4rem .6rem; font-size: .9rem; }
+th { background: #f6f8fa; }
+pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 8px; }
+.badge { display: inline-block; background: #eef; border-radius: 999px; padding: .15rem .55rem; margin-right: .25rem; }
+button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; background: white; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<h1>무료 데이터 과학 교육 API & CSV</h1>
+<p>모든 기본 CSV는 최근 5년치 중심으로 생성되며, <code>python3 scripts/update_datasets.py --scope all</code>로 가능한 전체 기간을 받을 수 있습니다.</p>
+<p><a href="data/manifest.json">갱신 manifest</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub repo</a></p>
+<h2>바로 테스트 가능한 데이터셋</h2>
+
+<div class="card">
+  <h2><a href="datasets/open-meteo-weather.html">서울 5년 일별 기상</a></h2>
+  <p><span class="badge">기상</span><span class="badge">불필요</span><span class="badge">1826 rows</span></p>
+  <p>최근 5년치 CSV 기본 제공, --scope all로 가능한 전체 기간 요청 가능</p>
+  <p><a href="data/open_meteo_seoul_daily_weather.csv">CSV</a> · <a href="https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&amp;longitude=126.9780&amp;start_date=2021-01-01&amp;end_date=2021-01-03&amp;daily=temperature_2m_max,temperature_2m_min,precipitation_sum&amp;timezone=Asia%2FSeoul">직접 테스트</a> · <a href="https://open-meteo.com/en/docs/historical-weather-api">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/open-meteo-air-quality.html">서울 5년 시간별 대기질</a></h2>
+  <p><span class="badge">기상/환경</span><span class="badge">불필요</span><span class="badge">43824 rows</span></p>
+  <p>시간별 데이터라 CSV가 큼. Pico W는 최근 몇 줄만 쓰는 예제로 권장</p>
+  <p><a href="data/open_meteo_seoul_air_quality_hourly.csv">CSV</a> · <a href="https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.5665&amp;longitude=126.9780&amp;hourly=pm10,pm2_5&amp;start_date=2021-01-01&amp;end_date=2021-01-03&amp;timezone=Asia%2FSeoul">직접 테스트</a> · <a href="https://open-meteo.com/en/docs/air-quality-api">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/worldbank-korea.html">한국 5년 World Bank 지표</a></h2>
+  <p><span class="badge">인구/경제/교육/보건</span><span class="badge">불필요</span><span class="badge">20 rows</span></p>
+  <p>인구/GDP/기대수명/중등교육 등록률 포함</p>
+  <p><a href="data/worldbank_korea_indicators.csv">CSV</a> · <a href="https://api.worldbank.org/v2/country/KOR/indicator/SP.POP.TOTL?format=json&amp;date=2021:2025">직접 테스트</a> · <a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/usgs-earthquakes.html">전세계 규모 6+ 지진 5년</a></h2>
+  <p><span class="badge">지질/지도</span><span class="badge">불필요</span><span class="badge">652 rows</span></p>
+  <p>지도 시각화/GeoJSON 수업에 적합</p>
+  <p><a href="data/usgs_major_earthquakes.csv">CSV</a> · <a href="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&amp;starttime=2021-01-01&amp;endtime=2021-01-31&amp;minmagnitude=6">직접 테스트</a> · <a href="https://earthquake.usgs.gov/fdsnws/event/1/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/mlb-schedule.html">MLB 경기 일정/결과 5년</a></h2>
+  <p><span class="badge">야구/스포츠</span><span class="badge">불필요</span><span class="badge">2782 rows</span></p>
+  <p>스코어보드, 승률, 팀별 득점 분석 가능</p>
+  <p><a href="data/mlb_schedule.csv">CSV</a> · <a href="https://statsapi.mlb.com/api/v1/schedule?sportId=1&amp;date=2024-03-28">직접 테스트</a> · <a href="https://github.com/toddrob99/MLB-StatsAPI/wiki">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/fred-fedfunds.html">미국 기준금리 5년</a></h2>
+  <p><span class="badge">경제/금융</span><span class="badge">CSV 다운로드는 불필요 / 정식 API는 키 필요</span><span class="badge">60 rows</span></p>
+  <p>CSV 엔드포인트로 금리 시계열을 바로 읽을 수 있음</p>
+  <p><a href="data/fred_fedfunds.csv">CSV</a> · <a href="https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS&amp;cosd=2021-01-01&amp;coed=2026-05-15">직접 테스트</a> · <a href="https://fred.stlouisfed.org/docs/api/fred/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/owid-co2.html">한국/세계 CO₂ 배출량</a></h2>
+  <p><span class="badge">환경/에너지</span><span class="badge">불필요</span><span class="badge">8 rows</span></p>
+  <p>기본은 최근 5년, --scope all로 전체 역사 범위 필터 가능</p>
+  <p><a href="data/owid_co2_korea_world.csv">CSV</a> · <a href="https://ourworldindata.org/grapher/annual-co2-emissions-per-country.csv">직접 테스트</a> · <a href="https://docs.owid.io/projects/etl/api/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/gbif-korea.html">한국 생물종 관측 샘플</a></h2>
+  <p><span class="badge">생태/생물다양성</span><span class="badge">불필요</span><span class="badge">300 rows</span></p>
+  <p>위치 기반 생물종 관측 지도 샘플. 기본 300건 제한</p>
+  <p><a href="data/gbif_korea_occurrences_sample.csv">CSV</a> · <a href="https://api.gbif.org/v1/occurrence/search?country=KR&amp;limit=3">직접 테스트</a> · <a href="https://techdocs.gbif.org/en/openapi/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/artic-artworks.html">최근 5년 미술 작품 샘플</a></h2>
+  <p><span class="badge">문화/예술</span><span class="badge">불필요</span><span class="badge">100 rows</span></p>
+  <p>문화 데이터 검색/분류/카드 UI 예제로 적합</p>
+  <p><a href="data/artic_recent_artworks_sample.csv">CSV</a> · <a href="https://api.artic.edu/api/v1/artworks/search?q=monet&amp;fields=id,title,artist_title,date_display&amp;limit=3">직접 테스트</a> · <a href="https://api.artic.edu/docs/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/seoul-bike.html">서울 따릉이 샘플</a></h2>
+  <p><span class="badge">대중교통/도시</span><span class="badge">샘플키 가능 / 정식은 무료 키 권장</span><span class="badge">5 rows</span></p>
+  <p>샘플키는 5건 제한. 정식키로 전체 대여소 자동화 가능</p>
+  <p><a href="data/seoul_bike_sample.csv">CSV</a> · <a href="http://openapi.seoul.go.kr:8088/sample/json/bikeList/1/5/">직접 테스트</a> · <a href="https://data.seoul.go.kr/">공식 문서</a></p>
+</div>
+<h2>추가 API 후보</h2>
+<table><thead><tr><th>이름</th><th>분야</th><th>인증</th><th>공식 문서</th></tr></thead><tbody><tr><td>NASA POWER</td><td>기상/태양광/에너지</td><td>불필요</td><td><a href='https://power.larc.nasa.gov/docs/services/api/'>문서</a></td></tr><tr><td>NOAA CO-OPS</td><td>해양/조위/기상</td><td>불필요</td><td><a href='https://api.tidesandcurrents.noaa.gov/api/prod/'>문서</a></td></tr><tr><td>U.S. Census ACS 5-Year</td><td>인구/교육/소득</td><td>키 선택</td><td><a href='https://www.census.gov/data/developers/data-sets/acs-5year.html'>문서</a></td></tr><tr><td>BLS Public Data</td><td>노동/물가</td><td>제한 내 불필요</td><td><a href='https://www.bls.gov/developers/api_signature_v2.htm'>문서</a></td></tr><tr><td>WHO GHO</td><td>보건</td><td>불필요</td><td><a href='https://ghoapi.azureedge.net/api'>문서</a></td></tr><tr><td>CDC/Socrata</td><td>보건/공공데이터</td><td>토큰 선택</td><td><a href='https://dev.socrata.com/'>문서</a></td></tr><tr><td>GB Carbon Intensity</td><td>에너지/탄소</td><td>불필요</td><td><a href='https://carbon-intensity.github.io/api-definitions/'>문서</a></td></tr><tr><td>EIA Open Data</td><td>에너지</td><td>무료 키</td><td><a href='https://www.eia.gov/opendata/documentation.php'>문서</a></td></tr><tr><td>서울 실시간 도시데이터</td><td>유동인구/도시</td><td>샘플키/무료키</td><td><a href='https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 생활인구</td><td>유동인구</td><td>파일 다운로드</td><td><a href='https://data.seoul.go.kr/dataList/OA-14991/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 지하철 승하차</td><td>대중교통</td><td>파일 다운로드</td><td><a href='https://data.seoul.go.kr/dataList/OA-12914/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 시간별 대기질</td><td>대기질</td><td>샘플키/무료키</td><td><a href='https://data.seoul.go.kr/'>문서</a></td></tr><tr><td>Korea TourAPI</td><td>관광/문화</td><td>공공데이터 키</td><td><a href='https://api.visitkorea.or.kr/'>문서</a></td></tr><tr><td>KOSIS</td><td>한국 인구통계</td><td>무료 키</td><td><a href='https://kosis.kr/openapi/index/index.jsp'>문서</a></td></tr><tr><td>한국은행 ECOS</td><td>경제/금융</td><td>무료 키</td><td><a href='https://ecos.bok.or.kr/api/#/'>문서</a></td></tr><tr><td>TMDB</td><td>영화</td><td>회원가입+키</td><td><a href='https://developer.themoviedb.org/docs/getting-started'>문서</a></td></tr><tr><td>OMDb</td><td>영화</td><td>키</td><td><a href='https://www.omdbapi.com/'>문서</a></td></tr><tr><td>IMDb Non-Commercial Datasets</td><td>영화</td><td>불필요/비상업 약관</td><td><a href='https://developer.imdb.com/non-commercial-datasets/'>문서</a></td></tr><tr><td>Met Museum Collection</td><td>문화/예술</td><td>불필요</td><td><a href='https://metmuseum.github.io/'>문서</a></td></tr><tr><td>Nominatim</td><td>지도</td><td>불필요/정책 준수</td><td><a href='https://nominatim.org/release-docs/latest/api/Overview/'>문서</a></td></tr><tr><td>Overpass API</td><td>지도/POI</td><td>불필요/정책 준수</td><td><a href='https://wiki.openstreetmap.org/wiki/Overpass_API'>문서</a></td></tr><tr><td>Kakao Local</td><td>한국 지도</td><td>회원가입+키</td><td><a href='https://developers.kakao.com/docs/latest/ko/local/dev-guide'>문서</a></td></tr><tr><td>Google Maps</td><td>지도</td><td>키+결제 가능성</td><td><a href='https://developers.google.com/maps/documentation/javascript/get-api-key'>문서</a></td></tr><tr><td>Citi Bike System Data</td><td>자전거/대중교통</td><td>불필요</td><td><a href='https://www.citibikenyc.com/system-data'>문서</a></td></tr><tr><td>Alpha Vantage</td><td>주식</td><td>키</td><td><a href='https://www.alphavantage.co/documentation/'>문서</a></td></tr><tr><td>FMP</td><td>주식/재무</td><td>회원가입+키</td><td><a href='https://site.financialmodelingprep.com/developer/docs'>문서</a></td></tr><tr><td>Finnhub</td><td>주식</td><td>회원가입+키</td><td><a href='https://finnhub.io/docs/api'>문서</a></td></tr><tr><td>금융위원회 주식시세</td><td>한국 주식</td><td>공공데이터포털 키</td><td><a href='https://www.data.go.kr/data/15094808/openapi.do'>문서</a></td></tr><tr><td>기상청 단기예보</td><td>한국 기상</td><td>공공데이터포털 키</td><td><a href='https://www.data.go.kr/data/15084084/openapi.do'>문서</a></td></tr><tr><td>Retrosheet</td><td>야구</td><td>불필요</td><td><a href='https://www.retrosheet.org/game.htm'>문서</a></td></tr></tbody></table>
+
+</body>
+</html>

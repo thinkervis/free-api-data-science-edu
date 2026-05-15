@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>미국 기준금리 5년</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.6; max-width: 1120px; }
+a { color: #0969da; }
+.card { border: 1px solid #d0d7de; border-radius: 12px; padding: 1rem; margin: 1rem 0; }
+table { border-collapse: collapse; width: 100%; overflow-x: auto; display: block; }
+th, td { border: 1px solid #d0d7de; padding: .4rem .6rem; font-size: .9rem; }
+th { background: #f6f8fa; }
+pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 8px; }
+.badge { display: inline-block; background: #eef; border-radius: 999px; padding: .15rem .55rem; margin-right: .25rem; }
+button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; background: white; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<p><a href="../index.html">← 전체 목록</a></p>
+<h1>미국 기준금리 5년</h1>
+<p><span class="badge">경제/금융</span><span class="badge">인증: CSV 다운로드는 불필요 / 정식 API는 키 필요</span><span class="badge">행 수: 60</span></p>
+<div class="card">
+  <p><b>원천:</b> FRED CSV</p>
+  <p><b>설명:</b> CSV 엔드포인트로 금리 시계열을 바로 읽을 수 있음</p>
+  <p><a href="../data/fred_fedfunds.csv">CSV 직접 열기</a> · <a href="https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS&amp;cosd=2021-01-01&amp;coed=2026-05-15">원천 API/CSV 직접 테스트</a> · <a href="https://fred.stlouisfed.org/docs/api/fred/">공식 문서</a></p>
+  <button onclick="testCsv('../data/fred_fedfunds.csv')">GitHub Pages에서 CSV fetch 테스트</button>
+  <pre id="test-output">버튼을 누르면 이 페이지에서 직접 CSV를 fetch합니다.</pre>
+</div>
+<h2>CSV 미리보기</h2>
+<table><thead><tr><th>observation_date</th><th>FEDFUNDS</th></tr></thead><tbody><tr><td>2021-05-01</td><td>0.06</td></tr><tr><td>2021-06-01</td><td>0.08</td></tr><tr><td>2021-07-01</td><td>0.10</td></tr><tr><td>2021-08-01</td><td>0.09</td></tr><tr><td>2021-09-01</td><td>0.08</td></tr></tbody></table>
+<h2>Streamlit 기본 코드</h2>
+<pre>import pandas as pd
+import streamlit as st
+
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/fred_fedfunds.csv&quot;
+
+st.title(&quot;fred_fedfunds.csv&quot;)
+df = pd.read_csv(URL)
+st.write(df.shape)
+st.dataframe(df.head(100))
+
+# 숫자 컬럼이 있으면 빠르게 차트 확인
+num_cols = df.select_dtypes(&quot;number&quot;).columns.tolist()
+if num_cols:
+    st.line_chart(df[num_cols[:3]])
+</pre>
+<h2>Pico W 기본 코드</h2>
+<pre># Raspberry Pi Pico W / MicroPython basic CSV fetch
+import network, urequests, time
+
+SSID = &quot;YOUR_WIFI&quot;
+PASSWORD = &quot;YOUR_PASSWORD&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/fred_fedfunds.csv&quot;
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(SSID, PASSWORD)
+while not wlan.isconnected():
+    time.sleep(1)
+
+r = urequests.get(URL)
+text = r.text
+r.close()
+
+# 메모리 보호: 앞부분만 확인
+lines = text.split(&quot;\n&quot;)[:6]
+for line in lines:
+    print(line)
+</pre>
+<script>
+async function testCsv(url) {
+  const out = document.getElementById('test-output');
+  try {
+    const r = await fetch(url);
+    const text = await r.text();
+    const lines = text.trim().split(/
+/);
+    out.textContent = `status=${r.status} bytes=${text.length} rows≈${Math.max(0, lines.length - 1)}
+` + lines.slice(0, 4).join('
+');
+  } catch (e) {
+    out.textContent = 'ERROR: ' + e;
+  }
+}
+</script>
+
+</body>
+</html>

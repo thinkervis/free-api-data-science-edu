@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>한국 5년 World Bank 지표</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.6; max-width: 1120px; }
+a { color: #0969da; }
+.card { border: 1px solid #d0d7de; border-radius: 12px; padding: 1rem; margin: 1rem 0; }
+table { border-collapse: collapse; width: 100%; overflow-x: auto; display: block; }
+th, td { border: 1px solid #d0d7de; padding: .4rem .6rem; font-size: .9rem; }
+th { background: #f6f8fa; }
+pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 8px; }
+.badge { display: inline-block; background: #eef; border-radius: 999px; padding: .15rem .55rem; margin-right: .25rem; }
+button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; background: white; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<p><a href="../index.html">← 전체 목록</a></p>
+<h1>한국 5년 World Bank 지표</h1>
+<p><span class="badge">인구/경제/교육/보건</span><span class="badge">인증: 불필요</span><span class="badge">행 수: 20</span></p>
+<div class="card">
+  <p><b>원천:</b> World Bank Indicators API</p>
+  <p><b>설명:</b> 인구/GDP/기대수명/중등교육 등록률 포함</p>
+  <p><a href="../data/worldbank_korea_indicators.csv">CSV 직접 열기</a> · <a href="https://api.worldbank.org/v2/country/KOR/indicator/SP.POP.TOTL?format=json&amp;date=2021:2025">원천 API/CSV 직접 테스트</a> · <a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation">공식 문서</a></p>
+  <button onclick="testCsv('../data/worldbank_korea_indicators.csv')">GitHub Pages에서 CSV fetch 테스트</button>
+  <pre id="test-output">버튼을 누르면 이 페이지에서 직접 CSV를 fetch합니다.</pre>
+</div>
+<h2>CSV 미리보기</h2>
+<table><thead><tr><th>country</th><th>countryiso3code</th><th>indicator_id</th><th>indicator</th><th>date</th><th>value</th></tr></thead><tbody><tr><td>Korea, Rep.</td><td>KOR</td><td>NY.GDP.MKTP.CD</td><td>GDP (current US$)</td><td>2021</td><td>1942313560965.9</td></tr><tr><td>Korea, Rep.</td><td>KOR</td><td>NY.GDP.MKTP.CD</td><td>GDP (current US$)</td><td>2022</td><td>1799363116866.52</td></tr><tr><td>Korea, Rep.</td><td>KOR</td><td>NY.GDP.MKTP.CD</td><td>GDP (current US$)</td><td>2023</td><td>1844800934391.54</td></tr><tr><td>Korea, Rep.</td><td>KOR</td><td>NY.GDP.MKTP.CD</td><td>GDP (current US$)</td><td>2024</td><td>1875388209406.8</td></tr><tr><td>Korea, Rep.</td><td>KOR</td><td>NY.GDP.MKTP.CD</td><td>GDP (current US$)</td><td>2025</td><td></td></tr></tbody></table>
+<h2>Streamlit 기본 코드</h2>
+<pre>import pandas as pd
+import streamlit as st
+
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/worldbank_korea_indicators.csv&quot;
+
+st.title(&quot;worldbank_korea_indicators.csv&quot;)
+df = pd.read_csv(URL)
+st.write(df.shape)
+st.dataframe(df.head(100))
+
+# 숫자 컬럼이 있으면 빠르게 차트 확인
+num_cols = df.select_dtypes(&quot;number&quot;).columns.tolist()
+if num_cols:
+    st.line_chart(df[num_cols[:3]])
+</pre>
+<h2>Pico W 기본 코드</h2>
+<pre># Raspberry Pi Pico W / MicroPython basic CSV fetch
+import network, urequests, time
+
+SSID = &quot;YOUR_WIFI&quot;
+PASSWORD = &quot;YOUR_PASSWORD&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/worldbank_korea_indicators.csv&quot;
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(SSID, PASSWORD)
+while not wlan.isconnected():
+    time.sleep(1)
+
+r = urequests.get(URL)
+text = r.text
+r.close()
+
+# 메모리 보호: 앞부분만 확인
+lines = text.split(&quot;\n&quot;)[:6]
+for line in lines:
+    print(line)
+</pre>
+<script>
+async function testCsv(url) {
+  const out = document.getElementById('test-output');
+  try {
+    const r = await fetch(url);
+    const text = await r.text();
+    const lines = text.trim().split(/
+/);
+    out.textContent = `status=${r.status} bytes=${text.length} rows≈${Math.max(0, lines.length - 1)}
+` + lines.slice(0, 4).join('
+');
+  } catch (e) {
+    out.textContent = 'ERROR: ' + e;
+  }
+}
+</script>
+
+</body>
+</html>

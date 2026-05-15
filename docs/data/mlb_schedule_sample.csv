@@ -1,0 +1,16 @@
+date,gamePk,gameDate,status,away_team,home_team,away_score,home_score
+2024-03-28,747060,2024-03-28T19:05:00Z,Final,Los Angeles Angels,Baltimore Orioles,3,11
+2024-03-28,746737,2024-03-28T20:10:00Z,Final,Washington Nationals,Cincinnati Reds,2,8
+2024-03-28,745445,2024-03-28T20:10:00Z,Final,San Francisco Giants,San Diego Padres,4,6
+2024-03-28,746165,2024-03-28T20:10:00Z,Final,St. Louis Cardinals,Los Angeles Dodgers,1,7
+2024-03-28,745116,2024-03-28T20:10:00Z,Final,Toronto Blue Jays,Tampa Bay Rays,8,2
+2024-03-28,746335,2024-03-28T20:10:00Z,Final,Minnesota Twins,Kansas City Royals,4,1
+2024-03-28,746821,2024-03-28T20:10:00Z,Final,Detroit Tigers,Chicago White Sox,1,0
+2024-03-28,746089,2024-03-28T20:10:00Z,Final,Pittsburgh Pirates,Miami Marlins,6,5
+2024-03-28,746418,2024-03-28T20:10:00Z,Final,New York Yankees,Houston Astros,5,4
+2024-03-28,745039,2024-03-28T23:35:00Z,Final,Chicago Cubs,Texas Rangers,3,4
+2024-03-28,745687,2024-03-29T02:07:00Z,Final,Cleveland Guardians,Oakland Athletics,8,0
+2024-03-28,747224,2024-03-29T02:10:00Z,Final,Colorado Rockies,Arizona Diamondbacks,1,16
+2024-03-28,745283,2024-03-29T02:10:00Z,Final,Boston Red Sox,Seattle Mariners,6,4
+2024-03-28,745848,2024-03-28T17:10:00Z,Postponed,Milwaukee Brewers,New York Mets,,
+2024-03-28,745604,2024-03-28T19:05:00Z,Postponed,Atlanta Braves,Philadelphia Phillies,,
