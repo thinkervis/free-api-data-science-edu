@@ -39,6 +39,10 @@ streamlit run examples/streamlit_app/app.py
 | 한국 | 공공데이터포털 기상청 단기예보 | 한국 날씨 | 무료 인증키 필요 | 공식 문서 확인 |
 | 한국 | 한국은행 ECOS | 거시경제/금리/환율 | 무료 인증키, sample 호출 가능 | 문서/샘플 확인 |
 | 한국 | 공공데이터포털 금융위원회 주식시세 | 한국 주식 | 무료 활용신청 + 서비스키 | 공식 문서 확인 |
+| 대중교통 | 서울 버스도착정보 | 버스 도착/혼잡도 | 무료 활용신청 + 서비스키 | 공식 문서 확인 |
+| 인구 | KOSIS/행안부 후보 | 한국 인구/지역통계 | 확인 필요 | 공식 포털 확인 |
+| 야구 | MLB Stats API | 경기 일정/결과 | 불필요 | 직접 테스트 가능 |
+| 유동인구 | 서울 생활인구/상권 후보 | 시간대별 유동인구 | 확인 필요 | 공식 포털 확인 |
 
 ## 세부 문서
 
@@ -49,6 +53,11 @@ streamlit run examples/streamlit_app/app.py
 - `apis/maps.md` — 지도/지오코딩 API
 - `apis/stocks.md` — 주식/금융 API
 - `apis/use-cases.md` — Streamlit/Pico W 프로젝트 아이디어
+- `apis/brainstorm.md` — 수업 주제 브레인스토밍
+- `apis/transit.md` — 대중교통 API
+- `apis/population.md` — 인구 API
+- `apis/baseball.md` — 야구 API
+- `apis/foot-traffic.md` — 유동인구 API
 
 ## 수업 아이디어
 
@@ -60,6 +69,7 @@ streamlit run examples/streamlit_app/app.py
 - 영화 검색/추천 미니앱
 - 주식 이동평균/수익률 대시보드
 - 주소 검색 후 지도 표시/거리 계산
+- 버스 도착/야구 스코어보드/유동인구 히트맵
 - Pico W로 현재 날씨/공공 데이터 받아 OLED 또는 시리얼 출력
 
 ## 레포 상태

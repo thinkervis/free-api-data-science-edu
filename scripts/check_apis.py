@@ -10,6 +10,7 @@ APIS = [
     ("Seoul Bike sample", "http://openapi.seoul.go.kr:8088/sample/json/bikeList/1/5/"),
     ("Nominatim", "https://nominatim.openstreetmap.org/search?q=Seoul%20City%20Hall&format=json&limit=1"),
     ("Stooq CSV", "https://stooq.com/q/l/?s=aapl.us&f=sd2t2ohlcv&h&e=csv"),
+    ("MLB Schedule", "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2024-03-28"),
 ]
 
 HEADERS = {"User-Agent": "free-api-data-science-edu/0.1 educational-test"}
