@@ -1,0 +1,6 @@
+Seoul administrative division GeoJSON
+Source repository: https://github.com/southkorea/seoul-maps
+Files used:
+- kostat/2013/json/seoul_municipalities_geo_simple.json
+- juso/2015/json/seoul_neighborhoods_geo_simple.json
+Upstream sources noted by repository: KOSTAT census administrative boundaries, JUSO/Seoul open data administrative divisions.

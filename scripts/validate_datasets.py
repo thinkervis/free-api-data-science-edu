@@ -38,6 +38,8 @@ MIN_ROWS = {
     "nominatim_seoul_landmarks.csv": 5,
     "seoul_realtime_citydata_sample.csv": 3,
     "seoul_realtime_air_quality.csv": 5,
+    "seoul_district_wikidata_population.csv": 25,
+    "korea_sido_wikidata_population.csv": 17,
 }
 
 

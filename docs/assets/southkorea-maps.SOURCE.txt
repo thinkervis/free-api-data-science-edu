@@ -1,0 +1,5 @@
+South Korea administrative division GeoJSON
+Source repository: https://github.com/southkorea/southkorea-maps
+File used:
+- kostat/2013/json/skorea_provinces_geo_simple.json
+Upstream source noted by repository: KOSTAT census administrative boundaries.

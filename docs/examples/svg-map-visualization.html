@@ -3,17 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>실 SVG 지도 + 실 데이터 시각화</title>
+<title>지도 데이터 유형별 샘플</title>
 <style>
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.6; max-width: 1120px; }
-a { color: #0969da; }
-.card { border: 1px solid #d0d7de; border-radius: 12px; padding: 1rem; margin: 1rem 0; }
+* { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: clamp(1rem, 4vw, 2rem); line-height: 1.6; max-width: 1120px; overflow-x: hidden; }
+a { color: #0969da; overflow-wrap: anywhere; }
+h1, h2, h3, p, li, div { overflow-wrap: anywhere; word-break: keep-all; }
+.card { border: 1px solid #d0d7de; border-radius: 12px; padding: 1rem; margin: 1rem 0; max-width: 100%; min-width: 0; }
+select, button { max-width: 100%; }
+label { max-width: 100%; }
 table { border-collapse: collapse; width: 100%; overflow-x: auto; display: block; }
 th, td { border: 1px solid #d0d7de; padding: .4rem .6rem; font-size: .9rem; }
 th { background: #f6f8fa; }
 pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 8px; }
 .badge { display: inline-block; background: #eef; border-radius: 999px; padding: .15rem .55rem; margin-right: .25rem; }
 button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; background: white; cursor: pointer; }
+@media (max-width: 760px) { body { width: auto; max-width: none; margin: .75rem; } select, button { width: 100%; } label { display: block; margin: .45rem 0; } .js-plotly-plot, .plot-container, .svg-container { max-width: 100% !important; } }
 .dataset-toolbar { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin: 1rem 0; }
 .dataset-card { position: relative; }
 .like-button { border-color: #ffb3c1; color: #c9184a; font-weight: 700; }
@@ -25,25 +31,27 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 <body>
 
 <p><a href="../index.html">← 전체 목록</a></p>
-<h1>실 SVG 지도 + 실 데이터 시각화</h1>
-<p>위키미디어 커먼즈의 실제 대한민국 행정구역 SVG를 불러오고, 배포 CSV의 실제 지표와 지역명을 매핑해 색칠합니다. 좌표형 데이터는 OpenStreetMap 배경 위에 실제 위도·경도로 표시합니다.</p>
+<h1>지도 데이터 유형별 샘플</h1>
+<p>자료를 검토한 결과, 모든 지도를 SVG 하나로 처리하기보다 데이터 유형별로 맞는 방식을 나누는 것이 가장 정확합니다. 행정구역 단위 데이터는 경계 지도, 위도·경도 데이터는 점 지도로 시각화합니다.</p>
 <div class="card">
-  <h2>1) 실제 행정구역 SVG 색칠 지도</h2>
+  <h2>1) 행정구역 단위 데이터: 색칠 지도</h2>
   <p>
-    <label>데이터 선택 <select id="svg-metric-select">
-      <option value="cai_index">서울 실시간 대기질: 통합대기환경지수</option>
-      <option value="pm10">서울 실시간 대기질: PM10</option>
-      <option value="pm25">서울 실시간 대기질: PM2.5</option>
+    <label>지도 범위 <select id="boundary-map-kind">
+      <option value="seoul-gu">서울 구별</option>
+      <option value="seoul-dong">서울 동별</option>
+      <option value="korea-sido">전국 광역시도별</option>
     </select></label>
-    <button id="reload-svg-map" type="button">SVG 다시 그리기</button>
+    <label>데이터 선택 <select id="svg-metric-select"></select></label>
+    <button id="reload-svg-map" type="button">지도 다시 그리기</button>
   </p>
   <p id="svg-map-summary" class="small-muted">데이터를 불러오는 중입니다…</p>
   <div id="svg-map" class="real-svg-map"></div>
+  <div id="boundary-plot" style="height:620px;display:none"></div>
   <div id="svg-legend" class="small-muted"></div>
-  <p class="small-muted">SVG 출처: Wikimedia Commons, <a href="https://commons.wikimedia.org/wiki/File:Administrative_divisions_map_of_South_Korea.svg">Administrative divisions map of South Korea.svg</a>, Dmthoth, CC BY-SA 3.0. 현재 샘플키 데이터는 서울 일부 측정소만 포함하므로 해당 구만 강조됩니다.</p>
+  <p class="small-muted">경계 출처: Wikimedia Commons 행정구역 SVG 및 southkorea/seoul-maps GeoJSON. 데이터 출처: Wikidata SPARQL(P1082 인구, P2046 면적), GeoJSON 속성값. 출처 상세는 assets/*.SOURCE.txt에 기록했습니다.</p>
 </div>
 <div class="card">
-  <h2>2) 실제 좌표 데이터 지도</h2>
+  <h2>2) 위도·경도 위치 데이터: 점 지도</h2>
   <p>
     <select id="point-dataset-select" aria-label="지도에 표시할 좌표 데이터 선택"></select>
     <button id="reload-point-map" type="button">지도 다시 그리기</button>
@@ -53,12 +61,17 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
   <div id="point-preview"></div>
 </div>
 <style>
-.real-svg-map{border:1px solid #d0d7de;border-radius:12px;padding:1rem;overflow:auto;background:#f6f8fa}.real-svg-map svg{max-width:100%;height:auto}.small-muted{color:#6e7781;font-size:.95rem}#point-map{border:1px solid #d0d7de;border-radius:12px;overflow:hidden}#point-preview table{margin-top:1rem}.map-hit{stroke:#24292f!important;stroke-width:.6!important;cursor:pointer}.map-muted{fill:#eaeef2!important;stroke:#fff!important;stroke-width:.5!important}
-@media(max-width:760px){#point-map{height:520px}}
+.real-svg-map{border:1px solid #d0d7de;border-radius:12px;padding:clamp(.25rem,1.5vw,.75rem);overflow:hidden;background:#f6f8fa;max-width:100%}.real-svg-map svg{display:block;width:100%;max-width:100%;height:auto}.boundary-svg{touch-action:manipulation}.boundary-region{cursor:pointer}.boundary-region:hover{stroke:#24292f;stroke-width:2}.small-muted{color:#6e7781;font-size:.95rem}#point-map{border:1px solid #d0d7de;border-radius:12px;overflow:hidden}#point-preview table{margin-top:1rem}.map-hit{stroke:#24292f!important;stroke-width:.6!important;cursor:pointer}.map-muted{fill:#eaeef2!important;stroke:#fff!important;stroke-width:.5!important}
+@media(max-width:760px){#point-map,#boundary-plot{height:420px!important}.card{padding:.8rem}button{margin-top:.35rem}#svg-legend div{flex-wrap:wrap}#svg-legend span:nth-child(2){width:120px!important}}
 </style>
 <script>
 const SVG_URL = '../assets/administrative-divisions-south-korea.svg';
-const SEOUL_AIR_CSV = '../data/seoul_realtime_air_quality.csv';
+const SEOUL_DISTRICT_CSV = '../data/seoul_district_wikidata_population.csv';
+const KOREA_SIDO_CSV = '../data/korea_sido_wikidata_population.csv';
+const SEOUL_GU_GEOJSON = '../assets/seoul_municipalities_geo_simple.json';
+const SEOUL_DONG_GEOJSON = '../assets/seoul_neighborhoods_geo_simple.json';
+const KOREA_SIDO_GEOJSON = '../assets/skorea_provinces_geo_simple.json';
+if(window.Plotly && Plotly.setPlotConfig){Plotly.setPlotConfig({mapboxAccessToken:null});}
 const POINT_DATASETS = [
   {id:'usgs-earthquakes', label:'전세계 규모 6+ 지진 위치', csv:'../data/usgs_major_earthquakes.csv', lat:'latitude', lon:'longitude', text:'place', size:'magnitude', color:'depth_km', colorTitle:'깊이(km)', sizeLabel:'규모', zoom:1, center:{lat:20, lon:0}, note:'USGS 지진 API: 규모와 깊이로 전세계 지진 분포를 확인'},
   {id:'gbif-korea', label:'한국 생물종 관측 위치', csv:'../data/gbif_korea_occurrences_sample.csv', lat:'decimalLatitude', lon:'decimalLongitude', text:'scientificName', subtext:'locality', color:'year', colorTitle:'관측연도', zoom:6, center:{lat:36.4, lon:127.8}, note:'GBIF 관측 좌표: 한국 생물다양성 관측 위치'},
@@ -74,24 +87,60 @@ async function csv(path){return toObjects(parseCsvRows(await fetch(path).then(r=
 function num(v){const n=Number(v);return Number.isFinite(n)?n:null;}
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function colorScale(v,min,max){if(v===null)return '#eaeef2';const t=max===min?.7:(v-min)/(max-min);const r=Math.round(255-(255-9)*t),g=Math.round(245-(245-105)*t),b=Math.round(235-(235-218)*t);return `rgb(${r},${g},${b})`;}
+function geoBounds(geo){
+  const pts=[];
+  function walk(c){ if(typeof c[0]==='number') pts.push(c); else c.forEach(walk); }
+  geo.features.forEach(f=>walk(f.geometry.coordinates));
+  return {minLon:Math.min(...pts.map(p=>p[0])), maxLon:Math.max(...pts.map(p=>p[0])), minLat:Math.min(...pts.map(p=>p[1])), maxLat:Math.max(...pts.map(p=>p[1]))};
+}
+function ringPath(ring,b,w,h){return ring.map((p,i)=>{const x=(p[0]-b.minLon)/(b.maxLon-b.minLon)*w; const y=(b.maxLat-p[1])/(b.maxLat-b.minLat)*h; return (i?'L':'M')+x.toFixed(2)+' '+y.toFixed(2);}).join(' ')+' Z';}
+function featurePath(f,b,w,h){const g=f.geometry; if(!g)return ''; if(g.type==='Polygon')return g.coordinates.map(r=>ringPath(r,b,w,h)).join(' '); if(g.type==='MultiPolygon')return g.coordinates.flatMap(poly=>poly.map(r=>ringPath(r,b,w,h))).join(' '); return '';}
 async function drawSvgMap(){
-  const metric=document.getElementById('svg-metric-select').value;
-  const [svgText, rows]=await Promise.all([fetch(SVG_URL).then(r=>r.text()), csv(SEOUL_AIR_CSV)]);
-  const wrap=document.getElementById('svg-map'); wrap.innerHTML=svgText;
-  const svg=wrap.querySelector('svg'); if(svg){svg.removeAttribute('width');svg.removeAttribute('height');svg.setAttribute('role','img');svg.setAttribute('aria-label','실제 대한민국 행정구역 SVG 지도');}
-  wrap.querySelectorAll('path, polygon, polyline').forEach(el=>el.classList.add('map-muted'));
-  const values=rows.map(r=>num(r[metric])).filter(v=>v!==null); const min=Math.min(...values), max=Math.max(...values);
-  let hit=0; const matched=[];
-  rows.forEach(r=>{const district=r.station; const v=num(r[metric]); if(!district||v===null)return; const el=wrap.querySelector('#'+CSS.escape(district)); if(!el)return; el.classList.remove('map-muted'); el.classList.add('map-hit'); el.style.fill=colorScale(v,min,max); el.dataset.value=v; el.dataset.label=`${district}: ${metric}=${v}`; el.addEventListener('click',()=>document.getElementById('svg-map-summary').textContent=`${district} · ${metric}=${v} · 측정시각 ${r.measured_at} · 측정소 ${r.station}`); matched.push(el); hit++;});
-  if(svg && matched.length){
-    const boxes=matched.map(el=>el.getBBox());
-    const x=Math.min(...boxes.map(b=>b.x)), y=Math.min(...boxes.map(b=>b.y));
-    const r=Math.max(...boxes.map(b=>b.x+b.width)), b=Math.max(...boxes.map(b=>b.y+b.height));
-    const pad=Math.max(r-x,b-y)*1.5;
-    svg.setAttribute('viewBox', `${x-pad} ${y-pad} ${(r-x)+pad*2} ${(b-y)+pad*2}`);
+  const kind=document.getElementById('boundary-map-kind').value;
+  const metricSelect=document.getElementById('svg-metric-select');
+  const metricOptions={
+    'seoul-gu': [['population','인구(명)'],['area_km2','면적(km²)'],['population_density_per_km2','인구밀도(명/km²)']],
+    'korea-sido': [['population','인구(명)'],['area_km2','면적(km²)'],['population_density_per_km2','인구밀도(명/km²)']],
+    'seoul-dong': [['shape_area','경계 면적(GeoJSON SHAPE_AREA)'],['shape_len','경계 둘레(GeoJSON SHAPE_LEN)']]
+  };
+  const current=metricSelect.value;
+  metricSelect.innerHTML=metricOptions[kind].map(([v,l])=>`<option value="${v}">${l}</option>`).join('');
+  if(metricOptions[kind].some(([v])=>v===current)) metricSelect.value=current;
+  const metric=metricSelect.value;
+  const metricLabel=Object.fromEntries(metricOptions[kind])[metric]||metric;
+  const svgBox=document.getElementById('svg-map');
+  const boundaryPlot=document.getElementById('boundary-plot');
+  boundaryPlot.style.display='none'; svgBox.style.display='block';
+  let geo, rows, title, sourceNote;
+  if(kind==='seoul-gu'){
+    [geo, rows]=await Promise.all([fetch(SEOUL_GU_GEOJSON).then(r=>r.json()), csv(SEOUL_DISTRICT_CSV)]);
+    geo.features.forEach(f=>f.id=f.properties.name);
+    rows=rows.map(r=>({id:r.district, name:r.district, value:num(r[metric]), population:r.population, area_km2:r.area_km2, wikidata_id:r.wikidata_id})).filter(r=>r.value!==null);
+    title='서울 25개 자치구별 '+metricLabel; sourceNote='경계: southkorea/seoul-maps KOSTAT 2013 · 데이터: Wikidata 인구/면적';
+  }else if(kind==='korea-sido'){
+    [geo, rows]=await Promise.all([fetch(KOREA_SIDO_GEOJSON).then(r=>r.json()), csv(KOREA_SIDO_CSV)]);
+    geo.features.forEach(f=>f.id=f.properties.name);
+    rows=rows.map(r=>({id:r.svg_id||r.region, name:r.region, value:num(r[metric]), population:r.population, area_km2:r.area_km2, wikidata_id:r.wikidata_id})).filter(r=>r.value!==null);
+    title='전국 17개 광역시도별 '+metricLabel; sourceNote='경계: southkorea/southkorea-maps KOSTAT 2013 · 데이터: Wikidata 인구/면적';
+  }else{
+    geo=await fetch(SEOUL_DONG_GEOJSON).then(r=>r.json());
+    rows=geo.features.map((f,i)=>({id:String(i), name:f.properties.EMD_KOR_NM, value:metric==='shape_len'?Number(f.properties.SHAPE_LEN):Number(f.properties.SHAPE_AREA)}));
+    geo.features.forEach((f,i)=>f.id=String(i));
+    title='서울 467개 동별 '+metricLabel; sourceNote='경계/속성: southkorea/seoul-maps JUSO 2015. 동별 인구 CSV 확보 시 같은 구조로 교체 가능';
   }
-  document.getElementById('svg-map-summary').textContent=`서울 실시간 대기질 CSV ${rows.length}행 중 SVG 행정구역과 매칭된 ${hit}개 구를 색칠했습니다. 지표: ${metric}`;
-  document.getElementById('svg-legend').innerHTML=`<div style="display:flex;align-items:center;gap:.5rem;margin-top:.75rem"><span>낮음 ${min}</span><span style="display:inline-block;width:180px;height:12px;border-radius:999px;background:linear-gradient(90deg,#fff5eb,#0969da)"></span><span>높음 ${max}</span></div>`;
+  const rowById=Object.fromEntries(rows.map(r=>[String(r.id),r]));
+  const values=rows.map(r=>r.value); const min=Math.min(...values), max=Math.max(...values);
+  const b=geoBounds(geo); const w=1000; const h=Math.max(520, Math.round((b.maxLat-b.minLat)/(b.maxLon-b.minLon)*w));
+  const paths=geo.features.map(f=>{
+    const id=String(f.id); const r=rowById[id]; const fill=r?colorScale(r.value,min,max):'#eaeef2';
+    const label=r?`${r.name} · ${metricLabel}: ${r.value.toLocaleString()}`:(f.properties.name||f.properties.EMD_KOR_NM||id);
+    return `<path class="boundary-region" d="${featurePath(f,b,w,h)}" fill="${fill}" stroke="#fff" stroke-width="1" data-id="${escapeHtml(id)}"><title>${escapeHtml(label)}</title></path>`;
+  }).join('');
+  svgBox.innerHTML=`<h3>${escapeHtml(title)}</h3><svg class="boundary-svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="${escapeHtml(title)}">${paths}</svg>`;
+  svgBox.querySelectorAll('.boundary-region').forEach(el=>el.addEventListener('click',()=>{const r=rowById[el.dataset.id]; if(!r)return; document.getElementById('svg-map-summary').textContent= kind==='seoul-dong' ? `${r.name} · ${metricLabel}: ${r.value}` : `${r.name} · ${metricLabel}: ${r.value.toLocaleString()} · 인구 ${Number(r.population).toLocaleString()}명 · 면적 ${r.area_km2}km² · Wikidata ${r.wikidata_id}`;}));
+  const featureIds=new Set(geo.features.map(f=>String(f.id))); const matched=rows.filter(r=>featureIds.has(String(r.id))).length;
+  document.getElementById('svg-map-summary').textContent=`${title} · 데이터 ${rows.length}행 중 경계와 매칭 ${matched}개 · ${sourceNote}`;
+  document.getElementById('svg-legend').innerHTML=`<div style="display:flex;align-items:center;gap:.5rem;margin-top:.75rem"><span>낮음 ${min.toLocaleString()}</span><span style="display:inline-block;width:180px;height:12px;border-radius:999px;background:linear-gradient(90deg,#fff5eb,#0969da)"></span><span>높음 ${max.toLocaleString()}</span></div>`;
 }
 function markerSizes(values){const nums=values.filter(v=>v!==null&&v>0);if(!nums.length)return values.map(()=>9);const min=Math.min(...nums),max=Math.max(...nums);return values.map(v=>{if(v===null||v<=0)return 8;if(max===min)return 14;return 8+Math.sqrt((v-min)/(max-min))*24;});}
 function colorValues(rows,cfg){if(!cfg.color)return rows.map(()=>null);const raw=rows.map(r=>r[cfg.color]);const nums=raw.map(num);if(nums.some(v=>v!==null))return nums;const cats=[...new Set(raw.filter(Boolean))];return raw.map(v=>cats.indexOf(v)+1);}
@@ -111,7 +160,7 @@ async function drawPointMap(){
     previewTable(rows,cfg);
   }catch(err){summary.textContent='지도 로드 실패: '+err.message;document.getElementById('point-map').innerHTML='';}
 }
-document.addEventListener('DOMContentLoaded',()=>{const sel=document.getElementById('point-dataset-select');sel.innerHTML=POINT_DATASETS.map(d=>`<option value="${d.id}">${d.label}</option>`).join('');sel.addEventListener('change',drawPointMap);document.getElementById('reload-point-map').addEventListener('click',drawPointMap);document.getElementById('svg-metric-select').addEventListener('change',drawSvgMap);document.getElementById('reload-svg-map').addEventListener('click',drawSvgMap);drawSvgMap();drawPointMap();});
+document.addEventListener('DOMContentLoaded',()=>{const sel=document.getElementById('point-dataset-select');sel.innerHTML=POINT_DATASETS.map(d=>`<option value="${d.id}">${d.label}</option>`).join('');sel.addEventListener('change',drawPointMap);document.getElementById('reload-point-map').addEventListener('click',drawPointMap);document.getElementById('boundary-map-kind').addEventListener('change',drawSvgMap);document.getElementById('svg-metric-select').addEventListener('change',drawSvgMap);document.getElementById('reload-svg-map').addEventListener('click',drawSvgMap);drawSvgMap();drawPointMap();});
 </script>
 
 </body>
