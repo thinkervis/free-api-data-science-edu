@@ -157,6 +157,45 @@ def update_worldbank_korea_indicators(scope: str) -> dict[str, Any]:
     return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": "https://api.worldbank.org/v2/"}
 
 
+def update_factfulness_global_indicators(scope: str) -> dict[str, Any]:
+    start, end = range_for_scope(scope)
+    date_param = "1960:2030" if scope == "all" else f"{start.year}:{end.year}"
+    countries = ["KOR", "USA", "CHN", "IND", "BRA", "NGA", "SWE", "WLD"]
+    indicators = {
+        "SP.DYN.LE00.IN": "Life expectancy at birth, total (years)",
+        "SH.DYN.MORT": "Mortality rate, under-5 (per 1,000 live births)",
+        "EG.ELC.ACCS.ZS": "Access to electricity (% of population)",
+        "NY.GDP.PCAP.CD": "GDP per capita (current US$)",
+        "SE.PRM.CMPT.ZS": "Primary completion rate, total (% of relevant age group)",
+    }
+    rows: list[dict[str, Any]] = []
+    country_param = ";".join(countries)
+    for indicator_id, fallback_name in indicators.items():
+        url = f"https://api.worldbank.org/v2/country/{country_param}/indicator/{indicator_id}?format=json&per_page=20000&date={date_param}"
+        data = get_json(url)
+        if not isinstance(data, list) or len(data) < 2 or data[1] is None:
+            continue
+        for item in data[1]:
+            value = item.get("value")
+            if value is None:
+                continue
+            rows.append(
+                {
+                    "country": item["country"]["value"],
+                    "countryiso3code": item["countryiso3code"],
+                    "indicator_id": item["indicator"]["id"],
+                    "indicator": item["indicator"].get("value") or fallback_name,
+                    "date": item["date"],
+                    "value": value,
+                    "factfulness_question": "내 상식은 최신 데이터와 얼마나 다를까?",
+                }
+            )
+    rows.sort(key=lambda r: (r["indicator_id"], r["countryiso3code"], r["date"]))
+    path = DATA / "factfulness_global_indicators.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": "https://api.worldbank.org/v2/"}
+
+
 def update_usgs_major_earthquakes(scope: str) -> dict[str, Any]:
     start, end = range_for_scope(scope)
     if scope == "all":
@@ -516,6 +555,7 @@ JOBS = [
     update_open_meteo_seoul_daily,
     update_open_meteo_seoul_air_quality,
     update_worldbank_korea_indicators,
+    update_factfulness_global_indicators,
     update_usgs_major_earthquakes,
     update_mlb_schedule,
     update_fred_fedfunds,

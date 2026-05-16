@@ -12,6 +12,7 @@ MIN_ROWS = {
     "open_meteo_seoul_daily_weather.csv": 365 * 4,
     "open_meteo_seoul_air_quality_hourly.csv": 24 * 365 * 4,
     "worldbank_korea_indicators.csv": 10,
+    "factfulness_global_indicators.csv": 50,
     "usgs_major_earthquakes.csv": 100,
     "mlb_schedule.csv": 1000,
     "fred_fedfunds.csv": 48,

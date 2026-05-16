@@ -1,0 +1,139 @@
+country,countryiso3code,indicator_id,indicator,date,value,factfulness_question
+Brazil,BRA,EG.ELC.ACCS.ZS,Access to electricity (% of population),2021,99.5,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,EG.ELC.ACCS.ZS,Access to electricity (% of population),2022,100,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,EG.ELC.ACCS.ZS,Access to electricity (% of population),2023,99.8,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,EG.ELC.ACCS.ZS,Access to electricity (% of population),2021,100,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,EG.ELC.ACCS.ZS,Access to electricity (% of population),2022,100,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,EG.ELC.ACCS.ZS,Access to electricity (% of population),2023,100,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,EG.ELC.ACCS.ZS,Access to electricity (% of population),2021,99.6,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,EG.ELC.ACCS.ZS,Access to electricity (% of population),2022,99.2,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,EG.ELC.ACCS.ZS,Access to electricity (% of population),2023,99.5,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,EG.ELC.ACCS.ZS,Access to electricity (% of population),2021,100,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,EG.ELC.ACCS.ZS,Access to electricity (% of population),2022,100,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,EG.ELC.ACCS.ZS,Access to electricity (% of population),2023,100,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,EG.ELC.ACCS.ZS,Access to electricity (% of population),2021,59.5,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,EG.ELC.ACCS.ZS,Access to electricity (% of population),2022,60.5,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,EG.ELC.ACCS.ZS,Access to electricity (% of population),2023,61.2,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,EG.ELC.ACCS.ZS,Access to electricity (% of population),2021,100,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,EG.ELC.ACCS.ZS,Access to electricity (% of population),2022,100,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,EG.ELC.ACCS.ZS,Access to electricity (% of population),2023,100,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,EG.ELC.ACCS.ZS,Access to electricity (% of population),2021,100,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,EG.ELC.ACCS.ZS,Access to electricity (% of population),2022,100,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,EG.ELC.ACCS.ZS,Access to electricity (% of population),2023,100,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,EG.ELC.ACCS.ZS,Access to electricity (% of population),2021,91.3342664591051,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,EG.ELC.ACCS.ZS,Access to electricity (% of population),2022,91.2883104888965,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,EG.ELC.ACCS.ZS,Access to electricity (% of population),2023,91.5991774421991,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,NY.GDP.PCAP.CD,GDP per capita (current US$),2021,7972.53696080695,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,NY.GDP.PCAP.CD,GDP per capita (current US$),2022,9281.33282136864,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,NY.GDP.PCAP.CD,GDP per capita (current US$),2023,10377.5897719195,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,NY.GDP.PCAP.CD,GDP per capita (current US$),2024,10310.5488778166,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,NY.GDP.PCAP.CD,GDP per capita (current US$),2021,12887.4357242941,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,NY.GDP.PCAP.CD,GDP per capita (current US$),2022,12970.6056414327,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,NY.GDP.PCAP.CD,GDP per capita (current US$),2023,12951.1782397043,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,NY.GDP.PCAP.CD,GDP per capita (current US$),2024,13303.1481543868,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,NY.GDP.PCAP.CD,GDP per capita (current US$),2021,2239.61384367482,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,NY.GDP.PCAP.CD,GDP per capita (current US$),2022,2347.44829434623,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,NY.GDP.PCAP.CD,GDP per capita (current US$),2023,2530.12031278204,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,NY.GDP.PCAP.CD,GDP per capita (current US$),2024,2694.73780859961,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,NY.GDP.PCAP.CD,GDP per capita (current US$),2021,37518.4635305697,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,NY.GDP.PCAP.CD,GDP per capita (current US$),2022,34822.4048404971,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,NY.GDP.PCAP.CD,GDP per capita (current US$),2023,35674.095995632,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,NY.GDP.PCAP.CD,GDP per capita (current US$),2024,36238.639908315,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,NY.GDP.PCAP.CD,GDP per capita (current US$),2021,2787.48779224428,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,NY.GDP.PCAP.CD,GDP per capita (current US$),2022,2899.16047470324,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,NY.GDP.PCAP.CD,GDP per capita (current US$),2023,2138.76383719983,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,NY.GDP.PCAP.CD,GDP per capita (current US$),2024,1084.16041805436,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,NY.GDP.PCAP.CD,GDP per capita (current US$),2021,60647.5416365347,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,NY.GDP.PCAP.CD,GDP per capita (current US$),2022,54836.8907235124,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,NY.GDP.PCAP.CD,GDP per capita (current US$),2023,54950.2834725622,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,NY.GDP.PCAP.CD,GDP per capita (current US$),2024,57117.4877440616,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,NY.GDP.PCAP.CD,GDP per capita (current US$),2021,70205.050916026,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,NY.GDP.PCAP.CD,GDP per capita (current US$),2022,76657.2488844403,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,NY.GDP.PCAP.CD,GDP per capita (current US$),2023,81032.262117545,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,NY.GDP.PCAP.CD,GDP per capita (current US$),2024,84534.0407841548,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,NY.GDP.PCAP.CD,GDP per capita (current US$),2021,12390.6686716727,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,NY.GDP.PCAP.CD,GDP per capita (current US$),2022,12798.1658465319,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,NY.GDP.PCAP.CD,GDP per capita (current US$),2023,13236.7163960917,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,NY.GDP.PCAP.CD,GDP per capita (current US$),2024,13631.2043097215,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2021,99.085491664945,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2023,93.4889604461665,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2024,94.4876304742988,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2025,90.2563989745259,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2021,98.4509506225586,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2022,96.0156021118164,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2023,98.2711029052734,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2024,102.850738525391,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2021,99.819221496582,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2022,99.8903274536133,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2023,99.6335906982422,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2024,99.8379974365234,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2021,101.091278076172,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2022,95.743522644043,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2021,88.6989212036133,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2022,91.0532073974609,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2023,87.3170776367188,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SE.PRM.CMPT.ZS,"Primary completion rate, total (% of relevant age group)",2024,88.0215835571289,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2021,14.7,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2022,14.6,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2023,14.4,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2024,14.2,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2021,7,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2022,6.6,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2023,6.1,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2024,5.7,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2021,31.2,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2022,29.5,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2023,28,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2024,26.6,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2021,3,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2022,2.9,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2023,2.9,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2024,2.8,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2021,117.6,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2022,117.5,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2023,116.8,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2024,115.6,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2021,2.5,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2022,2.5,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2023,2.4,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2024,2.4,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2021,6.5,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2022,6.5,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2023,6.5,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2024,6.5,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2021,39.6,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2022,40,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2023,38.3,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SH.DYN.MORT,"Mortality rate, under-5 (per 1,000 live births)",2024,37.4,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2021,73.038,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2022,74.872,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2023,75.848,내 상식은 최신 데이터와 얼마나 다를까?
+Brazil,BRA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2024,76.023,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2021,78.117,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2022,78.202,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2023,77.953,내 상식은 최신 데이터와 얼마나 다를까?
+China,CHN,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2024,78.017,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2021,67.282,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2022,71.698,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2023,72.003,내 상식은 최신 데이터와 얼마나 다를까?
+India,IND,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2024,72.235,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2021,83.5268292682927,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2022,82.6804878048781,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2023,83.4292682926829,내 상식은 최신 데이터와 얼마나 다를까?
+"Korea, Rep.",KOR,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2024,83.6292682926829,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2021,53.455,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2022,54.079,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2023,54.462,내 상식은 최신 데이터와 얼마나 다를까?
+Nigeria,NGA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2024,54.635,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2021,83.0560975609756,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2022,83.0585365853659,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2023,83.309756097561,내 상식은 최신 데이터와 얼마나 다를까?
+Sweden,SWE,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2024,84.0634146341463,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2021,76.3292682926829,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2022,77.4341463414634,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2023,78.3853658536585,내 상식은 최신 데이터와 얼마나 다를까?
+United States,USA,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2024,78.890243902439,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2021,71.2149086723293,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2022,72.9675581482237,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2023,73.3288401042825,내 상식은 최신 데이터와 얼마나 다를까?
+World,WLD,SP.DYN.LE00.IN,"Life expectancy at birth, total (years)",2024,73.480380292779,내 상식은 최신 데이터와 얼마나 다를까?

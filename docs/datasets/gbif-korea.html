@@ -88,7 +88,7 @@ for line in lines:
 </pre>
 
 <script>
-const VIZ_CONFIG = {"kind": "scattergeo", "title": "한국 생물종 관측 위치", "lat": "decimalLatitude", "lon": "decimalLongitude", "hover": "scientificName"};
+const VIZ_CONFIG = {"kind": "scattergeo", "title": "한국 생물종 관측 위치", "lat": "decimalLatitude", "lon": "decimalLongitude", "hover": "scientificName", "geo_scope": "korea"};
 function parseCsvRows(text) {
   const rows = [];
   let row = [];
@@ -148,7 +148,11 @@ function drawCsvChart(rows) {
     const lon = [], lat = [], text2 = [], sizes = [], colors = [];
     dataRows.slice(1).forEach((_, i) => { const la = latRaw[i], lo = lonRaw[i]; if (la !== null && lo !== null) { lon.push(lo); lat.push(la); text2.push(text[i] || ''); sizes.push(cfg.size ? Math.max(6, (sizeRaw[i] || 1) * 3) : 7); colors.push(cfg.color ? colorRaw[i] : null); } });
     traces = [{type: 'scattergeo', mode: 'markers', lat, lon, text: text2, marker: {size: sizes, color: cfg.color ? colors : '#0969da', colorscale: 'Viridis', showscale: !!cfg.color, opacity: 0.75}}];
-    layout.geo = {scope: 'world', projection: {type: 'natural earth'}, showland: true, landcolor: '#f6f8fa'};
+    if (cfg.geo_scope === 'korea') {
+      layout.geo = {scope: 'asia', projection: {type: 'mercator'}, lonaxis: {range: [124, 132]}, lataxis: {range: [33, 39.5]}, showland: true, landcolor: '#f6f8fa', showcountries: true, countrycolor: '#8c959f', showsubunits: true, subunitcolor: '#d0d7de'};
+    } else {
+      layout.geo = {scope: 'world', projection: {type: 'natural earth'}, showland: true, landcolor: '#f6f8fa'};
+    }
   } else if (cfg.kind === 'bar') {
     traces = [{type: 'bar', x: column(dataRows, cfg.x), y: numericColumn(dataRows, cfg.y), name: cfg.y}]; layout.xaxis = {title: cfg.x}; layout.yaxis = {title: cfg.y};
   } else if (cfg.kind === 'barAggregate') {

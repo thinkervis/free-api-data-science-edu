@@ -53,6 +53,19 @@ DATASETS = [
         "note": "인구/GDP/기대수명/중등교육 등록률 포함",
     },
     {
+        "id": "factfulness-global",
+        "title": "팩트풀니스 세계 지표 최신화",
+        "category": "SDG/세계시민/데이터 리터러시",
+        "csv": "factfulness_global_indicators.csv",
+        "source": "World Bank Indicators API",
+        "doc_url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
+        "test_url": "https://api.worldbank.org/v2/country/KOR;USA;CHN;IND;BRA;NGA;SWE;WLD/indicator/SP.DYN.LE00.IN?format=json&per_page=20&date=2021:2026",
+        "auth": "불필요",
+        "pico": "중간",
+        "streamlit": "높음",
+        "note": "팩트풀니스 수업용: 기대수명, 5세 미만 사망률, 전기 접근성, 1인당 GDP, 초등교육 이수율을 최신 World Bank 데이터로 다시 확인",
+    },
+    {
         "id": "usgs-earthquakes",
         "title": "전세계 규모 6+ 지진 5년",
         "category": "지질/지도",
@@ -265,7 +278,7 @@ RECOMMENDED_CANDIDATE_REASONS = {
     "restcountries-world": "국가별 인구·면적·위치 데이터로 지도/비교 활동 가능",
     "nager-korea-holidays": "날짜·달력·문화 데이터를 다루기 쉬워 초급 수업에 좋음",
     "spacex-launches": "우주/과학 흥미도가 높고 성공 여부·발사 횟수 분석 가능",
-    "gbif-korea": "생물다양성·위치 데이터·생태 탐구 프로젝트에 적합",
+    "gbif-korea": "한국 안의 생물다양성·위치 데이터·생태 탐구 프로젝트에 적합",
 }
 
 VIZ_CONFIG = {
@@ -277,8 +290,9 @@ VIZ_CONFIG = {
     "fred-fedfunds": {"kind": "line", "title": "미국 기준금리 변화", "x": "observation_date", "y": ["FEDFUNDS"], "labels": ["FEDFUNDS(%)"]},
     "bls-us-cpi": {"kind": "line", "title": "미국 CPI 월별 변화", "x": "date", "y": ["cpi_value"], "labels": ["CPI"]},
     "worldbank-korea": {"kind": "multiCategoryLine", "title": "World Bank 한국 지표별 변화", "x": "date", "y": "value", "category": "indicator", "y_title": "값"},
+    "factfulness-global": {"kind": "multiCategoryLine", "title": "팩트풀니스 주요 세계 지표 최신화", "x": "date", "y": "value", "category": "indicator", "y_title": "값"},
     "owid-co2": {"kind": "multiCategoryLine", "title": "한국과 세계 CO₂ 배출량 비교", "x": "Year", "y": "Annual CO₂ emissions", "category": "Entity"},
-    "gbif-korea": {"kind": "scattergeo", "title": "한국 생물종 관측 위치", "lat": "decimalLatitude", "lon": "decimalLongitude", "hover": "scientificName"},
+    "gbif-korea": {"kind": "scattergeo", "title": "한국 생물종 관측 위치", "lat": "decimalLatitude", "lon": "decimalLongitude", "hover": "scientificName", "geo_scope": "korea"},
     "artic-artworks": {"kind": "histogram", "title": "작품 제작 연도 분포", "x": "date_end"},
     "seoul-bike": {"kind": "bar", "title": "따릉이 대여소별 주차 자전거 수", "x": "stationName", "y": "parkingBikeTotCnt"},
     "mlb-schedule": {"kind": "barAggregate", "title": "홈팀별 경기 수", "x": "home_team"},
@@ -320,6 +334,89 @@ MORE_CANDIDATES = [
     ["금융위원회 주식시세", "한국 주식", "공공데이터포털 키", "https://www.data.go.kr/data/15094808/openapi.do"],
     ["기상청 단기예보", "한국 기상", "공공데이터포털 키", "https://www.data.go.kr/data/15084084/openapi.do"],
     ["Retrosheet", "야구", "불필요", "https://www.retrosheet.org/game.htm"],
+]
+
+SDG_TOPICS = [
+    {
+        "title": "우리 동네 미세먼지와 건강한 생활권",
+        "sdg": "SDG 3 건강과 웰빙 · SDG 11 지속가능한 도시",
+        "data": "Open-Meteo Air Quality / 서울 시간별 대기질",
+        "url": "https://open-meteo.com/en/docs/air-quality-api",
+        "auth": "불필요",
+        "activity": "PM10·PM2.5 시간별 변화를 보고 등하교/야외활동 안내 대시보드 만들기",
+    },
+    {
+        "title": "폭염일·열대야와 학교 에너지 사용",
+        "sdg": "SDG 7 깨끗한 에너지 · SDG 13 기후행동",
+        "data": "NASA POWER 서울 일별 기상/에너지",
+        "url": "https://power.larc.nasa.gov/docs/services/api/",
+        "auth": "불필요",
+        "activity": "기온·강수·풍속을 분석해 폭염 경보 기준과 냉방 에너지 절약 캠페인 설계",
+    },
+    {
+        "title": "한국과 세계의 CO₂ 배출 변화",
+        "sdg": "SDG 12 책임 있는 소비와 생산 · SDG 13 기후행동",
+        "data": "Our World in Data CO₂ Grapher CSV",
+        "url": "https://docs.owid.io/projects/etl/api/",
+        "auth": "불필요",
+        "activity": "한국/세계 CO₂ 배출량을 비교하고 1인당 감축 아이디어를 데이터 근거로 제안",
+    },
+    {
+        "title": "생물다양성 관측으로 보는 우리 주변 생태계",
+        "sdg": "SDG 14 해양생태계 · SDG 15 육상생태계",
+        "data": "GBIF 한국 생물종 관측",
+        "url": "https://techdocs.gbif.org/en/openapi/",
+        "auth": "불필요",
+        "activity": "한국 지도 위 관측 위치를 찍고 도시/해안/산림별 생물종 관측 차이 탐구",
+    },
+    {
+        "title": "따릉이와 탄소 줄이는 통학·이동",
+        "sdg": "SDG 9 산업·혁신·인프라 · SDG 11 지속가능한 도시",
+        "data": "서울 열린데이터광장 따릉이 실시간 대여정보",
+        "url": "https://data.seoul.go.kr/",
+        "auth": "샘플키 가능 / 정식은 무료 키 권장",
+        "activity": "대여소별 자전거 수를 시각화하고 짧은 거리 자동차 이동 대체 효과 추정",
+    },
+    {
+        "title": "도시 혼잡도와 안전한 공공공간",
+        "sdg": "SDG 10 불평등 감소 · SDG 11 지속가능한 도시",
+        "data": "서울 실시간 도시데이터",
+        "url": "https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do",
+        "auth": "샘플키/무료키",
+        "activity": "주요 장소 혼잡도를 비교해 안전한 방문 시간 추천 또는 행사 운영 아이디어 만들기",
+    },
+    {
+        "title": "인구·교육·경제 지표로 보는 지속가능한 사회",
+        "sdg": "SDG 4 양질의 교육 · SDG 8 양질의 일자리와 경제성장",
+        "data": "World Bank 한국 지표",
+        "url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
+        "auth": "불필요",
+        "activity": "인구·GDP·기대수명·교육 지표를 함께 보고 지속가능발전 지표 카드 만들기",
+    },
+    {
+        "title": "팩트풀니스 데이터 최신화: 오래된 상식 검증",
+        "sdg": "SDG 1 빈곤 종식 · SDG 3 건강과 웰빙 · SDG 4 양질의 교육 · SDG 7 깨끗한 에너지",
+        "data": "World Bank 최신 세계 지표 CSV: 기대수명, 5세 미만 사망률, 전기 접근성, 1인당 GDP, 초등교육 이수율",
+        "url": "https://www.gapminder.org/data/",
+        "auth": "불필요",
+        "activity": "학생 예상값을 먼저 적고 최신 데이터와 비교해 '세상은 생각보다 어떻게 달라졌나'를 시각화",
+    },
+    {
+        "title": "물 사용량과 가뭄·절수 행동 데이터",
+        "sdg": "SDG 6 깨끗한 물과 위생 · SDG 12 책임 있는 소비와 생산",
+        "data": "공공데이터포털/지자체 상수도 사용량·수질·가뭄 관련 데이터",
+        "url": "https://www.data.go.kr/",
+        "auth": "데이터별 상이: 파일 다운로드 또는 공공데이터포털 키",
+        "activity": "지역별 물 사용량·강수량·가뭄 정보를 비교하고 학교/가정 절수 캠페인 근거 만들기",
+    },
+    {
+        "title": "전력 수요와 재생에너지 전환 토론",
+        "sdg": "SDG 7 깨끗한 에너지 · SDG 13 기후행동",
+        "data": "EIA Open Data 전력 일별 데이터",
+        "url": "https://www.eia.gov/opendata/documentation.php",
+        "auth": "DEMO_KEY 가능 / 안정 사용은 무료 키 권장",
+        "activity": "전력 수요·공급 시계열을 보고 태양광/풍력 확대가 필요한 시간대 추론",
+    },
 ]
 
 
@@ -472,7 +569,11 @@ function drawCsvChart(rows) {
     const lon = [], lat = [], text2 = [], sizes = [], colors = [];
     dataRows.slice(1).forEach((_, i) => { const la = latRaw[i], lo = lonRaw[i]; if (la !== null && lo !== null) { lon.push(lo); lat.push(la); text2.push(text[i] || ''); sizes.push(cfg.size ? Math.max(6, (sizeRaw[i] || 1) * 3) : 7); colors.push(cfg.color ? colorRaw[i] : null); } });
     traces = [{type: 'scattergeo', mode: 'markers', lat, lon, text: text2, marker: {size: sizes, color: cfg.color ? colors : '#0969da', colorscale: 'Viridis', showscale: !!cfg.color, opacity: 0.75}}];
-    layout.geo = {scope: 'world', projection: {type: 'natural earth'}, showland: true, landcolor: '#f6f8fa'};
+    if (cfg.geo_scope === 'korea') {
+      layout.geo = {scope: 'asia', projection: {type: 'mercator'}, lonaxis: {range: [124, 132]}, lataxis: {range: [33, 39.5]}, showland: true, landcolor: '#f6f8fa', showcountries: true, countrycolor: '#8c959f', showsubunits: true, subunitcolor: '#d0d7de'};
+    } else {
+      layout.geo = {scope: 'world', projection: {type: 'natural earth'}, showland: true, landcolor: '#f6f8fa'};
+    }
   } else if (cfg.kind === 'bar') {
     traces = [{type: 'bar', x: column(dataRows, cfg.x), y: numericColumn(dataRows, cfg.y), name: cfg.y}]; layout.xaxis = {title: cfg.x}; layout.yaxis = {title: cfg.y};
   } else if (cfg.kind === 'barAggregate') {
@@ -530,10 +631,172 @@ def dataset_page(ds: dict[str, str]) -> str:
     return layout(ds["title"], body)
 
 
+def svg_map_examples_page() -> str:
+    body = '''
+<p><a href="../index.html">← 전체 목록</a></p>
+<h1>SVG 지도 이미지 시각화 예제</h1>
+<p>수업용으로 바로 이해하기 쉬운 SVG 지도/카토그램 예제입니다. 실제 보고서용 경계는 국토교통부 행정구역 경계 SHP, 서울 열린데이터광장/주소기반산업지원서비스 경계, 또는 행정동 GeoJSON을 SVG로 변환해 같은 방식으로 칠하면 됩니다.</p>
+<div class="card">
+  <h2>1) 한국 광역시도별 시각화</h2>
+  <div class="map-grid">
+    <svg id="korea-sido-map" viewBox="0 0 360 520" role="img" aria-label="한국 광역시도별 SVG 지도 예제">
+      <style>.region{stroke:#fff;stroke-width:3;cursor:pointer}.label{font-size:13px;font-weight:700;fill:#24292f;pointer-events:none}.island{stroke:#fff;stroke-width:3}</style>
+      <path id="KR-11" class="region" d="M145 78 L197 80 L210 112 L190 142 L144 137 L126 108 Z"/><text class="label" x="158" y="112">서울</text>
+      <path id="KR-28" class="region" d="M113 92 L141 78 L126 108 L141 140 L108 151 L83 124 Z"/><text class="label" x="96" y="125">인천</text>
+      <path id="KR-41" class="region" d="M126 46 L222 55 L254 111 L231 172 L165 183 L108 151 L141 140 L190 142 L210 112 L197 80 L145 78 L126 108 L113 92 Z"/><text class="label" x="205" y="133">경기</text>
+      <path id="KR-42" class="region" d="M197 25 L302 47 L323 128 L281 198 L231 172 L254 111 L222 55 Z"/><text class="label" x="264" y="102">강원</text>
+      <path id="KR-43" class="region" d="M165 183 L231 172 L281 198 L264 260 L198 260 L151 224 Z"/><text class="label" x="206" y="221">충북</text>
+      <path id="KR-44" class="region" d="M82 181 L151 224 L198 260 L174 313 L94 296 L52 239 Z"/><text class="label" x="107" y="254">충남</text>
+      <path id="KR-30" class="region" d="M152 229 L188 242 L177 275 L139 267 Z"/><text class="label" x="146" y="257">대전</text>
+      <path id="KR-36" class="region" d="M127 176 L160 184 L151 224 L112 208 Z"/><text class="label" x="121" y="202">세종</text>
+      <path id="KR-45" class="region" d="M94 296 L174 313 L186 376 L127 419 L57 372 Z"/><text class="label" x="102" y="353">전북</text>
+      <path id="KR-46" class="region" d="M57 372 L127 419 L152 466 L93 499 L31 454 Z"/><text class="label" x="73" y="438">전남</text>
+      <path id="KR-47" class="region" d="M198 260 L264 260 L315 309 L297 389 L227 405 L186 376 L174 313 Z"/><text class="label" x="232" y="336">경북</text>
+      <path id="KR-27" class="region" d="M222 291 L260 297 L255 333 L216 329 Z"/><text class="label" x="226" y="318">대구</text>
+      <path id="KR-48" class="region" d="M186 376 L227 405 L297 389 L325 430 L273 478 L198 459 L152 466 L127 419 Z"/><text class="label" x="210" y="436">경남</text>
+      <path id="KR-31" class="region" d="M287 386 L326 397 L315 430 L282 418 Z"/><text class="label" x="288" y="411">울산</text>
+      <path id="KR-26" class="region" d="M273 478 L325 430 L337 468 L306 500 Z"/><text class="label" x="295" y="468">부산</text>
+      <path id="KR-29" class="region" d="M82 389 L121 406 L101 438 L64 421 Z"/><text class="label" x="76" y="416">광주</text>
+      <ellipse id="KR-50" class="region island" cx="152" cy="505" rx="48" ry="20"/><text class="label" x="139" y="510">제주</text>
+    </svg>
+    <div><pre id="sido-output">시도를 클릭해 보세요.</pre><p>아이디어: 인구, 미세먼지 평균, 학교 수, 지역 축제 수, 생물종 관측 수 등을 시도별로 합산해 색으로 표현합니다.</p></div>
+  </div>
+</div>
+<div class="card"><h2>2) 서울 구별 시각화</h2><p>서울 25개 구를 SVG 느낌의 카토그램 타일로 표현했습니다. 실제 구 경계 SVG를 써도 id와 fill을 바꾸는 구조는 같습니다.</p><div id="seoul-gu-map" class="tile-map"></div><pre id="gu-output">구를 클릭해 보세요.</pre></div>
+<div class="card"><h2>3) 서울 동별 시각화</h2><p>동 단위는 행정동 수가 많으므로 한 구를 골라 시작하는 편이 좋습니다. 아래는 성동구 동별 예제입니다.</p><div id="seoul-dong-map" class="tile-map dong"></div><pre id="dong-output">동을 클릭해 보세요.</pre></div>
+<style>.map-grid{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:1rem;align-items:start}svg{max-width:100%;height:auto}.tile-map{display:grid;grid-template-columns:repeat(7,minmax(76px,1fr));gap:6px;max-width:760px}.tile{border:1px solid #fff;border-radius:10px;min-height:52px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#24292f;cursor:pointer}.dong{grid-template-columns:repeat(5,minmax(82px,1fr))}@media(max-width:760px){.map-grid{grid-template-columns:1fr}.tile-map{grid-template-columns:repeat(4,1fr)}}</style>
+<script>
+const palette=['#eff6ff','#bfdbfe','#93c5fd','#60a5fa','#3b82f6','#1d4ed8'];function color(v,max){return palette[Math.min(palette.length-1,Math.floor((v/max)*(palette.length-1)))]}
+const sidoData={'KR-11':91,'KR-28':55,'KR-41':100,'KR-42':42,'KR-43':36,'KR-44':50,'KR-30':44,'KR-36':31,'KR-45':39,'KR-46':34,'KR-47':46,'KR-27':49,'KR-48':53,'KR-31':38,'KR-26':62,'KR-29':41,'KR-50':47};const sidoNames={'KR-11':'서울','KR-28':'인천','KR-41':'경기','KR-42':'강원','KR-43':'충북','KR-44':'충남','KR-30':'대전','KR-36':'세종','KR-45':'전북','KR-46':'전남','KR-47':'경북','KR-27':'대구','KR-48':'경남','KR-31':'울산','KR-26':'부산','KR-29':'광주','KR-50':'제주'};Object.entries(sidoData).forEach(([id,v])=>{const el=document.getElementById(id);el.style.fill=color(v,100);el.addEventListener('click',()=>document.getElementById('sido-output').textContent=`${sidoNames[id]}: 예제 지표 ${v}`)});
+const guLayout=[['은평','서대문','종로','성북','강북','도봉','노원'],['마포','용산','중구','동대문','중랑','광진',''],['강서','양천','영등포','동작','서초','강남','송파'],['구로','금천','관악','','성동','강동','']];const guValues={'종로':72,'중구':64,'용산':58,'성동':83,'광진':51,'동대문':44,'중랑':39,'성북':48,'강북':35,'도봉':31,'노원':46,'은평':49,'서대문':53,'마포':78,'양천':55,'강서':61,'구로':47,'금천':42,'영등포':70,'동작':57,'관악':66,'서초':75,'강남':96,'송파':88,'강동':59};
+function renderTiles(targetId,rows,values,suffix){const target=document.getElementById(targetId);const max=Math.max(...Object.values(values));rows.flat().forEach(name=>{const d=document.createElement('div');d.className='tile';if(!name){d.style.visibility='hidden';target.appendChild(d);return}const v=values[name]??0;d.style.background=color(v,max);d.textContent=name;d.title=`${name}: ${v}`;d.onclick=()=>document.getElementById(`${suffix}-output`).textContent=`${name}: 예제 지표 ${v}`;target.appendChild(d)})}
+renderTiles('seoul-gu-map',guLayout,guValues,'gu');const dongLayout=[['왕십리도선동','왕십리2동','마장동','사근동','행당1동'],['행당2동','응봉동','금호1가동','금호2·3가동','금호4가동'],['옥수동','성수1가1동','성수1가2동','성수2가1동','성수2가3동'],['송정동','용답동','','','']];const dongValues={'왕십리도선동':41,'왕십리2동':37,'마장동':35,'사근동':29,'행당1동':44,'행당2동':39,'응봉동':31,'금호1가동':33,'금호2·3가동':36,'금호4가동':28,'옥수동':45,'성수1가1동':77,'성수1가2동':69,'성수2가1동':81,'성수2가3동':74,'송정동':40,'용답동':34};renderTiles('seoul-dong-map',dongLayout,dongValues,'dong');
+</script>
+'''
+    return layout("SVG 지도 이미지 시각화 예제", body)
+
+
+def sdg_topics_page() -> str:
+    cards = []
+    for i, item in enumerate(SDG_TOPICS, start=1):
+        cards.append(f'''
+<div class="card">
+  <h2>{i}. {html.escape(item['title'])}</h2>
+  <p><span class="badge">{html.escape(item['sdg'])}</span><span class="badge">인증: {html.escape(item['auth'])}</span></p>
+  <p><b>데이터:</b> {html.escape(item['data'])}</p>
+  <p><b>수업 아이디어:</b> {html.escape(item['activity'])}</p>
+  <p><a href="{html.escape(item['url'])}">공식 문서/데이터 출처</a></p>
+</div>''')
+    body = f'''
+<p><a href="../index.html">← 전체 목록</a></p>
+<h1>지속가능발전(SDG) 주제 데이터 10가지</h1>
+<p>기존 추천 데이터 TOP 10과 별도로, 지속가능발전 수업에 바로 연결하기 쉬운 주제·데이터·활동을 분리했습니다. 일부는 현재 CSV로 제공되고, 일부는 다음 확장 후보 API입니다.</p>
+{''.join(cards)}
+'''
+    return layout("지속가능발전(SDG) 주제 데이터 10가지", body)
+
+
+def factfulness_literacy_page() -> str:
+    body = '''
+<p><a href="../index.html">← 전체 목록</a> · <a href="../datasets/factfulness-global.html">CSV 데이터셋 상세</a></p>
+<h1>팩트풀니스 데이터 리터러시 수업</h1>
+<p>학생들이 “세상은 점점 나빠지고 있다” 같은 직관을 바로 믿지 않고, 최신 공공데이터로 자신의 상식을 업데이트하는 수업용 전용 페이지입니다.</p>
+
+<div class="hero card">
+  <div>
+    <h2>수업 핵심 질문</h2>
+    <p><b>내가 알고 있는 세계의 모습은 최신 데이터와 얼마나 다를까?</b></p>
+    <p>먼저 예상값을 적고, 그다음 실제 데이터를 확인합니다. 틀리는 것이 목표입니다. 틀린 지점에서 데이터 리터러시가 시작됩니다.</p>
+  </div>
+  <div class="mini-rubric">
+    <b>배우는 역량</b>
+    <ul>
+      <li>예상과 관측값 구분</li>
+      <li>출처와 최신성 확인</li>
+      <li>국가/세계 평균 비교</li>
+      <li>그래프 과장 읽기</li>
+      <li>근거 있는 설명 쓰기</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <h2>1단계. 데이터 보기 전 예상하기</h2>
+  <p>아래 질문에 먼저 답한 뒤 “최신 데이터 불러오기”를 누릅니다.</p>
+  <div class="quiz-grid">
+    <label>한국 기대수명은 몇 년일까?<input id="guess-life-kor" type="number" placeholder="예: 82"></label>
+    <label>세계 5세 미만 사망률은 1,000명당 몇 명일까?<input id="guess-mort-world" type="number" placeholder="예: 40"></label>
+    <label>인도 전기 접근성은 몇 %일까?<input id="guess-electricity-ind" type="number" placeholder="예: 90"></label>
+    <label>나이지리아 1인당 GDP는 몇 달러일까?<input id="guess-gdp-nga" type="number" placeholder="예: 2500"></label>
+  </div>
+  <button onclick="loadFactfulness()">최신 데이터 불러오기</button>
+  <pre id="guess-result">예상값을 입력하고 데이터를 불러오세요.</pre>
+</div>
+
+<div class="card">
+  <h2>2단계. 최신 지표 비교하기</h2>
+  <p>World Bank 최신 API에서 만든 CSV를 읽어 주요 지표의 가장 최근 값을 비교합니다.</p>
+  <div id="latest-chart" style="height:460px"></div>
+</div>
+
+<div class="card">
+  <h2>3단계. 시간에 따른 변화 보기</h2>
+  <p>팩트풀니스 수업에서는 “현재 스냅샷”보다 “변화 방향”이 중요합니다. 같은 지표를 시간축으로 보면 오래된 상식이 왜 남아 있는지 토론할 수 있습니다.</p>
+  <p><select id="indicator-select" onchange="drawTrend()"></select></p>
+  <div id="trend-chart" style="height:460px"></div>
+</div>
+
+<div class="card">
+  <h2>4단계. 토론 질문</h2>
+  <ol>
+    <li>내 예상과 실제 데이터가 가장 크게 달랐던 지표는 무엇인가?</li>
+    <li>나는 왜 그렇게 예상했을까? 뉴스, 교과서, 경험, 편견 중 무엇의 영향이 컸을까?</li>
+    <li>세계 평균만 보면 놓치는 차이는 무엇인가? 국가별 비교가 필요한 이유는?</li>
+    <li>그래프 축을 바꾸면 인상이 어떻게 달라지는가?</li>
+    <li>최신 데이터로 설명문을 다시 쓴다면 어떤 문장이 더 정확한가?</li>
+  </ol>
+</div>
+
+<div class="card">
+  <h2>수업 산출물 예시</h2>
+  <ul>
+    <li>“내 상식 업데이트 카드” 1장: 예상값, 실제값, 차이, 배운 점</li>
+    <li>국가별 지표 비교 인포그래픽</li>
+    <li>오래된 통념을 바로잡는 1분 발표</li>
+    <li>데이터 출처·연도·한계를 포함한 짧은 보고서</li>
+  </ul>
+</div>
+
+<style>
+.hero{display:grid;grid-template-columns:1.5fr 1fr;gap:1rem}.mini-rubric{background:#f6f8fa;border-radius:12px;padding:1rem}.quiz-grid{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:1rem;margin:1rem 0}input,select{width:100%;box-sizing:border-box;padding:.55rem;border:1px solid #d0d7de;border-radius:8px;margin-top:.35rem}@media(max-width:760px){.hero,.quiz-grid{grid-template-columns:1fr}}
+</style>
+<script>
+const CSV_URL = '../data/factfulness_global_indicators.csv';
+let factRows = [];
+let headers = [];
+function parseCsvRows(text){const rows=[];let row=[],cell='',q=false;for(let i=0;i<text.length;i++){const ch=text[i],n=text[i+1];if(ch==='"'){if(q&&n==='"'){cell+='"';i++}else q=!q}else if(ch===','&&!q){row.push(cell);cell=''}else if((ch==='\n'||ch==='\r')&&!q){if(ch==='\r'&&n==='\n')i++;row.push(cell);cell='';if(row.some(v=>v!==''))rows.push(row);row=[]}else cell+=ch}row.push(cell);if(row.some(v=>v!==''))rows.push(row);return rows}
+function toObjects(rows){headers=rows[0];return rows.slice(1).map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]??''])))}
+function latestBy(indicator,country){const rows=factRows.filter(r=>r.indicator_id===indicator&&r.countryiso3code===country).sort((a,b)=>Number(b.date)-Number(a.date));return rows[0]}
+function fmt(v){const n=Number(v);return Number.isFinite(n)?n.toLocaleString(undefined,{maximumFractionDigits:1}):'데이터 없음'}
+async function loadFactfulness(){if(!factRows.length){const text=await fetch(CSV_URL).then(r=>{if(!r.ok)throw new Error('CSV 로드 실패 '+r.status);return r.text()});factRows=toObjects(parseCsvRows(text));setupIndicatorSelect()}compareGuesses();drawLatest();drawTrend()}
+function compareGuesses(){const checks=[['한국 기대수명','guess-life-kor','SP.DYN.LE00.IN','KOR','년'],['세계 5세 미만 사망률','guess-mort-world','SH.DYN.MORT','WLD','명/1,000명'],['인도 전기 접근성','guess-electricity-ind','EG.ELC.ACCS.ZS','IND','%'],['나이지리아 1인당 GDP','guess-gdp-nga','NY.GDP.PCAP.CD','NGA','달러']];const lines=[];for(const [label,input,ind,country,unit] of checks){const actual=latestBy(ind,country);const guess=Number(document.getElementById(input).value);const actualVal=actual?Number(actual.value):NaN;const diff=Number.isFinite(guess)&&Number.isFinite(actualVal)?` / 차이: ${fmt(Math.abs(guess-actualVal))}${unit}`:'';lines.push(`${label}: 예상 ${document.getElementById(input).value||'미입력'}${unit} → 실제 ${fmt(actualVal)}${unit} (${actual?.date||'연도 없음'})${diff}`)}document.getElementById('guess-result').textContent=lines.join('\n')}
+function setupIndicatorSelect(){const select=document.getElementById('indicator-select');const inds=[...new Map(factRows.map(r=>[r.indicator_id,r.indicator])).entries()];select.innerHTML=inds.map(([id,name])=>`<option value="${id}">${name}</option>`).join('')}
+function drawLatest(){const latest={};for(const r of factRows){const k=r.indicator_id+'|'+r.countryiso3code;if(!latest[k]||Number(r.date)>Number(latest[k].date))latest[k]=r}const sample=Object.values(latest).filter(r=>r.indicator_id==='SP.DYN.LE00.IN');Plotly.newPlot('latest-chart',[{type:'bar',x:sample.map(r=>r.country),y:sample.map(r=>Number(r.value)),text:sample.map(r=>r.date),hovertemplate:'%{x}<br>%{y:.1f}<br>연도 %{text}<extra></extra>'}],{title:'가장 최근 기대수명 비교',yaxis:{title:'년'},margin:{t:50,r:20,b:100,l:60}},{responsive:true,displaylogo:false})}
+function drawTrend(){const ind=document.getElementById('indicator-select').value||'SP.DYN.LE00.IN';const countries=['KOR','WLD','IND','NGA','SWE'];const traces=countries.map(c=>{const rows=factRows.filter(r=>r.indicator_id===ind&&r.countryiso3code===c).sort((a,b)=>Number(a.date)-Number(b.date));return {type:'scatter',mode:'lines+markers',name:c,x:rows.map(r=>r.date),y:rows.map(r=>Number(r.value))}});const name=factRows.find(r=>r.indicator_id===ind)?.indicator||ind;Plotly.newPlot('trend-chart',traces,{title:name,xaxis:{title:'연도'},yaxis:{title:'값'},margin:{t:50,r:20,b:60,l:70}},{responsive:true,displaylogo:false})}
+</script>
+'''
+    return layout("팩트풀니스 데이터 리터러시 수업", body)
+
+
 def main() -> None:
     DOCS.mkdir(exist_ok=True)
     DOC_DATA.mkdir(parents=True, exist_ok=True)
     DATASET_PAGES.mkdir(parents=True, exist_ok=True)
+    examples_dir = DOCS / "examples"
+    examples_dir.mkdir(parents=True, exist_ok=True)
+    (examples_dir / "svg-map-visualization.html").write_text(svg_map_examples_page(), encoding="utf-8")
+    (examples_dir / "sdg-topics.html").write_text(sdg_topics_page(), encoding="utf-8")
+    (examples_dir / "factfulness-literacy.html").write_text(factfulness_literacy_page(), encoding="utf-8")
 
     for csv_file in DATA.glob("*.csv"):
         shutil.copy2(csv_file, DOC_DATA / csv_file.name)
@@ -564,10 +827,12 @@ def main() -> None:
 <h1>초·중·고 정보 교육을 위한 무료 데이터 과학 API & CSV</h1>
 <p>모든 기본 CSV는 최근 5년치 중심으로 생성되며, <code>python3 scripts/update_datasets.py --scope all</code>로 가능한 전체 기간을 받을 수 있습니다.</p>
 <p>데이터별 페이지에서 CSV 직접 로드, 원천 API 테스트, 브라우저 시각화, Streamlit 기본 코드, Pico 2 WH + Grove Shield 기본 코드를 제공합니다.</p>
-<p><a href="data/manifest.json">갱신 manifest</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub repo</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/CONTRIBUTING.md">사람용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/AI_CONTRIBUTING.md">AI용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/REWARDS.md">리워드 설계</a></p>
+<p><a href="data/manifest.json">갱신 manifest</a> · <a href="examples/factfulness-literacy.html">팩트풀니스 데이터 리터러시 수업</a> · <a href="examples/svg-map-visualization.html">SVG 지도 시각화 예제</a> · <a href="examples/sdg-topics.html">지속가능발전 주제 데이터 10가지</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub repo</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/CONTRIBUTING.md">사람용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/AI_CONTRIBUTING.md">AI용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/REWARDS.md">리워드 설계</a></p>
 <h2>추천 데이터 후보 10개 (운영자 확인 전)</h2>
 <p>아래 목록은 교육적 활용도가 높아 보이는 후보이며, 최종 TOP 10은 운영자와 논의 후 확정합니다.</p>
 <ol>{''.join(recommended_items)}</ol>
+<h2>지속가능발전(SDG) 주제 데이터 10가지</h2>
+<p>기후·대기질·생물다양성·도시 이동·건강 형평성 등 SDG 수업용 주제는 <a href="examples/sdg-topics.html">별도 페이지</a>로 분리했습니다.</p>
 <h2>바로 테스트 가능한 데이터셋</h2>
 {''.join(cards)}
 <h2>추가 API 후보</h2>

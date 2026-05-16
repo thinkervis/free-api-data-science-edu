@@ -39,6 +39,19 @@
     "note": "인구/GDP/기대수명/중등교육 등록률 포함"
   },
   {
+    "id": "factfulness-global",
+    "title": "팩트풀니스 세계 지표 최신화",
+    "category": "SDG/세계시민/데이터 리터러시",
+    "csv": "factfulness_global_indicators.csv",
+    "source": "World Bank Indicators API",
+    "doc_url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
+    "test_url": "https://api.worldbank.org/v2/country/KOR;USA;CHN;IND;BRA;NGA;SWE;WLD/indicator/SP.DYN.LE00.IN?format=json&per_page=20&date=2021:2026",
+    "auth": "불필요",
+    "pico": "중간",
+    "streamlit": "높음",
+    "note": "팩트풀니스 수업용: 기대수명, 5세 미만 사망률, 전기 접근성, 1인당 GDP, 초등교육 이수율을 최신 World Bank 데이터로 다시 확인"
+  },
+  {
     "id": "usgs-earthquakes",
     "title": "전세계 규모 6+ 지진 5년",
     "category": "지질/지도",

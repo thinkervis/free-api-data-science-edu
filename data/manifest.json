@@ -5,6 +5,7 @@
     "data/artic_recent_artworks_sample.csv",
     "data/bls_us_cpi_monthly.csv",
     "data/eia_california_electricity_daily.csv",
+    "data/factfulness_global_indicators.csv",
     "data/frankfurter_usd_krw_daily.csv",
     "data/fred_fedfunds.csv",
     "data/gbif_korea_occurrences_sample.csv",
@@ -133,6 +134,12 @@
       "rows": 5000,
       "scope": "recent5",
       "source": "https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&data%5B0%5D=value&facets%5Brespondent%5D%5B%5D=CAL&start=2021-05-16&end=2026-05-15&sort%5B0%5D%5Bcolumn%5D=period&sort%5B0%5D%5Bdirection%5D=asc&offset=0&length=5000&api_key=DEMO_KEY"
+    },
+    {
+      "file": "data/factfulness_global_indicators.csv",
+      "rows": 138,
+      "scope": "recent5",
+      "source": "https://api.worldbank.org/v2/"
     }
   ]
 }
