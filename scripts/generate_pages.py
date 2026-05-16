@@ -284,14 +284,14 @@ RECOMMENDED_CANDIDATE_REASONS = {
 VIZ_CONFIG = {
     "open-meteo-weather": {"kind": "line", "title": "최고·평균·최저 기온 3종 세트", "x": "time", "y": ["temperature_2m_max", "temperature_2m_mean", "temperature_2m_min"], "labels": ["최고기온", "평균기온", "최저기온"], "y_title": "기온(°C)"},
     "open-meteo-air-quality": {"kind": "line", "title": "PM10·PM2.5 시간별 변화", "x": "time", "y": ["pm10", "pm2_5"], "labels": ["PM10", "PM2.5"], "y_title": "㎍/m³", "max_points": 500},
-    "nasa-power-seoul": {"kind": "line", "title": "NASA 기온·강수·풍속 비교", "x": "date", "y": ["temperature_2m_c", "precipitation_mm_day", "wind_speed_2m_m_s"], "labels": ["평균기온(°C)", "강수량(mm/day)", "풍속(m/s)"]},
+    "nasa-power-seoul": {"kind": "line", "title": "NASA 기온·강수·풍속 비교", "x": "date", "y": ["temperature_2m_c", "precipitation_mm_day", "wind_speed_2m_m_s"], "labels": ["평균기온(°C)", "강수량(mm/day)", "풍속(m/s)"], "axes": ["y", "y2", "y3"], "invalid_below": -900},
     "usgs-earthquakes": {"kind": "scattergeo", "title": "규모 6 이상 지진 위치와 규모", "lat": "latitude", "lon": "longitude", "size": "magnitude", "color": "depth_km", "hover": "place"},
     "frankfurter-usd-krw": {"kind": "line", "title": "USD/KRW 환율 변화", "x": "date", "y": ["rate"], "labels": ["환율(KRW)"]},
     "fred-fedfunds": {"kind": "line", "title": "미국 기준금리 변화", "x": "observation_date", "y": ["FEDFUNDS"], "labels": ["FEDFUNDS(%)"]},
     "bls-us-cpi": {"kind": "line", "title": "미국 CPI 월별 변화", "x": "date", "y": ["cpi_value"], "labels": ["CPI"]},
-    "worldbank-korea": {"kind": "multiCategoryLine", "title": "World Bank 한국 지표별 변화", "x": "date", "y": "value", "category": "indicator", "y_title": "값"},
-    "factfulness-global": {"kind": "multiCategoryLine", "title": "팩트풀니스 주요 세계 지표 최신화", "x": "date", "y": "value", "category": "indicator", "y_title": "값"},
-    "owid-co2": {"kind": "multiCategoryLine", "title": "한국과 세계 CO₂ 배출량 비교", "x": "Year", "y": "Annual CO₂ emissions", "category": "Entity"},
+    "worldbank-korea": {"kind": "multiCategoryLine", "title": "한국 주요 지표 변화율 비교(첫해=100)", "x": "date", "y": "value", "category": "indicator", "indexed": True, "y_title": "첫 관측연도=100"},
+    "factfulness-global": {"kind": "factfulnessLong", "title": "팩트풀니스: 기대수명 장기 변화(1960년대~현재)", "indicator_id": "SP.DYN.LE00.IN"},
+    "owid-co2": {"kind": "multiCategoryLine", "title": "한국과 세계 CO₂ 배출량 비교(로그 축)", "x": "Year", "y": "Annual CO₂ emissions", "category": "Entity", "log_y": True},
     "gbif-korea": {"kind": "scattergeo", "title": "한국 생물종 관측 위치", "lat": "decimalLatitude", "lon": "decimalLongitude", "hover": "scientificName", "geo_scope": "korea"},
     "artic-artworks": {"kind": "histogram", "title": "작품 제작 연도 분포", "x": "date_end"},
     "seoul-bike": {"kind": "bar", "title": "따릉이 대여소별 주차 자전거 수", "x": "stationName", "y": "parkingBikeTotCnt"},
@@ -548,8 +548,23 @@ const LABEL_KO = {
 };
 function koLabel(value) { return LABEL_KO[value] || value; }
 function column(rows, name) { const headers = rows[0] || []; const idx = headers.indexOf(name); if (idx < 0) return []; return rows.slice(1).map(row => row[idx] ?? ''); }
-function numericColumn(rows, name) { return column(rows, name).map(v => Number(v)).map(v => Number.isFinite(v) ? v : null); }
-function limitedRows(rows, maxPoints) { if (!maxPoints || rows.length <= maxPoints + 1) return rows; return [rows[0]].concat(rows.slice(1, maxPoints + 1)); }
+function numericColumn(rows, name, cfg={}) {
+  return column(rows, name).map(v => Number(v)).map(v => {
+    if (!Number.isFinite(v)) return null;
+    if (cfg.invalid_below !== undefined && v <= cfg.invalid_below) return null;
+    return v;
+  });
+}
+function limitedRows(rows, maxPoints) { if (!maxPoints || rows.length <= maxPoints + 1) return rows; return [rows[0]].concat(rows.slice(-maxPoints)); }
+function sortedDataRows(rows, xName) {
+  const headers = rows[0] || []; const xIdx = headers.indexOf(xName);
+  if (xIdx < 0) return rows;
+  return [headers].concat(rows.slice(1).sort((a,b)=>String(a[xIdx]||'').localeCompare(String(b[xIdx]||''))));
+}
+function indexedSeries(y) {
+  const base = y.find(v => v !== null && v !== 0);
+  return y.map(v => (v === null || !base) ? null : (v / base) * 100);
+}
 function renderPreview(rows) {
   const target = document.getElementById('browser-preview');
   const headers = rows[0] || [];
@@ -562,20 +577,33 @@ function drawCsvChart(rows) {
   const chart = document.getElementById('chart');
   if (typeof Plotly === 'undefined') { chart.innerHTML = '<p>Plotly 라이브러리를 불러오지 못했습니다. 인터넷 연결 또는 CDN 차단 여부를 확인하세요.</p>'; return; }
   const cfg = VIZ_CONFIG || {};
-  const dataRows = limitedRows(rows, cfg.max_points || 1200);
+  const dataRows = sortedDataRows(limitedRows(rows, cfg.max_points || 1200), cfg.x);
   let traces = [];
   let layout = {title: cfg.title || '데이터셋 맞춤 시각화', margin: {t: 50, r: 20, b: 60, l: 60}, hovermode: 'closest'};
   if (cfg.kind === 'line') {
     const x = column(dataRows, cfg.x);
-    traces = (cfg.y || []).map((yName, i) => ({x, y: numericColumn(dataRows, yName), mode: 'lines', type: 'scatter', name: (cfg.labels || [])[i] || yName}));
-    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: cfg.y_title || ''};
+    traces = (cfg.y || []).map((yName, i) => ({x, y: numericColumn(dataRows, yName, cfg), mode: 'lines', type: 'scatter', name: (cfg.labels || [])[i] || yName, yaxis: (cfg.axes || [])[i] || 'y'}));
+    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: (cfg.labels || [])[0] || cfg.y_title || ''};
+    if (cfg.axes && cfg.axes.includes('y2')) layout.yaxis2 = {title: (cfg.labels || [])[1] || '', overlaying: 'y', side: 'right', showgrid: false};
+    if (cfg.axes && cfg.axes.includes('y3')) layout.yaxis3 = {title: (cfg.labels || [])[2] || '', overlaying: 'y', side: 'right', anchor: 'free', position: 0.97, showgrid: false};
   } else if (cfg.kind === 'multiCategoryLine') {
     const headers = dataRows[0] || []; const catIdx = headers.indexOf(cfg.category), xIdx = headers.indexOf(cfg.x), yIdx = headers.indexOf(cfg.y); const groups = {};
     dataRows.slice(1).forEach(row => { const cat = row[catIdx] || '(blank)'; if (!groups[cat]) groups[cat] = {x: [], y: []}; groups[cat].x.push(row[xIdx]); const y = Number(row[yIdx]); groups[cat].y.push(Number.isFinite(y) ? y : null); });
-    traces = Object.entries(groups).map(([name, g]) => ({...g, mode: 'lines+markers', type: 'scatter', name: koLabel(name)}));
-    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: cfg.y_title || koLabel(cfg.y)};
+    traces = Object.entries(groups).map(([name, g]) => ({x: g.x, y: cfg.indexed ? indexedSeries(g.y) : g.y, mode: 'lines+markers', type: 'scatter', name: koLabel(name)}));
+    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: cfg.y_title || koLabel(cfg.y), type: cfg.log_y ? 'log' : undefined};
+  } else if (cfg.kind === 'factfulnessLong') {
+    const headers = dataRows[0] || []; const indIdx=headers.indexOf('indicator_id'), countryIdx=headers.indexOf('countryiso3code'), dateIdx=headers.indexOf('date'), valueIdx=headers.indexOf('value'), countryNameIdx=headers.indexOf('country');
+    const groups = {};
+    dataRows.slice(1).forEach(row => {
+      if (row[indIdx] !== cfg.indicator_id) return;
+      const country = row[countryIdx] || row[countryNameIdx] || '(blank)';
+      if (!groups[country]) groups[country] = {x: [], y: [], label: row[countryNameIdx] || country};
+      const y = Number(row[valueIdx]); if (Number.isFinite(y)) { groups[country].x.push(row[dateIdx]); groups[country].y.push(y); }
+    });
+    traces = Object.entries(groups).map(([code, g]) => ({type:'scatter',mode:'lines+markers',name:koLabel(g.label || code),x:g.x,y:g.y}));
+    layout.xaxis = {title:'연도'}; layout.yaxis = {title:'기대수명(년)'};
   } else if (cfg.kind === 'scattergeo') {
-    const lonRaw = numericColumn(dataRows, cfg.lon); const latRaw = numericColumn(dataRows, cfg.lat); const text = cfg.hover ? column(dataRows, cfg.hover) : []; const sizeRaw = cfg.size ? numericColumn(dataRows, cfg.size) : []; const colorRaw = cfg.color ? numericColumn(dataRows, cfg.color) : [];
+    const lonRaw = numericColumn(dataRows, cfg.lon, cfg); const latRaw = numericColumn(dataRows, cfg.lat, cfg); const text = cfg.hover ? column(dataRows, cfg.hover) : []; const sizeRaw = cfg.size ? numericColumn(dataRows, cfg.size, cfg) : []; const colorRaw = cfg.color ? numericColumn(dataRows, cfg.color, cfg) : [];
     const lon = [], lat = [], text2 = [], sizes = [], colors = [];
     dataRows.slice(1).forEach((_, i) => { const la = latRaw[i], lo = lonRaw[i]; if (la !== null && lo !== null) { lon.push(lo); lat.push(la); text2.push(text[i] || ''); sizes.push(cfg.size ? Math.max(6, (sizeRaw[i] || 1) * 3) : 7); colors.push(cfg.color ? colorRaw[i] : null); } });
     traces = [{type: 'scattergeo', mode: 'markers', lat, lon, text: text2, marker: {size: sizes, color: cfg.color ? colors : '#0969da', colorscale: 'Viridis', showscale: !!cfg.color, opacity: 0.75}}];
@@ -585,16 +613,18 @@ function drawCsvChart(rows) {
       layout.geo = {scope: 'world', projection: {type: 'natural earth'}, showland: true, landcolor: '#f6f8fa'};
     }
   } else if (cfg.kind === 'bar') {
-    traces = [{type: 'bar', x: column(dataRows, cfg.x).map(koLabel), y: numericColumn(dataRows, cfg.y), name: koLabel(cfg.y)}]; layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: koLabel(cfg.y)};
+    traces = [{type: 'bar', x: column(dataRows, cfg.x).map(koLabel), y: numericColumn(dataRows, cfg.y, cfg), name: koLabel(cfg.y)}]; layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: koLabel(cfg.y)};
   } else if (cfg.kind === 'barAggregate') {
     const headers = dataRows[0] || []; const idx = cfg.x_date_year ? headers.indexOf(cfg.x_date_year) : headers.indexOf(cfg.x); const counts = {};
     dataRows.slice(1).forEach(row => { const raw = row[idx] || '(blank)'; const key = cfg.x_date_year ? String(raw).slice(0, 4) : raw; counts[key] = (counts[key] || 0) + 1; });
     const entries = Object.entries(counts).sort((a, b) => String(a[0]).localeCompare(String(b[0]))).slice(0, 30);
     traces = [{type: 'bar', x: entries.map(e => koLabel(e[0])), y: entries.map(e => e[1]), name: '개수'}]; layout.yaxis = {title: '개수'};
   } else if (cfg.kind === 'histogram') {
-    traces = [{type: 'histogram', x: numericColumn(dataRows, cfg.x), name: koLabel(cfg.x)}];
+    traces = [{type: 'histogram', x: numericColumn(dataRows, cfg.x, cfg), name: koLabel(cfg.x)}];
   } else if (cfg.kind === 'scatter') {
-    traces = [{type: 'scatter', mode: 'markers', x: numericColumn(dataRows, cfg.x), y: numericColumn(dataRows, cfg.y), text: cfg.text ? column(dataRows, cfg.text) : [], marker: {size: 8, opacity: 0.7}}];
+    const xs = numericColumn(dataRows, cfg.x, cfg), ys = numericColumn(dataRows, cfg.y, cfg), texts = cfg.text ? column(dataRows, cfg.text) : [];
+    const clean = xs.map((x,i)=>({x,y:ys[i],text:texts[i]})).filter(p=>p.x !== null && p.y !== null && p.x > 0 && p.y > 0);
+    traces = [{type: 'scatter', mode: 'markers', x: clean.map(p=>p.x), y: clean.map(p=>p.y), text: clean.map(p=>p.text), marker: {size: 8, opacity: 0.7}}];
     layout.xaxis = {title: cfg.x_title || koLabel(cfg.x), type: 'log'}; layout.yaxis = {title: cfg.y_title || koLabel(cfg.y), type: 'log'};
   }
   if (!traces.length) { chart.innerHTML = '<p>이 데이터셋의 맞춤 시각화 설정을 찾지 못했습니다.</p>'; return; }
@@ -773,7 +803,7 @@ drawSdgCharts();
     body = f'''
 <p><a href="../index.html">← 전체 목록</a></p>
 <h1>지속가능발전(SDG) 주제 데이터 10가지</h1>
-<p>기존 추천 데이터 TOP 10과 별도로, 지속가능발전 수업에 바로 연결하기 쉬운 주제·데이터·활동을 분리했습니다. 각 주제마다 Plotly 시각화를 붙여 데이터 탐색 흐름이 바로 보이도록 했습니다.</p>
+<p>지속가능발전 수업에 바로 연결하기 쉬운 주제·데이터·활동을 모았습니다. 각 주제는 “무엇을 질문할지 → 어떤 데이터를 볼지 → 어떻게 시각화할지”가 드러나도록 구성했습니다.</p>
 {''.join(cards)}
 {script}
 '''
@@ -1011,11 +1041,11 @@ def main() -> None:
         recommended_items.append(f"""<li><b>{rank}. <a href="datasets/{ds['id']}.html">{html.escape(ds['title'])}</a></b> <span class="badge">{count} rows</span><br>{html.escape(RECOMMENDED_CANDIDATE_REASONS[dataset_id])}</li>""")
     index = f'''
 <h1>초·중·고 정보 교육을 위한 무료 데이터 과학 API & CSV</h1>
-<p>모든 기본 CSV는 최근 5년치 중심으로 생성되며, <code>python3 scripts/update_datasets.py --scope all</code>로 가능한 전체 기간을 받을 수 있습니다.</p>
-<p>데이터별 페이지에서 CSV 직접 로드, 원천 API 테스트, 브라우저 시각화, Streamlit 기본 코드, Pico 2 WH + Grove Shield 기본 코드를 제공합니다.</p>
-<p><a href="data/manifest.json">갱신 manifest</a> · <a href="examples/factfulness-literacy.html">팩트풀니스 데이터 리터러시 수업</a> · <a href="examples/svg-map-visualization.html">SVG 지도 시각화 예제</a> · <a href="examples/sdg-topics.html">지속가능발전 주제 데이터 10가지</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub repo</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/CONTRIBUTING.md">사람용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/AI_CONTRIBUTING.md">AI용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/REWARDS.md">리워드 설계</a></p>
-<h2>추천 데이터 후보 10개 (운영자 확인 전)</h2>
-<p>아래 목록은 교육적 활용도가 높아 보이는 후보이며, 최종 TOP 10은 운영자와 논의 후 확정합니다.</p>
+<p>교육적 가치가 높은 무료 데이터셋을 골라, 바로 열어 보고 시각화하고 수업 예제로 바꿀 수 있게 정리했습니다. 팩트풀니스처럼 장기 변화가 중요한 자료는 1960년대부터의 긴 흐름을 우선 보여 주고, 날씨·대기질처럼 최근성이 중요한 자료는 최근 데이터 중심으로 제공합니다.</p>
+<p>데이터별 페이지에서 CSV 직접 열기, 원천 API 확인, 브라우저 시각화, Streamlit 기본 코드, Pico 2 WH + Grove Shield 기본 코드를 확인할 수 있습니다.</p>
+<p><a href="examples/factfulness-literacy.html">팩트풀니스 데이터 리터러시 수업</a> · <a href="examples/sdg-topics.html">지속가능발전 주제 데이터 10가지</a> · <a href="examples/svg-map-visualization.html">SVG 지도 시각화 예제</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub 저장소</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/CONTRIBUTING.md">기여 안내</a></p>
+<h2>추천 데이터 10가지</h2>
+<p>처음 방문한 선생님과 학생이 바로 써 보기 좋은 데이터부터 골랐습니다.</p>
 <ol>{''.join(recommended_items)}</ol>
 <h2>지속가능발전(SDG) 주제 데이터 10가지</h2>
 <p>기후·대기질·생물다양성·도시 이동·건강 형평성 등 SDG 수업용 주제는 <a href="examples/sdg-topics.html">별도 페이지</a>로 분리했습니다.</p>

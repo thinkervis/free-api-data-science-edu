@@ -158,8 +158,9 @@ def update_worldbank_korea_indicators(scope: str) -> dict[str, Any]:
 
 
 def update_factfulness_global_indicators(scope: str) -> dict[str, Any]:
-    start, end = range_for_scope(scope)
-    date_param = "1960:2030" if scope == "all" else f"{start.year}:{end.year}"
+    # Factfulness lessons are about long-term change in the world.
+    # Keep this dataset long-horizon even when the default updater scope is recent5.
+    date_param = "1960:2030"
     countries = ["KOR", "USA", "CHN", "IND", "BRA", "NGA", "SWE", "WLD"]
     indicators = {
         "SP.DYN.LE00.IN": "Life expectancy at birth, total (years)",

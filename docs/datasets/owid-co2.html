@@ -88,7 +88,7 @@ for line in lines:
 </pre>
 
 <script>
-const VIZ_CONFIG = {"kind": "multiCategoryLine", "title": "한국과 세계 CO₂ 배출량 비교", "x": "Year", "y": "Annual CO₂ emissions", "category": "Entity"};
+const VIZ_CONFIG = {"kind": "multiCategoryLine", "title": "한국과 세계 CO₂ 배출량 비교(로그 축)", "x": "Year", "y": "Annual CO₂ emissions", "category": "Entity", "log_y": true};
 function parseCsvRows(text) {
   const rows = [];
   let row = [];
@@ -127,8 +127,23 @@ const LABEL_KO = {
 };
 function koLabel(value) { return LABEL_KO[value] || value; }
 function column(rows, name) { const headers = rows[0] || []; const idx = headers.indexOf(name); if (idx < 0) return []; return rows.slice(1).map(row => row[idx] ?? ''); }
-function numericColumn(rows, name) { return column(rows, name).map(v => Number(v)).map(v => Number.isFinite(v) ? v : null); }
-function limitedRows(rows, maxPoints) { if (!maxPoints || rows.length <= maxPoints + 1) return rows; return [rows[0]].concat(rows.slice(1, maxPoints + 1)); }
+function numericColumn(rows, name, cfg={}) {
+  return column(rows, name).map(v => Number(v)).map(v => {
+    if (!Number.isFinite(v)) return null;
+    if (cfg.invalid_below !== undefined && v <= cfg.invalid_below) return null;
+    return v;
+  });
+}
+function limitedRows(rows, maxPoints) { if (!maxPoints || rows.length <= maxPoints + 1) return rows; return [rows[0]].concat(rows.slice(-maxPoints)); }
+function sortedDataRows(rows, xName) {
+  const headers = rows[0] || []; const xIdx = headers.indexOf(xName);
+  if (xIdx < 0) return rows;
+  return [headers].concat(rows.slice(1).sort((a,b)=>String(a[xIdx]||'').localeCompare(String(b[xIdx]||''))));
+}
+function indexedSeries(y) {
+  const base = y.find(v => v !== null && v !== 0);
+  return y.map(v => (v === null || !base) ? null : (v / base) * 100);
+}
 function renderPreview(rows) {
   const target = document.getElementById('browser-preview');
   const headers = rows[0] || [];
@@ -141,20 +156,33 @@ function drawCsvChart(rows) {
   const chart = document.getElementById('chart');
   if (typeof Plotly === 'undefined') { chart.innerHTML = '<p>Plotly 라이브러리를 불러오지 못했습니다. 인터넷 연결 또는 CDN 차단 여부를 확인하세요.</p>'; return; }
   const cfg = VIZ_CONFIG || {};
-  const dataRows = limitedRows(rows, cfg.max_points || 1200);
+  const dataRows = sortedDataRows(limitedRows(rows, cfg.max_points || 1200), cfg.x);
   let traces = [];
   let layout = {title: cfg.title || '데이터셋 맞춤 시각화', margin: {t: 50, r: 20, b: 60, l: 60}, hovermode: 'closest'};
   if (cfg.kind === 'line') {
     const x = column(dataRows, cfg.x);
-    traces = (cfg.y || []).map((yName, i) => ({x, y: numericColumn(dataRows, yName), mode: 'lines', type: 'scatter', name: (cfg.labels || [])[i] || yName}));
-    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: cfg.y_title || ''};
+    traces = (cfg.y || []).map((yName, i) => ({x, y: numericColumn(dataRows, yName, cfg), mode: 'lines', type: 'scatter', name: (cfg.labels || [])[i] || yName, yaxis: (cfg.axes || [])[i] || 'y'}));
+    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: (cfg.labels || [])[0] || cfg.y_title || ''};
+    if (cfg.axes && cfg.axes.includes('y2')) layout.yaxis2 = {title: (cfg.labels || [])[1] || '', overlaying: 'y', side: 'right', showgrid: false};
+    if (cfg.axes && cfg.axes.includes('y3')) layout.yaxis3 = {title: (cfg.labels || [])[2] || '', overlaying: 'y', side: 'right', anchor: 'free', position: 0.97, showgrid: false};
   } else if (cfg.kind === 'multiCategoryLine') {
     const headers = dataRows[0] || []; const catIdx = headers.indexOf(cfg.category), xIdx = headers.indexOf(cfg.x), yIdx = headers.indexOf(cfg.y); const groups = {};
     dataRows.slice(1).forEach(row => { const cat = row[catIdx] || '(blank)'; if (!groups[cat]) groups[cat] = {x: [], y: []}; groups[cat].x.push(row[xIdx]); const y = Number(row[yIdx]); groups[cat].y.push(Number.isFinite(y) ? y : null); });
-    traces = Object.entries(groups).map(([name, g]) => ({...g, mode: 'lines+markers', type: 'scatter', name: koLabel(name)}));
-    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: cfg.y_title || koLabel(cfg.y)};
+    traces = Object.entries(groups).map(([name, g]) => ({x: g.x, y: cfg.indexed ? indexedSeries(g.y) : g.y, mode: 'lines+markers', type: 'scatter', name: koLabel(name)}));
+    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: cfg.y_title || koLabel(cfg.y), type: cfg.log_y ? 'log' : undefined};
+  } else if (cfg.kind === 'factfulnessLong') {
+    const headers = dataRows[0] || []; const indIdx=headers.indexOf('indicator_id'), countryIdx=headers.indexOf('countryiso3code'), dateIdx=headers.indexOf('date'), valueIdx=headers.indexOf('value'), countryNameIdx=headers.indexOf('country');
+    const groups = {};
+    dataRows.slice(1).forEach(row => {
+      if (row[indIdx] !== cfg.indicator_id) return;
+      const country = row[countryIdx] || row[countryNameIdx] || '(blank)';
+      if (!groups[country]) groups[country] = {x: [], y: [], label: row[countryNameIdx] || country};
+      const y = Number(row[valueIdx]); if (Number.isFinite(y)) { groups[country].x.push(row[dateIdx]); groups[country].y.push(y); }
+    });
+    traces = Object.entries(groups).map(([code, g]) => ({type:'scatter',mode:'lines+markers',name:koLabel(g.label || code),x:g.x,y:g.y}));
+    layout.xaxis = {title:'연도'}; layout.yaxis = {title:'기대수명(년)'};
   } else if (cfg.kind === 'scattergeo') {
-    const lonRaw = numericColumn(dataRows, cfg.lon); const latRaw = numericColumn(dataRows, cfg.lat); const text = cfg.hover ? column(dataRows, cfg.hover) : []; const sizeRaw = cfg.size ? numericColumn(dataRows, cfg.size) : []; const colorRaw = cfg.color ? numericColumn(dataRows, cfg.color) : [];
+    const lonRaw = numericColumn(dataRows, cfg.lon, cfg); const latRaw = numericColumn(dataRows, cfg.lat, cfg); const text = cfg.hover ? column(dataRows, cfg.hover) : []; const sizeRaw = cfg.size ? numericColumn(dataRows, cfg.size, cfg) : []; const colorRaw = cfg.color ? numericColumn(dataRows, cfg.color, cfg) : [];
     const lon = [], lat = [], text2 = [], sizes = [], colors = [];
     dataRows.slice(1).forEach((_, i) => { const la = latRaw[i], lo = lonRaw[i]; if (la !== null && lo !== null) { lon.push(lo); lat.push(la); text2.push(text[i] || ''); sizes.push(cfg.size ? Math.max(6, (sizeRaw[i] || 1) * 3) : 7); colors.push(cfg.color ? colorRaw[i] : null); } });
     traces = [{type: 'scattergeo', mode: 'markers', lat, lon, text: text2, marker: {size: sizes, color: cfg.color ? colors : '#0969da', colorscale: 'Viridis', showscale: !!cfg.color, opacity: 0.75}}];
@@ -164,16 +192,18 @@ function drawCsvChart(rows) {
       layout.geo = {scope: 'world', projection: {type: 'natural earth'}, showland: true, landcolor: '#f6f8fa'};
     }
   } else if (cfg.kind === 'bar') {
-    traces = [{type: 'bar', x: column(dataRows, cfg.x).map(koLabel), y: numericColumn(dataRows, cfg.y), name: koLabel(cfg.y)}]; layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: koLabel(cfg.y)};
+    traces = [{type: 'bar', x: column(dataRows, cfg.x).map(koLabel), y: numericColumn(dataRows, cfg.y, cfg), name: koLabel(cfg.y)}]; layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: koLabel(cfg.y)};
   } else if (cfg.kind === 'barAggregate') {
     const headers = dataRows[0] || []; const idx = cfg.x_date_year ? headers.indexOf(cfg.x_date_year) : headers.indexOf(cfg.x); const counts = {};
     dataRows.slice(1).forEach(row => { const raw = row[idx] || '(blank)'; const key = cfg.x_date_year ? String(raw).slice(0, 4) : raw; counts[key] = (counts[key] || 0) + 1; });
     const entries = Object.entries(counts).sort((a, b) => String(a[0]).localeCompare(String(b[0]))).slice(0, 30);
     traces = [{type: 'bar', x: entries.map(e => koLabel(e[0])), y: entries.map(e => e[1]), name: '개수'}]; layout.yaxis = {title: '개수'};
   } else if (cfg.kind === 'histogram') {
-    traces = [{type: 'histogram', x: numericColumn(dataRows, cfg.x), name: koLabel(cfg.x)}];
+    traces = [{type: 'histogram', x: numericColumn(dataRows, cfg.x, cfg), name: koLabel(cfg.x)}];
   } else if (cfg.kind === 'scatter') {
-    traces = [{type: 'scatter', mode: 'markers', x: numericColumn(dataRows, cfg.x), y: numericColumn(dataRows, cfg.y), text: cfg.text ? column(dataRows, cfg.text) : [], marker: {size: 8, opacity: 0.7}}];
+    const xs = numericColumn(dataRows, cfg.x, cfg), ys = numericColumn(dataRows, cfg.y, cfg), texts = cfg.text ? column(dataRows, cfg.text) : [];
+    const clean = xs.map((x,i)=>({x,y:ys[i],text:texts[i]})).filter(p=>p.x !== null && p.y !== null && p.x > 0 && p.y > 0);
+    traces = [{type: 'scatter', mode: 'markers', x: clean.map(p=>p.x), y: clean.map(p=>p.y), text: clean.map(p=>p.text), marker: {size: 8, opacity: 0.7}}];
     layout.xaxis = {title: cfg.x_title || koLabel(cfg.x), type: 'log'}; layout.yaxis = {title: cfg.y_title || koLabel(cfg.y), type: 'log'};
   }
   if (!traces.length) { chart.innerHTML = '<p>이 데이터셋의 맞춤 시각화 설정을 찾지 못했습니다.</p>'; return; }

@@ -27,7 +27,9 @@ streamlit run examples/streamlit_app/app.py
 ```
 
 
-## 추천 데이터 후보 10개 (운영자 확인 전)
+## 추천 데이터 10가지
+
+처음 방문한 선생님과 학생이 바로 써 보기 좋은 데이터부터 골랐습니다.
 
 1. 서울 5년 일별 기상 — 날씨 시계열/그래프 수업 입문
 2. 서울 5년 시간별 대기질 — 미세먼지/환경 탐구
@@ -65,9 +67,9 @@ streamlit run examples/streamlit_app/app.py
 | 야구 | MLB Stats API | 경기 일정/결과 | 불필요 | 직접 테스트 가능 |
 | 유동인구 | 서울 생활인구/상권 후보 | 시간대별 유동인구 | 확인 필요 | 공식 포털 확인 |
 
-## 최근 5년치 CSV와 전체 기간 자동화
+## CSV 데이터 범위
 
-기본 데이터는 최근 5년치를 업로드합니다. 가능한 데이터는 `--scope all` 옵션으로 전체 기간을 받을 수 있게 자동화했습니다.
+날씨·대기질처럼 최근성이 중요한 데이터는 최근 5년을 기본으로 제공합니다. 팩트풀니스처럼 장기 변화가 핵심인 데이터는 가능한 한 1960년대부터 현재까지의 흐름을 제공합니다. 개발자는 `--scope all` 옵션으로 더 넓은 기간을 다시 생성할 수 있습니다.
 
 ```bash
 python3 scripts/update_datasets.py --scope recent5
@@ -91,9 +93,7 @@ python3 scripts/validate_datasets.py
 - `apis/baseball.md` — 야구 API
 - `apis/foot-traffic.md` — 유동인구 API
 - `CONTRIBUTING.md` — 기여하고 싶은 선생님/시민을 위한 안내
-- `AI_CONTRIBUTING.md` — AI 에이전트용 기여 안내
 - `CONTRIBUTORS.md` — 기여자 표기
-- `REWARDS.md` — 기여 리워드 시스템 설계
 - `hardware/pico2wh-grove-shield.md` — Pico 2 WH + Grove Shield 기준
 
 ## 수업 아이디어
@@ -111,37 +111,15 @@ python3 scripts/validate_datasets.py
 
 
 
-## 후속 작업자/AI를 위한 기준 문서
-
-후속 작업자는 작업 전 아래 문서를 먼저 확인하세요.
-
-- `PROJECT_SPEC.md` — 프로젝트 목표, 데이터셋 승격 기준, 검증 기준, 완료 보고 형식
-- `AI_HANDOFF.md` — 다른 AI 에이전트용 빠른 인수인계 문서
-- `AI_CONTRIBUTING.md` — AI 기여 규칙
-- `hardware/pico2wh-grove-shield.md` — Pico 2 WH + Grove Shield 기준
-
-## public-apis 기반 추가 검토
-
-`public-apis/public-apis` 전체 목록을 참고해 API 후보를 하나씩 검토하기 위한 감사 자료를 추가했습니다.
-
-- 전체 파싱 목록: `audits/public_apis_catalog.csv`
-- 교육 후보 1차 필터: `audits/public_apis_education_candidates.csv`
-- 검토 요약: `audits/public-apis-review.md`
-- 재실행 스크립트: `python3 scripts/audit_public_apis.py`
-
-현재 기준 전체 1,529개 API, 51개 카테고리, 교육 후보 514개를 1차 분류했습니다. 이후 no-auth/JSON/CORS/시각화 가능 후보부터 데이터셋과 Pages에 반영합니다.
-
 ## 기여 안내
 
 선생님, 학생, 개발자, 시민 누구나 기여할 수 있습니다.
 
 - 사람용 안내: `CONTRIBUTING.md`
-- AI용 안내: `AI_CONTRIBUTING.md`
 - 기여자 표기: `CONTRIBUTORS.md`
-- 리워드/감사 시스템 설계: `REWARDS.md`
 
 기여는 데이터 추천, 공식 문서 확인, CSV 자동화, Streamlit/Pico 2 WH + Grove Shield 예제, 수업 활동지, 현장 적용 후기까지 모두 환영합니다.
 
 ## 레포 상태
 
-GitHub Pages, 최근 5년치 CSV, 자동 갱신 스크립트, 검증 스크립트를 포함합니다. 공식 문서와 직접 테스트 가능한 엔드포인트를 기준으로 계속 확장합니다.
+GitHub Pages, CSV 데이터, 수업 예제, Streamlit/Pico 2 WH + Grove Shield 시작 코드를 포함합니다. 공식 문서와 직접 테스트 가능한 데이터 출처를 기준으로 계속 확장합니다.
