@@ -120,6 +120,7 @@ const COUNTRIES = ['KOR','WLD','IND','NGA','SWE'];
 const COUNTRY_LABELS = {KOR:'한국', WLD:'세계', IND:'인도', NGA:'나이지리아', SWE:'스웨덴'};
 const PLOT_CONFIG = {responsive:true, displaylogo:false, displayModeBar:false};
 function mobileLayout(extra={}) { const mobile = window.innerWidth < 760; return Object.assign({legend:{orientation: mobile ? 'h' : 'v', x:0, y: mobile ? -0.25 : 1.05}, font:{size: mobile ? 10 : 12}}, extra); }
+function timeAxis(nticks=5){ return {nticks, rangeslider:{visible:true, thickness:0.08}, rangeselector:{buttons:[{count:7,label:'7일',step:'day',stepmode:'backward'},{count:1,label:'1달',step:'month',stepmode:'backward'},{count:1,label:'1년',step:'year',stepmode:'backward'},{step:'all',label:'전체'}]}}; }
 const INDICATOR_LABELS = {
   'Access to electricity (% of population)':'전기 접근성(인구 %)',
   'GDP per capita (current US$)':'1인당 GDP(현재 US$)',

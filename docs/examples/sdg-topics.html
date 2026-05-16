@@ -150,6 +150,7 @@ const LABEL_KO = {
 function koLabel(value){ return LABEL_KO[value] || value; }
 const PLOT_CONFIG = {responsive:true, displaylogo:false, displayModeBar:false};
 function mobileLayout(extra={}) { const mobile = window.innerWidth < 760; return Object.assign({legend:{orientation: mobile ? 'h' : 'v', x:0, y: mobile ? -0.25 : 1.05}, font:{size: mobile ? 10 : 12}}, extra); }
+function timeAxis(nticks=5){ return {nticks, rangeslider:{visible:true, thickness:0.08}, rangeselector:{buttons:[{count:7,label:'7일',step:'day',stepmode:'backward'},{count:1,label:'1달',step:'month',stepmode:'backward'},{count:1,label:'1년',step:'year',stepmode:'backward'},{step:'all',label:'전체'}]}}; }
 function validRows(rows, valueField) { return rows.filter(r => num(r[valueField]) !== null); }
 function indexRows(rows, valueField) {
   const clean = validRows(rows, valueField);
@@ -187,21 +188,21 @@ async function drawSdgCharts() {
     Plotly.newPlot('sdg-chart-0', [
       {type:'scatter',mode:'lines',name:'PM10',x:airRecent.map(r=>r.time),y:airRecent.map(r=>num(r.pm10))},
       {type:'scatter',mode:'lines',name:'PM2.5',x:airRecent.map(r=>r.time),y:airRecent.map(r=>num(r.pm2_5))}
-    ], mobileLayout({title:'최근 시간대 서울 대기질 변화', margin:{t:50,r:20,b:90,l:50}, yaxis:{title:'㎍/m³'}, xaxis:{nticks:5}}), PLOT_CONFIG);
+    ], mobileLayout({title:'최근 시간대 서울 대기질 변화', margin:{t:50,r:20,b:90,l:50}, yaxis:{title:'㎍/m³'}, xaxis:timeAxis(5)}), PLOT_CONFIG);
 
     const nasa = await csv('../data/nasa_power_seoul_daily.csv');
     const nasaRecent = nasa.slice(-365);
     Plotly.newPlot('sdg-chart-1', [
       {type:'scatter',mode:'lines',name:'평균기온',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.temperature_2m_c))},
       {type:'bar',name:'강수량',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),yaxis:'y2',opacity:.35}
-    ], mobileLayout({title:'최근 1년 서울 기온·강수', margin:{t:50,r:45,b:95,l:45}, yaxis:{title:'°C'}, yaxis2:{title:'mm/day',overlaying:'y',side:'right'}, xaxis:{nticks:5}}), PLOT_CONFIG);
+    ], mobileLayout({title:'최근 1년 서울 기온·강수', margin:{t:50,r:45,b:95,l:45}, yaxis:{title:'°C'}, yaxis2:{title:'mm/day',overlaying:'y',side:'right'}, xaxis:timeAxis(5)}), PLOT_CONFIG);
 
     const co2 = await csv('../data/owid_co2_korea_world.csv');
     const co2Groups = [...new Set(co2.map(r=>r.Entity))];
     Plotly.newPlot('sdg-chart-2', co2Groups.map(g => {
       const rows = indexRows(co2.filter(r=>r.Entity===g).sort((a,b)=>Number(a.Year)-Number(b.Year)), 'Annual CO₂ emissions');
       return {type:'scatter',mode:'lines+markers',name:koLabel(g),x:rows.map(r=>r.Year),y:rows.map(r=>r.indexValue),customdata:rows.map(r=>(num(r['Annual CO₂ emissions'])/1e9).toFixed(2)),hovertemplate:'%{fullData.name}<br>연도: %{x}<br>변화: %{y:.1f} (첫해=100)<br>실제 배출량: %{customdata} GtCO₂<extra></extra>'};
-    }), {title:'한국과 세계 CO₂ 배출량 변화(첫해=100)', margin:{t:70,r:20,b:60,l:70}, yaxis:{title:'첫해=100 지수'}}, PLOT_CONFIG);
+    }), mobileLayout({title:'한국과 세계 CO₂ 배출량 변화(첫해=100)', margin:{t:70,r:20,b:90,l:70}, yaxis:{title:'첫해=100 지수'}, xaxis:timeAxis(6)}), PLOT_CONFIG);
 
     const gbif = await csv('../data/gbif_korea_occurrences_sample.csv');
     const koreaGeo = await json('../assets/skorea_provinces_geo_simple.json');
@@ -218,17 +219,17 @@ async function drawSdgCharts() {
     Plotly.newPlot('sdg-chart-6', inds.map(ind => {
       const rows = indexRows(wb.filter(r=>r.indicator===ind).sort((a,b)=>Number(a.date)-Number(b.date)), 'value');
       return {type:'scatter',mode:'lines+markers',name:koLabel(ind),x:rows.map(r=>r.date),y:rows.map(r=>r.indexValue),customdata:rows.map(r=>num(r.value)),hovertemplate:'%{fullData.name}<br>연도: %{x}<br>변화: %{y:.1f} (첫해=100)<br>원값: %{customdata}<extra></extra>'};
-    }), {title:'한국 주요 발전 지표 변화(첫해=100)', margin:{t:70,r:20,b:70,l:70}, yaxis:{title:'첫해=100 지수'}}, PLOT_CONFIG);
+    }), mobileLayout({title:'한국 주요 발전 지표 변화(첫해=100)', margin:{t:70,r:20,b:95,l:70}, yaxis:{title:'첫해=100 지수'}, xaxis:timeAxis(6)}), PLOT_CONFIG);
 
     const fact = await csv('../data/factfulness_global_indicators.csv');
     const life = latestBy(fact.filter(r=>r.indicator_id==='SP.DYN.LE00.IN'), 'countryiso3code', 'value');
     Plotly.newPlot('sdg-chart-7', [{type:'bar',x:life.map(r=>koLabel(r.country)),y:life.map(r=>num(r.value)),text:life.map(r=>r.date),marker:{color:'#f97316'}}], {title:'팩트풀니스: 최신 기대수명 비교', margin:{t:50,r:20,b:110,l:55}, yaxis:{title:'년'}}, PLOT_CONFIG);
 
-    Plotly.newPlot('sdg-chart-8', [{type:'bar',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),marker:{color:'#38bdf8'}}], mobileLayout({title:'물·가뭄 수업용: 서울 일별 강수량', margin:{t:50,r:20,b:90,l:50}, yaxis:{title:'mm/일', rangemode:'tozero'}, xaxis:{nticks:5}}), PLOT_CONFIG);
+    Plotly.newPlot('sdg-chart-8', [{type:'bar',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),marker:{color:'#38bdf8'}}], mobileLayout({title:'물·가뭄 수업용: 서울 일별 강수량', margin:{t:50,r:20,b:90,l:50}, yaxis:{title:'mm/일', rangemode:'tozero'}, xaxis:timeAxis(5)}), PLOT_CONFIG);
 
     const eia = await csv('../data/eia_california_electricity_daily.csv');
     const recentEia = eia.slice(-600); const types = [...new Set(recentEia.map(r=>r.type_name))].slice(0,5);
-    Plotly.newPlot('sdg-chart-9', types.map(t => { const rows = recentEia.filter(r=>r.type_name===t); return {type:'scatter',mode:'lines',name:koLabel(t),x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'전력 수요·공급 유형별 변화', margin:{t:50,r:20,b:80,l:70}, yaxis:{title:'MWh'}}, PLOT_CONFIG);
+    Plotly.newPlot('sdg-chart-9', types.map(t => { const rows = recentEia.filter(r=>r.type_name===t); return {type:'scatter',mode:'lines',name:koLabel(t),x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), mobileLayout({title:'전력 수요·공급 유형별 변화', margin:{t:50,r:20,b:95,l:70}, yaxis:{title:'MWh'}, xaxis:timeAxis(5)}), PLOT_CONFIG);
   } catch (err) {
     document.querySelectorAll('.sdg-chart').forEach(el => { if (!el.innerHTML) el.innerHTML = '<p>시각화 로드 실패: ' + err.message + '</p>'; });
   }
