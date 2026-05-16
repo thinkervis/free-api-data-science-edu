@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-05-16T00:02:13.480271+00:00",
+  "updated_at_utc": "2026-05-16T01:50:02.586292+00:00",
   "default_scope": "recent5",
   "files": [
     "data/artic_recent_artworks_sample.csv",
@@ -42,6 +42,12 @@
     {
       "file": "data/worldbank_korea_indicators.csv",
       "rows": 20,
+      "scope": "recent5",
+      "source": "https://api.worldbank.org/v2/"
+    },
+    {
+      "file": "data/factfulness_global_indicators.csv",
+      "rows": 138,
       "scope": "recent5",
       "source": "https://api.worldbank.org/v2/"
     },
@@ -134,12 +140,6 @@
       "rows": 5000,
       "scope": "recent5",
       "source": "https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&data%5B0%5D=value&facets%5Brespondent%5D%5B%5D=CAL&start=2021-05-16&end=2026-05-15&sort%5B0%5D%5Bcolumn%5D=period&sort%5B0%5D%5Bdirection%5D=asc&offset=0&length=5000&api_key=DEMO_KEY"
-    },
-    {
-      "file": "data/factfulness_global_indicators.csv",
-      "rows": 138,
-      "scope": "recent5",
-      "source": "https://api.worldbank.org/v2/"
     }
   ]
 }
