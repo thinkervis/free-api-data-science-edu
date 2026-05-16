@@ -14,6 +14,11 @@ th { background: #f6f8fa; }
 pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 8px; }
 .badge { display: inline-block; background: #eef; border-radius: 999px; padding: .15rem .55rem; margin-right: .25rem; }
 button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; background: white; cursor: pointer; }
+.dataset-toolbar { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin: 1rem 0; }
+.dataset-card { position: relative; }
+.like-button { border-color: #ffb3c1; color: #c9184a; font-weight: 700; }
+.like-button[aria-pressed="true"] { background: #ffe3ec; border-color: #ff8fab; }
+.like-count, .small-muted { color: #6e7781; font-size: .9rem; }
 </style>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
@@ -29,177 +34,86 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 <h2>지속가능발전(SDG) 주제 데이터 10가지</h2>
 <p>기후·대기질·생물다양성·도시 이동·건강 형평성 등 SDG 수업용 주제는 <a href="examples/sdg-topics.html">별도 페이지</a>로 분리했습니다.</p>
 <h2>바로 테스트 가능한 데이터셋</h2>
-
-<div class="card">
-  <h2><a href="datasets/open-meteo-weather.html">서울 5년 일별 기상</a></h2>
-  <p><span class="badge">기상</span><span class="badge">불필요</span><span class="badge">1826 rows</span></p>
-  <p>최근 5년치 CSV 기본 제공, --scope all로 가능한 전체 기간 요청 가능</p>
-  <p><a href="data/open_meteo_seoul_daily_weather.csv">CSV</a> · <a href="https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&amp;longitude=126.9780&amp;start_date=2021-01-01&amp;end_date=2021-01-03&amp;daily=temperature_2m_max,temperature_2m_min,precipitation_sum&amp;timezone=Asia%2FSeoul">직접 테스트</a> · <a href="https://open-meteo.com/en/docs/historical-weather-api">공식 문서</a></p>
+<p class="small-muted">좋아요는 로그인 없이 누를 수 있습니다. Supabase 설정 전에는 이 브라우저 기준으로 저장되고, 설정 후에는 공용 관심도 순위로 집계됩니다.</p>
+<div class="dataset-toolbar">
+  <label>정렬 <select id="sort-mode"><option value="default">기본 순서</option><option value="likes">좋아요 많은 순</option></select></label>
+  <span id="likes-status" class="small-muted">좋아요 상태 확인 중…</span>
 </div>
-<div class="card">
-  <h2><a href="datasets/open-meteo-air-quality.html">서울 5년 시간별 대기질</a></h2>
-  <p><span class="badge">기상/환경</span><span class="badge">불필요</span><span class="badge">43824 rows</span></p>
-  <p>시간별 데이터라 CSV가 큼. Pico 2 WH + Grove Shield에서는 최근 몇 줄만 쓰는 예제로 권장</p>
-  <p><a href="data/open_meteo_seoul_air_quality_hourly.csv">CSV</a> · <a href="https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.5665&amp;longitude=126.9780&amp;hourly=pm10,pm2_5&amp;start_date=2021-01-01&amp;end_date=2021-01-03&amp;timezone=Asia%2FSeoul">직접 테스트</a> · <a href="https://open-meteo.com/en/docs/air-quality-api">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/worldbank-korea.html">한국 5년 World Bank 지표</a></h2>
-  <p><span class="badge">인구/경제/교육/보건</span><span class="badge">불필요</span><span class="badge">20 rows</span></p>
-  <p>인구/GDP/기대수명/중등교육 등록률 포함</p>
-  <p><a href="data/worldbank_korea_indicators.csv">CSV</a> · <a href="https://api.worldbank.org/v2/country/KOR/indicator/SP.POP.TOTL?format=json&amp;date=2021:2025">직접 테스트</a> · <a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/factfulness-global.html">팩트풀니스 세계 지표 최신화</a></h2>
-  <p><span class="badge">SDG/세계시민/데이터 리터러시</span><span class="badge">불필요</span><span class="badge">1906 rows</span></p>
-  <p>팩트풀니스 수업용: 기대수명, 5세 미만 사망률, 전기 접근성, 1인당 GDP, 초등교육 이수율을 최신 World Bank 데이터로 다시 확인</p>
-  <p><a href="data/factfulness_global_indicators.csv">CSV</a> · <a href="https://api.worldbank.org/v2/country/KOR;USA;CHN;IND;BRA;NGA;SWE;WLD/indicator/SP.DYN.LE00.IN?format=json&amp;per_page=20&amp;date=2021:2026">직접 테스트</a> · <a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/usgs-earthquakes.html">전세계 규모 6+ 지진 5년</a></h2>
-  <p><span class="badge">지질/지도</span><span class="badge">불필요</span><span class="badge">652 rows</span></p>
-  <p>지도 시각화/GeoJSON 수업에 적합</p>
-  <p><a href="data/usgs_major_earthquakes.csv">CSV</a> · <a href="https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&amp;starttime=2021-01-01&amp;endtime=2021-01-31&amp;minmagnitude=6">직접 테스트</a> · <a href="https://earthquake.usgs.gov/fdsnws/event/1/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/mlb-schedule.html">MLB 경기 일정/결과 5년</a></h2>
-  <p><span class="badge">야구/스포츠</span><span class="badge">불필요</span><span class="badge">2782 rows</span></p>
-  <p>스코어보드, 승률, 팀별 득점 분석 가능</p>
-  <p><a href="data/mlb_schedule.csv">CSV</a> · <a href="https://statsapi.mlb.com/api/v1/schedule?sportId=1&amp;date=2024-03-28">직접 테스트</a> · <a href="https://github.com/toddrob99/MLB-StatsAPI/wiki">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/fred-fedfunds.html">미국 기준금리 5년</a></h2>
-  <p><span class="badge">경제/금융</span><span class="badge">CSV 다운로드는 불필요 / 정식 API는 키 필요</span><span class="badge">60 rows</span></p>
-  <p>CSV 엔드포인트로 금리 시계열을 바로 읽을 수 있음</p>
-  <p><a href="data/fred_fedfunds.csv">CSV</a> · <a href="https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS&amp;cosd=2021-01-01&amp;coed=2026-05-15">직접 테스트</a> · <a href="https://fred.stlouisfed.org/docs/api/fred/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/owid-co2.html">한국/세계 CO₂ 배출량</a></h2>
-  <p><span class="badge">환경/에너지</span><span class="badge">불필요</span><span class="badge">8 rows</span></p>
-  <p>기본은 최근 5년, --scope all로 전체 역사 범위 필터 가능</p>
-  <p><a href="data/owid_co2_korea_world.csv">CSV</a> · <a href="https://ourworldindata.org/grapher/annual-co2-emissions-per-country.csv">직접 테스트</a> · <a href="https://docs.owid.io/projects/etl/api/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/gbif-korea.html">한국 생물종 관측 샘플</a></h2>
-  <p><span class="badge">생태/생물다양성</span><span class="badge">불필요</span><span class="badge">300 rows</span></p>
-  <p>위치 기반 생물종 관측 지도 샘플. 기본 300건 제한</p>
-  <p><a href="data/gbif_korea_occurrences_sample.csv">CSV</a> · <a href="https://api.gbif.org/v1/occurrence/search?country=KR&amp;limit=3">직접 테스트</a> · <a href="https://techdocs.gbif.org/en/openapi/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/artic-artworks.html">최근 5년 미술 작품 샘플</a></h2>
-  <p><span class="badge">문화/예술</span><span class="badge">불필요</span><span class="badge">100 rows</span></p>
-  <p>문화 데이터 검색/분류/카드 UI 예제로 적합</p>
-  <p><a href="data/artic_recent_artworks_sample.csv">CSV</a> · <a href="https://api.artic.edu/api/v1/artworks/search?q=monet&amp;fields=id,title,artist_title,date_display&amp;limit=3">직접 테스트</a> · <a href="https://api.artic.edu/docs/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/seoul-bike.html">서울 따릉이 샘플</a></h2>
-  <p><span class="badge">대중교통/도시</span><span class="badge">샘플키 가능 / 정식은 무료 키 권장</span><span class="badge">5 rows</span></p>
-  <p>샘플키는 5건 제한. 정식키로 전체 대여소 자동화 가능</p>
-  <p><a href="data/seoul_bike_sample.csv">CSV</a> · <a href="http://openapi.seoul.go.kr:8088/sample/json/bikeList/1/5/">직접 테스트</a> · <a href="https://data.seoul.go.kr/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/nasa-power-seoul.html">NASA POWER 서울 일별 기상/에너지</a></h2>
-  <p><span class="badge">기상/에너지/과학</span><span class="badge">불필요</span><span class="badge">1826 rows</span></p>
-  <p>public-apis 확장 후보에서 승격. 최근 5년치 기본, --scope all은 NASA POWER 일별 제공 시작 시점부터 요청</p>
-  <p><a href="data/nasa_power_seoul_daily.csv">CSV</a> · <a href="https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR&amp;community=RE&amp;longitude=126.9780&amp;latitude=37.5665&amp;start=20210101&amp;end=20210105&amp;format=JSON">직접 테스트</a> · <a href="https://power.larc.nasa.gov/docs/services/api/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/bls-us-cpi.html">미국 소비자물가지수 CPI 월별</a></h2>
-  <p><span class="badge">경제/통계</span><span class="badge">제한 내 불필요 / 대량 사용은 무료 키 권장</span><span class="badge">64 rows</span></p>
-  <p>물가/인플레이션 수업용 월별 시계열. --scope all은 공개 API 제한을 고려해 2005년 이후로 제한</p>
-  <p><a href="data/bls_us_cpi_monthly.csv">CSV</a> · <a href="https://api.bls.gov/publicAPI/v2/timeseries/data/CUUR0000SA0?startyear=2021&amp;endyear=2025">직접 테스트</a> · <a href="https://www.bls.gov/developers/api_signature_v2.htm">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/nager-korea-holidays.html">한국 공휴일 5년</a></h2>
-  <p><span class="badge">달력/사회/문화</span><span class="badge">불필요</span><span class="badge">95 rows</span></p>
-  <p>날짜/캘린더/지역 문화 수업에 적합. --scope all은 1970년 이후 연도별 조회</p>
-  <p><a href="data/nager_korea_public_holidays.csv">CSV</a> · <a href="https://date.nager.at/api/v3/PublicHolidays/2024/KR">직접 테스트</a> · <a href="https://date.nager.at/Api">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/spacex-launches.html">SpaceX 발사 기록</a></h2>
-  <p><span class="badge">우주/과학</span><span class="badge">불필요</span><span class="badge">78 rows</span></p>
-  <p>최근 5년 발사 기록 기본. POST query로 기간 필터링하며 Pages에서는 CSV 직접 로드/시각화 제공</p>
-  <p><a href="data/spacex_launches.csv">CSV</a> · <a href="https://api.spacexdata.com/v5/launches/latest">직접 테스트</a> · <a href="https://github.com/r-spacex/SpaceX-API/tree/master/docs">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/frankfurter-usd-krw.html">USD/KRW 환율 일별</a></h2>
-  <p><span class="badge">경제/환율</span><span class="badge">불필요</span><span class="badge">1282 rows</span></p>
-  <p>환율 시계열/변화율 수업용. --scope all은 API 제공 시작 시점 이후</p>
-  <p><a href="data/frankfurter_usd_krw_daily.csv">CSV</a> · <a href="https://api.frankfurter.app/2021-01-01..2021-01-05?from=USD&amp;to=KRW">직접 테스트</a> · <a href="https://www.frankfurter.app/docs/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/who-korea-life-expectancy.html">WHO 한국 기대수명</a></h2>
-  <p><span class="badge">보건/국제통계</span><span class="badge">불필요</span><span class="badge">3 rows</span></p>
-  <p>보건/인구/국제비교 수업용. 최근 5년 범위에 값이 적을 수 있어 WHO 제공 연도 기준으로 검증</p>
-  <p><a href="data/who_korea_life_expectancy.csv">CSV</a> · <a href="https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27KOR%27&amp;$top=5">직접 테스트</a> · <a href="https://www.who.int/data/gho/info/gho-odata-api">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/restcountries-world.html">세계 국가 기본 정보 스냅샷</a></h2>
-  <p><span class="badge">지리/국가/인구</span><span class="badge">불필요</span><span class="badge">250 rows</span></p>
-  <p>시계열이 아닌 현재 스냅샷 데이터. 국가별 인구/면적/지역 비교와 지도 수업용</p>
-  <p><a href="data/restcountries_world_snapshot.csv">CSV</a> · <a href="https://restcountries.com/v3.1/all?fields=name,cca3,region,population,area,latlng">직접 테스트</a> · <a href="https://restcountries.com/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/eia-california-electricity.html">EIA 캘리포니아 전력 일별</a></h2>
-  <p><span class="badge">에너지/전력/환경</span><span class="badge">DEMO_KEY 가능 / 안정 사용은 무료 키 권장</span><span class="badge">5000 rows</span></p>
-  <p>전력 수요/공급/에너지 데이터 수업용. DEMO_KEY 제한을 명시하고 무료 키 사용 권장</p>
-  <p><a href="data/eia_california_electricity_daily.csv">CSV</a> · <a href="https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&amp;data[0]=value&amp;facets[respondent][]=CAL&amp;start=2021-01-01&amp;end=2021-01-05&amp;sort[0][column]=period&amp;sort[0][direction]=asc&amp;api_key=DEMO_KEY">직접 테스트</a> · <a href="https://www.eia.gov/opendata/documentation.php">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/noaa-coops-seattle-water-level.html">NOAA 시애틀 조위 관측</a></h2>
-  <p><span class="badge">해양/기후/시계열</span><span class="badge">불필요</span><span class="badge">7440 rows</span></p>
-  <p>해수면·조위 변화를 시간축으로 읽고 해안 도시와 기후 적응을 토론하는 수업용 샘플</p>
-  <p><a href="data/noaa_coops_seattle_water_level.csv">CSV</a> · <a href="https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240501&amp;end_date=20240503&amp;station=9447130&amp;product=water_level&amp;datum=MLLW&amp;time_zone=gmt&amp;units=metric&amp;format=json">직접 테스트</a> · <a href="https://api.tidesandcurrents.noaa.gov/api/prod/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/gb-carbon-intensity.html">영국 전력 탄소집약도</a></h2>
-  <p><span class="badge">에너지/탄소/기후</span><span class="badge">불필요</span><span class="badge">672 rows</span></p>
-  <p>30분 단위 전력 탄소집약도를 보고 전기 사용 시간대와 탄소 배출의 관계를 탐구</p>
-  <p><a href="data/gb_carbon_intensity.csv">CSV</a> · <a href="https://api.carbonintensity.org.uk/intensity/date/2024-05-01">직접 테스트</a> · <a href="https://carbon-intensity.github.io/api-definitions/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/citi-bike-stations.html">뉴욕 Citi Bike 대여소 스냅샷</a></h2>
-  <p><span class="badge">대중교통/도시/탄소</span><span class="badge">불필요</span><span class="badge">500 rows</span></p>
-  <p>자전거 대여소별 잔여 자전거와 거치대를 지도/막대그래프로 보고 도시 이동을 분석</p>
-  <p><a href="data/citi_bike_station_snapshot.csv">CSV</a> · <a href="https://gbfs.citibikenyc.com/gbfs/en/station_status.json">직접 테스트</a> · <a href="https://www.citibikenyc.com/system-data">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/met-museum-sunflower.html">Met Museum 해바라기 작품 샘플</a></h2>
-  <p><span class="badge">문화/예술/메타데이터</span><span class="badge">불필요</span><span class="badge">60 rows</span></p>
-  <p>작품 주제·제작연도·부서 메타데이터로 예술 데이터 검색과 분류 활동을 구성</p>
-  <p><a href="data/met_museum_sunflower_objects.csv">CSV</a> · <a href="https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&amp;q=sunflower">직접 테스트</a> · <a href="https://metmuseum.github.io/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/cdc-places-health.html">CDC PLACES 지역 건강 지표 샘플</a></h2>
-  <p><span class="badge">보건/지역/공공데이터</span><span class="badge">토큰 선택 / 소량 조회 불필요</span><span class="badge">500 rows</span></p>
-  <p>지역별 건강 지표를 비교하며 보건 격차와 데이터 기반 정책 질문을 만드는 샘플</p>
-  <p><a href="data/cdc_places_health_sample.csv">CSV</a> · <a href="https://data.cdc.gov/resource/cwsq-ngmh.json?$limit=5">직접 테스트</a> · <a href="https://dev.socrata.com/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/osm-seoul-hospitals.html">OpenStreetMap 서울 병원 위치</a></h2>
-  <p><span class="badge">지도/보건/도시</span><span class="badge">불필요 / 사용 정책 준수</span><span class="badge">120 rows</span></p>
-  <p>서울 병원 위치를 지도에 표시하고 의료 접근성·생활권 분석 수업으로 연결</p>
-  <p><a href="data/osm_seoul_hospitals.csv">CSV</a> · <a href="https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A10%5D%3Bnode%5Bamenity%3Dhospital%5D%2837.4%2C126.8%2C37.7%2C127.2%29%3Bout%205%3B">직접 테스트</a> · <a href="https://wiki.openstreetmap.org/wiki/Overpass_API">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/nominatim-seoul-landmarks.html">Nominatim 서울 주요 장소 지오코딩</a></h2>
-  <p><span class="badge">지도/지오코딩/위치</span><span class="badge">불필요 / 사용 정책 준수</span><span class="badge">10 rows</span></p>
-  <p>장소 이름을 위도·경도로 바꾸는 과정을 통해 지도 데이터 전처리를 설명</p>
-  <p><a href="data/nominatim_seoul_landmarks.csv">CSV</a> · <a href="https://nominatim.openstreetmap.org/search?q=Seoul%20City%20Hall&amp;format=json&amp;limit=3">직접 테스트</a> · <a href="https://nominatim.org/release-docs/latest/api/Search/">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/seoul-realtime-citydata.html">서울 실시간 도시데이터 샘플</a></h2>
-  <p><span class="badge">도시/혼잡도/안전</span><span class="badge">샘플키 가능 / 정식은 무료 키 권장</span><span class="badge">5 rows</span></p>
-  <p>서울 주요 장소의 혼잡도와 추정 인구를 비교해 안전한 방문 시간·도시 운영 질문으로 연결</p>
-  <p><a href="data/seoul_realtime_citydata_sample.csv">CSV</a> · <a href="http://openapi.seoul.go.kr:8088/sample/json/citydata/1/5/%EA%B4%91%ED%99%94%EB%AC%B8%C2%B7%EB%8D%95%EC%88%98%EA%B6%81">직접 테스트</a> · <a href="https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do">공식 문서</a></p>
-</div>
-<div class="card">
-  <h2><a href="datasets/seoul-realtime-air-quality.html">서울 실시간 대기질 샘플</a></h2>
-  <p><span class="badge">대기질/건강/환경</span><span class="badge">샘플키 가능 / 정식은 무료 키 권장</span><span class="badge">5 rows</span></p>
-  <p>권역·측정소별 PM10/PM2.5와 통합대기환경지수를 비교해 건강·환경 수업에 활용</p>
-  <p><a href="data/seoul_realtime_air_quality.csv">CSV</a> · <a href="http://openapi.seoul.go.kr:8088/sample/json/RealtimeCityAir/1/5/">직접 테스트</a> · <a href="https://data.seoul.go.kr/">공식 문서</a></p>
-</div>
+<div id="dataset-cards"></div>
 <h2>추가 API 후보</h2>
 <table><thead><tr><th>이름</th><th>분야</th><th>인증</th><th>공식 문서</th></tr></thead><tbody><tr><td>NASA POWER</td><td>기상/태양광/에너지</td><td>불필요</td><td><a href='https://power.larc.nasa.gov/docs/services/api/'>문서</a></td></tr><tr><td>NOAA CO-OPS</td><td>해양/조위/기상</td><td>불필요</td><td><a href='https://api.tidesandcurrents.noaa.gov/api/prod/'>문서</a></td></tr><tr><td>U.S. Census ACS 5-Year</td><td>인구/교육/소득</td><td>키 선택</td><td><a href='https://www.census.gov/data/developers/data-sets/acs-5year.html'>문서</a></td></tr><tr><td>BLS Public Data</td><td>노동/물가</td><td>제한 내 불필요</td><td><a href='https://www.bls.gov/developers/api_signature_v2.htm'>문서</a></td></tr><tr><td>WHO GHO</td><td>보건</td><td>불필요</td><td><a href='https://ghoapi.azureedge.net/api'>문서</a></td></tr><tr><td>CDC/Socrata</td><td>보건/공공데이터</td><td>토큰 선택</td><td><a href='https://dev.socrata.com/'>문서</a></td></tr><tr><td>GB Carbon Intensity</td><td>에너지/탄소</td><td>불필요</td><td><a href='https://carbon-intensity.github.io/api-definitions/'>문서</a></td></tr><tr><td>EIA Open Data</td><td>에너지</td><td>무료 키</td><td><a href='https://www.eia.gov/opendata/documentation.php'>문서</a></td></tr><tr><td>서울 실시간 도시데이터</td><td>유동인구/도시</td><td>샘플키/무료키</td><td><a href='https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 생활인구</td><td>유동인구</td><td>파일 다운로드</td><td><a href='https://data.seoul.go.kr/dataList/OA-14991/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 지하철 승하차</td><td>대중교통</td><td>파일 다운로드</td><td><a href='https://data.seoul.go.kr/dataList/OA-12914/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 시간별 대기질</td><td>대기질</td><td>샘플키/무료키</td><td><a href='https://data.seoul.go.kr/'>문서</a></td></tr><tr><td>Korea TourAPI</td><td>관광/문화</td><td>공공데이터 키</td><td><a href='https://api.visitkorea.or.kr/'>문서</a></td></tr><tr><td>KOSIS</td><td>한국 인구통계</td><td>무료 키</td><td><a href='https://kosis.kr/openapi/index/index.jsp'>문서</a></td></tr><tr><td>한국은행 ECOS</td><td>경제/금융</td><td>무료 키</td><td><a href='https://ecos.bok.or.kr/api/#/'>문서</a></td></tr><tr><td>TMDB</td><td>영화</td><td>회원가입+키</td><td><a href='https://developer.themoviedb.org/docs/getting-started'>문서</a></td></tr><tr><td>OMDb</td><td>영화</td><td>키</td><td><a href='https://www.omdbapi.com/'>문서</a></td></tr><tr><td>IMDb Non-Commercial Datasets</td><td>영화</td><td>불필요/비상업 약관</td><td><a href='https://developer.imdb.com/non-commercial-datasets/'>문서</a></td></tr><tr><td>Met Museum Collection</td><td>문화/예술</td><td>불필요</td><td><a href='https://metmuseum.github.io/'>문서</a></td></tr><tr><td>Nominatim</td><td>지도</td><td>불필요/정책 준수</td><td><a href='https://nominatim.org/release-docs/latest/api/Overview/'>문서</a></td></tr><tr><td>Overpass API</td><td>지도/POI</td><td>불필요/정책 준수</td><td><a href='https://wiki.openstreetmap.org/wiki/Overpass_API'>문서</a></td></tr><tr><td>Kakao Local</td><td>한국 지도</td><td>회원가입+키</td><td><a href='https://developers.kakao.com/docs/latest/ko/local/dev-guide'>문서</a></td></tr><tr><td>Google Maps</td><td>지도</td><td>키+결제 가능성</td><td><a href='https://developers.google.com/maps/documentation/javascript/get-api-key'>문서</a></td></tr><tr><td>Citi Bike System Data</td><td>자전거/대중교통</td><td>불필요</td><td><a href='https://www.citibikenyc.com/system-data'>문서</a></td></tr><tr><td>Alpha Vantage</td><td>주식</td><td>키</td><td><a href='https://www.alphavantage.co/documentation/'>문서</a></td></tr><tr><td>FMP</td><td>주식/재무</td><td>회원가입+키</td><td><a href='https://site.financialmodelingprep.com/developer/docs'>문서</a></td></tr><tr><td>Finnhub</td><td>주식</td><td>회원가입+키</td><td><a href='https://finnhub.io/docs/api'>문서</a></td></tr><tr><td>금융위원회 주식시세</td><td>한국 주식</td><td>공공데이터포털 키</td><td><a href='https://www.data.go.kr/data/15094808/openapi.do'>문서</a></td></tr><tr><td>기상청 단기예보</td><td>한국 기상</td><td>공공데이터포털 키</td><td><a href='https://www.data.go.kr/data/15084084/openapi.do'>문서</a></td></tr><tr><td>Retrosheet</td><td>야구</td><td>불필요</td><td><a href='https://www.retrosheet.org/game.htm'>문서</a></td></tr></tbody></table>
-
+<script>
+// Optional public config for shared likes.
+// To enable shared ranking, create docs/likes-config.js with:
+// window.DATASET_LIKES_SUPABASE = { url: "https://YOUR_PROJECT.supabase.co", anonKey: "YOUR_PUBLIC_ANON_KEY" };
+window.DATASET_LIKES_SUPABASE = window.DATASET_LIKES_SUPABASE || null;
+</script>
+<script src="likes-config.js"></script><script>
+const DATASETS_FOR_LIKES = [{"id": "open-meteo-weather", "title": "서울 5년 일별 기상", "category": "기상", "rows": 1826}, {"id": "open-meteo-air-quality", "title": "서울 5년 시간별 대기질", "category": "기상/환경", "rows": 43824}, {"id": "worldbank-korea", "title": "한국 5년 World Bank 지표", "category": "인구/경제/교육/보건", "rows": 20}, {"id": "factfulness-global", "title": "팩트풀니스 세계 지표 최신화", "category": "SDG/세계시민/데이터 리터러시", "rows": 1906}, {"id": "usgs-earthquakes", "title": "전세계 규모 6+ 지진 5년", "category": "지질/지도", "rows": 652}, {"id": "mlb-schedule", "title": "MLB 경기 일정/결과 5년", "category": "야구/스포츠", "rows": 2782}, {"id": "fred-fedfunds", "title": "미국 기준금리 5년", "category": "경제/금융", "rows": 60}, {"id": "owid-co2", "title": "한국/세계 CO₂ 배출량", "category": "환경/에너지", "rows": 8}, {"id": "gbif-korea", "title": "한국 생물종 관측 샘플", "category": "생태/생물다양성", "rows": 300}, {"id": "artic-artworks", "title": "최근 5년 미술 작품 샘플", "category": "문화/예술", "rows": 100}, {"id": "seoul-bike", "title": "서울 따릉이 샘플", "category": "대중교통/도시", "rows": 5}, {"id": "nasa-power-seoul", "title": "NASA POWER 서울 일별 기상/에너지", "category": "기상/에너지/과학", "rows": 1826}, {"id": "bls-us-cpi", "title": "미국 소비자물가지수 CPI 월별", "category": "경제/통계", "rows": 64}, {"id": "nager-korea-holidays", "title": "한국 공휴일 5년", "category": "달력/사회/문화", "rows": 95}, {"id": "spacex-launches", "title": "SpaceX 발사 기록", "category": "우주/과학", "rows": 78}, {"id": "frankfurter-usd-krw", "title": "USD/KRW 환율 일별", "category": "경제/환율", "rows": 1282}, {"id": "who-korea-life-expectancy", "title": "WHO 한국 기대수명", "category": "보건/국제통계", "rows": 3}, {"id": "restcountries-world", "title": "세계 국가 기본 정보 스냅샷", "category": "지리/국가/인구", "rows": 250}, {"id": "eia-california-electricity", "title": "EIA 캘리포니아 전력 일별", "category": "에너지/전력/환경", "rows": 5000}, {"id": "noaa-coops-seattle-water-level", "title": "NOAA 시애틀 조위 관측", "category": "해양/기후/시계열", "rows": 7440}, {"id": "gb-carbon-intensity", "title": "영국 전력 탄소집약도", "category": "에너지/탄소/기후", "rows": 672}, {"id": "citi-bike-stations", "title": "뉴욕 Citi Bike 대여소 스냅샷", "category": "대중교통/도시/탄소", "rows": 500}, {"id": "met-museum-sunflower", "title": "Met Museum 해바라기 작품 샘플", "category": "문화/예술/메타데이터", "rows": 60}, {"id": "cdc-places-health", "title": "CDC PLACES 지역 건강 지표 샘플", "category": "보건/지역/공공데이터", "rows": 500}, {"id": "osm-seoul-hospitals", "title": "OpenStreetMap 서울 병원 위치", "category": "지도/보건/도시", "rows": 120}, {"id": "nominatim-seoul-landmarks", "title": "Nominatim 서울 주요 장소 지오코딩", "category": "지도/지오코딩/위치", "rows": 10}, {"id": "seoul-realtime-citydata", "title": "서울 실시간 도시데이터 샘플", "category": "도시/혼잡도/안전", "rows": 5}, {"id": "seoul-realtime-air-quality", "title": "서울 실시간 대기질 샘플", "category": "대기질/건강/환경", "rows": 5}];
+const LIKE_STORE_KEY = 'free-api-data-science-edu-liked-v1';
+const LOCAL_COUNT_KEY = 'free-api-data-science-edu-local-counts-v1';
+function readJson(key, fallback) { try { return JSON.parse(localStorage.getItem(key) || 'null') ?? fallback; } catch (_) { return fallback; } }
+function writeJson(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
+function likedSet() { return new Set(readJson(LIKE_STORE_KEY, [])); }
+function localCounts() { return readJson(LOCAL_COUNT_KEY, {}); }
+function isSupabaseReady() { const c = window.DATASET_LIKES_SUPABASE; return !!(c && c.url && c.anonKey); }
+async function supabaseRequest(path, options={}) {
+  const c = window.DATASET_LIKES_SUPABASE;
+  const headers = Object.assign({apikey:c.anonKey, Authorization:'Bearer '+c.anonKey, 'Content-Type':'application/json'}, options.headers || {});
+  const r = await fetch(c.url.replace(/\/$/,'') + '/rest/v1/' + path, Object.assign({}, options, {headers}));
+  if (!r.ok) throw new Error('Supabase HTTP ' + r.status);
+  if (r.status === 204) return null;
+  return r.json();
+}
+async function fetchSharedCounts() {
+  if (!isSupabaseReady()) return null;
+  const rows = await supabaseRequest('dataset_likes?select=dataset_id,likes');
+  return Object.fromEntries(rows.map(r => [r.dataset_id, Number(r.likes) || 0]));
+}
+async function incrementSharedCount(datasetId) {
+  if (!isSupabaseReady()) return null;
+  const c = window.DATASET_LIKES_SUPABASE;
+  const r = await fetch(c.url.replace(/\/$/,'') + '/rest/v1/rpc/increment_dataset_like', {
+    method:'POST', headers:{apikey:c.anonKey, Authorization:'Bearer '+c.anonKey, 'Content-Type':'application/json'}, body:JSON.stringify({p_dataset_id:datasetId})
+  });
+  if (!r.ok) throw new Error('Supabase RPC HTTP ' + r.status);
+  return r.json();
+}
+function renderDatasetCards(counts={}, sortMode='default') {
+  const liked = likedSet();
+  const list = DATASETS_FOR_LIKES.map((d, i) => Object.assign({rank:i+1, likes:Number(counts[d.id])||0, liked:liked.has(d.id)}, d));
+  if (sortMode === 'likes') list.sort((a,b)=>(b.likes-a.likes)||a.title.localeCompare(b.title,'ko'));
+  const wrap = document.getElementById('dataset-cards'); if (!wrap) return;
+  wrap.innerHTML = list.map((d, i) => `
+    <div class="card dataset-card" data-dataset-id="${d.id}" data-likes="${d.likes}">
+      <h2>${sortMode==='likes' ? `<span class="badge">#${i+1}</span> ` : ''}<a href="datasets/${d.id}.html">${d.title}</a></h2>
+      <p><span class="badge">${d.category}</span><span class="badge">${d.rows} rows</span></p>
+      <p><button class="like-button" data-like-id="${d.id}" aria-pressed="${d.liked ? 'true':'false'}">${d.liked ? '♥':'♡'} 좋아요</button> <span class="like-count">${d.likes}명 관심</span></p>
+    </div>`).join('');
+}
+async function bootLikes() {
+  let shared = null;
+  try { shared = await fetchSharedCounts(); } catch (e) { console.warn('shared likes unavailable; local mode', e); }
+  let counts = shared || localCounts();
+  renderDatasetCards(counts, document.getElementById('sort-mode')?.value || 'default');
+  const status = document.getElementById('likes-status');
+  if (status) status.textContent = isSupabaseReady() && shared ? '공용 좋아요 집계 사용 중' : '로컬 좋아요 모드: 이 브라우저 기준으로 저장됩니다';
+  document.getElementById('sort-mode')?.addEventListener('change', e => renderDatasetCards(counts, e.target.value));
+  document.getElementById('dataset-cards')?.addEventListener('click', async e => {
+    const btn = e.target.closest('[data-like-id]'); if (!btn) return;
+    const id = btn.dataset.likeId; const liked = likedSet();
+    if (liked.has(id)) return;
+    liked.add(id); writeJson(LIKE_STORE_KEY, [...liked]);
+    const local = localCounts(); local[id] = (Number(local[id]) || 0) + 1; writeJson(LOCAL_COUNT_KEY, local);
+    counts[id] = (Number(counts[id]) || 0) + 1;
+    renderDatasetCards(counts, document.getElementById('sort-mode')?.value || 'default');
+    try {
+      const updated = await incrementSharedCount(id);
+      if (updated && typeof updated === 'object') { counts[id] = Number(updated.likes) || counts[id]; renderDatasetCards(counts, document.getElementById('sort-mode')?.value || 'default'); }
+    } catch (err) { console.warn('shared like failed; kept local like', err); }
+  });
+}
+document.addEventListener('DOMContentLoaded', bootLikes);
+</script>
 </body>
 </html>

@@ -78,6 +78,14 @@ python3 scripts/generate_pages.py
 python3 scripts/validate_datasets.py
 ```
 
+## 좋아요 순위 기능
+
+GitHub Pages 첫 화면에는 데이터셋별 좋아요 버튼과 `좋아요 많은 순` 정렬이 있습니다.
+
+- 기본값: 서버 없이 `localStorage`에 저장되는 로컬 좋아요 모드
+- 공용 집계: Supabase 무료 프로젝트를 만들고 `supabase_dataset_likes.sql`을 실행한 뒤 `docs/likes-config.js`에 공개 `url`/`anonKey`를 입력
+- 사용자는 로그인 없이 사이트에서 바로 좋아요를 누를 수 있습니다.
+
 ## 세부 문서
 
 - `apis/auth-guide.md` — 가입/키 발급 유형별 정리

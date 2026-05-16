@@ -609,6 +609,91 @@ def html_table(headers: list[str], rows: list[list[str]]) -> str:
     return f"<table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>"
 
 
+def supabase_config_script() -> str:
+    return '''<script>
+// Optional public config for shared likes.
+// To enable shared ranking, create docs/likes-config.js with:
+// window.DATASET_LIKES_SUPABASE = { url: "https://YOUR_PROJECT.supabase.co", anonKey: "YOUR_PUBLIC_ANON_KEY" };
+window.DATASET_LIKES_SUPABASE = window.DATASET_LIKES_SUPABASE || null;
+</script>
+<script src="likes-config.js"></script>'''
+
+
+def likes_script() -> str:
+    datasets = [
+        {"id": ds["id"], "title": ds["title"], "category": ds["category"], "rows": read_preview(ds["csv"])[2]}
+        for ds in DATASETS
+    ]
+    payload = json.dumps(datasets, ensure_ascii=False)
+    return f'''<script>
+const DATASETS_FOR_LIKES = {payload};
+const LIKE_STORE_KEY = 'free-api-data-science-edu-liked-v1';
+const LOCAL_COUNT_KEY = 'free-api-data-science-edu-local-counts-v1';
+function readJson(key, fallback) {{ try {{ return JSON.parse(localStorage.getItem(key) || 'null') ?? fallback; }} catch (_) {{ return fallback; }} }}
+function writeJson(key, value) {{ localStorage.setItem(key, JSON.stringify(value)); }}
+function likedSet() {{ return new Set(readJson(LIKE_STORE_KEY, [])); }}
+function localCounts() {{ return readJson(LOCAL_COUNT_KEY, {{}}); }}
+function isSupabaseReady() {{ const c = window.DATASET_LIKES_SUPABASE; return !!(c && c.url && c.anonKey); }}
+async function supabaseRequest(path, options={{}}) {{
+  const c = window.DATASET_LIKES_SUPABASE;
+  const headers = Object.assign({{apikey:c.anonKey, Authorization:'Bearer '+c.anonKey, 'Content-Type':'application/json'}}, options.headers || {{}});
+  const r = await fetch(c.url.replace(/\/$/,'') + '/rest/v1/' + path, Object.assign({{}}, options, {{headers}}));
+  if (!r.ok) throw new Error('Supabase HTTP ' + r.status);
+  if (r.status === 204) return null;
+  return r.json();
+}}
+async function fetchSharedCounts() {{
+  if (!isSupabaseReady()) return null;
+  const rows = await supabaseRequest('dataset_likes?select=dataset_id,likes');
+  return Object.fromEntries(rows.map(r => [r.dataset_id, Number(r.likes) || 0]));
+}}
+async function incrementSharedCount(datasetId) {{
+  if (!isSupabaseReady()) return null;
+  const c = window.DATASET_LIKES_SUPABASE;
+  const r = await fetch(c.url.replace(/\/$/,'') + '/rest/v1/rpc/increment_dataset_like', {{
+    method:'POST', headers:{{apikey:c.anonKey, Authorization:'Bearer '+c.anonKey, 'Content-Type':'application/json'}}, body:JSON.stringify({{p_dataset_id:datasetId}})
+  }});
+  if (!r.ok) throw new Error('Supabase RPC HTTP ' + r.status);
+  return r.json();
+}}
+function renderDatasetCards(counts={{}}, sortMode='default') {{
+  const liked = likedSet();
+  const list = DATASETS_FOR_LIKES.map((d, i) => Object.assign({{rank:i+1, likes:Number(counts[d.id])||0, liked:liked.has(d.id)}}, d));
+  if (sortMode === 'likes') list.sort((a,b)=>(b.likes-a.likes)||a.title.localeCompare(b.title,'ko'));
+  const wrap = document.getElementById('dataset-cards'); if (!wrap) return;
+  wrap.innerHTML = list.map((d, i) => `
+    <div class="card dataset-card" data-dataset-id="${{d.id}}" data-likes="${{d.likes}}">
+      <h2>${{sortMode==='likes' ? `<span class="badge">#${{i+1}}</span> ` : ''}}<a href="datasets/${{d.id}}.html">${{d.title}}</a></h2>
+      <p><span class="badge">${{d.category}}</span><span class="badge">${{d.rows}} rows</span></p>
+      <p><button class="like-button" data-like-id="${{d.id}}" aria-pressed="${{d.liked ? 'true':'false'}}">${{d.liked ? '♥':'♡'}} 좋아요</button> <span class="like-count">${{d.likes}}명 관심</span></p>
+    </div>`).join('');
+}}
+async function bootLikes() {{
+  let shared = null;
+  try {{ shared = await fetchSharedCounts(); }} catch (e) {{ console.warn('shared likes unavailable; local mode', e); }}
+  let counts = shared || localCounts();
+  renderDatasetCards(counts, document.getElementById('sort-mode')?.value || 'default');
+  const status = document.getElementById('likes-status');
+  if (status) status.textContent = isSupabaseReady() && shared ? '공용 좋아요 집계 사용 중' : '로컬 좋아요 모드: 이 브라우저 기준으로 저장됩니다';
+  document.getElementById('sort-mode')?.addEventListener('change', e => renderDatasetCards(counts, e.target.value));
+  document.getElementById('dataset-cards')?.addEventListener('click', async e => {{
+    const btn = e.target.closest('[data-like-id]'); if (!btn) return;
+    const id = btn.dataset.likeId; const liked = likedSet();
+    if (liked.has(id)) return;
+    liked.add(id); writeJson(LIKE_STORE_KEY, [...liked]);
+    const local = localCounts(); local[id] = (Number(local[id]) || 0) + 1; writeJson(LOCAL_COUNT_KEY, local);
+    counts[id] = (Number(counts[id]) || 0) + 1;
+    renderDatasetCards(counts, document.getElementById('sort-mode')?.value || 'default');
+    try {{
+      const updated = await incrementSharedCount(id);
+      if (updated && typeof updated === 'object') {{ counts[id] = Number(updated.likes) || counts[id]; renderDatasetCards(counts, document.getElementById('sort-mode')?.value || 'default'); }}
+    }} catch (err) {{ console.warn('shared like failed; kept local like', err); }}
+  }});
+}}
+document.addEventListener('DOMContentLoaded', bootLikes);
+</script>'''
+
+
 def layout(title: str, body: str) -> str:
     return f'''<!doctype html>
 <html lang="ko">
@@ -626,6 +711,11 @@ th {{ background: #f6f8fa; }}
 pre {{ background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 8px; }}
 .badge {{ display: inline-block; background: #eef; border-radius: 999px; padding: .15rem .55rem; margin-right: .25rem; }}
 button {{ padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; background: white; cursor: pointer; }}
+.dataset-toolbar {{ display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin: 1rem 0; }}
+.dataset-card {{ position: relative; }}
+.like-button {{ border-color: #ffb3c1; color: #c9184a; font-weight: 700; }}
+.like-button[aria-pressed="true"] {{ background: #ffe3ec; border-color: #ff8fab; }}
+.like-count, .small-muted {{ color: #6e7781; font-size: .9rem; }}
 </style>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
@@ -1163,18 +1253,9 @@ def main() -> None:
     if (DATA / "manifest.json").exists():
         shutil.copy2(DATA / "manifest.json", DOC_DATA / "manifest.json")
 
-    cards = []
     for ds in DATASETS:
-        headers, _, count = read_preview(ds["csv"])
         page_path = DATASET_PAGES / f"{ds['id']}.html"
         page_path.write_text(dataset_page(ds), encoding="utf-8")
-        cards.append(f'''
-<div class="card">
-  <h2><a href="datasets/{ds['id']}.html">{html.escape(ds['title'])}</a></h2>
-  <p><span class="badge">{html.escape(ds['category'])}</span><span class="badge">{html.escape(ds['auth'])}</span><span class="badge">{count} rows</span></p>
-  <p>{html.escape(ds['note'])}</p>
-  <p><a href="data/{html.escape(ds['csv'])}">CSV</a> · <a href="{html.escape(ds['test_url'])}">직접 테스트</a> · <a href="{html.escape(ds['doc_url'])}">공식 문서</a></p>
-</div>''')
 
     more_rows = "".join(f"<tr><td>{html.escape(a)}</td><td>{html.escape(b)}</td><td>{html.escape(c)}</td><td><a href='{html.escape(d)}'>문서</a></td></tr>" for a, b, c, d in MORE_CANDIDATES)
     by_id = {ds["id"]: ds for ds in DATASETS}
@@ -1194,11 +1275,16 @@ def main() -> None:
 <h2>지속가능발전(SDG) 주제 데이터 10가지</h2>
 <p>기후·대기질·생물다양성·도시 이동·건강 형평성 등 SDG 수업용 주제는 <a href="examples/sdg-topics.html">별도 페이지</a>로 분리했습니다.</p>
 <h2>바로 테스트 가능한 데이터셋</h2>
-{''.join(cards)}
+<p class="small-muted">좋아요는 로그인 없이 누를 수 있습니다. Supabase 설정 전에는 이 브라우저 기준으로 저장되고, 설정 후에는 공용 관심도 순위로 집계됩니다.</p>
+<div class="dataset-toolbar">
+  <label>정렬 <select id="sort-mode"><option value="default">기본 순서</option><option value="likes">좋아요 많은 순</option></select></label>
+  <span id="likes-status" class="small-muted">좋아요 상태 확인 중…</span>
+</div>
+<div id="dataset-cards"></div>
 <h2>추가 API 후보</h2>
 <table><thead><tr><th>이름</th><th>분야</th><th>인증</th><th>공식 문서</th></tr></thead><tbody>{more_rows}</tbody></table>
 '''
-    (DOCS / "index.html").write_text(layout("무료 데이터 과학 교육 API & CSV", index), encoding="utf-8")
+    (DOCS / "index.html").write_text(layout("무료 데이터 과학 교육 API & CSV", index + supabase_config_script() + likes_script()), encoding="utf-8")
     (DOCS / "datasets.json").write_text(json.dumps(DATASETS, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"generated {DOCS}")
 
