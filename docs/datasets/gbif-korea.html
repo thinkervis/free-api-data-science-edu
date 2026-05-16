@@ -25,6 +25,9 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 .like-button { border-color: #ffb3c1; color: #c9184a; font-weight: 700; }
 .like-button[aria-pressed="true"] { background: #ffe3ec; border-color: #ff8fab; }
 .like-count, .small-muted { color: #6e7781; font-size: .9rem; }
+.recommendation-list { list-style: none; padding-left: 0; }
+.recommendation-card { border: 1px solid #d0d7de; border-radius: 12px; padding: 1rem; margin: 1rem 0; background: #fff; }
+.recommendation-card h3 { margin-top: 0; }
 </style>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
@@ -141,9 +144,9 @@ function column(rows, name) { const headers = rows[0] || []; const idx = headers
 function numericColumn(rows, name, cfg={}) {
   return column(rows, name).map(v => Number(v)).map(v => {
     if (!Number.isFinite(v)) return null;
-    if (cfg.invalid_below !== undefined && n <= cfg.invalid_below) return null;
-    if (n <= -900) return null;
-    return n;
+    if (cfg.invalid_below !== undefined && v <= cfg.invalid_below) return null;
+    if (v <= -900) return null;
+    return v;
   });
 }
 function limitedRows(rows, maxPoints) { if (!maxPoints || rows.length <= maxPoints + 1) return rows; return [rows[0]].concat(rows.slice(-maxPoints)); }

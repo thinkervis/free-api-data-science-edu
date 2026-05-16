@@ -200,13 +200,13 @@ DATASETS = [
         "title": "SpaceX 발사 기록",
         "category": "우주/과학",
         "csv": "spacex_launches.csv",
-        "source": "SpaceX API v5",
-        "doc_url": "https://github.com/r-spacex/SpaceX-API/tree/master/docs",
-        "test_url": "https://api.spacexdata.com/v5/launches/latest",
+        "source": "Launch Library 2",
+        "doc_url": "https://ll.thespacedevs.com/2.2.0/swagger/",
+        "test_url": "https://ll.thespacedevs.com/2.2.0/launch/previous/?search=SpaceX&limit=3",
         "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
-        "note": "최근 5년 발사 기록 기본. POST query로 기간 필터링하며 Pages에서는 CSV 직접 로드/시각화 제공",
+        "note": "최신 발사를 포함한 최근 6년치 SpaceX 발사 기록. 연도별 발사 빈도·성공 여부·임무 유형 분석에 적합",
     },
     {
         "id": "frankfurter-usd-krw",
@@ -382,23 +382,92 @@ DATASETS = [
 
 ]
 
-RECOMMENDED_CANDIDATE_IDS = [
-    "open-meteo-weather", "open-meteo-air-quality", "nasa-power-seoul", "usgs-earthquakes", "frankfurter-usd-krw",
-    "worldbank-korea", "restcountries-world", "nager-korea-holidays", "spacex-launches", "gbif-korea",
+TOP_RECOMMENDATIONS = [
+    {
+        "id": "open-meteo-weather",
+        "why": "가장 수업 전환이 쉽고, 학생 생활 경험과 바로 연결되는 입문용 시계열입니다.",
+        "perspective": "‘올해가 정말 더웠나?’처럼 체감과 데이터를 비교하는 질문에서 출발합니다.",
+        "visualization": "최고·평균·최저기온 선그래프, 월별 평균 막대그래프, 강수량이 많은 날 강조 표시.",
+        "use": "CSV를 불러온 뒤 날짜를 월/계절로 변환해 평균·최댓값·극단값을 계산합니다.",
+        "analysis": "이동평균, 계절별 비교, 폭염일/강수일 조건 필터링으로 ‘기후’와 ‘날씨’를 구분해 봅니다.",
+    },
+    {
+        "id": "open-meteo-air-quality",
+        "why": "행 수가 많아 ‘시간별 데이터’의 장점과 전처리 필요성을 함께 보여 주기 좋습니다.",
+        "perspective": "등교 시간, 점심시간, 야외활동 시간대의 미세먼지 차이를 생활 안전 문제로 다룹니다.",
+        "visualization": "PM10·PM2.5 시간별 선그래프, 일평균 집계 그래프, 나쁨 기준선을 넣은 위험 구간 표시.",
+        "use": "시간별 원자료를 그대로 그리기보다 일/주 단위로 묶어 노이즈를 줄입니다.",
+        "analysis": "리샘플링, 기준 초과 횟수 세기, PM10과 PM2.5 상관관계 비교를 추천합니다.",
+    },
+    {
+        "id": "nasa-power-seoul",
+        "why": "NASA 공식 데이터라는 신뢰도와 기상·에너지 융합성이 강합니다.",
+        "perspective": "태양광 발전, 냉난방 수요, 강수·풍속을 연결해 ‘에너지 계획’ 관점으로 읽습니다.",
+        "visualization": "기온·강수·풍속 다중 축 그래프, 월별 일사/기온 비교, 결측값 제외 전후 비교.",
+        "use": "날짜별 관측치를 월 단위로 집계하고, 단위가 다른 열은 축을 분리하거나 표준화합니다.",
+        "analysis": "상관분석, 계절성 비교, 결측값(-999 계열)을 왜 0으로 처리하면 안 되는지 토론합니다.",
+    },
+    {
+        "id": "frankfurter-usd-krw",
+        "why": "경제 뉴스와 연결하기 쉽고, 단일 지표라 시계열 분석 입문에 적합합니다.",
+        "perspective": "환율 상승/하락이 해외직구·여행·수입물가에 어떤 의미인지 해석합니다.",
+        "visualization": "환율 선그래프, 전일 대비 변화율 막대그래프, 특정 뉴스일 전후 구간 확대.",
+        "use": "원 환율뿐 아니라 변화량과 변화율 열을 새로 만들어 분석합니다.",
+        "analysis": "최댓값/최솟값 찾기, 변동성 계산, 이동평균으로 단기 흔들림과 추세를 구분합니다.",
+    },
+    {
+        "id": "usgs-earthquakes",
+        "why": "지도와 과학 탐구가 결합되어 학생 흥미가 높고 위치 데이터 개념을 설명하기 좋습니다.",
+        "perspective": "지진은 무작위로 흩어지는가, 판 경계 주변에 모이는가를 데이터로 확인합니다.",
+        "visualization": "위도·경도 지도 산점도, 규모별 점 크기, 깊이별 색상, 지역별 발생 수 막대그래프.",
+        "use": "위도·경도·규모·깊이 열을 골라 지도에 표시하고, 규모 기준을 바꿔 결과를 비교합니다.",
+        "analysis": "공간 패턴 읽기, 규모와 깊이의 관계, 필터 조건에 따라 결론이 달라지는 점을 다룹니다.",
+    },
+    {
+        "id": "factfulness-global",
+        "why": "단순 최신 수치보다 ‘오래된 상식이 데이터와 어떻게 어긋나는가’를 보여 주는 힘이 큽니다.",
+        "perspective": "팩트풀니스식 질문으로 세계가 나빠지기만 했다는 직관을 장기 데이터로 검증합니다.",
+        "visualization": "국가별 기대수명 장기 선그래프, 지표별 최신값 막대그래프, 첫해=100 변화율 그래프.",
+        "use": "국가·지표·연도를 필터링해 같은 질문을 여러 지표로 반복 검증합니다.",
+        "analysis": "장기 추세, 국가 간 비교, 기준연도 선택 효과, 결측 연도가 해석에 미치는 영향을 봅니다.",
+    },
+    {
+        "id": "spacex-launches",
+        "why": "최신 발사를 포함한 최근 6년치로 갱신하면 우주 산업의 변화 속도를 직접 볼 수 있습니다.",
+        "perspective": "SpaceX 발사 횟수가 해마다 어떻게 늘었고, 어떤 임무 유형이 많아졌는지 묻습니다.",
+        "visualization": "연도별 발사 횟수 막대그래프, 성공/실패 비율, 로켓·임무 유형별 누적 막대그래프.",
+        "use": "Launch Library 2에서 최신 이전 발사를 가져와 날짜·상태·로켓·임무 유형을 CSV로 정리합니다.",
+        "analysis": "연도별 빈도, 성공률, 임무 유형 변화, 최신 데이터 출처가 분석 흥미에 미치는 영향을 함께 다룹니다.",
+    },
+    {
+        "id": "gbif-korea",
+        "why": "한국 안의 실제 생물 관측 위치라 생태·지역 탐구 프로젝트로 확장하기 좋습니다.",
+        "perspective": "우리 지역에는 어떤 생물이 기록되어 있고, 관측은 어디에 집중되는지 질문합니다.",
+        "visualization": "한국 지도 산점도, 종별 관측 수 막대그래프, 관측 월/지역 분포 그래프.",
+        "use": "좌표가 있는 관측만 사용하고, 종명·지역·날짜 기준으로 필터링합니다.",
+        "analysis": "관측 편향, 표본 수 한계, 도시/산림/해안 지역 차이를 데이터 품질 관점에서 해석합니다.",
+    },
+    {
+        "id": "restcountries-world",
+        "why": "시계열은 아니지만 국가 단위 비교·지도·산점도 활동의 출발점으로 안정적입니다.",
+        "perspective": "‘큰 나라가 항상 인구도 많은가?’처럼 지리 상식을 데이터로 확인합니다.",
+        "visualization": "면적-인구 로그 산점도, 대륙별 국가 수 막대그래프, 위치 기반 세계 지도.",
+        "use": "인구·면적·지역 열을 골라 로그 축을 적용하고, 극단값을 따로 표시합니다.",
+        "analysis": "비율 계산, 로그 스케일의 필요성, 스냅샷 데이터와 시계열 데이터의 차이를 설명합니다.",
+    },
 ]
 
-RECOMMENDED_CANDIDATE_REASONS = {
-    "open-meteo-weather": "날씨 시계열·그래프·평균/최댓값 비교 수업에 가장 쉽게 활용",
-    "open-meteo-air-quality": "미세먼지와 환경 데이터 탐구에 적합",
-    "nasa-power-seoul": "NASA 공식 데이터로 기상·에너지·태양광 주제 연결 가능",
-    "usgs-earthquakes": "GeoJSON/지도/지구과학 융합 수업에 좋음",
-    "frankfurter-usd-krw": "환율 변화와 경제 시계열 분석 입문에 적합",
-    "worldbank-korea": "인구·GDP·기대수명·교육 지표를 함께 비교 가능",
-    "restcountries-world": "국가별 인구·면적·위치 데이터로 지도/비교 활동 가능",
-    "nager-korea-holidays": "날짜·달력·문화 데이터를 다루기 쉬워 초급 수업에 좋음",
-    "spacex-launches": "우주/과학 흥미도가 높고 성공 여부·발사 횟수 분석 가능",
-    "gbif-korea": "한국 안의 생물다양성·위치 데이터·생태 탐구 프로젝트에 적합",
-}
+EXCLUDED_FROM_TOP = [
+    {
+        "id": "nager-korea-holidays",
+        "reason": "초급 날짜 처리 예제로는 좋지만 분석 질문이 얕아 top 추천보다는 보조 예제로 두는 편이 적절합니다.",
+    },
+    {
+        "id": "worldbank-korea",
+        "reason": "행 수가 20개라 빠른 비교에는 좋지만, 장기 변화와 수업 질문은 factfulness-global 데이터가 더 강합니다.",
+    },
+]
+
 
 VIZ_CONFIG = {
     "open-meteo-weather": {"kind": "line", "title": "최고·평균·최저 기온 3종 세트", "x": "time", "y": ["temperature_2m_max", "temperature_2m_mean", "temperature_2m_min"], "labels": ["최고기온", "평균기온", "최저기온"], "y_title": "기온(°C)"},
@@ -722,6 +791,9 @@ button {{ padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; b
 .like-button {{ border-color: #ffb3c1; color: #c9184a; font-weight: 700; }}
 .like-button[aria-pressed="true"] {{ background: #ffe3ec; border-color: #ff8fab; }}
 .like-count, .small-muted {{ color: #6e7781; font-size: .9rem; }}
+.recommendation-list {{ list-style: none; padding-left: 0; }}
+.recommendation-card {{ border: 1px solid #d0d7de; border-radius: 12px; padding: 1rem; margin: 1rem 0; background: #fff; }}
+.recommendation-card h3 {{ margin-top: 0; }}
 </style>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
@@ -777,9 +849,9 @@ function column(rows, name) { const headers = rows[0] || []; const idx = headers
 function numericColumn(rows, name, cfg={}) {
   return column(rows, name).map(v => Number(v)).map(v => {
     if (!Number.isFinite(v)) return null;
-    if (cfg.invalid_below !== undefined && n <= cfg.invalid_below) return null;
-    if (n <= -900) return null;
-    return n;
+    if (cfg.invalid_below !== undefined && v <= cfg.invalid_below) return null;
+    if (v <= -900) return null;
+    return v;
   });
 }
 function limitedRows(rows, maxPoints) { if (!maxPoints || rows.length <= maxPoints + 1) return rows; return [rows[0]].concat(rows.slice(-maxPoints)); }
@@ -1445,18 +1517,35 @@ def main() -> None:
     more_rows = "".join(f"<tr><td>{html.escape(a)}</td><td>{html.escape(b)}</td><td>{html.escape(c)}</td><td><a href='{html.escape(d)}'>문서</a></td></tr>" for a, b, c, d in MORE_CANDIDATES)
     by_id = {ds["id"]: ds for ds in DATASETS}
     recommended_items = []
-    for rank, dataset_id in enumerate(RECOMMENDED_CANDIDATE_IDS, start=1):
-        ds = by_id[dataset_id]
+    for rank, rec in enumerate(TOP_RECOMMENDATIONS, start=1):
+        ds = by_id[rec["id"]]
         _, _, count = read_preview(ds["csv"])
-        recommended_items.append(f"""<li><b>{rank}. <a href="datasets/{ds['id']}.html">{html.escape(ds['title'])}</a></b> <span class="badge">{count} rows</span><br>{html.escape(RECOMMENDED_CANDIDATE_REASONS[dataset_id])}</li>""")
+        recommended_items.append(f"""
+<li class="recommendation-card">
+  <h3>{rank}. <a href="datasets/{ds['id']}.html">{html.escape(ds['title'])}</a> <span class="badge">{count} rows</span></h3>
+  <p><b>추천 이유:</b> {html.escape(rec['why'])}</p>
+  <ul>
+    <li><b>교육적 관점:</b> {html.escape(rec['perspective'])}</li>
+    <li><b>시각화 예시:</b> {html.escape(rec['visualization'])}</li>
+    <li><b>데이터 사용 방법:</b> {html.escape(rec['use'])}</li>
+    <li><b>분석 방법:</b> {html.escape(rec['analysis'])}</li>
+  </ul>
+</li>""")
+    excluded_items = []
+    for item in EXCLUDED_FROM_TOP:
+        ds = by_id[item["id"]]
+        excluded_items.append(f"<li><a href='datasets/{ds['id']}.html'>{html.escape(ds['title'])}</a>: {html.escape(item['reason'])}</li>")
     index = f'''
 <h1>초·중·고 정보 교육을 위한 무료 데이터 과학 API & CSV</h1>
-<p>교육적 가치가 높은 무료 데이터셋을 골라, 바로 열어 보고 시각화하고 수업 예제로 바꿀 수 있게 정리했습니다. 팩트풀니스처럼 장기 변화가 중요한 자료는 1960년대부터의 긴 흐름을 우선 보여 주고, 날씨·대기질처럼 최근성이 중요한 자료는 최근 데이터 중심으로 제공합니다.</p>
+<p>교육적 가치가 높은 무료 데이터셋을 골라, 바로 열어 보고 시각화하고 수업 예제로 바꿀 수 있게 정리했습니다. 팩트풀니스 수업용 세계 지표처럼 장기 변화가 중요한 자료는 1960년대부터의 긴 흐름을 우선 보여 주고, 날씨·대기질처럼 최근성이 중요한 자료는 최근 데이터 중심으로 제공합니다.</p>
 <p>데이터별 페이지에서 CSV 직접 열기, 원천 API 확인, 브라우저 시각화, Streamlit 기본 코드, Pico 2 WH + Grove Shield 기본 코드를 확인할 수 있습니다.</p>
 <p><a href="examples/factfulness-literacy.html">팩트풀니스 데이터 리터러시 수업</a> · <a href="examples/sdg-topics.html">지속가능발전 주제 데이터 10가지</a> · <a href="examples/svg-map-visualization.html">SVG 지도 시각화 예제</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub 저장소</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/CONTRIBUTING.md">기여 안내</a></p>
-<h2>추천 데이터 10가지</h2>
-<p>처음 방문한 선생님과 학생이 바로 써 보기 좋은 데이터부터 골랐습니다.</p>
-<ol>{''.join(recommended_items)}</ol>
+<h2>수업 추천 데이터 {len(TOP_RECOMMENDATIONS)}가지</h2>
+<p>처음 방문한 선생님과 학생이 바로 써 보기 좋은 데이터만 골라, 데이터별 교육적 관점·시각화 예시·사용 방법·분석 방법을 함께 제안했습니다.</p>
+<ol class="recommendation-list">{''.join(recommended_items)}</ol>
+<h2>추천 목록에서 잠시 낮춘 데이터</h2>
+<p>데이터 자체는 유용하지만, 첫 화면 top 추천에는 분석 질문이 더 강한 자료를 우선했습니다.</p>
+<ul>{''.join(excluded_items)}</ul>
 <h2>지속가능발전(SDG) 주제 데이터 10가지</h2>
 <p>기후·대기질·생물다양성·도시 이동·건강 형평성 등 SDG 수업용 주제는 <a href="examples/sdg-topics.html">별도 페이지</a>로 분리했습니다.</p>
 <h2>바로 테스트 가능한 데이터셋</h2>

@@ -186,13 +186,13 @@
     "title": "SpaceX 발사 기록",
     "category": "우주/과학",
     "csv": "spacex_launches.csv",
-    "source": "SpaceX API v5",
-    "doc_url": "https://github.com/r-spacex/SpaceX-API/tree/master/docs",
-    "test_url": "https://api.spacexdata.com/v5/launches/latest",
+    "source": "Launch Library 2",
+    "doc_url": "https://ll.thespacedevs.com/2.2.0/swagger/",
+    "test_url": "https://ll.thespacedevs.com/2.2.0/launch/previous/?search=SpaceX&limit=3",
     "auth": "키 없음",
     "pico": "중간",
     "streamlit": "높음",
-    "note": "최근 5년 발사 기록 기본. POST query로 기간 필터링하며 Pages에서는 CSV 직접 로드/시각화 제공"
+    "note": "최신 발사를 포함한 최근 6년치 SpaceX 발사 기록. 연도별 발사 빈도·성공 여부·임무 유형 분석에 적합"
   },
   {
     "id": "frankfurter-usd-krw",

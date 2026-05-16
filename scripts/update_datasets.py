@@ -61,6 +61,12 @@ def get_text(url: str, timeouts: tuple[int, ...] = (45, 90, 150)) -> str:
         return r.text
 
 
+def clean_cell(value: Any) -> Any:
+    if isinstance(value, str):
+        return " ".join(value.split()).strip()
+    return value
+
+
 def write_csv(path: Path, rows: list[dict[str, Any]], fieldnames: list[str] | None = None) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     if fieldnames is None:
@@ -71,9 +77,9 @@ def write_csv(path: Path, rows: list[dict[str, Any]], fieldnames: list[str] | No
                     keys.append(key)
         fieldnames = keys
     with path.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows([{key: clean_cell(value) for key, value in row.items()} for row in rows])
 
 
 def rows_from_series(data: dict[str, Any], key: str, static: dict[str, Any]) -> list[dict[str, Any]]:
@@ -434,27 +440,60 @@ def update_nager_korea_holidays(scope: str) -> dict[str, Any]:
 
 def update_spacex_launches(scope: str) -> dict[str, Any]:
     start, end = range_for_scope(scope)
+    if scope != "all":
+        # SpaceX 수업은 최신 발사 흐름이 핵심이라 최근 5년보다 조금 넓은 6년치를 사용한다.
+        start = add_years(date.today(), -6)
     if scope == "all":
         start = date(2006, 1, 1)
-    url = "https://api.spacexdata.com/v5/launches/query"
-    payload = {
-        "query": {"date_utc": {"$gte": f"{start.isoformat()}T00:00:00.000Z", "$lte": f"{end.isoformat()}T23:59:59.999Z"}},
-        "options": {"limit": 500, "sort": {"date_utc": "asc"}, "select": ["name", "date_utc", "success", "flight_number", "details", "links"]},
-    }
-    r = requests.post(url, json=payload, timeout=45, headers=HEADERS)
-    r.raise_for_status()
-    data = r.json()
+
+    # r-spacex API v5는 2022년 이후 데이터가 갱신되지 않아 Launch Library 2의 최신 발사 기록을 사용한다.
+    url = "https://ll.thespacedevs.com/2.2.0/launch/previous/?search=SpaceX&limit=100"
     rows = []
-    for item in data.get("docs", []):
-        rows.append({
-            "flight_number": item.get("flight_number"),
-            "name": item.get("name"),
-            "date_utc": item.get("date_utc"),
-            "success": item.get("success"),
-            "details": item.get("details"),
-            "wikipedia": item.get("links", {}).get("wikipedia"),
-            "webcast": item.get("links", {}).get("webcast"),
-        })
+    next_url: str | None = url
+    while next_url:
+        try:
+            data = get_json(next_url)
+        except RequestException:
+            if rows:
+                break
+            raise
+        stop = False
+        for item in data.get("results", []):
+            net = item.get("net") or ""
+            launch_date = datetime.fromisoformat(net.replace("Z", "+00:00")).date() if net else None
+            if launch_date and launch_date < start:
+                stop = True
+                continue
+            if not launch_date or launch_date > end:
+                continue
+            provider = (item.get("launch_service_provider") or {}).get("name")
+            if provider and "SpaceX" not in provider:
+                continue
+            status = item.get("status") or {}
+            mission = item.get("mission") or {}
+            rocket = item.get("rocket") or {}
+            config = rocket.get("configuration") or {}
+            pad = item.get("pad") or {}
+            location = pad.get("location") or {}
+            rows.append({
+                "flight_number": item.get("orbital_launch_attempt_count"),
+                "name": item.get("name"),
+                "date_utc": net,
+                "success": status.get("abbrev") == "Success",
+                "status": status.get("name"),
+                "rocket": config.get("name"),
+                "mission_type": mission.get("type"),
+                "orbit": (mission.get("orbit") or {}).get("name"),
+                "pad": pad.get("name"),
+                "location": location.get("name"),
+                "details": mission.get("description"),
+                "wikipedia": "",
+                "webcast": "",
+            })
+        if stop:
+            break
+        next_url = data.get("next")
+    rows.sort(key=lambda r: r["date_utc"])
     path = DATA / "spacex_launches.csv"
     write_csv(path, rows)
     return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": url}
