@@ -840,7 +840,6 @@ def factfulness_literacy_page() -> str:
   <h2>1단계. 데이터 보기 전 예상하기</h2>
   <p>그래프를 보기 전에 아래 질문에 먼저 답해도 좋고, 빈칸으로 둔 채 실제값만 확인해도 됩니다.</p>
   <div class="quiz-grid">
-    <p class="hint">※ 정답 힌트가 되지 않도록 예시 숫자는 넣지 않았습니다. 먼저 의미를 읽고, 자기 상식으로 예상한 숫자를 적어 보세요.</p>
     <label>한국 사람은 평균적으로 몇 살까지 살 것으로 예상될까요?<span class="field-help">기대수명은 “현재의 사망률이 계속된다고 가정할 때, 한 사람이 평균적으로 살 것으로 기대되는 햇수”입니다.</span><input id="guess-life-kor" type="number" placeholder="숫자로 예상해 보기"></label>
     <label>세계에서 5세 생일 전에 사망하는 어린이는 1,000명 중 몇 명일까요?<span class="field-help">5세 미만 사망률은 보건, 영양, 식수, 의료 접근성을 함께 보여 주는 지표입니다. 낮을수록 아이들이 더 안전하게 자란다는 뜻입니다.</span><input id="guess-mort-world" type="number" placeholder="숫자로 예상해 보기"></label>
     <label>인도에서 전기를 사용할 수 있는 사람은 전체 인구 중 몇 %일까요?<span class="field-help">전기 접근성은 집, 학교, 병원, 일터에서 기본적인 전기를 쓸 수 있는 사람이 얼마나 되는지를 나타냅니다.</span><input id="guess-electricity-ind" type="number" placeholder="숫자로 예상해 보기"></label>
