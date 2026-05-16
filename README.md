@@ -78,6 +78,10 @@ python3 scripts/generate_pages.py
 python3 scripts/validate_datasets.py
 ```
 
+## 실 지도 시각화
+
+`examples/svg-map-visualization.html`은 위키미디어 커먼즈의 실제 대한민국 행정구역 SVG와 배포 CSV의 실제 좌표/지표 데이터를 사용합니다. SVG 원본과 라이선스 정보는 `docs/assets/administrative-divisions-south-korea.SOURCE.txt`에 기록했습니다.
+
 ## 좋아요 순위 기능
 
 GitHub Pages 첫 화면에는 데이터셋별 좋아요 버튼과 `좋아요 많은 순` 정렬이 있습니다.

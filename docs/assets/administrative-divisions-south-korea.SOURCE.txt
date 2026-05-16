@@ -1,0 +1,7 @@
+Administrative divisions map of South Korea.svg
+Source: Wikimedia Commons
+Original file page: https://commons.wikimedia.org/wiki/File:Administrative_divisions_map_of_South_Korea.svg
+Author: Dmthoth
+License: Creative Commons Attribution-Share Alike 3.0
+License URL: https://creativecommons.org/licenses/by-sa/3.0
+Mirror used when Wikimedia upload returned 429 during build: https://github.com/southkorea/southkorea-maps/blob/master/wikimedia/Administrative_divisions_map_of_South_Korea.svg
