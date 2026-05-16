@@ -120,6 +120,11 @@ function parseCsvRows(text) {
 function toObjects(rows) { const h = rows[0] || []; return rows.slice(1).map(r => Object.fromEntries(h.map((k,i)=>[k,r[i] ?? '']))); }
 async function csv(path) { return toObjects(parseCsvRows(await fetch(path).then(r => { if (!r.ok) throw new Error(path + ' HTTP ' + r.status); return r.text(); }))); }
 function num(v) { const n = Number(v); return Number.isFinite(n) ? n : null; }
+const LABEL_KO = {
+  'South Korea':'한국', World:'세계', 'GDP (current US$)':'GDP(현재 US$)', 'Life expectancy at birth, total (years)':'기대수명(년)', 'Population, total':'총인구', 'School enrollment, secondary (% gross)':'중등교육 등록률(%)',
+  'Day-ahead demand forecast':'하루 전 수요 예측', Demand:'전력 수요', 'Net generation':'순발전량', 'Total interchange':'총 전력 교환량'
+};
+function koLabel(value){ return LABEL_KO[value] || value; }
 function latestBy(rows, group, value) { const out = {}; rows.forEach(r => { const k = r[group]; if (!out[k] || String(r.date || r.time || r.Year) > String(out[k].date || out[k].time || out[k].Year)) out[k] = r; }); return Object.values(out).filter(r => num(r[value]) !== null); }
 async function drawSdgCharts() {
   try {
@@ -139,10 +144,10 @@ async function drawSdgCharts() {
 
     const co2 = await csv('../data/owid_co2_korea_world.csv');
     const co2Groups = [...new Set(co2.map(r=>r.Entity))];
-    Plotly.newPlot('sdg-chart-2', co2Groups.map(g => { const rows = co2.filter(r=>r.Entity===g); return {type:'scatter',mode:'lines+markers',name:g,x:rows.map(r=>r.Year),y:rows.map(r=>num(r['Annual CO₂ emissions']))}; }), {title:'한국과 세계 CO₂ 배출량', margin:{t:50,r:20,b:60,l:70}, yaxis:{title:'tonnes'}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-2', co2Groups.map(g => { const rows = co2.filter(r=>r.Entity===g); return {type:'scatter',mode:'lines+markers',name:koLabel(g),x:rows.map(r=>r.Year),y:rows.map(r=>num(r['Annual CO₂ emissions']))}; }), {title:'한국과 세계 CO₂ 배출량', margin:{t:50,r:20,b:60,l:70}, yaxis:{title:'톤'}}, {responsive:true,displaylogo:false});
 
     const gbif = await csv('../data/gbif_korea_occurrences_sample.csv');
-    Plotly.newPlot('sdg-chart-3', [{type:'scattergeo',mode:'markers',lat:gbif.map(r=>num(r.decimalLatitude)),lon:gbif.map(r=>num(r.decimalLongitude)),text:gbif.map(r=>r.scientificName),marker:{size:7,opacity:.65,color:'#16a34a'}}], {title:'한국 생물종 관측 위치', margin:{t:50,r:20,b:20,l:20}, geo:{scope:'asia',projection:{type:'mercator'},lonaxis:{range:[124,132]},lataxis:{range:[33,39.5]},showland:true,landcolor:'#f6f8fa',showcountries:true}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-3', [{type:'scattergeo',mode:'markers',lat:gbif.map(r=>num(r.decimalLatitude)),lon:gbif.map(r=>num(r.decimalLongitude)),text:gbif.map(r=>'학명: '+r.scientificName),marker:{size:7,opacity:.65,color:'#16a34a'}}], {title:'한국 생물종 관측 위치', margin:{t:50,r:20,b:20,l:20}, geo:{scope:'asia',projection:{type:'mercator'},lonaxis:{range:[124,132]},lataxis:{range:[33,39.5]},showland:true,landcolor:'#f6f8fa',showcountries:true}}, {responsive:true,displaylogo:false});
 
     const bike = await csv('../data/seoul_bike_sample.csv');
     Plotly.newPlot('sdg-chart-4', [{type:'bar',x:bike.map(r=>r.stationName),y:bike.map(r=>num(r.parkingBikeTotCnt)),marker:{color:'#0ea5e9'}}], {title:'따릉이 대여소별 현재 자전거 수', margin:{t:50,r:20,b:120,l:55}, yaxis:{title:'대수'}}, {responsive:true,displaylogo:false});
@@ -152,17 +157,17 @@ async function drawSdgCharts() {
 
     const wb = await csv('../data/worldbank_korea_indicators.csv');
     const inds = [...new Set(wb.map(r=>r.indicator))];
-    Plotly.newPlot('sdg-chart-6', inds.map(ind => { const rows = wb.filter(r=>r.indicator===ind); return {type:'scatter',mode:'lines+markers',name:ind,x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'한국 주요 발전 지표 변화', margin:{t:50,r:20,b:70,l:70}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-6', inds.map(ind => { const rows = wb.filter(r=>r.indicator===ind); return {type:'scatter',mode:'lines+markers',name:koLabel(ind),x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'한국 주요 발전 지표 변화', margin:{t:50,r:20,b:70,l:70}}, {responsive:true,displaylogo:false});
 
     const fact = await csv('../data/factfulness_global_indicators.csv');
     const life = latestBy(fact.filter(r=>r.indicator_id==='SP.DYN.LE00.IN'), 'countryiso3code', 'value');
-    Plotly.newPlot('sdg-chart-7', [{type:'bar',x:life.map(r=>r.country),y:life.map(r=>num(r.value)),text:life.map(r=>r.date),marker:{color:'#f97316'}}], {title:'팩트풀니스: 최신 기대수명 비교', margin:{t:50,r:20,b:110,l:55}, yaxis:{title:'년'}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-7', [{type:'bar',x:life.map(r=>koLabel(r.country)),y:life.map(r=>num(r.value)),text:life.map(r=>r.date),marker:{color:'#f97316'}}], {title:'팩트풀니스: 최신 기대수명 비교', margin:{t:50,r:20,b:110,l:55}, yaxis:{title:'년'}}, {responsive:true,displaylogo:false});
 
-    Plotly.newPlot('sdg-chart-8', [{type:'bar',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),marker:{color:'#38bdf8'}}], {title:'물·가뭄 수업용: 서울 일별 강수량', margin:{t:50,r:20,b:80,l:55}, yaxis:{title:'mm/day'}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-8', [{type:'bar',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),marker:{color:'#38bdf8'}}], {title:'물·가뭄 수업용: 서울 일별 강수량', margin:{t:50,r:20,b:80,l:55}, yaxis:{title:'mm/일'}}, {responsive:true,displaylogo:false});
 
     const eia = await csv('../data/eia_california_electricity_daily.csv');
     const recentEia = eia.slice(-600); const types = [...new Set(recentEia.map(r=>r.type_name))].slice(0,5);
-    Plotly.newPlot('sdg-chart-9', types.map(t => { const rows = recentEia.filter(r=>r.type_name===t); return {type:'scatter',mode:'lines',name:t,x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'전력 수요·공급 유형별 변화', margin:{t:50,r:20,b:80,l:70}, yaxis:{title:'MWh'}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-9', types.map(t => { const rows = recentEia.filter(r=>r.type_name===t); return {type:'scatter',mode:'lines',name:koLabel(t),x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'전력 수요·공급 유형별 변화', margin:{t:50,r:20,b:80,l:70}, yaxis:{title:'MWh'}}, {responsive:true,displaylogo:false});
   } catch (err) {
     document.querySelectorAll('.sdg-chart').forEach(el => { if (!el.innerHTML) el.innerHTML = '<p>시각화 로드 실패: ' + err.message + '</p>'; });
   }

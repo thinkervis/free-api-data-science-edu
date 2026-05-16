@@ -537,6 +537,16 @@ function parseCsvRows(text) {
   return rows;
 }
 function escapeHtml(value) { return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+const LABEL_KO = {
+  time:'시간', date:'연도/날짜', Year:'연도', value:'값', count:'개수', latitude:'위도', longitude:'경도', depth_km:'깊이(km)', magnitude:'규모',
+  temperature_2m_max:'최고기온', temperature_2m_mean:'평균기온', temperature_2m_min:'최저기온', temperature_2m_c:'평균기온', precipitation_mm_day:'강수량(mm/일)', wind_speed_2m_m_s:'풍속(m/s)',
+  rate:'환율', FEDFUNDS:'미국 기준금리(%)', cpi_value:'소비자물가지수(CPI)', parkingBikeTotCnt:'주차 자전거 수', stationName:'대여소', home_team:'홈팀', date_utc:'발사일', date_end:'제작연도', sex:'성별', area:'면적', population:'인구', type_name:'전력 데이터 유형', Entity:'지역',
+  'Annual CO₂ emissions':'연간 CO₂ 배출량',
+  'GDP (current US$)':'GDP(현재 US$)', 'Life expectancy at birth, total (years)':'기대수명(년)', 'Population, total':'총인구', 'School enrollment, secondary (% gross)':'중등교육 등록률(%)',
+  'Access to electricity (% of population)':'전기 접근성(인구 %)', 'GDP per capita (current US$)':'1인당 GDP(현재 US$)', 'Mortality rate, under-5 (per 1,000 live births)':'5세 미만 사망률(1,000명당)', 'Primary completion rate, total (% of relevant age group)':'초등교육 이수율(%)',
+  'South Korea':'한국', World:'세계', 'Day-ahead demand forecast':'하루 전 수요 예측', Demand:'전력 수요', 'Net generation':'순발전량', 'Total interchange':'총 전력 교환량', SEX_BTSX:'전체', SEX_FMLE:'여성', SEX_MLE:'남성'
+};
+function koLabel(value) { return LABEL_KO[value] || value; }
 function column(rows, name) { const headers = rows[0] || []; const idx = headers.indexOf(name); if (idx < 0) return []; return rows.slice(1).map(row => row[idx] ?? ''); }
 function numericColumn(rows, name) { return column(rows, name).map(v => Number(v)).map(v => Number.isFinite(v) ? v : null); }
 function limitedRows(rows, maxPoints) { if (!maxPoints || rows.length <= maxPoints + 1) return rows; return [rows[0]].concat(rows.slice(1, maxPoints + 1)); }
@@ -558,12 +568,12 @@ function drawCsvChart(rows) {
   if (cfg.kind === 'line') {
     const x = column(dataRows, cfg.x);
     traces = (cfg.y || []).map((yName, i) => ({x, y: numericColumn(dataRows, yName), mode: 'lines', type: 'scatter', name: (cfg.labels || [])[i] || yName}));
-    layout.xaxis = {title: cfg.x}; layout.yaxis = {title: cfg.y_title || ''};
+    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: cfg.y_title || ''};
   } else if (cfg.kind === 'multiCategoryLine') {
     const headers = dataRows[0] || []; const catIdx = headers.indexOf(cfg.category), xIdx = headers.indexOf(cfg.x), yIdx = headers.indexOf(cfg.y); const groups = {};
     dataRows.slice(1).forEach(row => { const cat = row[catIdx] || '(blank)'; if (!groups[cat]) groups[cat] = {x: [], y: []}; groups[cat].x.push(row[xIdx]); const y = Number(row[yIdx]); groups[cat].y.push(Number.isFinite(y) ? y : null); });
-    traces = Object.entries(groups).map(([name, g]) => ({...g, mode: 'lines+markers', type: 'scatter', name}));
-    layout.xaxis = {title: cfg.x}; layout.yaxis = {title: cfg.y_title || cfg.y};
+    traces = Object.entries(groups).map(([name, g]) => ({...g, mode: 'lines+markers', type: 'scatter', name: koLabel(name)}));
+    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: cfg.y_title || koLabel(cfg.y)};
   } else if (cfg.kind === 'scattergeo') {
     const lonRaw = numericColumn(dataRows, cfg.lon); const latRaw = numericColumn(dataRows, cfg.lat); const text = cfg.hover ? column(dataRows, cfg.hover) : []; const sizeRaw = cfg.size ? numericColumn(dataRows, cfg.size) : []; const colorRaw = cfg.color ? numericColumn(dataRows, cfg.color) : [];
     const lon = [], lat = [], text2 = [], sizes = [], colors = [];
@@ -575,17 +585,17 @@ function drawCsvChart(rows) {
       layout.geo = {scope: 'world', projection: {type: 'natural earth'}, showland: true, landcolor: '#f6f8fa'};
     }
   } else if (cfg.kind === 'bar') {
-    traces = [{type: 'bar', x: column(dataRows, cfg.x), y: numericColumn(dataRows, cfg.y), name: cfg.y}]; layout.xaxis = {title: cfg.x}; layout.yaxis = {title: cfg.y};
+    traces = [{type: 'bar', x: column(dataRows, cfg.x).map(koLabel), y: numericColumn(dataRows, cfg.y), name: koLabel(cfg.y)}]; layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: koLabel(cfg.y)};
   } else if (cfg.kind === 'barAggregate') {
     const headers = dataRows[0] || []; const idx = cfg.x_date_year ? headers.indexOf(cfg.x_date_year) : headers.indexOf(cfg.x); const counts = {};
     dataRows.slice(1).forEach(row => { const raw = row[idx] || '(blank)'; const key = cfg.x_date_year ? String(raw).slice(0, 4) : raw; counts[key] = (counts[key] || 0) + 1; });
     const entries = Object.entries(counts).sort((a, b) => String(a[0]).localeCompare(String(b[0]))).slice(0, 30);
-    traces = [{type: 'bar', x: entries.map(e => e[0]), y: entries.map(e => e[1]), name: 'count'}]; layout.yaxis = {title: '개수'};
+    traces = [{type: 'bar', x: entries.map(e => koLabel(e[0])), y: entries.map(e => e[1]), name: '개수'}]; layout.yaxis = {title: '개수'};
   } else if (cfg.kind === 'histogram') {
-    traces = [{type: 'histogram', x: numericColumn(dataRows, cfg.x), name: cfg.x}];
+    traces = [{type: 'histogram', x: numericColumn(dataRows, cfg.x), name: koLabel(cfg.x)}];
   } else if (cfg.kind === 'scatter') {
     traces = [{type: 'scatter', mode: 'markers', x: numericColumn(dataRows, cfg.x), y: numericColumn(dataRows, cfg.y), text: cfg.text ? column(dataRows, cfg.text) : [], marker: {size: 8, opacity: 0.7}}];
-    layout.xaxis = {title: cfg.x_title || cfg.x, type: 'log'}; layout.yaxis = {title: cfg.y_title || cfg.y, type: 'log'};
+    layout.xaxis = {title: cfg.x_title || koLabel(cfg.x), type: 'log'}; layout.yaxis = {title: cfg.y_title || koLabel(cfg.y), type: 'log'};
   }
   if (!traces.length) { chart.innerHTML = '<p>이 데이터셋의 맞춤 시각화 설정을 찾지 못했습니다.</p>'; return; }
   Plotly.newPlot(chart, traces, layout, {responsive: true, displaylogo: false});
@@ -705,6 +715,11 @@ function parseCsvRows(text) {
 function toObjects(rows) { const h = rows[0] || []; return rows.slice(1).map(r => Object.fromEntries(h.map((k,i)=>[k,r[i] ?? '']))); }
 async function csv(path) { return toObjects(parseCsvRows(await fetch(path).then(r => { if (!r.ok) throw new Error(path + ' HTTP ' + r.status); return r.text(); }))); }
 function num(v) { const n = Number(v); return Number.isFinite(n) ? n : null; }
+const LABEL_KO = {
+  'South Korea':'한국', World:'세계', 'GDP (current US$)':'GDP(현재 US$)', 'Life expectancy at birth, total (years)':'기대수명(년)', 'Population, total':'총인구', 'School enrollment, secondary (% gross)':'중등교육 등록률(%)',
+  'Day-ahead demand forecast':'하루 전 수요 예측', Demand:'전력 수요', 'Net generation':'순발전량', 'Total interchange':'총 전력 교환량'
+};
+function koLabel(value){ return LABEL_KO[value] || value; }
 function latestBy(rows, group, value) { const out = {}; rows.forEach(r => { const k = r[group]; if (!out[k] || String(r.date || r.time || r.Year) > String(out[k].date || out[k].time || out[k].Year)) out[k] = r; }); return Object.values(out).filter(r => num(r[value]) !== null); }
 async function drawSdgCharts() {
   try {
@@ -724,10 +739,10 @@ async function drawSdgCharts() {
 
     const co2 = await csv('../data/owid_co2_korea_world.csv');
     const co2Groups = [...new Set(co2.map(r=>r.Entity))];
-    Plotly.newPlot('sdg-chart-2', co2Groups.map(g => { const rows = co2.filter(r=>r.Entity===g); return {type:'scatter',mode:'lines+markers',name:g,x:rows.map(r=>r.Year),y:rows.map(r=>num(r['Annual CO₂ emissions']))}; }), {title:'한국과 세계 CO₂ 배출량', margin:{t:50,r:20,b:60,l:70}, yaxis:{title:'tonnes'}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-2', co2Groups.map(g => { const rows = co2.filter(r=>r.Entity===g); return {type:'scatter',mode:'lines+markers',name:koLabel(g),x:rows.map(r=>r.Year),y:rows.map(r=>num(r['Annual CO₂ emissions']))}; }), {title:'한국과 세계 CO₂ 배출량', margin:{t:50,r:20,b:60,l:70}, yaxis:{title:'톤'}}, {responsive:true,displaylogo:false});
 
     const gbif = await csv('../data/gbif_korea_occurrences_sample.csv');
-    Plotly.newPlot('sdg-chart-3', [{type:'scattergeo',mode:'markers',lat:gbif.map(r=>num(r.decimalLatitude)),lon:gbif.map(r=>num(r.decimalLongitude)),text:gbif.map(r=>r.scientificName),marker:{size:7,opacity:.65,color:'#16a34a'}}], {title:'한국 생물종 관측 위치', margin:{t:50,r:20,b:20,l:20}, geo:{scope:'asia',projection:{type:'mercator'},lonaxis:{range:[124,132]},lataxis:{range:[33,39.5]},showland:true,landcolor:'#f6f8fa',showcountries:true}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-3', [{type:'scattergeo',mode:'markers',lat:gbif.map(r=>num(r.decimalLatitude)),lon:gbif.map(r=>num(r.decimalLongitude)),text:gbif.map(r=>'학명: '+r.scientificName),marker:{size:7,opacity:.65,color:'#16a34a'}}], {title:'한국 생물종 관측 위치', margin:{t:50,r:20,b:20,l:20}, geo:{scope:'asia',projection:{type:'mercator'},lonaxis:{range:[124,132]},lataxis:{range:[33,39.5]},showland:true,landcolor:'#f6f8fa',showcountries:true}}, {responsive:true,displaylogo:false});
 
     const bike = await csv('../data/seoul_bike_sample.csv');
     Plotly.newPlot('sdg-chart-4', [{type:'bar',x:bike.map(r=>r.stationName),y:bike.map(r=>num(r.parkingBikeTotCnt)),marker:{color:'#0ea5e9'}}], {title:'따릉이 대여소별 현재 자전거 수', margin:{t:50,r:20,b:120,l:55}, yaxis:{title:'대수'}}, {responsive:true,displaylogo:false});
@@ -737,17 +752,17 @@ async function drawSdgCharts() {
 
     const wb = await csv('../data/worldbank_korea_indicators.csv');
     const inds = [...new Set(wb.map(r=>r.indicator))];
-    Plotly.newPlot('sdg-chart-6', inds.map(ind => { const rows = wb.filter(r=>r.indicator===ind); return {type:'scatter',mode:'lines+markers',name:ind,x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'한국 주요 발전 지표 변화', margin:{t:50,r:20,b:70,l:70}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-6', inds.map(ind => { const rows = wb.filter(r=>r.indicator===ind); return {type:'scatter',mode:'lines+markers',name:koLabel(ind),x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'한국 주요 발전 지표 변화', margin:{t:50,r:20,b:70,l:70}}, {responsive:true,displaylogo:false});
 
     const fact = await csv('../data/factfulness_global_indicators.csv');
     const life = latestBy(fact.filter(r=>r.indicator_id==='SP.DYN.LE00.IN'), 'countryiso3code', 'value');
-    Plotly.newPlot('sdg-chart-7', [{type:'bar',x:life.map(r=>r.country),y:life.map(r=>num(r.value)),text:life.map(r=>r.date),marker:{color:'#f97316'}}], {title:'팩트풀니스: 최신 기대수명 비교', margin:{t:50,r:20,b:110,l:55}, yaxis:{title:'년'}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-7', [{type:'bar',x:life.map(r=>koLabel(r.country)),y:life.map(r=>num(r.value)),text:life.map(r=>r.date),marker:{color:'#f97316'}}], {title:'팩트풀니스: 최신 기대수명 비교', margin:{t:50,r:20,b:110,l:55}, yaxis:{title:'년'}}, {responsive:true,displaylogo:false});
 
-    Plotly.newPlot('sdg-chart-8', [{type:'bar',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),marker:{color:'#38bdf8'}}], {title:'물·가뭄 수업용: 서울 일별 강수량', margin:{t:50,r:20,b:80,l:55}, yaxis:{title:'mm/day'}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-8', [{type:'bar',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),marker:{color:'#38bdf8'}}], {title:'물·가뭄 수업용: 서울 일별 강수량', margin:{t:50,r:20,b:80,l:55}, yaxis:{title:'mm/일'}}, {responsive:true,displaylogo:false});
 
     const eia = await csv('../data/eia_california_electricity_daily.csv');
     const recentEia = eia.slice(-600); const types = [...new Set(recentEia.map(r=>r.type_name))].slice(0,5);
-    Plotly.newPlot('sdg-chart-9', types.map(t => { const rows = recentEia.filter(r=>r.type_name===t); return {type:'scatter',mode:'lines',name:t,x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'전력 수요·공급 유형별 변화', margin:{t:50,r:20,b:80,l:70}, yaxis:{title:'MWh'}}, {responsive:true,displaylogo:false});
+    Plotly.newPlot('sdg-chart-9', types.map(t => { const rows = recentEia.filter(r=>r.type_name===t); return {type:'scatter',mode:'lines',name:koLabel(t),x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'전력 수요·공급 유형별 변화', margin:{t:50,r:20,b:80,l:70}, yaxis:{title:'MWh'}}, {responsive:true,displaylogo:false});
   } catch (err) {
     document.querySelectorAll('.sdg-chart').forEach(el => { if (!el.innerHTML) el.innerHTML = '<p>시각화 로드 실패: ' + err.message + '</p>'; });
   }
@@ -855,6 +870,14 @@ def factfulness_literacy_page() -> str:
 const CSV_URL = '../data/factfulness_global_indicators.csv';
 const COUNTRIES = ['KOR','WLD','IND','NGA','SWE'];
 const COUNTRY_LABELS = {KOR:'한국', WLD:'세계', IND:'인도', NGA:'나이지리아', SWE:'스웨덴'};
+const INDICATOR_LABELS = {
+  'Access to electricity (% of population)':'전기 접근성(인구 %)',
+  'GDP per capita (current US$)':'1인당 GDP(현재 US$)',
+  'Life expectancy at birth, total (years)':'기대수명(년)',
+  'Mortality rate, under-5 (per 1,000 live births)':'5세 미만 사망률(1,000명당)',
+  'Primary completion rate, total (% of relevant age group)':'초등교육 이수율(%)'
+};
+function koIndicator(name){ return INDICATOR_LABELS[name] || name; }
 let factRows = [];
 let headers = [];
 
@@ -912,7 +935,7 @@ function compareGuesses(){
 function setupIndicatorSelect(){
   const select=document.getElementById('indicator-select');
   const inds=[...new Map(factRows.map(r=>[r.indicator_id,r.indicator])).entries()];
-  select.innerHTML=inds.map(([id,name])=>`<option value="${id}">${name}</option>`).join('');
+  select.innerHTML=inds.map(([id,name])=>`<option value="${id}">${koIndicator(name)}</option>`).join('');
   select.value = inds.some(([id])=>id==='SP.DYN.LE00.IN') ? 'SP.DYN.LE00.IN' : (inds[0]?.[0] || '');
 }
 function latestRowsForIndicator(ind){
@@ -928,15 +951,15 @@ function drawLatest(){
   if(!factRows.length) return;
   const ind=selectedIndicator();
   const rows=latestRowsForIndicator(ind);
-  const name=factRows.find(r=>r.indicator_id===ind)?.indicator||ind;
-  Plotly.newPlot('latest-chart',[{type:'bar',x:rows.map(r=>COUNTRY_LABELS[r.countryiso3code]||r.country),y:rows.map(r=>Number(r.value)),text:rows.map(r=>r.date),customdata:rows.map(r=>r.countryiso3code),hovertemplate:'%{x} (%{customdata})<br>%{y:.1f}<br>연도 %{text}<extra></extra>',marker:{color:'#2563eb'}}],{title:`최신값 비교: ${name}`,yaxis:{title:'값'},margin:{t:60,r:20,b:100,l:60}},{responsive:true,displaylogo:false});
+  const name=koIndicator(factRows.find(r=>r.indicator_id===ind)?.indicator||ind);
+  Plotly.newPlot('latest-chart',[{type:'bar',x:rows.map(r=>COUNTRY_LABELS[r.countryiso3code]||r.country),y:rows.map(r=>Number(r.value)),text:rows.map(r=>r.date),customdata:rows.map(r=>r.countryiso3code),hovertemplate:'국가: %{x} (%{customdata})<br>값: %{y:.1f}<br>연도: %{text}<extra></extra>',marker:{color:'#2563eb'}}],{title:`최신값 비교: ${name}`,yaxis:{title:'값'},margin:{t:60,r:20,b:100,l:60}},{responsive:true,displaylogo:false});
 }
 function drawTrend(){
   ensurePlotly();
   if(!factRows.length) return;
   const ind=selectedIndicator();
-  const traces=COUNTRIES.map(c=>{const rows=factRows.filter(r=>r.indicator_id===ind&&r.countryiso3code===c).sort((a,b)=>Number(a.date)-Number(b.date));return {type:'scatter',mode:'lines+markers',name:COUNTRY_LABELS[c]||c,x:rows.map(r=>r.date),y:rows.map(r=>Number(r.value)),hovertemplate:'%{fullData.name}<br>%{x}: %{y:.1f}<extra></extra>'}}).filter(t=>t.x.length);
-  const name=factRows.find(r=>r.indicator_id===ind)?.indicator||ind;
+  const traces=COUNTRIES.map(c=>{const rows=factRows.filter(r=>r.indicator_id===ind&&r.countryiso3code===c).sort((a,b)=>Number(a.date)-Number(b.date));return {type:'scatter',mode:'lines+markers',name:COUNTRY_LABELS[c]||c,x:rows.map(r=>r.date),y:rows.map(r=>Number(r.value)),hovertemplate:'국가: %{fullData.name}<br>연도: %{x}<br>값: %{y:.1f}<extra></extra>'}}).filter(t=>t.x.length);
+  const name=koIndicator(factRows.find(r=>r.indicator_id===ind)?.indicator||ind);
   Plotly.newPlot('trend-chart',traces,{title:`추세: ${name}`,xaxis:{title:'연도'},yaxis:{title:'값'},margin:{t:60,r:20,b:60,l:70}},{responsive:true,displaylogo:false});
 }
 

@@ -107,6 +107,14 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 const CSV_URL = '../data/factfulness_global_indicators.csv';
 const COUNTRIES = ['KOR','WLD','IND','NGA','SWE'];
 const COUNTRY_LABELS = {KOR:'한국', WLD:'세계', IND:'인도', NGA:'나이지리아', SWE:'스웨덴'};
+const INDICATOR_LABELS = {
+  'Access to electricity (% of population)':'전기 접근성(인구 %)',
+  'GDP per capita (current US$)':'1인당 GDP(현재 US$)',
+  'Life expectancy at birth, total (years)':'기대수명(년)',
+  'Mortality rate, under-5 (per 1,000 live births)':'5세 미만 사망률(1,000명당)',
+  'Primary completion rate, total (% of relevant age group)':'초등교육 이수율(%)'
+};
+function koIndicator(name){ return INDICATOR_LABELS[name] || name; }
 let factRows = [];
 let headers = [];
 
@@ -164,7 +172,7 @@ function compareGuesses(){
 function setupIndicatorSelect(){
   const select=document.getElementById('indicator-select');
   const inds=[...new Map(factRows.map(r=>[r.indicator_id,r.indicator])).entries()];
-  select.innerHTML=inds.map(([id,name])=>`<option value="${id}">${name}</option>`).join('');
+  select.innerHTML=inds.map(([id,name])=>`<option value="${id}">${koIndicator(name)}</option>`).join('');
   select.value = inds.some(([id])=>id==='SP.DYN.LE00.IN') ? 'SP.DYN.LE00.IN' : (inds[0]?.[0] || '');
 }
 function latestRowsForIndicator(ind){
@@ -180,15 +188,15 @@ function drawLatest(){
   if(!factRows.length) return;
   const ind=selectedIndicator();
   const rows=latestRowsForIndicator(ind);
-  const name=factRows.find(r=>r.indicator_id===ind)?.indicator||ind;
-  Plotly.newPlot('latest-chart',[{type:'bar',x:rows.map(r=>COUNTRY_LABELS[r.countryiso3code]||r.country),y:rows.map(r=>Number(r.value)),text:rows.map(r=>r.date),customdata:rows.map(r=>r.countryiso3code),hovertemplate:'%{x} (%{customdata})<br>%{y:.1f}<br>연도 %{text}<extra></extra>',marker:{color:'#2563eb'}}],{title:`최신값 비교: ${name}`,yaxis:{title:'값'},margin:{t:60,r:20,b:100,l:60}},{responsive:true,displaylogo:false});
+  const name=koIndicator(factRows.find(r=>r.indicator_id===ind)?.indicator||ind);
+  Plotly.newPlot('latest-chart',[{type:'bar',x:rows.map(r=>COUNTRY_LABELS[r.countryiso3code]||r.country),y:rows.map(r=>Number(r.value)),text:rows.map(r=>r.date),customdata:rows.map(r=>r.countryiso3code),hovertemplate:'국가: %{x} (%{customdata})<br>값: %{y:.1f}<br>연도: %{text}<extra></extra>',marker:{color:'#2563eb'}}],{title:`최신값 비교: ${name}`,yaxis:{title:'값'},margin:{t:60,r:20,b:100,l:60}},{responsive:true,displaylogo:false});
 }
 function drawTrend(){
   ensurePlotly();
   if(!factRows.length) return;
   const ind=selectedIndicator();
-  const traces=COUNTRIES.map(c=>{const rows=factRows.filter(r=>r.indicator_id===ind&&r.countryiso3code===c).sort((a,b)=>Number(a.date)-Number(b.date));return {type:'scatter',mode:'lines+markers',name:COUNTRY_LABELS[c]||c,x:rows.map(r=>r.date),y:rows.map(r=>Number(r.value)),hovertemplate:'%{fullData.name}<br>%{x}: %{y:.1f}<extra></extra>'}}).filter(t=>t.x.length);
-  const name=factRows.find(r=>r.indicator_id===ind)?.indicator||ind;
+  const traces=COUNTRIES.map(c=>{const rows=factRows.filter(r=>r.indicator_id===ind&&r.countryiso3code===c).sort((a,b)=>Number(a.date)-Number(b.date));return {type:'scatter',mode:'lines+markers',name:COUNTRY_LABELS[c]||c,x:rows.map(r=>r.date),y:rows.map(r=>Number(r.value)),hovertemplate:'국가: %{fullData.name}<br>연도: %{x}<br>값: %{y:.1f}<extra></extra>'}}).filter(t=>t.x.length);
+  const name=koIndicator(factRows.find(r=>r.indicator_id===ind)?.indicator||ind);
   Plotly.newPlot('trend-chart',traces,{title:`추세: ${name}`,xaxis:{title:'연도'},yaxis:{title:'값'},margin:{t:60,r:20,b:60,l:70}},{responsive:true,displaylogo:false});
 }
 

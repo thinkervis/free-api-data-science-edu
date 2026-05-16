@@ -116,6 +116,16 @@ function parseCsvRows(text) {
   return rows;
 }
 function escapeHtml(value) { return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+const LABEL_KO = {
+  time:'시간', date:'연도/날짜', Year:'연도', value:'값', count:'개수', latitude:'위도', longitude:'경도', depth_km:'깊이(km)', magnitude:'규모',
+  temperature_2m_max:'최고기온', temperature_2m_mean:'평균기온', temperature_2m_min:'최저기온', temperature_2m_c:'평균기온', precipitation_mm_day:'강수량(mm/일)', wind_speed_2m_m_s:'풍속(m/s)',
+  rate:'환율', FEDFUNDS:'미국 기준금리(%)', cpi_value:'소비자물가지수(CPI)', parkingBikeTotCnt:'주차 자전거 수', stationName:'대여소', home_team:'홈팀', date_utc:'발사일', date_end:'제작연도', sex:'성별', area:'면적', population:'인구', type_name:'전력 데이터 유형', Entity:'지역',
+  'Annual CO₂ emissions':'연간 CO₂ 배출량',
+  'GDP (current US$)':'GDP(현재 US$)', 'Life expectancy at birth, total (years)':'기대수명(년)', 'Population, total':'총인구', 'School enrollment, secondary (% gross)':'중등교육 등록률(%)',
+  'Access to electricity (% of population)':'전기 접근성(인구 %)', 'GDP per capita (current US$)':'1인당 GDP(현재 US$)', 'Mortality rate, under-5 (per 1,000 live births)':'5세 미만 사망률(1,000명당)', 'Primary completion rate, total (% of relevant age group)':'초등교육 이수율(%)',
+  'South Korea':'한국', World:'세계', 'Day-ahead demand forecast':'하루 전 수요 예측', Demand:'전력 수요', 'Net generation':'순발전량', 'Total interchange':'총 전력 교환량', SEX_BTSX:'전체', SEX_FMLE:'여성', SEX_MLE:'남성'
+};
+function koLabel(value) { return LABEL_KO[value] || value; }
 function column(rows, name) { const headers = rows[0] || []; const idx = headers.indexOf(name); if (idx < 0) return []; return rows.slice(1).map(row => row[idx] ?? ''); }
 function numericColumn(rows, name) { return column(rows, name).map(v => Number(v)).map(v => Number.isFinite(v) ? v : null); }
 function limitedRows(rows, maxPoints) { if (!maxPoints || rows.length <= maxPoints + 1) return rows; return [rows[0]].concat(rows.slice(1, maxPoints + 1)); }
@@ -137,12 +147,12 @@ function drawCsvChart(rows) {
   if (cfg.kind === 'line') {
     const x = column(dataRows, cfg.x);
     traces = (cfg.y || []).map((yName, i) => ({x, y: numericColumn(dataRows, yName), mode: 'lines', type: 'scatter', name: (cfg.labels || [])[i] || yName}));
-    layout.xaxis = {title: cfg.x}; layout.yaxis = {title: cfg.y_title || ''};
+    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: cfg.y_title || ''};
   } else if (cfg.kind === 'multiCategoryLine') {
     const headers = dataRows[0] || []; const catIdx = headers.indexOf(cfg.category), xIdx = headers.indexOf(cfg.x), yIdx = headers.indexOf(cfg.y); const groups = {};
     dataRows.slice(1).forEach(row => { const cat = row[catIdx] || '(blank)'; if (!groups[cat]) groups[cat] = {x: [], y: []}; groups[cat].x.push(row[xIdx]); const y = Number(row[yIdx]); groups[cat].y.push(Number.isFinite(y) ? y : null); });
-    traces = Object.entries(groups).map(([name, g]) => ({...g, mode: 'lines+markers', type: 'scatter', name}));
-    layout.xaxis = {title: cfg.x}; layout.yaxis = {title: cfg.y_title || cfg.y};
+    traces = Object.entries(groups).map(([name, g]) => ({...g, mode: 'lines+markers', type: 'scatter', name: koLabel(name)}));
+    layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: cfg.y_title || koLabel(cfg.y)};
   } else if (cfg.kind === 'scattergeo') {
     const lonRaw = numericColumn(dataRows, cfg.lon); const latRaw = numericColumn(dataRows, cfg.lat); const text = cfg.hover ? column(dataRows, cfg.hover) : []; const sizeRaw = cfg.size ? numericColumn(dataRows, cfg.size) : []; const colorRaw = cfg.color ? numericColumn(dataRows, cfg.color) : [];
     const lon = [], lat = [], text2 = [], sizes = [], colors = [];
@@ -154,17 +164,17 @@ function drawCsvChart(rows) {
       layout.geo = {scope: 'world', projection: {type: 'natural earth'}, showland: true, landcolor: '#f6f8fa'};
     }
   } else if (cfg.kind === 'bar') {
-    traces = [{type: 'bar', x: column(dataRows, cfg.x), y: numericColumn(dataRows, cfg.y), name: cfg.y}]; layout.xaxis = {title: cfg.x}; layout.yaxis = {title: cfg.y};
+    traces = [{type: 'bar', x: column(dataRows, cfg.x).map(koLabel), y: numericColumn(dataRows, cfg.y), name: koLabel(cfg.y)}]; layout.xaxis = {title: koLabel(cfg.x)}; layout.yaxis = {title: koLabel(cfg.y)};
   } else if (cfg.kind === 'barAggregate') {
     const headers = dataRows[0] || []; const idx = cfg.x_date_year ? headers.indexOf(cfg.x_date_year) : headers.indexOf(cfg.x); const counts = {};
     dataRows.slice(1).forEach(row => { const raw = row[idx] || '(blank)'; const key = cfg.x_date_year ? String(raw).slice(0, 4) : raw; counts[key] = (counts[key] || 0) + 1; });
     const entries = Object.entries(counts).sort((a, b) => String(a[0]).localeCompare(String(b[0]))).slice(0, 30);
-    traces = [{type: 'bar', x: entries.map(e => e[0]), y: entries.map(e => e[1]), name: 'count'}]; layout.yaxis = {title: '개수'};
+    traces = [{type: 'bar', x: entries.map(e => koLabel(e[0])), y: entries.map(e => e[1]), name: '개수'}]; layout.yaxis = {title: '개수'};
   } else if (cfg.kind === 'histogram') {
-    traces = [{type: 'histogram', x: numericColumn(dataRows, cfg.x), name: cfg.x}];
+    traces = [{type: 'histogram', x: numericColumn(dataRows, cfg.x), name: koLabel(cfg.x)}];
   } else if (cfg.kind === 'scatter') {
     traces = [{type: 'scatter', mode: 'markers', x: numericColumn(dataRows, cfg.x), y: numericColumn(dataRows, cfg.y), text: cfg.text ? column(dataRows, cfg.text) : [], marker: {size: 8, opacity: 0.7}}];
-    layout.xaxis = {title: cfg.x_title || cfg.x, type: 'log'}; layout.yaxis = {title: cfg.y_title || cfg.y, type: 'log'};
+    layout.xaxis = {title: cfg.x_title || koLabel(cfg.x), type: 'log'}; layout.yaxis = {title: cfg.y_title || koLabel(cfg.y), type: 'log'};
   }
   if (!traces.length) { chart.innerHTML = '<p>이 데이터셋의 맞춤 시각화 설정을 찾지 못했습니다.</p>'; return; }
   Plotly.newPlot(chart, traces, layout, {responsive: true, displaylogo: false});
