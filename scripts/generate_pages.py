@@ -1177,7 +1177,7 @@ def sdg_topics_page() -> str:
   <div id="sdg-chart-{i-1}" class="sdg-chart"></div>
 </div>''')
     script = r'''
-<style>.sdg-chart{height:380px;margin-top:1rem}.sdg-svg-map{height:auto;min-height:320px}.sdg-svg-map svg{display:block;width:100%;height:auto;max-height:360px}.sdg-map-boundary{fill:#eef6ff;stroke:#ffffff;stroke-width:1}.sdg-map-point{fill:#16a34a;fill-opacity:.62;stroke:#065f46;stroke-width:.6}.sdg-card{break-inside:avoid}.sdg-card .badge{margin-bottom:.25rem}@media(max-width:760px){.sdg-chart{height:340px}.sdg-card h2{font-size:1.18rem;line-height:1.35}.sdg-card .badge{font-size:.78rem;display:inline-block;max-width:100%;overflow-wrap:anywhere;word-break:break-word}.sdg-chart .legend{font-size:10px}}</style>
+<style>.sdg-chart{height:380px;margin-top:1rem}.sdg-svg-map{height:auto;min-height:480px;border:1px solid #d0d7de;border-radius:14px;background:linear-gradient(180deg,#f8fbff,#eef7ff);padding:.75rem;overflow:hidden}.sdg-svg-map svg{display:block;width:100%;height:auto;max-height:none}.sdg-map-boundary{stroke:#ffffff;stroke-width:1.25;vector-effect:non-scaling-stroke}.sdg-map-boundary:hover{stroke:#0f172a;stroke-width:2}.sdg-map-point{fill:#16a34a;fill-opacity:.68;stroke:#064e3b;stroke-width:.6;vector-effect:non-scaling-stroke}.sdg-map-label{font-size:13px;font-weight:700;fill:#1f2937;paint-order:stroke;stroke:#fff;stroke-width:3;stroke-linejoin:round}.sdg-card{break-inside:avoid}.sdg-card .badge{margin-bottom:.25rem}@media(max-width:760px){.sdg-chart{height:340px}.sdg-svg-map{height:auto!important;min-height:0;padding:.45rem}.sdg-svg-map svg{min-height:420px}.sdg-card h2{font-size:1.18rem;line-height:1.35}.sdg-card .badge{font-size:.78rem;display:inline-block;max-width:100%;overflow-wrap:anywhere;word-break:break-word}.sdg-chart .legend{font-size:10px}}</style>
 <script>
 function parseCsvRows(text) {
   const rows = []; let row = [], cell = '', q = false;
@@ -1224,13 +1224,40 @@ function projectLonLat(lon,lat,b,w,h,pad=18){
 }
 function ringPath(ring,b,w,h){return ring.map((p,i)=>{const [x,y]=projectLonLat(p[0],p[1],b,w,h);return (i?'L':'M')+x.toFixed(2)+' '+y.toFixed(2);}).join(' ')+' Z';}
 function featurePath(f,b,w,h){const g=f.geometry;if(!g)return '';if(g.type==='Polygon')return g.coordinates.map(r=>ringPath(r,b,w,h)).join(' ');if(g.type==='MultiPolygon')return g.coordinates.flatMap(poly=>poly.map(r=>ringPath(r,b,w,h))).join(' ');return '';}
-function drawGbifSvgMap(geo, rows){
+function meanPoint(coords){
+  const pts=[]; function walk(c){ if(!c)return; if(typeof c[0]==='number') pts.push(c); else c.forEach(walk); } walk(coords);
+  if(!pts.length) return null; return [pts.reduce((a,p)=>a+p[0],0)/pts.length, pts.reduce((a,p)=>a+p[1],0)/pts.length];
+}
+function shortSidoName(name){return String(name||'').replace('특별자치도','').replace('특별자치시','').replace('광역시','').replace('특별시','').replace('자치도','').replace('도','');}
+function blueScale(v,min,max){
+  if(v===null) return '#e5e7eb';
+  const t=max===min?.65:(v-min)/(max-min);
+  const stops=[[240,249,255],[186,230,253],[96,165,250],[37,99,235],[30,64,175]];
+  const scaled=t*(stops.length-1); const i=Math.min(stops.length-2, Math.max(0, Math.floor(scaled))); const f=scaled-i;
+  const c=stops[i].map((x,j)=>Math.round(x+(stops[i+1][j]-x)*f));
+  return `rgb(${c[0]},${c[1]},${c[2]})`;
+}
+function drawGbifSvgMap(geo, rows, popRows=[]){
   const target=document.getElementById('sdg-chart-3');
+  target.classList.add('sdg-svg-map');
   const clean=rows.map(r=>({...r,lat:num(r.decimalLatitude),lon:num(r.decimalLongitude)})).filter(r=>r.lat!==null&&r.lon!==null);
-  const b=geoBounds(geo); const w=760; const h=620;
-  const boundaries=geo.features.map(f=>`<path class="sdg-map-boundary" d="${featurePath(f,b,w,h)}"><title>${escapeHtml(f.properties?.name || '')}</title></path>`).join('');
-  const points=clean.map(r=>{const [x,y]=projectLonLat(r.lon,r.lat,b,w,h);return `<circle class="sdg-map-point" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.4"><title>${escapeHtml(r.scientificName || '관측')} · ${escapeHtml(r.locality || '')}</title></circle>`;}).join('');
-  target.innerHTML=`<h3>한국 생물종 관측 위치(SVG)</h3><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="한국 행정구역 SVG 지도 위 GBIF 생물종 관측 위치">${boundaries}${points}</svg><p class="small-muted">GBIF 관측 ${clean.length.toLocaleString()}건을 한국 행정구역 경계 SVG 위에 위도·경도로 표시했습니다. 경계: southkorea/southkorea-maps KOSTAT 2013, 관측: GBIF Occurrence API.</p>`;
+  const popById=Object.fromEntries(popRows.map(r=>[r.svg_id||r.region,r]));
+  const densities=geo.features.map(f=>num(popById[f.properties?.name]?.population_density_per_km2)).filter(v=>v!==null);
+  const minDensity=Math.min(...densities), maxDensity=Math.max(...densities);
+  const b=geoBounds(geo); const w=900; const h=Math.round((b.maxLat-b.minLat)/(b.maxLon-b.minLon)*w)+80;
+  const boundaries=geo.features.map(f=>{
+    const name=f.properties?.name||''; const pop=popById[name]; const density=num(pop?.population_density_per_km2);
+    const fill=blueScale(density,minDensity,maxDensity);
+    const title=pop ? `${name} · 인구 ${Number(pop.population).toLocaleString()}명 · 인구밀도 ${Number(pop.population_density_per_km2).toLocaleString()}명/km²` : name;
+    return `<path class="sdg-map-boundary" d="${featurePath(f,b,w,h)}" fill="${fill}"><title>${escapeHtml(title)}</title></path>`;
+  }).join('');
+  const labels=geo.features.map(f=>{
+    const p=meanPoint(f.geometry?.coordinates); if(!p) return '';
+    const [x,y]=projectLonLat(p[0],p[1],b,w,h);
+    return `<text class="sdg-map-label" x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle">${escapeHtml(shortSidoName(f.properties?.name))}</text>`;
+  }).join('');
+  const points=clean.map(r=>{const [x,y]=projectLonLat(r.lon,r.lat,b,w,h);return `<circle class="sdg-map-point" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.8"><title>${escapeHtml(r.scientificName || '관측')} · ${escapeHtml(r.locality || '')}</title></circle>`;}).join('');
+  target.innerHTML=`<h3>한국 생물종 관측 위치 + 광역시도 인구밀도 SVG</h3><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="광역시도 인구밀도로 색칠한 한국 SVG 지도 위 GBIF 생물종 관측 위치"><rect width="${w}" height="${h}" rx="20" fill="#f8fbff"/><g>${boundaries}</g><g>${points}</g><g>${labels}</g><g transform="translate(34 ${h-48})"><text x="0" y="-10" fill="#475569" font-size="13" font-weight="700">배경색: 인구밀도 낮음 → 높음</text><rect x="0" y="0" width="210" height="12" rx="6" fill="url(#densityGradient)"/><text x="0" y="32" fill="#64748b" font-size="12">${Math.round(minDensity).toLocaleString()}</text><text x="210" y="32" text-anchor="end" fill="#64748b" font-size="12">${Math.round(maxDensity).toLocaleString()}명/km²</text><circle cx="286" cy="6" r="4" class="sdg-map-point"/><text x="300" y="10" fill="#475569" font-size="13">GBIF 관측점</text></g><defs><linearGradient id="densityGradient" x1="0" x2="1" y1="0" y2="0"><stop offset="0%" stop-color="#f0f9ff"/><stop offset="35%" stop-color="#bae6fd"/><stop offset="70%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#1e40af"/></linearGradient></defs></svg><p class="small-muted">GBIF 관측 ${clean.length.toLocaleString()}건을 인구 데이터 예제와 같은 광역시도 경계 위에 표시했습니다. 배경은 <code>korea_sido_wikidata_population.csv</code>의 인구밀도, 점은 GBIF 관측 좌표입니다. <a href="../assets/gbif-korea-pop-density-map.svg">정교한 SVG 이미지 파일 열기</a></p>`;
 }
 
 async function drawSdgCharts() {
@@ -1257,8 +1284,8 @@ async function drawSdgCharts() {
     }), mobileLayout({title:'한국과 세계 CO₂ 배출량 변화(첫해=100)', margin:{t:70,r:20,b:90,l:70}, yaxis:{title:'첫해=100 지수'}, xaxis:timeAxis(6)}), PLOT_CONFIG);
 
     const gbif = await csv('../data/gbif_korea_occurrences_sample.csv');
-    const koreaGeo = await json('../assets/skorea_provinces_geo_simple.json');
-    drawGbifSvgMap(koreaGeo, gbif);
+    const [koreaGeo, sidoPopulation] = await Promise.all([json('../assets/skorea_provinces_geo_simple.json'), csv('../data/korea_sido_wikidata_population.csv')]);
+    drawGbifSvgMap(koreaGeo, gbif, sidoPopulation);
 
     const bike = await csv('../data/seoul_bike_sample.csv');
     Plotly.newPlot('sdg-chart-4', [{type:'bar',x:bike.map(r=>r.stationName),y:bike.map(r=>num(r.parkingBikeTotCnt)),marker:{color:'#0ea5e9'}}], {title:'따릉이 대여소별 현재 자전거 수', margin:{t:50,r:20,b:120,l:55}, yaxis:{title:'대수'}}, PLOT_CONFIG);
