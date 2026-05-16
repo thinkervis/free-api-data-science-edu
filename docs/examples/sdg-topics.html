@@ -125,7 +125,7 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
   <div id="sdg-chart-9" class="sdg-chart"></div>
 </div>
 
-<style>.sdg-chart{height:380px;margin-top:1rem}.sdg-card{break-inside:avoid}.sdg-card .badge{margin-bottom:.25rem}@media(max-width:760px){.sdg-chart{height:340px}.sdg-card h2{font-size:1.18rem;line-height:1.35}.sdg-card .badge{font-size:.78rem;display:inline-block;max-width:100%;overflow-wrap:anywhere;word-break:break-word}.sdg-chart .legend{font-size:10px}}</style>
+<style>.sdg-chart{height:380px;margin-top:1rem}.sdg-svg-map{height:auto;min-height:320px}.sdg-svg-map svg{display:block;width:100%;height:auto;max-height:360px}.sdg-map-boundary{fill:#eef6ff;stroke:#ffffff;stroke-width:1}.sdg-map-point{fill:#16a34a;fill-opacity:.62;stroke:#065f46;stroke-width:.6}.sdg-card{break-inside:avoid}.sdg-card .badge{margin-bottom:.25rem}@media(max-width:760px){.sdg-chart{height:340px}.sdg-card h2{font-size:1.18rem;line-height:1.35}.sdg-card .badge{font-size:.78rem;display:inline-block;max-width:100%;overflow-wrap:anywhere;word-break:break-word}.sdg-chart .legend{font-size:10px}}</style>
 <script>
 function parseCsvRows(text) {
   const rows = []; let row = [], cell = '', q = false;
@@ -140,6 +140,8 @@ function parseCsvRows(text) {
 }
 function toObjects(rows) { const h = rows[0] || []; return rows.slice(1).map(r => Object.fromEntries(h.map((k,i)=>[k,r[i] ?? '']))); }
 async function csv(path) { return toObjects(parseCsvRows(await fetch(path).then(r => { if (!r.ok) throw new Error(path + ' HTTP ' + r.status); return r.text(); }))); }
+async function json(path) { return fetch(path).then(r => { if (!r.ok) throw new Error(path + ' HTTP ' + r.status); return r.json(); }); }
+function escapeHtml(value){return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function num(v) { if (v === null || v === undefined || String(v).trim() === '') return null; const n = Number(v); return Number.isFinite(n) && n > -900 ? n : null; }
 const LABEL_KO = {
   'South Korea':'한국', World:'세계', 'GDP (current US$)':'GDP(현재 US$)', 'Life expectancy at birth, total (years)':'기대수명(년)', 'Population, total':'총인구', 'School enrollment, secondary (% gross)':'중등교육 등록률(%)',
@@ -156,6 +158,28 @@ function indexRows(rows, valueField) {
   return clean.map(r => ({...r, indexValue: num(r[valueField]) / base * 100}));
 }
 function latestBy(rows, group, value) { const out = {}; rows.forEach(r => { const k = r[group]; if (!out[k] || String(r.date || r.time || r.Year) > String(out[k].date || out[k].time || out[k].Year)) out[k] = r; }); return Object.values(out).filter(r => num(r[value]) !== null); }
+function geoBounds(geo){
+  const pts=[];
+  function walk(c){ if(!c) return; if(typeof c[0]==='number') pts.push(c); else c.forEach(walk); }
+  geo.features.forEach(f=>walk(f.geometry && f.geometry.coordinates));
+  return {minLon:Math.min(...pts.map(p=>p[0])), maxLon:Math.max(...pts.map(p=>p[0])), minLat:Math.min(...pts.map(p=>p[1])), maxLat:Math.max(...pts.map(p=>p[1]))};
+}
+function projectLonLat(lon,lat,b,w,h,pad=18){
+  const x=pad+(lon-b.minLon)/(b.maxLon-b.minLon)*(w-pad*2);
+  const y=pad+(b.maxLat-lat)/(b.maxLat-b.minLat)*(h-pad*2);
+  return [x,y];
+}
+function ringPath(ring,b,w,h){return ring.map((p,i)=>{const [x,y]=projectLonLat(p[0],p[1],b,w,h);return (i?'L':'M')+x.toFixed(2)+' '+y.toFixed(2);}).join(' ')+' Z';}
+function featurePath(f,b,w,h){const g=f.geometry;if(!g)return '';if(g.type==='Polygon')return g.coordinates.map(r=>ringPath(r,b,w,h)).join(' ');if(g.type==='MultiPolygon')return g.coordinates.flatMap(poly=>poly.map(r=>ringPath(r,b,w,h))).join(' ');return '';}
+function drawGbifSvgMap(geo, rows){
+  const target=document.getElementById('sdg-chart-3');
+  const clean=rows.map(r=>({...r,lat:num(r.decimalLatitude),lon:num(r.decimalLongitude)})).filter(r=>r.lat!==null&&r.lon!==null);
+  const b=geoBounds(geo); const w=760; const h=620;
+  const boundaries=geo.features.map(f=>`<path class="sdg-map-boundary" d="${featurePath(f,b,w,h)}"><title>${escapeHtml(f.properties?.name || '')}</title></path>`).join('');
+  const points=clean.map(r=>{const [x,y]=projectLonLat(r.lon,r.lat,b,w,h);return `<circle class="sdg-map-point" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3.4"><title>${escapeHtml(r.scientificName || '관측')} · ${escapeHtml(r.locality || '')}</title></circle>`;}).join('');
+  target.innerHTML=`<h3>한국 생물종 관측 위치(SVG)</h3><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="한국 행정구역 SVG 지도 위 GBIF 생물종 관측 위치">${boundaries}${points}</svg><p class="small-muted">GBIF 관측 ${clean.length.toLocaleString()}건을 한국 행정구역 경계 SVG 위에 위도·경도로 표시했습니다. 경계: southkorea/southkorea-maps KOSTAT 2013, 관측: GBIF Occurrence API.</p>`;
+}
+
 async function drawSdgCharts() {
   try {
     const air = await csv('../data/open_meteo_seoul_air_quality_hourly.csv');
@@ -180,7 +204,8 @@ async function drawSdgCharts() {
     }), {title:'한국과 세계 CO₂ 배출량 변화(첫해=100)', margin:{t:70,r:20,b:60,l:70}, yaxis:{title:'첫해=100 지수'}}, PLOT_CONFIG);
 
     const gbif = await csv('../data/gbif_korea_occurrences_sample.csv');
-    Plotly.newPlot('sdg-chart-3', [{type:'scattergeo',mode:'markers',lat:gbif.map(r=>num(r.decimalLatitude)),lon:gbif.map(r=>num(r.decimalLongitude)),text:gbif.map(r=>'학명: '+r.scientificName),marker:{size:7,opacity:.65,color:'#16a34a'}}], {title:'한국 생물종 관측 위치', margin:{t:50,r:20,b:20,l:20}, geo:{scope:'asia',projection:{type:'mercator'},lonaxis:{range:[124,132]},lataxis:{range:[33,39.5]},showland:true,landcolor:'#f6f8fa',showcountries:true}}, PLOT_CONFIG);
+    const koreaGeo = await json('../assets/skorea_provinces_geo_simple.json');
+    drawGbifSvgMap(koreaGeo, gbif);
 
     const bike = await csv('../data/seoul_bike_sample.csv');
     Plotly.newPlot('sdg-chart-4', [{type:'bar',x:bike.map(r=>r.stationName),y:bike.map(r=>num(r.parkingBikeTotCnt)),marker:{color:'#0ea5e9'}}], {title:'따릉이 대여소별 현재 자전거 수', margin:{t:50,r:20,b:120,l:55}, yaxis:{title:'대수'}}, PLOT_CONFIG);
