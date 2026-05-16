@@ -99,6 +99,24 @@ def short_name(name: str) -> str:
     )
 
 
+def label_offset(name: str) -> tuple[int, int]:
+    # 수도권·충청권처럼 면적이 작거나 중심점이 가까운 지역은 라벨이 겹쳐
+    # “서울기”처럼 보일 수 있어 수업용 정적 SVG에서는 직접 보정한다.
+    return {
+        "서울특별시": (-54, -16),
+        "인천광역시": (-70, 22),
+        "경기도": (44, -10),
+        "세종특별자치시": (-42, 14),
+        "대전광역시": (34, 18),
+        "충청남도": (-42, -12),
+        "충청북도": (44, -12),
+        "대구광역시": (42, 8),
+        "울산광역시": (46, 14),
+        "부산광역시": (38, 30),
+        "광주광역시": (-44, 16),
+    }.get(name, (0, 0))
+
+
 def blue_scale(value: float | None, min_value: float, max_value: float) -> str:
     if value is None:
         return "#e5e7eb"
@@ -139,7 +157,8 @@ def main() -> None:
         center = mean_point(feature.get("geometry", {}).get("coordinates"))
         if center:
             x, y = project(center[0], center[1], b, w, h)
-            label_parts.append(f'<text class="label" x="{x:.1f}" y="{y:.1f}" text-anchor="middle">{html.escape(short_name(name))}</text>')
+            dx, dy = label_offset(name)
+            label_parts.append(f'<text class="label" x="{x + dx:.1f}" y="{y + dy:.1f}" text-anchor="middle">{html.escape(short_name(name))}</text>')
 
     point_parts = []
     for row in gbif:
