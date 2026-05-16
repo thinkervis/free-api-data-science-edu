@@ -268,6 +268,27 @@ TOP10_REASONS = {
     "gbif-korea": "생물다양성·위치 데이터·생태 탐구 프로젝트에 적합",
 }
 
+VIZ_CONFIG = {
+    "open-meteo-weather": {"kind": "line", "title": "최고·평균·최저 기온 3종 세트", "x": "time", "y": ["temperature_2m_max", "temperature_2m_mean", "temperature_2m_min"], "labels": ["최고기온", "평균기온", "최저기온"], "y_title": "기온(°C)"},
+    "open-meteo-air-quality": {"kind": "line", "title": "PM10·PM2.5 시간별 변화", "x": "time", "y": ["pm10", "pm2_5"], "labels": ["PM10", "PM2.5"], "y_title": "㎍/m³", "max_points": 500},
+    "nasa-power-seoul": {"kind": "line", "title": "NASA 기온·강수·풍속 비교", "x": "date", "y": ["temperature_2m_c", "precipitation_mm_day", "wind_speed_2m_m_s"], "labels": ["평균기온(°C)", "강수량(mm/day)", "풍속(m/s)"]},
+    "usgs-earthquakes": {"kind": "scattergeo", "title": "규모 6 이상 지진 위치와 규모", "lat": "latitude", "lon": "longitude", "size": "magnitude", "color": "depth_km", "hover": "place"},
+    "frankfurter-usd-krw": {"kind": "line", "title": "USD/KRW 환율 변화", "x": "date", "y": ["rate"], "labels": ["환율(KRW)"]},
+    "fred-fedfunds": {"kind": "line", "title": "미국 기준금리 변화", "x": "observation_date", "y": ["FEDFUNDS"], "labels": ["FEDFUNDS(%)"]},
+    "bls-us-cpi": {"kind": "line", "title": "미국 CPI 월별 변화", "x": "date", "y": ["cpi_value"], "labels": ["CPI"]},
+    "worldbank-korea": {"kind": "multiCategoryLine", "title": "World Bank 한국 지표별 변화", "x": "date", "y": "value", "category": "indicator", "y_title": "값"},
+    "owid-co2": {"kind": "multiCategoryLine", "title": "한국과 세계 CO₂ 배출량 비교", "x": "Year", "y": "Annual CO₂ emissions", "category": "Entity"},
+    "gbif-korea": {"kind": "scattergeo", "title": "한국 생물종 관측 위치", "lat": "decimalLatitude", "lon": "decimalLongitude", "hover": "scientificName"},
+    "artic-artworks": {"kind": "histogram", "title": "작품 제작 연도 분포", "x": "date_end"},
+    "seoul-bike": {"kind": "bar", "title": "따릉이 대여소별 주차 자전거 수", "x": "stationName", "y": "parkingBikeTotCnt"},
+    "mlb-schedule": {"kind": "barAggregate", "title": "홈팀별 경기 수", "x": "home_team"},
+    "nager-korea-holidays": {"kind": "barAggregate", "title": "연도별 한국 공휴일 수", "x_date_year": "date"},
+    "spacex-launches": {"kind": "barAggregate", "title": "연도별 SpaceX 발사 횟수", "x_date_year": "date_utc"},
+    "who-korea-life-expectancy": {"kind": "bar", "title": "성별 기대수명 비교", "x": "sex", "y": "value"},
+    "restcountries-world": {"kind": "scatter", "title": "국가별 면적과 인구 관계", "x": "area", "y": "population", "text": "name", "x_title": "면적", "y_title": "인구"},
+    "eia-california-electricity": {"kind": "multiCategoryLine", "title": "캘리포니아 전력 데이터 유형별 변화", "x": "date", "y": "value", "category": "type_name", "max_points": 1000},
+}
+
 MORE_CANDIDATES = [
     ["NASA POWER", "기상/태양광/에너지", "불필요", "https://power.larc.nasa.gov/docs/services/api/"],
     ["NOAA CO-OPS", "해양/조위/기상", "불필요", "https://api.tidesandcurrents.noaa.gov/api/prod/"],
@@ -379,11 +400,106 @@ pre {{ background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 8px;
 .badge {{ display: inline-block; background: #eef; border-radius: 999px; padding: .15rem .55rem; margin-right: .25rem; }}
 button {{ padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; background: white; cursor: pointer; }}
 </style>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 <body>
 {body}
 </body>
 </html>'''
+
+
+def dataset_script(ds: dict[str, str]) -> str:
+    viz_config = json.dumps(VIZ_CONFIG.get(ds["id"], {}), ensure_ascii=False)
+    script = r'''
+<script>
+const VIZ_CONFIG = __VIZ_CONFIG__;
+function parseCsvRows(text) {
+  const rows = [];
+  let row = [];
+  let cell = '';
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    const next = text[i + 1];
+    if (ch === '"') {
+      if (inQuotes && next === '"') { cell += '"'; i++; }
+      else { inQuotes = !inQuotes; }
+    } else if (ch === ',' && !inQuotes) {
+      row.push(cell); cell = '';
+    } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
+      if (ch === '\r' && next === '\n') i++;
+      row.push(cell); cell = '';
+      if (row.some(v => v !== '')) rows.push(row);
+      row = [];
+    } else {
+      cell += ch;
+    }
+  }
+  row.push(cell);
+  if (row.some(v => v !== '')) rows.push(row);
+  return rows;
+}
+function escapeHtml(value) { return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+function column(rows, name) { const headers = rows[0] || []; const idx = headers.indexOf(name); if (idx < 0) return []; return rows.slice(1).map(row => row[idx] ?? ''); }
+function numericColumn(rows, name) { return column(rows, name).map(v => Number(v)).map(v => Number.isFinite(v) ? v : null); }
+function limitedRows(rows, maxPoints) { if (!maxPoints || rows.length <= maxPoints + 1) return rows; return [rows[0]].concat(rows.slice(1, maxPoints + 1)); }
+function renderPreview(rows) {
+  const target = document.getElementById('browser-preview');
+  const headers = rows[0] || [];
+  const bodyRows = rows.slice(1, 6);
+  const head = headers.map(h => `<th>${escapeHtml(h)}</th>`).join('');
+  const body = bodyRows.map(r => '<tr>' + headers.map((_, i) => `<td>${escapeHtml(r[i] ?? '')}</td>`).join('') + '</tr>').join('');
+  target.innerHTML = `<h3>브라우저에서 방금 읽은 CSV 표 미리보기</h3><table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+}
+function drawCsvChart(rows) {
+  const chart = document.getElementById('chart');
+  if (typeof Plotly === 'undefined') { chart.innerHTML = '<p>Plotly 라이브러리를 불러오지 못했습니다. 인터넷 연결 또는 CDN 차단 여부를 확인하세요.</p>'; return; }
+  const cfg = VIZ_CONFIG || {};
+  const dataRows = limitedRows(rows, cfg.max_points || 1200);
+  let traces = [];
+  let layout = {title: cfg.title || '데이터셋 맞춤 시각화', margin: {t: 50, r: 20, b: 60, l: 60}, hovermode: 'closest'};
+  if (cfg.kind === 'line') {
+    const x = column(dataRows, cfg.x);
+    traces = (cfg.y || []).map((yName, i) => ({x, y: numericColumn(dataRows, yName), mode: 'lines', type: 'scatter', name: (cfg.labels || [])[i] || yName}));
+    layout.xaxis = {title: cfg.x}; layout.yaxis = {title: cfg.y_title || ''};
+  } else if (cfg.kind === 'multiCategoryLine') {
+    const headers = dataRows[0] || []; const catIdx = headers.indexOf(cfg.category), xIdx = headers.indexOf(cfg.x), yIdx = headers.indexOf(cfg.y); const groups = {};
+    dataRows.slice(1).forEach(row => { const cat = row[catIdx] || '(blank)'; if (!groups[cat]) groups[cat] = {x: [], y: []}; groups[cat].x.push(row[xIdx]); const y = Number(row[yIdx]); groups[cat].y.push(Number.isFinite(y) ? y : null); });
+    traces = Object.entries(groups).map(([name, g]) => ({...g, mode: 'lines+markers', type: 'scatter', name}));
+    layout.xaxis = {title: cfg.x}; layout.yaxis = {title: cfg.y_title || cfg.y};
+  } else if (cfg.kind === 'scattergeo') {
+    const lonRaw = numericColumn(dataRows, cfg.lon); const latRaw = numericColumn(dataRows, cfg.lat); const text = cfg.hover ? column(dataRows, cfg.hover) : []; const sizeRaw = cfg.size ? numericColumn(dataRows, cfg.size) : []; const colorRaw = cfg.color ? numericColumn(dataRows, cfg.color) : [];
+    const lon = [], lat = [], text2 = [], sizes = [], colors = [];
+    dataRows.slice(1).forEach((_, i) => { const la = latRaw[i], lo = lonRaw[i]; if (la !== null && lo !== null) { lon.push(lo); lat.push(la); text2.push(text[i] || ''); sizes.push(cfg.size ? Math.max(6, (sizeRaw[i] || 1) * 3) : 7); colors.push(cfg.color ? colorRaw[i] : null); } });
+    traces = [{type: 'scattergeo', mode: 'markers', lat, lon, text: text2, marker: {size: sizes, color: cfg.color ? colors : '#0969da', colorscale: 'Viridis', showscale: !!cfg.color, opacity: 0.75}}];
+    layout.geo = {scope: 'world', projection: {type: 'natural earth'}, showland: true, landcolor: '#f6f8fa'};
+  } else if (cfg.kind === 'bar') {
+    traces = [{type: 'bar', x: column(dataRows, cfg.x), y: numericColumn(dataRows, cfg.y), name: cfg.y}]; layout.xaxis = {title: cfg.x}; layout.yaxis = {title: cfg.y};
+  } else if (cfg.kind === 'barAggregate') {
+    const headers = dataRows[0] || []; const idx = cfg.x_date_year ? headers.indexOf(cfg.x_date_year) : headers.indexOf(cfg.x); const counts = {};
+    dataRows.slice(1).forEach(row => { const raw = row[idx] || '(blank)'; const key = cfg.x_date_year ? String(raw).slice(0, 4) : raw; counts[key] = (counts[key] || 0) + 1; });
+    const entries = Object.entries(counts).sort((a, b) => String(a[0]).localeCompare(String(b[0]))).slice(0, 30);
+    traces = [{type: 'bar', x: entries.map(e => e[0]), y: entries.map(e => e[1]), name: 'count'}]; layout.yaxis = {title: '개수'};
+  } else if (cfg.kind === 'histogram') {
+    traces = [{type: 'histogram', x: numericColumn(dataRows, cfg.x), name: cfg.x}];
+  } else if (cfg.kind === 'scatter') {
+    traces = [{type: 'scatter', mode: 'markers', x: numericColumn(dataRows, cfg.x), y: numericColumn(dataRows, cfg.y), text: cfg.text ? column(dataRows, cfg.text) : [], marker: {size: 8, opacity: 0.7}}];
+    layout.xaxis = {title: cfg.x_title || cfg.x, type: 'log'}; layout.yaxis = {title: cfg.y_title || cfg.y, type: 'log'};
+  }
+  if (!traces.length) { chart.innerHTML = '<p>이 데이터셋의 맞춤 시각화 설정을 찾지 못했습니다.</p>'; return; }
+  Plotly.newPlot(chart, traces, layout, {responsive: true, displaylogo: false});
+}
+async function testCsvAndChart(url) {
+  const out = document.getElementById('test-output');
+  try {
+    const r = await fetch(url); if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const text = await r.text(); const rows = parseCsvRows(text); renderPreview(rows); drawCsvChart(rows);
+    out.textContent = `status=${r.status} bytes=${text.length} csv_rows≈${Math.max(0, rows.length - 1)} columns=${(rows[0] || []).length}`;
+  } catch (e) { out.textContent = 'ERROR: ' + e; }
+}
+</script>
+'''
+    return script.replace("__VIZ_CONFIG__", viz_config)
 
 
 def dataset_page(ds: dict[str, str]) -> str:
@@ -398,8 +514,8 @@ def dataset_page(ds: dict[str, str]) -> str:
   <p><b>원천:</b> {html.escape(ds['source'])}</p>
   <p><b>설명:</b> {html.escape(ds['note'])}</p>
   <p><a href="{html.escape(csv_url)}">CSV 직접 열기</a> · <a href="{html.escape(ds['test_url'])}">원천 API/CSV 직접 테스트</a> · <a href="{html.escape(ds['doc_url'])}">공식 문서</a></p>
-  <button onclick="testCsvAndChart('{html.escape(csv_url)}')">GitHub Pages에서 CSV 로드 + 시각화 테스트</button>
-  <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 직접 fetch하고, 앞부분 표와 숫자 컬럼 시각화를 표시합니다.</pre>
+  <button onclick="testCsvAndChart('{html.escape(csv_url)}')">GitHub Pages에서 CSV 로드 + 맞춤형 Plotly 시각화 테스트</button>
+  <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 직접 fetch하고, 데이터셋별 교육용 맞춤 시각화를 표시합니다.</pre>
   <div id="browser-preview"></div>
   <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
@@ -409,95 +525,7 @@ def dataset_page(ds: dict[str, str]) -> str:
 <pre>{html.escape(streamlit_code(ds['csv']))}</pre>
 <h2>Pico 2 WH + Grove Shield 기본 코드</h2>
 <pre>{html.escape(pico_code(ds['csv']))}</pre>
-<script>
-function parseCsvRows(text) {{
-  const rows = [];
-  let row = [];
-  let cell = '';
-  let inQuotes = false;
-  for (let i = 0; i < text.length; i++) {{
-    const ch = text[i];
-    const next = text[i + 1];
-    if (ch === '"') {{
-      if (inQuotes && next === '"') {{ cell += '"'; i++; }}
-      else {{ inQuotes = !inQuotes; }}
-    }} else if (ch === ',' && !inQuotes) {{
-      row.push(cell); cell = '';
-    }} else if ((ch === '\\n' || ch === '\\r') && !inQuotes) {{
-      if (ch === '\\r' && next === '\\n') i++;
-      row.push(cell); cell = '';
-      if (row.some(v => v !== '')) rows.push(row);
-      row = [];
-    }} else {{
-      cell += ch;
-    }}
-  }}
-  row.push(cell);
-  if (row.some(v => v !== '')) rows.push(row);
-  return rows;
-}}
-
-function renderPreview(rows) {{
-  const target = document.getElementById('browser-preview');
-  const headers = rows[0] || [];
-  const bodyRows = rows.slice(1, 6);
-  const head = headers.map(h => `<th>${{escapeHtml(h)}}</th>`).join('');
-  const body = bodyRows.map(r => '<tr>' + headers.map((_, i) => `<td>${{escapeHtml(r[i] ?? '')}}</td>`).join('') + '</tr>').join('');
-  target.innerHTML = `<h3>브라우저에서 방금 읽은 CSV 표 미리보기</h3><table><thead><tr>${{head}}</tr></thead><tbody>${{body}}</tbody></table>`;
-}}
-
-function escapeHtml(value) {{
-  return String(value).replace(/[&<>"']/g, ch => ({{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[ch]));
-}}
-
-function drawCsvChart(rows) {{
-  const chart = document.getElementById('chart');
-  const headers = rows[0] || [];
-  const dataRows = rows.slice(1);
-  const numericIndex = headers.findIndex((_, idx) => dataRows.some(row => Number.isFinite(Number(row[idx]))));
-  if (numericIndex < 0) {{
-    chart.innerHTML = '<p>숫자 컬럼을 찾지 못해 시각화를 생략했습니다.</p>';
-    return;
-  }}
-  const label = headers[numericIndex];
-  const values = dataRows.slice(0, 80).map(row => Number(row[numericIndex])).filter(Number.isFinite);
-  if (!values.length) {{
-    chart.innerHTML = '<p>시각화할 숫자 값이 없습니다.</p>';
-    return;
-  }}
-  const width = 760, height = 260, pad = 30;
-  const min = Math.min(...values), max = Math.max(...values);
-  const range = max - min || 1;
-  const points = values.map((v, i) => {{
-    const x = pad + i * ((width - pad * 2) / Math.max(1, values.length - 1));
-    const y = height - pad - ((v - min) / range) * (height - pad * 2);
-    return `${{x.toFixed(1)}},${{y.toFixed(1)}}`;
-  }}).join(' ');
-  chart.innerHTML = `<h3>브라우저 직접 시각화: ${{escapeHtml(label)}}</h3>
-  <svg viewBox="0 0 ${{width}} ${{height}}" role="img" aria-label="${{escapeHtml(label)}} line chart" style="max-width:100%;border:1px solid #d0d7de;border-radius:8px;background:#fff">
-    <line x1="${{pad}}" y1="${{height-pad}}" x2="${{width-pad}}" y2="${{height-pad}}" stroke="#888"/>
-    <line x1="${{pad}}" y1="${{pad}}" x2="${{pad}}" y2="${{height-pad}}" stroke="#888"/>
-    <polyline fill="none" stroke="#0969da" stroke-width="2" points="${{points}}"/>
-    <text x="${{pad}}" y="18" font-size="12">max=${{max}}</text>
-    <text x="${{pad}}" y="${{height-8}}" font-size="12">min=${{min}}</text>
-  </svg>`;
-}}
-
-async function testCsvAndChart(url) {{
-  const out = document.getElementById('test-output');
-  try {{
-    const r = await fetch(url);
-    if (!r.ok) throw new Error(`HTTP ${{r.status}}`);
-    const text = await r.text();
-    const rows = parseCsvRows(text);
-    renderPreview(rows);
-    drawCsvChart(rows);
-    out.textContent = `status=${{r.status}} bytes=${{text.length}} csv_rows≈${{Math.max(0, rows.length - 1)}} columns=${{(rows[0] || []).length}}`;
-  }} catch (e) {{
-    out.textContent = 'ERROR: ' + e;
-  }}
-}}
-</script>
+{dataset_script(ds)}
 '''
     return layout(ds["title"], body)
 

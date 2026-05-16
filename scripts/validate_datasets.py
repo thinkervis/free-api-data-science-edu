@@ -74,7 +74,7 @@ def main() -> None:
                 "direct fetch test code": "fetch(" in text,
                 "CSV browser parse code": "parseCsvRows" in text and "csv_rows" in text,
                 "browser preview code": "renderPreview" in text and "browser-preview" in text,
-                "browser visualization code": "drawCsvChart" in text and "<svg" in text,
+                "browser visualization code": "drawCsvChart" in text and "Plotly.newPlot" in text,
                 "Streamlit code": "streamlit" in text.lower(),
                 "Pico 2 WH Grove code": "Pico 2 WH" in text and "Grove Shield" in text,
             }
