@@ -133,7 +133,6 @@ key,scientificName,vernacularName,eventDate,year,country,locality,decimalLatitud
 5938422612,"Passer montanus (Linnaeus, 1758)",,2026-01-03T16:07:34,2026,"Korea, Republic of",,37.65114,127.233363,HUMAN_OBSERVATION
 5938430457,"Coreoperca herzi Herzenstein, 1896",,2026-01-03T21:11:21,2026,"Korea, Republic of",,37.011833,128.399952,HUMAN_OBSERVATION
 5938431225,"Emberiza elegans Temminck, 1836",,2026-01-05T14:17,2026,"Korea, Republic of",,37.458868,128.145692,HUMAN_OBSERVATION
-5938436630,"Anthus rubescens (Tunstall, 1771)",,2026-01-02T14:25,2026,"Korea, Republic of",,36.804712,126.34713,HUMAN_OBSERVATION
 5938439382,"Haliaeetus albicilla (Linnaeus, 1758)",,2026-01-03T13:20,2026,"Korea, Republic of",,36.872285,126.242307,HUMAN_OBSERVATION
 5938442382,"Passer montanus (Linnaeus, 1758)",,2026-01-03T12:35,2026,"Korea, Republic of",,37.508796,127.100035,HUMAN_OBSERVATION
 5938442428,"Accipiter nisus nisosimilis (Tickell, 1833)",,2026-01-03T15:56:06,2026,"Korea, Republic of",,37.652155,127.238076,HUMAN_OBSERVATION
@@ -299,3 +298,4 @@ key,scientificName,vernacularName,eventDate,year,country,locality,decimalLatitud
 6129899594,"Aegypius monachus (Linnaeus, 1766)",,2026-01-19T13:40,2026,"Korea, Republic of",,36.959745,127.306282,HUMAN_OBSERVATION
 6129900951,"Hypsipetes amaurotis (Temminck, 1830)",,2026-01-07T10:59:22,2026,"Korea, Republic of",,33.305921,126.569501,HUMAN_OBSERVATION
 6129901504,"Corvus macrorhynchos Wagler, 1827",,2026-01-13T16:41,2026,"Korea, Republic of",,37.976815,127.276732,HUMAN_OBSERVATION
+6129902337,"Ardea alba Linnaeus, 1758",,2026-01-22T11:49,2026,"Korea, Republic of",,37.900234,127.206895,HUMAN_OBSERVATION
