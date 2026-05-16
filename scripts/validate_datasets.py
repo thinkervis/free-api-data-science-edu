@@ -28,6 +28,16 @@ MIN_ROWS = {
     "who_korea_life_expectancy.csv": 3,
     "restcountries_world_snapshot.csv": 190,
     "eia_california_electricity_daily.csv": 1000,
+
+    "noaa_coops_seattle_water_level.csv": 100,
+    "gb_carbon_intensity.csv": 100,
+    "citi_bike_station_snapshot.csv": 100,
+    "met_museum_sunflower_objects.csv": 30,
+    "cdc_places_health_sample.csv": 100,
+    "osm_seoul_hospitals.csv": 10,
+    "nominatim_seoul_landmarks.csv": 5,
+    "seoul_realtime_citydata_sample.csv": 3,
+    "seoul_realtime_air_quality.csv": 5,
 }
 
 

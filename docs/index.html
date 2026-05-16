@@ -144,6 +144,60 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
   <p>전력 수요/공급/에너지 데이터 수업용. DEMO_KEY 제한을 명시하고 무료 키 사용 권장</p>
   <p><a href="data/eia_california_electricity_daily.csv">CSV</a> · <a href="https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&amp;data[0]=value&amp;facets[respondent][]=CAL&amp;start=2021-01-01&amp;end=2021-01-05&amp;sort[0][column]=period&amp;sort[0][direction]=asc&amp;api_key=DEMO_KEY">직접 테스트</a> · <a href="https://www.eia.gov/opendata/documentation.php">공식 문서</a></p>
 </div>
+<div class="card">
+  <h2><a href="datasets/noaa-coops-seattle-water-level.html">NOAA 시애틀 조위 관측</a></h2>
+  <p><span class="badge">해양/기후/시계열</span><span class="badge">불필요</span><span class="badge">7440 rows</span></p>
+  <p>해수면·조위 변화를 시간축으로 읽고 해안 도시와 기후 적응을 토론하는 수업용 샘플</p>
+  <p><a href="data/noaa_coops_seattle_water_level.csv">CSV</a> · <a href="https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240501&amp;end_date=20240503&amp;station=9447130&amp;product=water_level&amp;datum=MLLW&amp;time_zone=gmt&amp;units=metric&amp;format=json">직접 테스트</a> · <a href="https://api.tidesandcurrents.noaa.gov/api/prod/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/gb-carbon-intensity.html">영국 전력 탄소집약도</a></h2>
+  <p><span class="badge">에너지/탄소/기후</span><span class="badge">불필요</span><span class="badge">672 rows</span></p>
+  <p>30분 단위 전력 탄소집약도를 보고 전기 사용 시간대와 탄소 배출의 관계를 탐구</p>
+  <p><a href="data/gb_carbon_intensity.csv">CSV</a> · <a href="https://api.carbonintensity.org.uk/intensity/date/2024-05-01">직접 테스트</a> · <a href="https://carbon-intensity.github.io/api-definitions/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/citi-bike-stations.html">뉴욕 Citi Bike 대여소 스냅샷</a></h2>
+  <p><span class="badge">대중교통/도시/탄소</span><span class="badge">불필요</span><span class="badge">500 rows</span></p>
+  <p>자전거 대여소별 잔여 자전거와 거치대를 지도/막대그래프로 보고 도시 이동을 분석</p>
+  <p><a href="data/citi_bike_station_snapshot.csv">CSV</a> · <a href="https://gbfs.citibikenyc.com/gbfs/en/station_status.json">직접 테스트</a> · <a href="https://www.citibikenyc.com/system-data">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/met-museum-sunflower.html">Met Museum 해바라기 작품 샘플</a></h2>
+  <p><span class="badge">문화/예술/메타데이터</span><span class="badge">불필요</span><span class="badge">60 rows</span></p>
+  <p>작품 주제·제작연도·부서 메타데이터로 예술 데이터 검색과 분류 활동을 구성</p>
+  <p><a href="data/met_museum_sunflower_objects.csv">CSV</a> · <a href="https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&amp;q=sunflower">직접 테스트</a> · <a href="https://metmuseum.github.io/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/cdc-places-health.html">CDC PLACES 지역 건강 지표 샘플</a></h2>
+  <p><span class="badge">보건/지역/공공데이터</span><span class="badge">토큰 선택 / 소량 조회 불필요</span><span class="badge">500 rows</span></p>
+  <p>지역별 건강 지표를 비교하며 보건 격차와 데이터 기반 정책 질문을 만드는 샘플</p>
+  <p><a href="data/cdc_places_health_sample.csv">CSV</a> · <a href="https://data.cdc.gov/resource/cwsq-ngmh.json?$limit=5">직접 테스트</a> · <a href="https://dev.socrata.com/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/osm-seoul-hospitals.html">OpenStreetMap 서울 병원 위치</a></h2>
+  <p><span class="badge">지도/보건/도시</span><span class="badge">불필요 / 사용 정책 준수</span><span class="badge">120 rows</span></p>
+  <p>서울 병원 위치를 지도에 표시하고 의료 접근성·생활권 분석 수업으로 연결</p>
+  <p><a href="data/osm_seoul_hospitals.csv">CSV</a> · <a href="https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A10%5D%3Bnode%5Bamenity%3Dhospital%5D%2837.4%2C126.8%2C37.7%2C127.2%29%3Bout%205%3B">직접 테스트</a> · <a href="https://wiki.openstreetmap.org/wiki/Overpass_API">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/nominatim-seoul-landmarks.html">Nominatim 서울 주요 장소 지오코딩</a></h2>
+  <p><span class="badge">지도/지오코딩/위치</span><span class="badge">불필요 / 사용 정책 준수</span><span class="badge">10 rows</span></p>
+  <p>장소 이름을 위도·경도로 바꾸는 과정을 통해 지도 데이터 전처리를 설명</p>
+  <p><a href="data/nominatim_seoul_landmarks.csv">CSV</a> · <a href="https://nominatim.openstreetmap.org/search?q=Seoul%20City%20Hall&amp;format=json&amp;limit=3">직접 테스트</a> · <a href="https://nominatim.org/release-docs/latest/api/Search/">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/seoul-realtime-citydata.html">서울 실시간 도시데이터 샘플</a></h2>
+  <p><span class="badge">도시/혼잡도/안전</span><span class="badge">샘플키 가능 / 정식은 무료 키 권장</span><span class="badge">5 rows</span></p>
+  <p>서울 주요 장소의 혼잡도와 추정 인구를 비교해 안전한 방문 시간·도시 운영 질문으로 연결</p>
+  <p><a href="data/seoul_realtime_citydata_sample.csv">CSV</a> · <a href="http://openapi.seoul.go.kr:8088/sample/json/citydata/1/5/%EA%B4%91%ED%99%94%EB%AC%B8%C2%B7%EB%8D%95%EC%88%98%EA%B6%81">직접 테스트</a> · <a href="https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do">공식 문서</a></p>
+</div>
+<div class="card">
+  <h2><a href="datasets/seoul-realtime-air-quality.html">서울 실시간 대기질 샘플</a></h2>
+  <p><span class="badge">대기질/건강/환경</span><span class="badge">샘플키 가능 / 정식은 무료 키 권장</span><span class="badge">5 rows</span></p>
+  <p>권역·측정소별 PM10/PM2.5와 통합대기환경지수를 비교해 건강·환경 수업에 활용</p>
+  <p><a href="data/seoul_realtime_air_quality.csv">CSV</a> · <a href="http://openapi.seoul.go.kr:8088/sample/json/RealtimeCityAir/1/5/">직접 테스트</a> · <a href="https://data.seoul.go.kr/">공식 문서</a></p>
+</div>
 <h2>추가 API 후보</h2>
 <table><thead><tr><th>이름</th><th>분야</th><th>인증</th><th>공식 문서</th></tr></thead><tbody><tr><td>NASA POWER</td><td>기상/태양광/에너지</td><td>불필요</td><td><a href='https://power.larc.nasa.gov/docs/services/api/'>문서</a></td></tr><tr><td>NOAA CO-OPS</td><td>해양/조위/기상</td><td>불필요</td><td><a href='https://api.tidesandcurrents.noaa.gov/api/prod/'>문서</a></td></tr><tr><td>U.S. Census ACS 5-Year</td><td>인구/교육/소득</td><td>키 선택</td><td><a href='https://www.census.gov/data/developers/data-sets/acs-5year.html'>문서</a></td></tr><tr><td>BLS Public Data</td><td>노동/물가</td><td>제한 내 불필요</td><td><a href='https://www.bls.gov/developers/api_signature_v2.htm'>문서</a></td></tr><tr><td>WHO GHO</td><td>보건</td><td>불필요</td><td><a href='https://ghoapi.azureedge.net/api'>문서</a></td></tr><tr><td>CDC/Socrata</td><td>보건/공공데이터</td><td>토큰 선택</td><td><a href='https://dev.socrata.com/'>문서</a></td></tr><tr><td>GB Carbon Intensity</td><td>에너지/탄소</td><td>불필요</td><td><a href='https://carbon-intensity.github.io/api-definitions/'>문서</a></td></tr><tr><td>EIA Open Data</td><td>에너지</td><td>무료 키</td><td><a href='https://www.eia.gov/opendata/documentation.php'>문서</a></td></tr><tr><td>서울 실시간 도시데이터</td><td>유동인구/도시</td><td>샘플키/무료키</td><td><a href='https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 생활인구</td><td>유동인구</td><td>파일 다운로드</td><td><a href='https://data.seoul.go.kr/dataList/OA-14991/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 지하철 승하차</td><td>대중교통</td><td>파일 다운로드</td><td><a href='https://data.seoul.go.kr/dataList/OA-12914/S/1/datasetView.do'>문서</a></td></tr><tr><td>서울 시간별 대기질</td><td>대기질</td><td>샘플키/무료키</td><td><a href='https://data.seoul.go.kr/'>문서</a></td></tr><tr><td>Korea TourAPI</td><td>관광/문화</td><td>공공데이터 키</td><td><a href='https://api.visitkorea.or.kr/'>문서</a></td></tr><tr><td>KOSIS</td><td>한국 인구통계</td><td>무료 키</td><td><a href='https://kosis.kr/openapi/index/index.jsp'>문서</a></td></tr><tr><td>한국은행 ECOS</td><td>경제/금융</td><td>무료 키</td><td><a href='https://ecos.bok.or.kr/api/#/'>문서</a></td></tr><tr><td>TMDB</td><td>영화</td><td>회원가입+키</td><td><a href='https://developer.themoviedb.org/docs/getting-started'>문서</a></td></tr><tr><td>OMDb</td><td>영화</td><td>키</td><td><a href='https://www.omdbapi.com/'>문서</a></td></tr><tr><td>IMDb Non-Commercial Datasets</td><td>영화</td><td>불필요/비상업 약관</td><td><a href='https://developer.imdb.com/non-commercial-datasets/'>문서</a></td></tr><tr><td>Met Museum Collection</td><td>문화/예술</td><td>불필요</td><td><a href='https://metmuseum.github.io/'>문서</a></td></tr><tr><td>Nominatim</td><td>지도</td><td>불필요/정책 준수</td><td><a href='https://nominatim.org/release-docs/latest/api/Overview/'>문서</a></td></tr><tr><td>Overpass API</td><td>지도/POI</td><td>불필요/정책 준수</td><td><a href='https://wiki.openstreetmap.org/wiki/Overpass_API'>문서</a></td></tr><tr><td>Kakao Local</td><td>한국 지도</td><td>회원가입+키</td><td><a href='https://developers.kakao.com/docs/latest/ko/local/dev-guide'>문서</a></td></tr><tr><td>Google Maps</td><td>지도</td><td>키+결제 가능성</td><td><a href='https://developers.google.com/maps/documentation/javascript/get-api-key'>문서</a></td></tr><tr><td>Citi Bike System Data</td><td>자전거/대중교통</td><td>불필요</td><td><a href='https://www.citibikenyc.com/system-data'>문서</a></td></tr><tr><td>Alpha Vantage</td><td>주식</td><td>키</td><td><a href='https://www.alphavantage.co/documentation/'>문서</a></td></tr><tr><td>FMP</td><td>주식/재무</td><td>회원가입+키</td><td><a href='https://site.financialmodelingprep.com/developer/docs'>문서</a></td></tr><tr><td>Finnhub</td><td>주식</td><td>회원가입+키</td><td><a href='https://finnhub.io/docs/api'>문서</a></td></tr><tr><td>금융위원회 주식시세</td><td>한국 주식</td><td>공공데이터포털 키</td><td><a href='https://www.data.go.kr/data/15094808/openapi.do'>문서</a></td></tr><tr><td>기상청 단기예보</td><td>한국 기상</td><td>공공데이터포털 키</td><td><a href='https://www.data.go.kr/data/15084084/openapi.do'>문서</a></td></tr><tr><td>Retrosheet</td><td>야구</td><td>불필요</td><td><a href='https://www.retrosheet.org/game.htm'>문서</a></td></tr></tbody></table>
 

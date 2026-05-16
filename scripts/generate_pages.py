@@ -260,6 +260,125 @@ DATASETS = [
         "streamlit": "높음",
         "note": "전력 수요/공급/에너지 데이터 수업용. DEMO_KEY 제한을 명시하고 무료 키 사용 권장",
     },
+    {
+        "id": "noaa-coops-seattle-water-level",
+        "title": "NOAA 시애틀 조위 관측",
+        "category": "해양/기후/시계열",
+        "csv": "noaa_coops_seattle_water_level.csv",
+        "source": "NOAA CO-OPS API",
+        "doc_url": "https://api.tidesandcurrents.noaa.gov/api/prod/",
+        "test_url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240501&end_date=20240503&station=9447130&product=water_level&datum=MLLW&time_zone=gmt&units=metric&format=json",
+        "auth": "불필요",
+        "pico": "중간",
+        "streamlit": "높음",
+        "note": "해수면·조위 변화를 시간축으로 읽고 해안 도시와 기후 적응을 토론하는 수업용 샘플",
+    },
+    {
+        "id": "gb-carbon-intensity",
+        "title": "영국 전력 탄소집약도",
+        "category": "에너지/탄소/기후",
+        "csv": "gb_carbon_intensity.csv",
+        "source": "UK Carbon Intensity API",
+        "doc_url": "https://carbon-intensity.github.io/api-definitions/",
+        "test_url": "https://api.carbonintensity.org.uk/intensity/date/2024-05-01",
+        "auth": "불필요",
+        "pico": "중간",
+        "streamlit": "높음",
+        "note": "30분 단위 전력 탄소집약도를 보고 전기 사용 시간대와 탄소 배출의 관계를 탐구",
+    },
+    {
+        "id": "citi-bike-stations",
+        "title": "뉴욕 Citi Bike 대여소 스냅샷",
+        "category": "대중교통/도시/탄소",
+        "csv": "citi_bike_station_snapshot.csv",
+        "source": "Citi Bike GBFS",
+        "doc_url": "https://www.citibikenyc.com/system-data",
+        "test_url": "https://gbfs.citibikenyc.com/gbfs/en/station_status.json",
+        "auth": "불필요",
+        "pico": "중간",
+        "streamlit": "높음",
+        "note": "자전거 대여소별 잔여 자전거와 거치대를 지도/막대그래프로 보고 도시 이동을 분석",
+    },
+    {
+        "id": "met-museum-sunflower",
+        "title": "Met Museum 해바라기 작품 샘플",
+        "category": "문화/예술/메타데이터",
+        "csv": "met_museum_sunflower_objects.csv",
+        "source": "Metropolitan Museum of Art Collection API",
+        "doc_url": "https://metmuseum.github.io/",
+        "test_url": "https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=sunflower",
+        "auth": "불필요",
+        "pico": "중간",
+        "streamlit": "높음",
+        "note": "작품 주제·제작연도·부서 메타데이터로 예술 데이터 검색과 분류 활동을 구성",
+    },
+    {
+        "id": "cdc-places-health",
+        "title": "CDC PLACES 지역 건강 지표 샘플",
+        "category": "보건/지역/공공데이터",
+        "csv": "cdc_places_health_sample.csv",
+        "source": "CDC Socrata Open Data API",
+        "doc_url": "https://dev.socrata.com/",
+        "test_url": "https://data.cdc.gov/resource/cwsq-ngmh.json?$limit=5",
+        "auth": "토큰 선택 / 소량 조회 불필요",
+        "pico": "낮음",
+        "streamlit": "높음",
+        "note": "지역별 건강 지표를 비교하며 보건 격차와 데이터 기반 정책 질문을 만드는 샘플",
+    },
+    {
+        "id": "osm-seoul-hospitals",
+        "title": "OpenStreetMap 서울 병원 위치",
+        "category": "지도/보건/도시",
+        "csv": "osm_seoul_hospitals.csv",
+        "source": "OpenStreetMap Overpass API",
+        "doc_url": "https://wiki.openstreetmap.org/wiki/Overpass_API",
+        "test_url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A10%5D%3Bnode%5Bamenity%3Dhospital%5D%2837.4%2C126.8%2C37.7%2C127.2%29%3Bout%205%3B",
+        "auth": "불필요 / 사용 정책 준수",
+        "pico": "낮음",
+        "streamlit": "높음",
+        "note": "서울 병원 위치를 지도에 표시하고 의료 접근성·생활권 분석 수업으로 연결",
+    },
+    {
+        "id": "nominatim-seoul-landmarks",
+        "title": "Nominatim 서울 주요 장소 지오코딩",
+        "category": "지도/지오코딩/위치",
+        "csv": "nominatim_seoul_landmarks.csv",
+        "source": "OpenStreetMap Nominatim",
+        "doc_url": "https://nominatim.org/release-docs/latest/api/Search/",
+        "test_url": "https://nominatim.openstreetmap.org/search?q=Seoul%20City%20Hall&format=json&limit=3",
+        "auth": "불필요 / 사용 정책 준수",
+        "pico": "중간",
+        "streamlit": "높음",
+        "note": "장소 이름을 위도·경도로 바꾸는 과정을 통해 지도 데이터 전처리를 설명",
+    },
+
+    {
+        "id": "seoul-realtime-citydata",
+        "title": "서울 실시간 도시데이터 샘플",
+        "category": "도시/혼잡도/안전",
+        "csv": "seoul_realtime_citydata_sample.csv",
+        "source": "서울 열린데이터광장 실시간 도시데이터",
+        "doc_url": "https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do",
+        "test_url": "http://openapi.seoul.go.kr:8088/sample/json/citydata/1/5/%EA%B4%91%ED%99%94%EB%AC%B8%C2%B7%EB%8D%95%EC%88%98%EA%B6%81",
+        "auth": "샘플키 가능 / 정식은 무료 키 권장",
+        "pico": "중간",
+        "streamlit": "높음",
+        "note": "서울 주요 장소의 혼잡도와 추정 인구를 비교해 안전한 방문 시간·도시 운영 질문으로 연결",
+    },
+    {
+        "id": "seoul-realtime-air-quality",
+        "title": "서울 실시간 대기질 샘플",
+        "category": "대기질/건강/환경",
+        "csv": "seoul_realtime_air_quality.csv",
+        "source": "서울 열린데이터광장 실시간 대기환경",
+        "doc_url": "https://data.seoul.go.kr/",
+        "test_url": "http://openapi.seoul.go.kr:8088/sample/json/RealtimeCityAir/1/5/",
+        "auth": "샘플키 가능 / 정식은 무료 키 권장",
+        "pico": "중간",
+        "streamlit": "높음",
+        "note": "권역·측정소별 PM10/PM2.5와 통합대기환경지수를 비교해 건강·환경 수업에 활용",
+    },
+
 
 ]
 
@@ -301,6 +420,17 @@ VIZ_CONFIG = {
     "who-korea-life-expectancy": {"kind": "bar", "title": "성별 기대수명 비교", "x": "sex", "y": "value"},
     "restcountries-world": {"kind": "scatter", "title": "국가별 면적과 인구 관계", "x": "area", "y": "population", "text": "name", "x_title": "면적", "y_title": "인구"},
     "eia-california-electricity": {"kind": "multiCategoryLine", "title": "캘리포니아 전력 데이터 유형별 변화", "x": "date", "y": "value", "category": "type_name", "max_points": 1000},
+
+    "noaa-coops-seattle-water-level": {"kind": "line", "title": "시애틀 조위 변화", "x": "time_utc", "y": ["water_level_m"], "labels": ["수위(m)"], "y_title": "수위(m)"},
+    "gb-carbon-intensity": {"kind": "line", "title": "영국 전력 탄소집약도 변화", "x": "from_utc", "y": ["forecast_gco2_kwh", "actual_gco2_kwh"], "labels": ["예측(gCO₂/kWh)", "실측(gCO₂/kWh)"], "y_title": "gCO₂/kWh", "max_points": 1000},
+    "citi-bike-stations": {"kind": "scattergeo", "title": "Citi Bike 대여소별 자전거 가용성", "lat": "latitude", "lon": "longitude", "size": "num_bikes_available", "color": "capacity", "hover": "name"},
+    "met-museum-sunflower": {"kind": "histogram", "title": "해바라기 관련 작품 제작연도 분포", "x": "objectEndDate"},
+    "cdc-places-health": {"kind": "bar", "title": "CDC PLACES 건강 지표 샘플", "x": "state", "y": "data_value"},
+    "osm-seoul-hospitals": {"kind": "scattergeo", "title": "서울 병원 위치", "lat": "latitude", "lon": "longitude", "hover": "name", "geo_scope": "korea"},
+    "nominatim-seoul-landmarks": {"kind": "scattergeo", "title": "서울 주요 장소 지오코딩 결과", "lat": "latitude", "lon": "longitude", "hover": "query", "geo_scope": "korea"},
+
+    "seoul-realtime-citydata": {"kind": "bar", "title": "서울 주요 장소 추정 인구 상한", "x": "area_name", "y": "max_population"},
+    "seoul-realtime-air-quality": {"kind": "bar", "title": "서울 측정소별 통합대기환경지수", "x": "station", "y": "cai_index"},
 }
 
 MORE_CANDIDATES = [
@@ -540,7 +670,7 @@ function escapeHtml(value) { return String(value).replace(/[&<>"']/g, ch => ({'&
 const LABEL_KO = {
   time:'시간', date:'연도/날짜', Year:'연도', value:'값', count:'개수', latitude:'위도', longitude:'경도', depth_km:'깊이(km)', magnitude:'규모',
   temperature_2m_max:'최고기온', temperature_2m_mean:'평균기온', temperature_2m_min:'최저기온', temperature_2m_c:'평균기온', precipitation_mm_day:'강수량(mm/일)', wind_speed_2m_m_s:'풍속(m/s)',
-  rate:'환율', FEDFUNDS:'미국 기준금리(%)', cpi_value:'소비자물가지수(CPI)', parkingBikeTotCnt:'주차 자전거 수', stationName:'대여소', home_team:'홈팀', date_utc:'발사일', date_end:'제작연도', sex:'성별', area:'면적', population:'인구', type_name:'전력 데이터 유형', Entity:'지역',
+  rate:'환율', FEDFUNDS:'미국 기준금리(%)', cpi_value:'소비자물가지수(CPI)', parkingBikeTotCnt:'주차 자전거 수', stationName:'대여소', home_team:'홈팀', date_utc:'발사일', date_end:'제작연도', sex:'성별', area:'면적', population:'인구', type_name:'전력 데이터 유형', Entity:'지역', water_level_m:'수위(m)', forecast_gco2_kwh:'예측 탄소집약도', actual_gco2_kwh:'실측 탄소집약도', data_value:'지표값', state:'주', max_population:'추정 인구 상한', area_name:'장소', cai_index:'통합대기환경지수', station:'측정소', objectEndDate:'제작연도', capacity:'거치 용량', num_bikes_available:'이용 가능 자전거', Entity:'지역',
   'Annual CO₂ emissions':'연간 CO₂ 배출량',
   'GDP (current US$)':'GDP(현재 US$)', 'Life expectancy at birth, total (years)':'기대수명(년)', 'Population, total':'총인구', 'School enrollment, secondary (% gross)':'중등교육 등록률(%)',
   'Access to electricity (% of population)':'전기 접근성(인구 %)', 'GDP per capita (current US$)':'1인당 GDP(현재 US$)', 'Mortality rate, under-5 (per 1,000 live births)':'5세 미만 사망률(1,000명당)', 'Primary completion rate, total (% of relevant age group)':'초등교육 이수율(%)',
@@ -628,7 +758,7 @@ function drawCsvChart(rows) {
     layout.xaxis = {title: cfg.x_title || koLabel(cfg.x), type: 'log'}; layout.yaxis = {title: cfg.y_title || koLabel(cfg.y), type: 'log'};
   }
   if (!traces.length) { chart.innerHTML = '<p>이 데이터셋의 맞춤 시각화 설정을 찾지 못했습니다.</p>'; return; }
-  Plotly.newPlot(chart, traces, layout, {responsive: true, displaylogo: false});
+  Plotly.newPlot(chart, traces, layout, {responsive: true, displaylogo: false, displayModeBar: false});
 }
 async function testCsvAndChart(url) {
   const out = document.getElementById('test-output');

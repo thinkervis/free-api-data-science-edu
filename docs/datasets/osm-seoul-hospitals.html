@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>서울 5년 일별 기상</title>
+<title>OpenStreetMap 서울 병원 위치</title>
 <style>
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.6; max-width: 1120px; }
 a { color: #0969da; }
@@ -20,26 +20,26 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 <body>
 
 <p><a href="../index.html">← 전체 목록</a></p>
-<h1>서울 5년 일별 기상</h1>
-<p><span class="badge">기상</span><span class="badge">인증: 불필요</span><span class="badge">행 수: 1826</span></p>
+<h1>OpenStreetMap 서울 병원 위치</h1>
+<p><span class="badge">지도/보건/도시</span><span class="badge">인증: 불필요 / 사용 정책 준수</span><span class="badge">행 수: 120</span></p>
 <div class="card">
-  <p><b>원천:</b> Open-Meteo Historical Weather API</p>
-  <p><b>설명:</b> 최근 5년치 CSV 기본 제공, --scope all로 가능한 전체 기간 요청 가능</p>
-  <p><a href="../data/open_meteo_seoul_daily_weather.csv">CSV 직접 열기</a> · <a href="https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&amp;longitude=126.9780&amp;start_date=2021-01-01&amp;end_date=2021-01-03&amp;daily=temperature_2m_max,temperature_2m_min,precipitation_sum&amp;timezone=Asia%2FSeoul">원천 API/CSV 직접 테스트</a> · <a href="https://open-meteo.com/en/docs/historical-weather-api">공식 문서</a></p>
-  <button onclick="testCsvAndChart('../data/open_meteo_seoul_daily_weather.csv')">GitHub Pages에서 CSV 로드 + 맞춤형 Plotly 시각화 테스트</button>
+  <p><b>원천:</b> OpenStreetMap Overpass API</p>
+  <p><b>설명:</b> 서울 병원 위치를 지도에 표시하고 의료 접근성·생활권 분석 수업으로 연결</p>
+  <p><a href="../data/osm_seoul_hospitals.csv">CSV 직접 열기</a> · <a href="https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A10%5D%3Bnode%5Bamenity%3Dhospital%5D%2837.4%2C126.8%2C37.7%2C127.2%29%3Bout%205%3B">원천 API/CSV 직접 테스트</a> · <a href="https://wiki.openstreetmap.org/wiki/Overpass_API">공식 문서</a></p>
+  <button onclick="testCsvAndChart('../data/osm_seoul_hospitals.csv')">GitHub Pages에서 CSV 로드 + 맞춤형 Plotly 시각화 테스트</button>
   <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 직접 fetch하고, 데이터셋별 교육용 맞춤 시각화를 표시합니다.</pre>
   <div id="browser-preview"></div>
   <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
 <h2>CSV 미리보기</h2>
-<table><thead><tr><th>location</th><th>latitude</th><th>longitude</th><th>time</th><th>temperature_2m_max</th><th>temperature_2m_min</th><th>temperature_2m_mean</th><th>precipitation_sum</th><th>wind_speed_10m_max</th></tr></thead><tbody><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-16</td><td>20.7</td><td>13.9</td><td>18.2</td><td>77.0</td><td>16.3</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-17</td><td>17.2</td><td>13.8</td><td>15.1</td><td>5.1</td><td>9.4</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-18</td><td>22.2</td><td>12.1</td><td>15.8</td><td>0.0</td><td>17.3</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-19</td><td>23.5</td><td>10.9</td><td>17.3</td><td>0.0</td><td>14.7</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-20</td><td>22.2</td><td>13.9</td><td>16.9</td><td>11.8</td><td>18.1</td></tr></tbody></table>
+<table><thead><tr><th>osm_id</th><th>name</th><th>amenity</th><th>emergency</th><th>latitude</th><th>longitude</th></tr></thead><tbody><tr><td>368737732</td><td>강동미즈여성병원</td><td>hospital</td><td></td><td>37.537593</td><td>127.128029</td></tr><tr><td>368737754</td><td>포미즈여성병원</td><td>hospital</td><td></td><td>37.5467859</td><td>126.8722413</td></tr><tr><td>368737861</td><td>대항병원</td><td>hospital</td><td></td><td>37.475586</td><td>126.987863</td></tr><tr><td>368738263</td><td>서울명병원</td><td>hospital</td><td></td><td>37.577373</td><td>127.037893</td></tr><tr><td>368738330</td><td>창동제일병원</td><td>hospital</td><td></td><td>37.6519259</td><td>127.0453662</td></tr></tbody></table>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st
 
-URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/open_meteo_seoul_daily_weather.csv&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/osm_seoul_hospitals.csv&quot;
 
-st.title(&quot;open_meteo_seoul_daily_weather.csv&quot;)
+st.title(&quot;osm_seoul_hospitals.csv&quot;)
 df = pd.read_csv(URL)
 st.write(df.shape)
 st.dataframe(df.head(100))
@@ -57,7 +57,7 @@ from machine import Pin
 
 SSID = &quot;YOUR_WIFI&quot;
 PASSWORD = &quot;YOUR_PASSWORD&quot;
-URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/open_meteo_seoul_daily_weather.csv&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/osm_seoul_hospitals.csv&quot;
 
 led = Pin(&quot;LED&quot;, Pin.OUT)
 wlan = network.WLAN(network.STA_IF)
@@ -88,7 +88,7 @@ for line in lines:
 </pre>
 
 <script>
-const VIZ_CONFIG = {"kind": "line", "title": "최고·평균·최저 기온 3종 세트", "x": "time", "y": ["temperature_2m_max", "temperature_2m_mean", "temperature_2m_min"], "labels": ["최고기온", "평균기온", "최저기온"], "y_title": "기온(°C)"};
+const VIZ_CONFIG = {"kind": "scattergeo", "title": "서울 병원 위치", "lat": "latitude", "lon": "longitude", "hover": "name", "geo_scope": "korea"};
 function parseCsvRows(text) {
   const rows = [];
   let row = [];

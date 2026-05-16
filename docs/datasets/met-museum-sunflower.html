@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>서울 5년 일별 기상</title>
+<title>Met Museum 해바라기 작품 샘플</title>
 <style>
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.6; max-width: 1120px; }
 a { color: #0969da; }
@@ -20,26 +20,26 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 <body>
 
 <p><a href="../index.html">← 전체 목록</a></p>
-<h1>서울 5년 일별 기상</h1>
-<p><span class="badge">기상</span><span class="badge">인증: 불필요</span><span class="badge">행 수: 1826</span></p>
+<h1>Met Museum 해바라기 작품 샘플</h1>
+<p><span class="badge">문화/예술/메타데이터</span><span class="badge">인증: 불필요</span><span class="badge">행 수: 60</span></p>
 <div class="card">
-  <p><b>원천:</b> Open-Meteo Historical Weather API</p>
-  <p><b>설명:</b> 최근 5년치 CSV 기본 제공, --scope all로 가능한 전체 기간 요청 가능</p>
-  <p><a href="../data/open_meteo_seoul_daily_weather.csv">CSV 직접 열기</a> · <a href="https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&amp;longitude=126.9780&amp;start_date=2021-01-01&amp;end_date=2021-01-03&amp;daily=temperature_2m_max,temperature_2m_min,precipitation_sum&amp;timezone=Asia%2FSeoul">원천 API/CSV 직접 테스트</a> · <a href="https://open-meteo.com/en/docs/historical-weather-api">공식 문서</a></p>
-  <button onclick="testCsvAndChart('../data/open_meteo_seoul_daily_weather.csv')">GitHub Pages에서 CSV 로드 + 맞춤형 Plotly 시각화 테스트</button>
+  <p><b>원천:</b> Metropolitan Museum of Art Collection API</p>
+  <p><b>설명:</b> 작품 주제·제작연도·부서 메타데이터로 예술 데이터 검색과 분류 활동을 구성</p>
+  <p><a href="../data/met_museum_sunflower_objects.csv">CSV 직접 열기</a> · <a href="https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&amp;q=sunflower">원천 API/CSV 직접 테스트</a> · <a href="https://metmuseum.github.io/">공식 문서</a></p>
+  <button onclick="testCsvAndChart('../data/met_museum_sunflower_objects.csv')">GitHub Pages에서 CSV 로드 + 맞춤형 Plotly 시각화 테스트</button>
   <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 직접 fetch하고, 데이터셋별 교육용 맞춤 시각화를 표시합니다.</pre>
   <div id="browser-preview"></div>
   <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
 <h2>CSV 미리보기</h2>
-<table><thead><tr><th>location</th><th>latitude</th><th>longitude</th><th>time</th><th>temperature_2m_max</th><th>temperature_2m_min</th><th>temperature_2m_mean</th><th>precipitation_sum</th><th>wind_speed_10m_max</th></tr></thead><tbody><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-16</td><td>20.7</td><td>13.9</td><td>18.2</td><td>77.0</td><td>16.3</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-17</td><td>17.2</td><td>13.8</td><td>15.1</td><td>5.1</td><td>9.4</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-18</td><td>22.2</td><td>12.1</td><td>15.8</td><td>0.0</td><td>17.3</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-19</td><td>23.5</td><td>10.9</td><td>17.3</td><td>0.0</td><td>14.7</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-20</td><td>22.2</td><td>13.9</td><td>16.9</td><td>11.8</td><td>18.1</td></tr></tbody></table>
+<table><thead><tr><th>objectID</th><th>title</th><th>artistDisplayName</th><th>objectDate</th><th>objectBeginDate</th><th>objectEndDate</th><th>department</th><th>culture</th><th>repository</th><th>objectURL</th></tr></thead><tbody><tr><td>485308</td><td>Sunflower</td><td>Joan Mitchell</td><td>1969</td><td>1969</td><td>1969</td><td>Modern and Contemporary Art</td><td></td><td>Metropolitan Museum of Art, New York, NY</td><td>https://www.metmuseum.org/art/collection/search/485308</td></tr><tr><td>822590</td><td>Sunflower</td><td>Brigitte Coudrain</td><td>mid-20th century</td><td>1950</td><td>1975</td><td>Drawings and Prints</td><td></td><td>Metropolitan Museum of Art, New York, NY</td><td>https://www.metmuseum.org/art/collection/search/822590</td></tr><tr><td>437112</td><td>Bouquet of Sunflowers</td><td>Claude Monet</td><td>1881</td><td>1881</td><td>1881</td><td>European Paintings</td><td></td><td>Metropolitan Museum of Art, New York, NY</td><td>https://www.metmuseum.org/art/collection/search/437112</td></tr><tr><td>707887</td><td>Botanical dish with white sunflower</td><td>Chelsea Porcelain Manufactory</td><td>ca. 1755</td><td>1750</td><td>1760</td><td>European Sculpture and Decorative Arts</td><td></td><td>Metropolitan Museum of Art, New York, NY</td><td>https://www.metmuseum.org/art/collection/search/707887</td></tr><tr><td>436524</td><td>Sunflowers</td><td>Vincent van Gogh</td><td>1887</td><td>1887</td><td>1887</td><td>European Paintings</td><td></td><td>Metropolitan Museum of Art, New York, NY</td><td>https://www.metmuseum.org/art/collection/search/436524</td></tr></tbody></table>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st
 
-URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/open_meteo_seoul_daily_weather.csv&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/met_museum_sunflower_objects.csv&quot;
 
-st.title(&quot;open_meteo_seoul_daily_weather.csv&quot;)
+st.title(&quot;met_museum_sunflower_objects.csv&quot;)
 df = pd.read_csv(URL)
 st.write(df.shape)
 st.dataframe(df.head(100))
@@ -57,7 +57,7 @@ from machine import Pin
 
 SSID = &quot;YOUR_WIFI&quot;
 PASSWORD = &quot;YOUR_PASSWORD&quot;
-URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/open_meteo_seoul_daily_weather.csv&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/met_museum_sunflower_objects.csv&quot;
 
 led = Pin(&quot;LED&quot;, Pin.OUT)
 wlan = network.WLAN(network.STA_IF)
@@ -88,7 +88,7 @@ for line in lines:
 </pre>
 
 <script>
-const VIZ_CONFIG = {"kind": "line", "title": "최고·평균·최저 기온 3종 세트", "x": "time", "y": ["temperature_2m_max", "temperature_2m_mean", "temperature_2m_min"], "labels": ["최고기온", "평균기온", "최저기온"], "y_title": "기온(°C)"};
+const VIZ_CONFIG = {"kind": "histogram", "title": "해바라기 관련 작품 제작연도 분포", "x": "objectEndDate"};
 function parseCsvRows(text) {
   const rows = [];
   let row = [];

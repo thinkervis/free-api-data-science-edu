@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>서울 5년 일별 기상</title>
+<title>NOAA 시애틀 조위 관측</title>
 <style>
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.6; max-width: 1120px; }
 a { color: #0969da; }
@@ -20,26 +20,26 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 <body>
 
 <p><a href="../index.html">← 전체 목록</a></p>
-<h1>서울 5년 일별 기상</h1>
-<p><span class="badge">기상</span><span class="badge">인증: 불필요</span><span class="badge">행 수: 1826</span></p>
+<h1>NOAA 시애틀 조위 관측</h1>
+<p><span class="badge">해양/기후/시계열</span><span class="badge">인증: 불필요</span><span class="badge">행 수: 7440</span></p>
 <div class="card">
-  <p><b>원천:</b> Open-Meteo Historical Weather API</p>
-  <p><b>설명:</b> 최근 5년치 CSV 기본 제공, --scope all로 가능한 전체 기간 요청 가능</p>
-  <p><a href="../data/open_meteo_seoul_daily_weather.csv">CSV 직접 열기</a> · <a href="https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&amp;longitude=126.9780&amp;start_date=2021-01-01&amp;end_date=2021-01-03&amp;daily=temperature_2m_max,temperature_2m_min,precipitation_sum&amp;timezone=Asia%2FSeoul">원천 API/CSV 직접 테스트</a> · <a href="https://open-meteo.com/en/docs/historical-weather-api">공식 문서</a></p>
-  <button onclick="testCsvAndChart('../data/open_meteo_seoul_daily_weather.csv')">GitHub Pages에서 CSV 로드 + 맞춤형 Plotly 시각화 테스트</button>
+  <p><b>원천:</b> NOAA CO-OPS API</p>
+  <p><b>설명:</b> 해수면·조위 변화를 시간축으로 읽고 해안 도시와 기후 적응을 토론하는 수업용 샘플</p>
+  <p><a href="../data/noaa_coops_seattle_water_level.csv">CSV 직접 열기</a> · <a href="https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240501&amp;end_date=20240503&amp;station=9447130&amp;product=water_level&amp;datum=MLLW&amp;time_zone=gmt&amp;units=metric&amp;format=json">원천 API/CSV 직접 테스트</a> · <a href="https://api.tidesandcurrents.noaa.gov/api/prod/">공식 문서</a></p>
+  <button onclick="testCsvAndChart('../data/noaa_coops_seattle_water_level.csv')">GitHub Pages에서 CSV 로드 + 맞춤형 Plotly 시각화 테스트</button>
   <pre id="test-output">버튼을 누르면 이 페이지에서 CSV를 직접 fetch하고, 데이터셋별 교육용 맞춤 시각화를 표시합니다.</pre>
   <div id="browser-preview"></div>
   <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
 <h2>CSV 미리보기</h2>
-<table><thead><tr><th>location</th><th>latitude</th><th>longitude</th><th>time</th><th>temperature_2m_max</th><th>temperature_2m_min</th><th>temperature_2m_mean</th><th>precipitation_sum</th><th>wind_speed_10m_max</th></tr></thead><tbody><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-16</td><td>20.7</td><td>13.9</td><td>18.2</td><td>77.0</td><td>16.3</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-17</td><td>17.2</td><td>13.8</td><td>15.1</td><td>5.1</td><td>9.4</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-18</td><td>22.2</td><td>12.1</td><td>15.8</td><td>0.0</td><td>17.3</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-19</td><td>23.5</td><td>10.9</td><td>17.3</td><td>0.0</td><td>14.7</td></tr><tr><td>Seoul</td><td>37.57469</td><td>126.96</td><td>2021-05-20</td><td>22.2</td><td>13.9</td><td>16.9</td><td>11.8</td><td>18.1</td></tr></tbody></table>
+<table><thead><tr><th>station_id</th><th>station_name</th><th>time_utc</th><th>water_level_m</th><th>sigma</th><th>quality</th></tr></thead><tbody><tr><td>9447130</td><td>Seattle</td><td>2026-04-15 00:00</td><td>2.768</td><td>0.018</td><td>v</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-04-15 00:06</td><td>2.744</td><td>0.016</td><td>v</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-04-15 00:12</td><td>2.72</td><td>0.014</td><td>v</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-04-15 00:18</td><td>2.69</td><td>0.019</td><td>v</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-04-15 00:24</td><td>2.648</td><td>0.013</td><td>v</td></tr></tbody></table>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st
 
-URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/open_meteo_seoul_daily_weather.csv&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/noaa_coops_seattle_water_level.csv&quot;
 
-st.title(&quot;open_meteo_seoul_daily_weather.csv&quot;)
+st.title(&quot;noaa_coops_seattle_water_level.csv&quot;)
 df = pd.read_csv(URL)
 st.write(df.shape)
 st.dataframe(df.head(100))
@@ -57,7 +57,7 @@ from machine import Pin
 
 SSID = &quot;YOUR_WIFI&quot;
 PASSWORD = &quot;YOUR_PASSWORD&quot;
-URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/open_meteo_seoul_daily_weather.csv&quot;
+URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/noaa_coops_seattle_water_level.csv&quot;
 
 led = Pin(&quot;LED&quot;, Pin.OUT)
 wlan = network.WLAN(network.STA_IF)
@@ -88,7 +88,7 @@ for line in lines:
 </pre>
 
 <script>
-const VIZ_CONFIG = {"kind": "line", "title": "최고·평균·최저 기온 3종 세트", "x": "time", "y": ["temperature_2m_max", "temperature_2m_mean", "temperature_2m_min"], "labels": ["최고기온", "평균기온", "최저기온"], "y_title": "기온(°C)"};
+const VIZ_CONFIG = {"kind": "line", "title": "시애틀 조위 변화", "x": "time_utc", "y": ["water_level_m"], "labels": ["수위(m)"], "y_title": "수위(m)"};
 function parseCsvRows(text) {
   const rows = [];
   let row = [];

@@ -1,24 +1,33 @@
 {
-  "updated_at_utc": "2026-05-16T05:09:18.162829+00:00",
+  "updated_at_utc": "2026-05-16T07:27:13.996237+00:00",
   "default_scope": "recent5",
   "files": [
     "data/artic_recent_artworks_sample.csv",
     "data/bls_us_cpi_monthly.csv",
+    "data/cdc_places_health_sample.csv",
+    "data/citi_bike_station_snapshot.csv",
     "data/eia_california_electricity_daily.csv",
     "data/factfulness_global_indicators.csv",
     "data/frankfurter_usd_krw_daily.csv",
     "data/fred_fedfunds.csv",
+    "data/gb_carbon_intensity.csv",
     "data/gbif_korea_occurrences_sample.csv",
+    "data/met_museum_sunflower_objects.csv",
     "data/mlb_schedule.csv",
     "data/mlb_schedule_sample.csv",
     "data/nager_korea_public_holidays.csv",
     "data/nasa_power_seoul_daily.csv",
+    "data/noaa_coops_seattle_water_level.csv",
+    "data/nominatim_seoul_landmarks.csv",
     "data/open_meteo_seoul_air_quality_hourly.csv",
     "data/open_meteo_seoul_current.csv",
     "data/open_meteo_seoul_daily_weather.csv",
+    "data/osm_seoul_hospitals.csv",
     "data/owid_co2_korea_world.csv",
     "data/restcountries_world_snapshot.csv",
     "data/seoul_bike_sample.csv",
+    "data/seoul_realtime_air_quality.csv",
+    "data/seoul_realtime_citydata_sample.csv",
     "data/spacex_launches.csv",
     "data/stooq_aapl_quote.csv",
     "data/usgs_major_earthquakes.csv",
@@ -140,6 +149,36 @@
       "rows": 5000,
       "scope": "recent5",
       "source": "https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&data%5B0%5D=value&facets%5Brespondent%5D%5B%5D=CAL&start=2021-05-16&end=2026-05-15&sort%5B0%5D%5Bcolumn%5D=period&sort%5B0%5D%5Bdirection%5D=asc&offset=0&length=5000&api_key=DEMO_KEY"
+    },
+    {
+      "file": "data/met_museum_sunflower_objects.csv",
+      "rows": 60,
+      "scope": "sample",
+      "source": "https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=sunflower"
+    },
+    {
+      "file": "data/cdc_places_health_sample.csv",
+      "rows": 500,
+      "scope": "sample",
+      "source": "https://data.cdc.gov/resource/cwsq-ngmh.json?%24limit=500&%24select=year%2Cstateabbr%2Cstatedesc%2Ccountyname%2Cmeasure%2Cdata_value%2Clow_confidence_limit%2Chigh_confidence_limit&%24order=year+DESC%2Cstateabbr%2Ccountyname"
+    },
+    {
+      "file": "data/osm_seoul_hospitals.csv",
+      "rows": 120,
+      "scope": "sample",
+      "source": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3Bnode%5Bamenity%3Dhospital%5D%2837.4%2C126.8%2C37.7%2C127.2%29%3Bout+120%3B"
+    },
+    {
+      "file": "data/nominatim_seoul_landmarks.csv",
+      "rows": 10,
+      "scope": "sample",
+      "source": "https://nominatim.org/release-docs/latest/api/Search/"
+    },
+    {
+      "file": "data/seoul_realtime_air_quality.csv",
+      "rows": 5,
+      "scope": "sample",
+      "source": "http://openapi.seoul.go.kr:8088/sample/json/RealtimeCityAir/1/5/"
     }
   ]
 }

@@ -3,6 +3,8 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import io
+import zipfile
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Iterable
@@ -552,6 +554,225 @@ def update_eia_california_electricity(scope: str) -> dict[str, Any]:
     return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": url}
 
 
+def update_noaa_coops_seattle_water_level(scope: str) -> dict[str, Any]:
+    # NOAA CO-OPS water level API has practical date-window limits. Keep a compact recent sample.
+    end = date.today() - timedelta(days=1)
+    start = end - timedelta(days=30 if scope != "all" else 90)
+    params = {
+        "begin_date": start.strftime("%Y%m%d"),
+        "end_date": end.strftime("%Y%m%d"),
+        "station": "9447130",
+        "product": "water_level",
+        "datum": "MLLW",
+        "time_zone": "gmt",
+        "units": "metric",
+        "format": "json",
+    }
+    url = "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?" + urlencode(params)
+    data = get_json(url)
+    meta = data.get("metadata", {})
+    rows = []
+    for item in data.get("data", []):
+        rows.append({
+            "station_id": meta.get("id"),
+            "station_name": meta.get("name"),
+            "time_utc": item.get("t"),
+            "water_level_m": item.get("v"),
+            "sigma": item.get("s"),
+            "quality": item.get("q"),
+        })
+    path = DATA / "noaa_coops_seattle_water_level.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": url}
+
+
+def update_gb_carbon_intensity(scope: str) -> dict[str, Any]:
+    end = date.today() - timedelta(days=1)
+    days = 14 if scope != "all" else 60
+    rows = []
+    source_urls = []
+    for i in range(days):
+        day = end - timedelta(days=days - 1 - i)
+        url = f"https://api.carbonintensity.org.uk/intensity/date/{day.isoformat()}"
+        source_urls.append(url)
+        data = get_json(url)
+        for item in data.get("data", []):
+            intensity = item.get("intensity", {})
+            rows.append({
+                "from_utc": item.get("from"),
+                "to_utc": item.get("to"),
+                "forecast_gco2_kwh": intensity.get("forecast"),
+                "actual_gco2_kwh": intensity.get("actual"),
+                "index": intensity.get("index"),
+            })
+    path = DATA / "gb_carbon_intensity.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": scope, "source": source_urls[-1] if source_urls else "https://api.carbonintensity.org.uk/"}
+
+
+def update_citi_bike_station_snapshot(_: str) -> dict[str, Any]:
+    info_url = "https://gbfs.citibikenyc.com/gbfs/en/station_information.json"
+    status_url = "https://gbfs.citibikenyc.com/gbfs/en/station_status.json"
+    info = get_json(info_url).get("data", {}).get("stations", [])
+    status = get_json(status_url).get("data", {}).get("stations", [])
+    by_id = {s.get("station_id"): s for s in status}
+    rows = []
+    for item in info[:500]:
+        st = by_id.get(item.get("station_id"), {})
+        rows.append({
+            "station_id": item.get("station_id"),
+            "name": item.get("name"),
+            "latitude": item.get("lat"),
+            "longitude": item.get("lon"),
+            "capacity": item.get("capacity"),
+            "num_bikes_available": st.get("num_bikes_available"),
+            "num_docks_available": st.get("num_docks_available"),
+            "is_renting": st.get("is_renting"),
+        })
+    path = DATA / "citi_bike_station_snapshot.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": "snapshot", "source": status_url}
+
+
+def update_met_museum_sunflower_objects(_: str) -> dict[str, Any]:
+    search_url = "https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=sunflower"
+    search = get_json(search_url)
+    rows = []
+    for object_id in (search.get("objectIDs") or []):
+        if len(rows) >= 60:
+            break
+        try:
+            item = get_json(f"https://collectionapi.metmuseum.org/public/collection/v1/objects/{object_id}")
+        except RequestException as exc:
+            print(f"Met object fetch skipped object_id={object_id}: {exc}")
+            continue
+        rows.append({
+            "objectID": item.get("objectID"),
+            "title": item.get("title"),
+            "artistDisplayName": item.get("artistDisplayName"),
+            "objectDate": item.get("objectDate"),
+            "objectBeginDate": item.get("objectBeginDate"),
+            "objectEndDate": item.get("objectEndDate"),
+            "department": item.get("department"),
+            "culture": item.get("culture"),
+            "repository": item.get("repository"),
+            "objectURL": item.get("objectURL"),
+        })
+    path = DATA / "met_museum_sunflower_objects.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": "sample", "source": search_url}
+
+
+def update_cdc_places_health_sample(_: str) -> dict[str, Any]:
+    params = {"$limit": 500, "$select": "year,stateabbr,statedesc,countyname,measure,data_value,low_confidence_limit,high_confidence_limit", "$order": "year DESC,stateabbr,countyname"}
+    url = "https://data.cdc.gov/resource/cwsq-ngmh.json?" + urlencode(params)
+    data = get_json(url)
+    rows = [{
+        "year": item.get("year"),
+        "stateabbr": item.get("stateabbr"),
+        "state": item.get("statedesc"),
+        "county": item.get("countyname"),
+        "measure": item.get("measure"),
+        "data_value": item.get("data_value"),
+        "low_confidence_limit": item.get("low_confidence_limit"),
+        "high_confidence_limit": item.get("high_confidence_limit"),
+    } for item in data]
+    path = DATA / "cdc_places_health_sample.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": "sample", "source": url}
+
+
+def update_osm_seoul_hospitals(_: str) -> dict[str, Any]:
+    query = """[out:json][timeout:25];node[amenity=hospital](37.4,126.8,37.7,127.2);out 120;"""
+    url = "https://overpass-api.de/api/interpreter?" + urlencode({"data": query})
+    data = get_json(url)
+    rows = []
+    for el in data.get("elements", []):
+        tags = el.get("tags", {})
+        rows.append({
+            "osm_id": el.get("id"),
+            "name": tags.get("name") or tags.get("name:ko") or tags.get("name:en"),
+            "amenity": tags.get("amenity"),
+            "emergency": tags.get("emergency"),
+            "latitude": el.get("lat"),
+            "longitude": el.get("lon"),
+        })
+    path = DATA / "osm_seoul_hospitals.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": "sample", "source": url}
+
+
+def update_nominatim_seoul_landmarks(_: str) -> dict[str, Any]:
+    queries = ["Seoul City Hall", "Gyeongbokgung", "N Seoul Tower", "Dongdaemun Design Plaza", "COEX Seoul", "Hongdae Seoul", "Gangnam Station", "Lotte World Tower", "National Museum of Korea", "Seoul Forest"]
+    rows = []
+    for q in queries:
+        url = "https://nominatim.openstreetmap.org/search?" + urlencode({"q": q, "format": "json", "limit": 1})
+        data = get_json(url)
+        if not data:
+            continue
+        item = data[0]
+        rows.append({
+            "query": q,
+            "display_name": item.get("display_name"),
+            "latitude": item.get("lat"),
+            "longitude": item.get("lon"),
+            "type": item.get("type"),
+            "importance": item.get("importance"),
+        })
+    path = DATA / "nominatim_seoul_landmarks.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": "sample", "source": "https://nominatim.org/release-docs/latest/api/Search/"}
+
+
+def update_seoul_realtime_citydata_sample(_: str) -> dict[str, Any]:
+    areas = ["광화문·덕수궁", "명동 관광특구", "홍대 관광특구", "강남역", "여의도"]
+    rows = []
+    source_urls = []
+    for area in areas:
+        url = "http://openapi.seoul.go.kr:8088/sample/json/citydata/1/5/" + area
+        source_urls.append(url)
+        data = get_json(url)
+        city = data.get("CITYDATA", {})
+        for item in city.get("LIVE_PPLTN_STTS", []):
+            rows.append({
+                "area_name": item.get("AREA_NM") or city.get("AREA_NM"),
+                "area_code": item.get("AREA_CD") or city.get("AREA_CD"),
+                "congestion_level": item.get("AREA_CONGEST_LVL"),
+                "congestion_message": item.get("AREA_CONGEST_MSG"),
+                "min_population": item.get("AREA_PPLTN_MIN"),
+                "max_population": item.get("AREA_PPLTN_MAX"),
+                "male_rate": item.get("MALE_PPLTN_RATE"),
+                "female_rate": item.get("FEMALE_PPLTN_RATE"),
+                "updated_at": item.get("PPLTN_TIME"),
+            })
+    path = DATA / "seoul_realtime_citydata_sample.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": "sample", "source": source_urls[0]}
+
+
+def update_seoul_realtime_air_quality(_: str) -> dict[str, Any]:
+    url = "http://openapi.seoul.go.kr:8088/sample/json/RealtimeCityAir/1/5/"
+    data = get_json(url)
+    rows = []
+    for item in data.get("RealtimeCityAir", {}).get("row", []):
+        rows.append({
+            "measured_at": item.get("MSRMT_DT"),
+            "area": item.get("SAREA_NM"),
+            "station": item.get("MSRSTN_NM"),
+            "pm10": item.get("PM"),
+            "pm25": item.get("FPM"),
+            "ozone": item.get("OZON"),
+            "no2": item.get("NTDX"),
+            "co": item.get("CBMX"),
+            "so2": item.get("SPDX"),
+            "cai_grade": item.get("CAI_GRD"),
+            "cai_index": item.get("CAI_IDX"),
+        })
+    path = DATA / "seoul_realtime_air_quality.csv"
+    write_csv(path, rows)
+    return {"file": str(path.relative_to(ROOT)), "rows": len(rows), "scope": "sample", "source": url}
+
+
 JOBS = [
     update_open_meteo_seoul_daily,
     update_open_meteo_seoul_air_quality,
@@ -572,6 +793,15 @@ JOBS = [
     update_who_korea_life_expectancy,
     update_restcountries_world_snapshot,
     update_eia_california_electricity,
+    update_noaa_coops_seattle_water_level,
+    update_gb_carbon_intensity,
+    update_citi_bike_station_snapshot,
+    update_met_museum_sunflower_objects,
+    update_cdc_places_health_sample,
+    update_osm_seoul_hospitals,
+    update_nominatim_seoul_landmarks,
+    update_seoul_realtime_citydata_sample,
+    update_seoul_realtime_air_quality,
 ]
 
 
