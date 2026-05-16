@@ -680,18 +680,87 @@ def sdg_topics_page() -> str:
     cards = []
     for i, item in enumerate(SDG_TOPICS, start=1):
         cards.append(f'''
-<div class="card">
+<div class="card sdg-card">
   <h2>{i}. {html.escape(item['title'])}</h2>
   <p><span class="badge">{html.escape(item['sdg'])}</span><span class="badge">인증: {html.escape(item['auth'])}</span></p>
   <p><b>데이터:</b> {html.escape(item['data'])}</p>
   <p><b>수업 아이디어:</b> {html.escape(item['activity'])}</p>
   <p><a href="{html.escape(item['url'])}">공식 문서/데이터 출처</a></p>
+  <div id="sdg-chart-{i-1}" class="sdg-chart"></div>
 </div>''')
+    script = r'''
+<style>.sdg-chart{height:380px;margin-top:1rem}.sdg-card{break-inside:avoid}</style>
+<script>
+function parseCsvRows(text) {
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], n = text[i + 1];
+    if (ch === '"') { if (q && n === '"') { cell += '"'; i++; } else q = !q; }
+    else if (ch === ',' && !q) { row.push(cell); cell = ''; }
+    else if ((ch === '\n' || ch === '\r') && !q) { if (ch === '\r' && n === '\n') i++; row.push(cell); cell = ''; if (row.some(v => v !== '')) rows.push(row); row = []; }
+    else cell += ch;
+  }
+  row.push(cell); if (row.some(v => v !== '')) rows.push(row); return rows;
+}
+function toObjects(rows) { const h = rows[0] || []; return rows.slice(1).map(r => Object.fromEntries(h.map((k,i)=>[k,r[i] ?? '']))); }
+async function csv(path) { return toObjects(parseCsvRows(await fetch(path).then(r => { if (!r.ok) throw new Error(path + ' HTTP ' + r.status); return r.text(); }))); }
+function num(v) { const n = Number(v); return Number.isFinite(n) ? n : null; }
+function latestBy(rows, group, value) { const out = {}; rows.forEach(r => { const k = r[group]; if (!out[k] || String(r.date || r.time || r.Year) > String(out[k].date || out[k].time || out[k].Year)) out[k] = r; }); return Object.values(out).filter(r => num(r[value]) !== null); }
+async function drawSdgCharts() {
+  try {
+    const air = await csv('../data/open_meteo_seoul_air_quality_hourly.csv');
+    const airRecent = air.slice(-240);
+    Plotly.newPlot('sdg-chart-0', [
+      {type:'scatter',mode:'lines',name:'PM10',x:airRecent.map(r=>r.time),y:airRecent.map(r=>num(r.pm10))},
+      {type:'scatter',mode:'lines',name:'PM2.5',x:airRecent.map(r=>r.time),y:airRecent.map(r=>num(r.pm2_5))}
+    ], {title:'최근 시간대 서울 대기질 변화', margin:{t:50,r:20,b:80,l:55}, yaxis:{title:'㎍/m³'}}, {responsive:true,displaylogo:false});
+
+    const nasa = await csv('../data/nasa_power_seoul_daily.csv');
+    const nasaRecent = nasa.slice(-365);
+    Plotly.newPlot('sdg-chart-1', [
+      {type:'scatter',mode:'lines',name:'평균기온',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.temperature_2m_c))},
+      {type:'bar',name:'강수량',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),yaxis:'y2',opacity:.35}
+    ], {title:'최근 1년 서울 기온·강수', margin:{t:50,r:50,b:80,l:55}, yaxis:{title:'°C'}, yaxis2:{title:'mm/day',overlaying:'y',side:'right'}}, {responsive:true,displaylogo:false});
+
+    const co2 = await csv('../data/owid_co2_korea_world.csv');
+    const co2Groups = [...new Set(co2.map(r=>r.Entity))];
+    Plotly.newPlot('sdg-chart-2', co2Groups.map(g => { const rows = co2.filter(r=>r.Entity===g); return {type:'scatter',mode:'lines+markers',name:g,x:rows.map(r=>r.Year),y:rows.map(r=>num(r['Annual CO₂ emissions']))}; }), {title:'한국과 세계 CO₂ 배출량', margin:{t:50,r:20,b:60,l:70}, yaxis:{title:'tonnes'}}, {responsive:true,displaylogo:false});
+
+    const gbif = await csv('../data/gbif_korea_occurrences_sample.csv');
+    Plotly.newPlot('sdg-chart-3', [{type:'scattergeo',mode:'markers',lat:gbif.map(r=>num(r.decimalLatitude)),lon:gbif.map(r=>num(r.decimalLongitude)),text:gbif.map(r=>r.scientificName),marker:{size:7,opacity:.65,color:'#16a34a'}}], {title:'한국 생물종 관측 위치', margin:{t:50,r:20,b:20,l:20}, geo:{scope:'asia',projection:{type:'mercator'},lonaxis:{range:[124,132]},lataxis:{range:[33,39.5]},showland:true,landcolor:'#f6f8fa',showcountries:true}}, {responsive:true,displaylogo:false});
+
+    const bike = await csv('../data/seoul_bike_sample.csv');
+    Plotly.newPlot('sdg-chart-4', [{type:'bar',x:bike.map(r=>r.stationName),y:bike.map(r=>num(r.parkingBikeTotCnt)),marker:{color:'#0ea5e9'}}], {title:'따릉이 대여소별 현재 자전거 수', margin:{t:50,r:20,b:120,l:55}, yaxis:{title:'대수'}}, {responsive:true,displaylogo:false});
+
+    const countries = await csv('../data/restcountries_world_snapshot.csv');
+    Plotly.newPlot('sdg-chart-5', [{type:'scatter',mode:'markers',x:countries.map(r=>num(r.area)),y:countries.map(r=>num(r.population)),text:countries.map(r=>r.name),marker:{size:8,opacity:.6,color:'#6366f1'}}], {title:'국가별 면적·인구 비교로 보는 도시·인프라 압력', margin:{t:50,r:20,b:65,l:70}, xaxis:{title:'면적',type:'log'}, yaxis:{title:'인구',type:'log'}}, {responsive:true,displaylogo:false});
+
+    const wb = await csv('../data/worldbank_korea_indicators.csv');
+    const inds = [...new Set(wb.map(r=>r.indicator))];
+    Plotly.newPlot('sdg-chart-6', inds.map(ind => { const rows = wb.filter(r=>r.indicator===ind); return {type:'scatter',mode:'lines+markers',name:ind,x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'한국 주요 발전 지표 변화', margin:{t:50,r:20,b:70,l:70}}, {responsive:true,displaylogo:false});
+
+    const fact = await csv('../data/factfulness_global_indicators.csv');
+    const life = latestBy(fact.filter(r=>r.indicator_id==='SP.DYN.LE00.IN'), 'countryiso3code', 'value');
+    Plotly.newPlot('sdg-chart-7', [{type:'bar',x:life.map(r=>r.country),y:life.map(r=>num(r.value)),text:life.map(r=>r.date),marker:{color:'#f97316'}}], {title:'팩트풀니스: 최신 기대수명 비교', margin:{t:50,r:20,b:110,l:55}, yaxis:{title:'년'}}, {responsive:true,displaylogo:false});
+
+    Plotly.newPlot('sdg-chart-8', [{type:'bar',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),marker:{color:'#38bdf8'}}], {title:'물·가뭄 수업용: 서울 일별 강수량', margin:{t:50,r:20,b:80,l:55}, yaxis:{title:'mm/day'}}, {responsive:true,displaylogo:false});
+
+    const eia = await csv('../data/eia_california_electricity_daily.csv');
+    const recentEia = eia.slice(-600); const types = [...new Set(recentEia.map(r=>r.type_name))].slice(0,5);
+    Plotly.newPlot('sdg-chart-9', types.map(t => { const rows = recentEia.filter(r=>r.type_name===t); return {type:'scatter',mode:'lines',name:t,x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'전력 수요·공급 유형별 변화', margin:{t:50,r:20,b:80,l:70}, yaxis:{title:'MWh'}}, {responsive:true,displaylogo:false});
+  } catch (err) {
+    document.querySelectorAll('.sdg-chart').forEach(el => { if (!el.innerHTML) el.innerHTML = '<p>시각화 로드 실패: ' + err.message + '</p>'; });
+  }
+}
+drawSdgCharts();
+</script>
+'''
     body = f'''
 <p><a href="../index.html">← 전체 목록</a></p>
 <h1>지속가능발전(SDG) 주제 데이터 10가지</h1>
-<p>기존 추천 데이터 TOP 10과 별도로, 지속가능발전 수업에 바로 연결하기 쉬운 주제·데이터·활동을 분리했습니다. 일부는 현재 CSV로 제공되고, 일부는 다음 확장 후보 API입니다.</p>
+<p>기존 추천 데이터 TOP 10과 별도로, 지속가능발전 수업에 바로 연결하기 쉬운 주제·데이터·활동을 분리했습니다. 각 주제마다 Plotly 시각화를 붙여 데이터 탐색 흐름이 바로 보이도록 했습니다.</p>
 {''.join(cards)}
+{script}
 '''
     return layout("지속가능발전(SDG) 주제 데이터 10가지", body)
 

@@ -21,78 +21,155 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 
 <p><a href="../index.html">← 전체 목록</a></p>
 <h1>지속가능발전(SDG) 주제 데이터 10가지</h1>
-<p>기존 추천 데이터 TOP 10과 별도로, 지속가능발전 수업에 바로 연결하기 쉬운 주제·데이터·활동을 분리했습니다. 일부는 현재 CSV로 제공되고, 일부는 다음 확장 후보 API입니다.</p>
+<p>기존 추천 데이터 TOP 10과 별도로, 지속가능발전 수업에 바로 연결하기 쉬운 주제·데이터·활동을 분리했습니다. 각 주제마다 Plotly 시각화를 붙여 데이터 탐색 흐름이 바로 보이도록 했습니다.</p>
 
-<div class="card">
+<div class="card sdg-card">
   <h2>1. 우리 동네 미세먼지와 건강한 생활권</h2>
   <p><span class="badge">SDG 3 건강과 웰빙 · SDG 11 지속가능한 도시</span><span class="badge">인증: 불필요</span></p>
   <p><b>데이터:</b> Open-Meteo Air Quality / 서울 시간별 대기질</p>
   <p><b>수업 아이디어:</b> PM10·PM2.5 시간별 변화를 보고 등하교/야외활동 안내 대시보드 만들기</p>
   <p><a href="https://open-meteo.com/en/docs/air-quality-api">공식 문서/데이터 출처</a></p>
+  <div id="sdg-chart-0" class="sdg-chart"></div>
 </div>
-<div class="card">
+<div class="card sdg-card">
   <h2>2. 폭염일·열대야와 학교 에너지 사용</h2>
   <p><span class="badge">SDG 7 깨끗한 에너지 · SDG 13 기후행동</span><span class="badge">인증: 불필요</span></p>
   <p><b>데이터:</b> NASA POWER 서울 일별 기상/에너지</p>
   <p><b>수업 아이디어:</b> 기온·강수·풍속을 분석해 폭염 경보 기준과 냉방 에너지 절약 캠페인 설계</p>
   <p><a href="https://power.larc.nasa.gov/docs/services/api/">공식 문서/데이터 출처</a></p>
+  <div id="sdg-chart-1" class="sdg-chart"></div>
 </div>
-<div class="card">
+<div class="card sdg-card">
   <h2>3. 한국과 세계의 CO₂ 배출 변화</h2>
   <p><span class="badge">SDG 12 책임 있는 소비와 생산 · SDG 13 기후행동</span><span class="badge">인증: 불필요</span></p>
   <p><b>데이터:</b> Our World in Data CO₂ Grapher CSV</p>
   <p><b>수업 아이디어:</b> 한국/세계 CO₂ 배출량을 비교하고 1인당 감축 아이디어를 데이터 근거로 제안</p>
   <p><a href="https://docs.owid.io/projects/etl/api/">공식 문서/데이터 출처</a></p>
+  <div id="sdg-chart-2" class="sdg-chart"></div>
 </div>
-<div class="card">
+<div class="card sdg-card">
   <h2>4. 생물다양성 관측으로 보는 우리 주변 생태계</h2>
   <p><span class="badge">SDG 14 해양생태계 · SDG 15 육상생태계</span><span class="badge">인증: 불필요</span></p>
   <p><b>데이터:</b> GBIF 한국 생물종 관측</p>
   <p><b>수업 아이디어:</b> 한국 지도 위 관측 위치를 찍고 도시/해안/산림별 생물종 관측 차이 탐구</p>
   <p><a href="https://techdocs.gbif.org/en/openapi/">공식 문서/데이터 출처</a></p>
+  <div id="sdg-chart-3" class="sdg-chart"></div>
 </div>
-<div class="card">
+<div class="card sdg-card">
   <h2>5. 따릉이와 탄소 줄이는 통학·이동</h2>
   <p><span class="badge">SDG 9 산업·혁신·인프라 · SDG 11 지속가능한 도시</span><span class="badge">인증: 샘플키 가능 / 정식은 무료 키 권장</span></p>
   <p><b>데이터:</b> 서울 열린데이터광장 따릉이 실시간 대여정보</p>
   <p><b>수업 아이디어:</b> 대여소별 자전거 수를 시각화하고 짧은 거리 자동차 이동 대체 효과 추정</p>
   <p><a href="https://data.seoul.go.kr/">공식 문서/데이터 출처</a></p>
+  <div id="sdg-chart-4" class="sdg-chart"></div>
 </div>
-<div class="card">
+<div class="card sdg-card">
   <h2>6. 도시 혼잡도와 안전한 공공공간</h2>
   <p><span class="badge">SDG 10 불평등 감소 · SDG 11 지속가능한 도시</span><span class="badge">인증: 샘플키/무료키</span></p>
   <p><b>데이터:</b> 서울 실시간 도시데이터</p>
   <p><b>수업 아이디어:</b> 주요 장소 혼잡도를 비교해 안전한 방문 시간 추천 또는 행사 운영 아이디어 만들기</p>
   <p><a href="https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do">공식 문서/데이터 출처</a></p>
+  <div id="sdg-chart-5" class="sdg-chart"></div>
 </div>
-<div class="card">
+<div class="card sdg-card">
   <h2>7. 인구·교육·경제 지표로 보는 지속가능한 사회</h2>
   <p><span class="badge">SDG 4 양질의 교육 · SDG 8 양질의 일자리와 경제성장</span><span class="badge">인증: 불필요</span></p>
   <p><b>데이터:</b> World Bank 한국 지표</p>
   <p><b>수업 아이디어:</b> 인구·GDP·기대수명·교육 지표를 함께 보고 지속가능발전 지표 카드 만들기</p>
   <p><a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation">공식 문서/데이터 출처</a></p>
+  <div id="sdg-chart-6" class="sdg-chart"></div>
 </div>
-<div class="card">
+<div class="card sdg-card">
   <h2>8. 팩트풀니스 데이터 최신화: 오래된 상식 검증</h2>
   <p><span class="badge">SDG 1 빈곤 종식 · SDG 3 건강과 웰빙 · SDG 4 양질의 교육 · SDG 7 깨끗한 에너지</span><span class="badge">인증: 불필요</span></p>
   <p><b>데이터:</b> World Bank 최신 세계 지표 CSV: 기대수명, 5세 미만 사망률, 전기 접근성, 1인당 GDP, 초등교육 이수율</p>
   <p><b>수업 아이디어:</b> 학생 예상값을 먼저 적고 최신 데이터와 비교해 &#x27;세상은 생각보다 어떻게 달라졌나&#x27;를 시각화</p>
   <p><a href="https://www.gapminder.org/data/">공식 문서/데이터 출처</a></p>
+  <div id="sdg-chart-7" class="sdg-chart"></div>
 </div>
-<div class="card">
+<div class="card sdg-card">
   <h2>9. 물 사용량과 가뭄·절수 행동 데이터</h2>
   <p><span class="badge">SDG 6 깨끗한 물과 위생 · SDG 12 책임 있는 소비와 생산</span><span class="badge">인증: 데이터별 상이: 파일 다운로드 또는 공공데이터포털 키</span></p>
   <p><b>데이터:</b> 공공데이터포털/지자체 상수도 사용량·수질·가뭄 관련 데이터</p>
   <p><b>수업 아이디어:</b> 지역별 물 사용량·강수량·가뭄 정보를 비교하고 학교/가정 절수 캠페인 근거 만들기</p>
   <p><a href="https://www.data.go.kr/">공식 문서/데이터 출처</a></p>
+  <div id="sdg-chart-8" class="sdg-chart"></div>
 </div>
-<div class="card">
+<div class="card sdg-card">
   <h2>10. 전력 수요와 재생에너지 전환 토론</h2>
   <p><span class="badge">SDG 7 깨끗한 에너지 · SDG 13 기후행동</span><span class="badge">인증: DEMO_KEY 가능 / 안정 사용은 무료 키 권장</span></p>
   <p><b>데이터:</b> EIA Open Data 전력 일별 데이터</p>
   <p><b>수업 아이디어:</b> 전력 수요·공급 시계열을 보고 태양광/풍력 확대가 필요한 시간대 추론</p>
   <p><a href="https://www.eia.gov/opendata/documentation.php">공식 문서/데이터 출처</a></p>
+  <div id="sdg-chart-9" class="sdg-chart"></div>
 </div>
+
+<style>.sdg-chart{height:380px;margin-top:1rem}.sdg-card{break-inside:avoid}</style>
+<script>
+function parseCsvRows(text) {
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], n = text[i + 1];
+    if (ch === '"') { if (q && n === '"') { cell += '"'; i++; } else q = !q; }
+    else if (ch === ',' && !q) { row.push(cell); cell = ''; }
+    else if ((ch === '\n' || ch === '\r') && !q) { if (ch === '\r' && n === '\n') i++; row.push(cell); cell = ''; if (row.some(v => v !== '')) rows.push(row); row = []; }
+    else cell += ch;
+  }
+  row.push(cell); if (row.some(v => v !== '')) rows.push(row); return rows;
+}
+function toObjects(rows) { const h = rows[0] || []; return rows.slice(1).map(r => Object.fromEntries(h.map((k,i)=>[k,r[i] ?? '']))); }
+async function csv(path) { return toObjects(parseCsvRows(await fetch(path).then(r => { if (!r.ok) throw new Error(path + ' HTTP ' + r.status); return r.text(); }))); }
+function num(v) { const n = Number(v); return Number.isFinite(n) ? n : null; }
+function latestBy(rows, group, value) { const out = {}; rows.forEach(r => { const k = r[group]; if (!out[k] || String(r.date || r.time || r.Year) > String(out[k].date || out[k].time || out[k].Year)) out[k] = r; }); return Object.values(out).filter(r => num(r[value]) !== null); }
+async function drawSdgCharts() {
+  try {
+    const air = await csv('../data/open_meteo_seoul_air_quality_hourly.csv');
+    const airRecent = air.slice(-240);
+    Plotly.newPlot('sdg-chart-0', [
+      {type:'scatter',mode:'lines',name:'PM10',x:airRecent.map(r=>r.time),y:airRecent.map(r=>num(r.pm10))},
+      {type:'scatter',mode:'lines',name:'PM2.5',x:airRecent.map(r=>r.time),y:airRecent.map(r=>num(r.pm2_5))}
+    ], {title:'최근 시간대 서울 대기질 변화', margin:{t:50,r:20,b:80,l:55}, yaxis:{title:'㎍/m³'}}, {responsive:true,displaylogo:false});
+
+    const nasa = await csv('../data/nasa_power_seoul_daily.csv');
+    const nasaRecent = nasa.slice(-365);
+    Plotly.newPlot('sdg-chart-1', [
+      {type:'scatter',mode:'lines',name:'평균기온',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.temperature_2m_c))},
+      {type:'bar',name:'강수량',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),yaxis:'y2',opacity:.35}
+    ], {title:'최근 1년 서울 기온·강수', margin:{t:50,r:50,b:80,l:55}, yaxis:{title:'°C'}, yaxis2:{title:'mm/day',overlaying:'y',side:'right'}}, {responsive:true,displaylogo:false});
+
+    const co2 = await csv('../data/owid_co2_korea_world.csv');
+    const co2Groups = [...new Set(co2.map(r=>r.Entity))];
+    Plotly.newPlot('sdg-chart-2', co2Groups.map(g => { const rows = co2.filter(r=>r.Entity===g); return {type:'scatter',mode:'lines+markers',name:g,x:rows.map(r=>r.Year),y:rows.map(r=>num(r['Annual CO₂ emissions']))}; }), {title:'한국과 세계 CO₂ 배출량', margin:{t:50,r:20,b:60,l:70}, yaxis:{title:'tonnes'}}, {responsive:true,displaylogo:false});
+
+    const gbif = await csv('../data/gbif_korea_occurrences_sample.csv');
+    Plotly.newPlot('sdg-chart-3', [{type:'scattergeo',mode:'markers',lat:gbif.map(r=>num(r.decimalLatitude)),lon:gbif.map(r=>num(r.decimalLongitude)),text:gbif.map(r=>r.scientificName),marker:{size:7,opacity:.65,color:'#16a34a'}}], {title:'한국 생물종 관측 위치', margin:{t:50,r:20,b:20,l:20}, geo:{scope:'asia',projection:{type:'mercator'},lonaxis:{range:[124,132]},lataxis:{range:[33,39.5]},showland:true,landcolor:'#f6f8fa',showcountries:true}}, {responsive:true,displaylogo:false});
+
+    const bike = await csv('../data/seoul_bike_sample.csv');
+    Plotly.newPlot('sdg-chart-4', [{type:'bar',x:bike.map(r=>r.stationName),y:bike.map(r=>num(r.parkingBikeTotCnt)),marker:{color:'#0ea5e9'}}], {title:'따릉이 대여소별 현재 자전거 수', margin:{t:50,r:20,b:120,l:55}, yaxis:{title:'대수'}}, {responsive:true,displaylogo:false});
+
+    const countries = await csv('../data/restcountries_world_snapshot.csv');
+    Plotly.newPlot('sdg-chart-5', [{type:'scatter',mode:'markers',x:countries.map(r=>num(r.area)),y:countries.map(r=>num(r.population)),text:countries.map(r=>r.name),marker:{size:8,opacity:.6,color:'#6366f1'}}], {title:'국가별 면적·인구 비교로 보는 도시·인프라 압력', margin:{t:50,r:20,b:65,l:70}, xaxis:{title:'면적',type:'log'}, yaxis:{title:'인구',type:'log'}}, {responsive:true,displaylogo:false});
+
+    const wb = await csv('../data/worldbank_korea_indicators.csv');
+    const inds = [...new Set(wb.map(r=>r.indicator))];
+    Plotly.newPlot('sdg-chart-6', inds.map(ind => { const rows = wb.filter(r=>r.indicator===ind); return {type:'scatter',mode:'lines+markers',name:ind,x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'한국 주요 발전 지표 변화', margin:{t:50,r:20,b:70,l:70}}, {responsive:true,displaylogo:false});
+
+    const fact = await csv('../data/factfulness_global_indicators.csv');
+    const life = latestBy(fact.filter(r=>r.indicator_id==='SP.DYN.LE00.IN'), 'countryiso3code', 'value');
+    Plotly.newPlot('sdg-chart-7', [{type:'bar',x:life.map(r=>r.country),y:life.map(r=>num(r.value)),text:life.map(r=>r.date),marker:{color:'#f97316'}}], {title:'팩트풀니스: 최신 기대수명 비교', margin:{t:50,r:20,b:110,l:55}, yaxis:{title:'년'}}, {responsive:true,displaylogo:false});
+
+    Plotly.newPlot('sdg-chart-8', [{type:'bar',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),marker:{color:'#38bdf8'}}], {title:'물·가뭄 수업용: 서울 일별 강수량', margin:{t:50,r:20,b:80,l:55}, yaxis:{title:'mm/day'}}, {responsive:true,displaylogo:false});
+
+    const eia = await csv('../data/eia_california_electricity_daily.csv');
+    const recentEia = eia.slice(-600); const types = [...new Set(recentEia.map(r=>r.type_name))].slice(0,5);
+    Plotly.newPlot('sdg-chart-9', types.map(t => { const rows = recentEia.filter(r=>r.type_name===t); return {type:'scatter',mode:'lines',name:t,x:rows.map(r=>r.date),y:rows.map(r=>num(r.value))}; }), {title:'전력 수요·공급 유형별 변화', margin:{t:50,r:20,b:80,l:70}, yaxis:{title:'MWh'}}, {responsive:true,displaylogo:false});
+  } catch (err) {
+    document.querySelectorAll('.sdg-chart').forEach(el => { if (!el.innerHTML) el.innerHTML = '<p>시각화 로드 실패: ' + err.message + '</p>'; });
+  }
+}
+drawSdgCharts();
+</script>
+
 
 </body>
 </html>
