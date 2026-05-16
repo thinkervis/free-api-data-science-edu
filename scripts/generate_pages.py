@@ -21,7 +21,7 @@ DATASETS = [
         "source": "Open-Meteo Historical Weather API",
         "doc_url": "https://open-meteo.com/en/docs/historical-weather-api",
         "test_url": "https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&longitude=126.9780&start_date=2021-01-01&end_date=2021-01-03&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Asia%2FSeoul",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "높음",
         "streamlit": "높음",
         "note": "최근 5년치 CSV 기본 제공, --scope all로 가능한 전체 기간 요청 가능",
@@ -34,7 +34,7 @@ DATASETS = [
         "source": "Open-Meteo Air Quality API",
         "doc_url": "https://open-meteo.com/en/docs/air-quality-api",
         "test_url": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.5665&longitude=126.9780&hourly=pm10,pm2_5&start_date=2021-01-01&end_date=2021-01-03&timezone=Asia%2FSeoul",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "시간별 데이터라 CSV가 큼. Pico 2 WH + Grove Shield에서는 최근 몇 줄만 쓰는 예제로 권장",
@@ -47,7 +47,7 @@ DATASETS = [
         "source": "World Bank Indicators API",
         "doc_url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
         "test_url": "https://api.worldbank.org/v2/country/KOR/indicator/SP.POP.TOTL?format=json&date=2021:2025",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "인구/GDP/기대수명/중등교육 등록률 포함",
@@ -60,7 +60,7 @@ DATASETS = [
         "source": "World Bank Indicators API",
         "doc_url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
         "test_url": "https://api.worldbank.org/v2/country/KOR;USA;CHN;IND;BRA;NGA;SWE;WLD/indicator/SP.DYN.LE00.IN?format=json&per_page=20&date=2021:2026",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "팩트풀니스 수업용: 기대수명, 5세 미만 사망률, 전기 접근성, 1인당 GDP, 초등교육 이수율을 최신 World Bank 데이터로 다시 확인",
@@ -73,7 +73,7 @@ DATASETS = [
         "source": "USGS Earthquake API",
         "doc_url": "https://earthquake.usgs.gov/fdsnws/event/1/",
         "test_url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-01-01&endtime=2021-01-31&minmagnitude=6",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "지도 시각화/GeoJSON 수업에 적합",
@@ -86,7 +86,7 @@ DATASETS = [
         "source": "MLB Stats API",
         "doc_url": "https://github.com/toddrob99/MLB-StatsAPI/wiki",
         "test_url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2024-03-28",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "스코어보드, 승률, 팀별 득점 분석 가능",
@@ -112,7 +112,7 @@ DATASETS = [
         "source": "Our World in Data Grapher CSV",
         "doc_url": "https://docs.owid.io/projects/etl/api/",
         "test_url": "https://ourworldindata.org/grapher/annual-co2-emissions-per-country.csv",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "낮음",
         "streamlit": "높음",
         "note": "기본은 최근 5년, --scope all로 전체 역사 범위 필터 가능",
@@ -125,7 +125,7 @@ DATASETS = [
         "source": "GBIF Occurrence API",
         "doc_url": "https://techdocs.gbif.org/en/openapi/",
         "test_url": "https://api.gbif.org/v1/occurrence/search?country=KR&limit=3",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "낮음~중간",
         "streamlit": "높음",
         "note": "위치 기반 생물종 관측 지도 샘플. 기본 300건 제한",
@@ -138,7 +138,7 @@ DATASETS = [
         "source": "Art Institute of Chicago API",
         "doc_url": "https://api.artic.edu/docs/",
         "test_url": "https://api.artic.edu/api/v1/artworks/search?q=monet&fields=id,title,artist_title,date_display&limit=3",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "문화 데이터 검색/분류/카드 UI 예제로 적합",
@@ -151,7 +151,7 @@ DATASETS = [
         "source": "서울 열린데이터광장",
         "doc_url": "https://data.seoul.go.kr/",
         "test_url": "http://openapi.seoul.go.kr:8088/sample/json/bikeList/1/5/",
-        "auth": "샘플키 가능 / 정식은 무료 키 권장",
+        "auth": "샘플키 가능 · 안정 사용은 무료 API 키 권장",
         "pico": "중간",
         "streamlit": "높음",
         "note": "샘플키는 5건 제한. 정식키로 전체 대여소 자동화 가능",
@@ -164,7 +164,7 @@ DATASETS = [
         "source": "NASA POWER Daily API",
         "doc_url": "https://power.larc.nasa.gov/docs/services/api/",
         "test_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR&community=RE&longitude=126.9780&latitude=37.5665&start=20210101&end=20210105&format=JSON",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "public-apis 확장 후보에서 승격. 최근 5년치 기본, --scope all은 NASA POWER 일별 제공 시작 시점부터 요청",
@@ -190,7 +190,7 @@ DATASETS = [
         "source": "Nager.Date Public Holiday API",
         "doc_url": "https://date.nager.at/Api",
         "test_url": "https://date.nager.at/api/v3/PublicHolidays/2024/KR",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "높음",
         "streamlit": "높음",
         "note": "날짜/캘린더/지역 문화 수업에 적합. --scope all은 1970년 이후 연도별 조회",
@@ -203,7 +203,7 @@ DATASETS = [
         "source": "SpaceX API v5",
         "doc_url": "https://github.com/r-spacex/SpaceX-API/tree/master/docs",
         "test_url": "https://api.spacexdata.com/v5/launches/latest",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "최근 5년 발사 기록 기본. POST query로 기간 필터링하며 Pages에서는 CSV 직접 로드/시각화 제공",
@@ -216,7 +216,7 @@ DATASETS = [
         "source": "Frankfurter Exchange Rates API",
         "doc_url": "https://www.frankfurter.app/docs/",
         "test_url": "https://api.frankfurter.app/2021-01-01..2021-01-05?from=USD&to=KRW",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "환율 시계열/변화율 수업용. --scope all은 API 제공 시작 시점 이후",
@@ -229,7 +229,7 @@ DATASETS = [
         "source": "WHO Global Health Observatory API",
         "doc_url": "https://www.who.int/data/gho/info/gho-odata-api",
         "test_url": "https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27KOR%27&$top=5",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "보건/인구/국제비교 수업용. 최근 5년 범위에 값이 적을 수 있어 WHO 제공 연도 기준으로 검증",
@@ -242,7 +242,7 @@ DATASETS = [
         "source": "REST Countries API",
         "doc_url": "https://restcountries.com/",
         "test_url": "https://restcountries.com/v3.1/all?fields=name,cca3,region,population,area,latlng",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "시계열이 아닌 현재 스냅샷 데이터. 국가별 인구/면적/지역 비교와 지도 수업용",
@@ -255,7 +255,7 @@ DATASETS = [
         "source": "U.S. EIA Open Data API",
         "doc_url": "https://www.eia.gov/opendata/documentation.php",
         "test_url": "https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&data[0]=value&facets[respondent][]=CAL&start=2021-01-01&end=2021-01-05&sort[0][column]=period&sort[0][direction]=asc&api_key=DEMO_KEY",
-        "auth": "DEMO_KEY 가능 / 안정 사용은 무료 키 권장",
+        "auth": "DEMO_KEY 가능 · 안정 사용은 무료 API 키 권장",
         "pico": "중간",
         "streamlit": "높음",
         "note": "전력 수요/공급/에너지 데이터 수업용. DEMO_KEY 제한을 명시하고 무료 키 사용 권장",
@@ -268,7 +268,7 @@ DATASETS = [
         "source": "NOAA CO-OPS API",
         "doc_url": "https://api.tidesandcurrents.noaa.gov/api/prod/",
         "test_url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240501&end_date=20240503&station=9447130&product=water_level&datum=MLLW&time_zone=gmt&units=metric&format=json",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "해수면·조위 변화를 시간축으로 읽고 해안 도시와 기후 적응을 토론하는 수업용 샘플",
@@ -281,7 +281,7 @@ DATASETS = [
         "source": "UK Carbon Intensity API",
         "doc_url": "https://carbon-intensity.github.io/api-definitions/",
         "test_url": "https://api.carbonintensity.org.uk/intensity/date/2024-05-01",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "30분 단위 전력 탄소집약도를 보고 전기 사용 시간대와 탄소 배출의 관계를 탐구",
@@ -294,7 +294,7 @@ DATASETS = [
         "source": "Citi Bike GBFS",
         "doc_url": "https://www.citibikenyc.com/system-data",
         "test_url": "https://gbfs.citibikenyc.com/gbfs/en/station_status.json",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "자전거 대여소별 잔여 자전거와 거치대를 지도/막대그래프로 보고 도시 이동을 분석",
@@ -307,7 +307,7 @@ DATASETS = [
         "source": "Metropolitan Museum of Art Collection API",
         "doc_url": "https://metmuseum.github.io/",
         "test_url": "https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=sunflower",
-        "auth": "불필요",
+        "auth": "키 없음",
         "pico": "중간",
         "streamlit": "높음",
         "note": "작품 주제·제작연도·부서 메타데이터로 예술 데이터 검색과 분류 활동을 구성",
@@ -360,7 +360,7 @@ DATASETS = [
         "source": "서울 열린데이터광장 실시간 도시데이터",
         "doc_url": "https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do",
         "test_url": "http://openapi.seoul.go.kr:8088/sample/json/citydata/1/5/%EA%B4%91%ED%99%94%EB%AC%B8%C2%B7%EB%8D%95%EC%88%98%EA%B6%81",
-        "auth": "샘플키 가능 / 정식은 무료 키 권장",
+        "auth": "샘플키 가능 · 안정 사용은 무료 API 키 권장",
         "pico": "중간",
         "streamlit": "높음",
         "note": "서울 주요 장소의 혼잡도와 추정 인구를 비교해 안전한 방문 시간·도시 운영 질문으로 연결",
@@ -373,7 +373,7 @@ DATASETS = [
         "source": "서울 열린데이터광장 실시간 대기환경",
         "doc_url": "https://data.seoul.go.kr/",
         "test_url": "http://openapi.seoul.go.kr:8088/sample/json/RealtimeCityAir/1/5/",
-        "auth": "샘플키 가능 / 정식은 무료 키 권장",
+        "auth": "샘플키 가능 · 안정 사용은 무료 API 키 권장",
         "pico": "중간",
         "streamlit": "높음",
         "note": "권역·측정소별 PM10/PM2.5와 통합대기환경지수를 비교해 건강·환경 수업에 활용",
@@ -472,7 +472,7 @@ SDG_TOPICS = [
         "sdg": "SDG 3 건강과 웰빙 · SDG 11 지속가능한 도시",
         "data": "Open-Meteo Air Quality / 서울 시간별 대기질",
         "url": "https://open-meteo.com/en/docs/air-quality-api",
-        "auth": "불필요",
+        "auth": "키 없음",
         "activity": "PM10·PM2.5 시간별 변화를 보고 등하교/야외활동 안내 대시보드 만들기",
     },
     {
@@ -480,7 +480,7 @@ SDG_TOPICS = [
         "sdg": "SDG 7 깨끗한 에너지 · SDG 13 기후행동",
         "data": "NASA POWER 서울 일별 기상/에너지",
         "url": "https://power.larc.nasa.gov/docs/services/api/",
-        "auth": "불필요",
+        "auth": "키 없음",
         "activity": "기온·강수·풍속을 분석해 폭염 경보 기준과 냉방 에너지 절약 캠페인 설계",
     },
     {
@@ -488,7 +488,7 @@ SDG_TOPICS = [
         "sdg": "SDG 12 책임 있는 소비와 생산 · SDG 13 기후행동",
         "data": "Our World in Data CO₂ Grapher CSV",
         "url": "https://docs.owid.io/projects/etl/api/",
-        "auth": "불필요",
+        "auth": "키 없음",
         "activity": "한국/세계 CO₂ 배출량을 비교하고 1인당 감축 아이디어를 데이터 근거로 제안",
     },
     {
@@ -496,7 +496,7 @@ SDG_TOPICS = [
         "sdg": "SDG 14 해양생태계 · SDG 15 육상생태계",
         "data": "GBIF 한국 생물종 관측",
         "url": "https://techdocs.gbif.org/en/openapi/",
-        "auth": "불필요",
+        "auth": "키 없음",
         "activity": "한국 지도 위 관측 위치를 찍고 도시/해안/산림별 생물종 관측 차이 탐구",
     },
     {
@@ -504,7 +504,7 @@ SDG_TOPICS = [
         "sdg": "SDG 9 산업·혁신·인프라 · SDG 11 지속가능한 도시",
         "data": "서울 열린데이터광장 따릉이 실시간 대여정보",
         "url": "https://data.seoul.go.kr/",
-        "auth": "샘플키 가능 / 정식은 무료 키 권장",
+        "auth": "샘플키 가능 · 안정 사용은 무료 API 키 권장",
         "activity": "대여소별 자전거 수를 시각화하고 짧은 거리 자동차 이동 대체 효과 추정",
     },
     {
@@ -512,7 +512,7 @@ SDG_TOPICS = [
         "sdg": "SDG 10 불평등 감소 · SDG 11 지속가능한 도시",
         "data": "서울 실시간 도시데이터",
         "url": "https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do",
-        "auth": "샘플키/무료키",
+        "auth": "샘플키 가능 · 무료 API 키 권장",
         "activity": "주요 장소 혼잡도를 비교해 안전한 방문 시간 추천 또는 행사 운영 아이디어 만들기",
     },
     {
@@ -520,7 +520,7 @@ SDG_TOPICS = [
         "sdg": "SDG 4 양질의 교육 · SDG 8 양질의 일자리와 경제성장",
         "data": "World Bank 한국 지표",
         "url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
-        "auth": "불필요",
+        "auth": "키 없음",
         "activity": "인구·GDP·기대수명·교육 지표를 함께 보고 지속가능발전 지표 카드 만들기",
     },
     {
@@ -528,7 +528,7 @@ SDG_TOPICS = [
         "sdg": "SDG 1 빈곤 종식 · SDG 3 건강과 웰빙 · SDG 4 양질의 교육 · SDG 7 깨끗한 에너지",
         "data": "World Bank 최신 세계 지표 CSV: 기대수명, 5세 미만 사망률, 전기 접근성, 1인당 GDP, 초등교육 이수율",
         "url": "https://www.gapminder.org/data/",
-        "auth": "불필요",
+        "auth": "키 없음",
         "activity": "학생 예상값을 먼저 적고 최신 데이터와 비교해 '세상은 생각보다 어떻게 달라졌나'를 시각화",
     },
     {
@@ -536,7 +536,7 @@ SDG_TOPICS = [
         "sdg": "SDG 6 깨끗한 물과 위생 · SDG 12 책임 있는 소비와 생산",
         "data": "공공데이터포털/지자체 상수도 사용량·수질·가뭄 관련 데이터",
         "url": "https://www.data.go.kr/",
-        "auth": "데이터별 상이: 파일 다운로드 또는 공공데이터포털 키",
+        "auth": "이용 조건은 데이터별 상이 · 일부는 파일 다운로드, 일부는 공공데이터포털 API 키 필요",
         "activity": "지역별 물 사용량·강수량·가뭄 정보를 비교하고 학교/가정 절수 캠페인 근거 만들기",
     },
     {
@@ -544,7 +544,7 @@ SDG_TOPICS = [
         "sdg": "SDG 7 깨끗한 에너지 · SDG 13 기후행동",
         "data": "EIA Open Data 전력 일별 데이터",
         "url": "https://www.eia.gov/opendata/documentation.php",
-        "auth": "DEMO_KEY 가능 / 안정 사용은 무료 키 권장",
+        "auth": "DEMO_KEY 가능 · 안정 사용은 무료 API 키 권장",
         "activity": "전력 수요·공급 시계열을 보고 태양광/풍력 확대가 필요한 시간대 추론",
     },
 ]
@@ -704,19 +704,19 @@ def layout(title: str, body: str) -> str:
 <style>
 * {{ box-sizing: border-box; }}
 html {{ overflow-x: hidden; }}
-body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: clamp(1rem, 4vw, 2rem); line-height: 1.6; max-width: 1120px; overflow-x: hidden; }}
-a {{ color: #0969da; overflow-wrap: anywhere; }}
-h1, h2, h3, p, li, div {{ overflow-wrap: anywhere; word-break: keep-all; }}
+body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: clamp(1rem, 4vw, 2rem); line-height: 1.6; max-width: 1120px; overflow-x: hidden; padding-bottom: 4rem; }}
+a {{ color: #0969da; overflow-wrap: anywhere; word-break: break-word; }}
+h1, h2, h3, p, li, div {{ overflow-wrap: anywhere; word-break: normal; }}
 .card {{ border: 1px solid #d0d7de; border-radius: 12px; padding: 1rem; margin: 1rem 0; max-width: 100%; min-width: 0; }}
 select, button {{ max-width: 100%; }}
 label {{ max-width: 100%; }}
 table {{ border-collapse: collapse; width: 100%; overflow-x: auto; display: block; }}
 th, td {{ border: 1px solid #d0d7de; padding: .4rem .6rem; font-size: .9rem; }}
 th {{ background: #f6f8fa; }}
-pre {{ background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 8px; }}
-.badge {{ display: inline-block; background: #eef; border-radius: 999px; padding: .15rem .55rem; margin-right: .25rem; }}
+pre {{ background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 8px; max-width: 100%; }} code, pre {{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }}
+.badge {{ display: inline-block; background: #eef; border-radius: 12px; padding: .15rem .55rem; margin: 0 .25rem .25rem 0; max-width: 100%; white-space: normal; line-height: 1.35; vertical-align: top; overflow-wrap: anywhere; word-break: break-word; }}
 button {{ padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; background: white; cursor: pointer; }}
-@media (max-width: 760px) {{ body {{ width: auto; max-width: none; margin: .75rem; }} select, button {{ width: 100%; }} label {{ display: block; margin: .45rem 0; }} .js-plotly-plot, .plot-container, .svg-container {{ max-width: 100% !important; }} }}
+@media (max-width: 760px) {{ body {{ width: auto; max-width: none; margin: .5rem; font-size: 15px; }} h1 {{ font-size:1.45rem; line-height:1.28; }} select, button {{ width: 100%; }} label {{ display: block; margin: .45rem 0; }} .js-plotly-plot, .plot-container, .svg-container {{ max-width: 100% !important; }} }}
 .dataset-toolbar {{ display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin: 1rem 0; }}
 .dataset-card {{ position: relative; }}
 .like-button {{ border-color: #ffb3c1; color: #c9184a; font-weight: 700; }}
@@ -777,8 +777,9 @@ function column(rows, name) { const headers = rows[0] || []; const idx = headers
 function numericColumn(rows, name, cfg={}) {
   return column(rows, name).map(v => Number(v)).map(v => {
     if (!Number.isFinite(v)) return null;
-    if (cfg.invalid_below !== undefined && v <= cfg.invalid_below) return null;
-    return v;
+    if (cfg.invalid_below !== undefined && n <= cfg.invalid_below) return null;
+    if (n <= -900) return null;
+    return n;
   });
 }
 function limitedRows(rows, maxPoints) { if (!maxPoints || rows.length <= maxPoints + 1) return rows; return [rows[0]].concat(rows.slice(-maxPoints)); }
@@ -876,7 +877,7 @@ def dataset_page(ds: dict[str, str]) -> str:
     body = f'''
 <p><a href="../index.html">← 전체 목록</a></p>
 <h1>{html.escape(ds['title'])}</h1>
-<p><span class="badge">{html.escape(ds['category'])}</span><span class="badge">인증: {html.escape(ds['auth'])}</span><span class="badge">행 수: {count}</span></p>
+<p><span class="badge">{html.escape(ds['category'])}</span><span class="badge">이용 조건: {html.escape(ds['auth'])}</span><span class="badge">행 수: {count}</span></p>
 <div class="card">
   <p><b>원천:</b> {html.escape(ds['source'])}</p>
   <p><b>설명:</b> {html.escape(ds['note'])}</p>
@@ -929,6 +930,61 @@ def svg_map_examples_page() -> str:
   <div id="point-map" style="height:600px"></div>
   <div id="point-preview"></div>
 </div>
+<div class="card">
+  <h2>3) 데이터 출처와 선택 이유</h2>
+  <table>
+    <thead><tr><th>유형</th><th>사용 자료</th><th>원본/출처</th><th>수업 포인트</th></tr></thead>
+    <tbody>
+      <tr><td>전국 광역시도 경계</td><td><code>skorea_provinces_geo_simple.json</code></td><td><a href="https://github.com/southkorea/southkorea-maps">southkorea/southkorea-maps</a> · KOSTAT 센서스 경계 기반</td><td>경계 파일의 지역명과 통계 CSV의 지역명을 매칭</td></tr>
+      <tr><td>서울 구 경계</td><td><code>seoul_municipalities_geo_simple.json</code></td><td><a href="https://github.com/southkorea/seoul-maps">southkorea/seoul-maps</a> · KOSTAT 2013</td><td>25개 구가 모두 1:1로 매칭되는지 확인</td></tr>
+      <tr><td>서울 동 경계</td><td><code>seoul_neighborhoods_geo_simple.json</code></td><td><a href="https://github.com/southkorea/seoul-maps">southkorea/seoul-maps</a> · JUSO 2015</td><td>동 단위는 명칭·개편 이력이 있어 매칭 전처리가 중요</td></tr>
+      <tr><td>인구/면적</td><td><code>seoul_district_wikidata_population.csv</code>, <code>korea_sido_wikidata_population.csv</code></td><td><a href="https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service">Wikidata SPARQL</a> P1082/P2046. 공식 인구 수업 확장은 <a href="https://jumin.mois.go.kr/">행정안전부 주민등록 인구통계</a> 권장</td><td>출처별 최신성·공식성·재현성을 비교</td></tr>
+      <tr><td>위치점 데이터</td><td>지진, 병원, 자전거, 생물종 등 위경도 CSV</td><td>각 데이터셋 상세 페이지의 공식 API 링크</td><td>경계 데이터가 아니라 좌표 데이터이므로 점 지도가 적합</td></tr>
+    </tbody>
+  </table>
+  <p class="small-muted">주의: 현재 인구 CSV는 키 없이 재현 가능한 공개 지식그래프 샘플입니다. 공식 행정 수업에서는 행정안전부 주민등록 인구통계 CSV를 내려받아 같은 열 이름으로 바꾸면 동일 코드로 교체할 수 있습니다.</p>
+</div>
+<div class="card">
+  <h2>4) 수업용 샘플 코드</h2>
+  <h3>Python/pandas: 행정구역 데이터 매칭 확인</h3>
+  <pre><code>import pandas as pd
+
+pop = pd.read_csv("https://thinkervis.github.io/free-api-data-science-edu/data/seoul_district_wikidata_population.csv")
+print(pop.head())
+print("구 개수:", pop["district"].nunique())
+
+# 수업 질문: 인구밀도가 가장 높은 구와 낮은 구는?
+print(pop.sort_values("population_density_per_km2", ascending=False)[["district", "population_density_per_km2"]].head())
+print(pop.sort_values("population_density_per_km2")[["district", "population_density_per_km2"]].head())</code></pre>
+  <h3>Python/Plotly: 간단한 막대그래프로 먼저 읽기</h3>
+  <pre><code>import pandas as pd
+import plotly.express as px
+
+url = "https://thinkervis.github.io/free-api-data-science-edu/data/korea_sido_wikidata_population.csv"
+df = pd.read_csv(url)
+fig = px.bar(df.sort_values("population"), x="population", y="region", orientation="h",
+             title="전국 광역시도별 인구")
+fig.show()</code></pre>
+  <h3>JavaScript: CSV를 읽어 지도 색상에 연결하는 핵심 구조</h3>
+  <pre><code>const rows = await fetch("../data/seoul_district_wikidata_population.csv")
+  .then(r =&gt; r.text())
+  .then(parseCsvRows)
+  .then(toObjects);
+
+// 핵심: 경계 파일의 properties.name과 CSV의 district가 같아야 색칠 가능
+const rowByDistrict = Object.fromEntries(rows.map(r =&gt; [r.district, r]));
+const value = Number(rowByDistrict["강남구"].population_density_per_km2);</code></pre>
+</div>
+<div class="card">
+  <h2>5) 수업 활동 예시</h2>
+  <ol>
+    <li><b>데이터 유형 분류:</b> 이 데이터는 행정구역 통계인가, 위경도 위치점인가?</li>
+    <li><b>매칭 검증:</b> 경계 파일의 지역명과 CSV 지역명이 모두 일치하는지 확인한다.</li>
+    <li><b>해석:</b> 인구가 많은 지역과 인구밀도가 높은 지역은 왜 다를까?</li>
+    <li><b>출처 토론:</b> Wikidata와 행정안전부 주민등록 인구통계 중 어떤 자료가 더 적합한가?</li>
+    <li><b>확장 과제:</b> 행정안전부 CSV를 내려받아 같은 지도에 공식 최신 인구로 교체한다.</li>
+  </ol>
+</div>
 <style>
 .real-svg-map{border:1px solid #d0d7de;border-radius:12px;padding:clamp(.25rem,1.5vw,.75rem);overflow:hidden;background:#f6f8fa;max-width:100%}.real-svg-map svg{display:block;width:100%;max-width:100%;height:auto}.boundary-svg{touch-action:manipulation}.boundary-region{cursor:pointer}.boundary-region:hover{stroke:#24292f;stroke-width:2}.small-muted{color:#6e7781;font-size:.95rem}#point-map{border:1px solid #d0d7de;border-radius:12px;overflow:hidden}#point-preview table{margin-top:1rem}.map-hit{stroke:#24292f!important;stroke-width:.6!important;cursor:pointer}.map-muted{fill:#eaeef2!important;stroke:#fff!important;stroke-width:.5!important}
 @media(max-width:760px){#point-map,#boundary-plot{height:420px!important}.card{padding:.8rem}button{margin-top:.35rem}#svg-legend div{flex-wrap:wrap}#svg-legend span:nth-child(2){width:120px!important}}
@@ -953,7 +1009,7 @@ const POINT_DATASETS = [
 function parseCsvRows(text){const rows=[];let row=[],cell='',q=false;for(let i=0;i<text.length;i++){const ch=text[i],n=text[i+1];if(ch==='"'){if(q&&n==='"'){cell+='"';i++;}else q=!q;}else if(ch===','&&!q){row.push(cell);cell='';}else if((ch==='\n'||ch==='\r')&&!q){if(ch==='\r'&&n==='\n')i++;row.push(cell);cell='';if(row.some(v=>v!==''))rows.push(row);row=[];}else cell+=ch;}row.push(cell);if(row.some(v=>v!==''))rows.push(row);return rows;}
 function toObjects(rows){const h=rows[0]||[];return rows.slice(1).map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]??''])))}
 async function csv(path){return toObjects(parseCsvRows(await fetch(path).then(r=>{if(!r.ok)throw new Error(path+' HTTP '+r.status);return r.text();})))}
-function num(v){const n=Number(v);return Number.isFinite(n)?n:null;}
+function num(v){if(v===null||v===undefined||String(v).trim()==='')return null;const n=Number(v);return Number.isFinite(n)&&n>-900?n:null;}
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function colorScale(v,min,max){if(v===null)return '#eaeef2';const t=max===min?.7:(v-min)/(max-min);const r=Math.round(255-(255-9)*t),g=Math.round(245-(245-105)*t),b=Math.round(235-(235-218)*t);return `rgb(${r},${g},${b})`;}
 function geoBounds(geo){
@@ -1041,14 +1097,15 @@ def sdg_topics_page() -> str:
         cards.append(f'''
 <div class="card sdg-card">
   <h2>{i}. {html.escape(item['title'])}</h2>
-  <p><span class="badge">{html.escape(item['sdg'])}</span><span class="badge">인증: {html.escape(item['auth'])}</span></p>
+  <p><span class="badge">{html.escape(item['sdg'])}</span><span class="badge">이용 조건: {html.escape(item['auth'])}</span></p>
   <p><b>데이터:</b> {html.escape(item['data'])}</p>
+  <p><b>출처 확인:</b> <a href="{html.escape(item['url'])}">{html.escape(item['data'])} 원본/문서</a></p>
   <p><b>수업 아이디어:</b> {html.escape(item['activity'])}</p>
-  <p><a href="{html.escape(item['url'])}">공식 문서/데이터 출처</a></p>
+  <p class="small-muted">그래프는 결측값(빈 값, -999/-1000 계열)을 제외하고 그립니다. 학생에게 “왜 결측값을 0으로 그리면 안 되는가?”를 함께 질문해 보세요.</p>
   <div id="sdg-chart-{i-1}" class="sdg-chart"></div>
 </div>''')
     script = r'''
-<style>.sdg-chart{height:380px;margin-top:1rem}.sdg-card{break-inside:avoid}</style>
+<style>.sdg-chart{height:380px;margin-top:1rem}.sdg-card{break-inside:avoid}.sdg-card .badge{margin-bottom:.25rem}@media(max-width:760px){.sdg-chart{height:340px}.sdg-card h2{font-size:1.18rem;line-height:1.35}.sdg-card .badge{font-size:.78rem;display:inline-block;max-width:100%;overflow-wrap:anywhere;word-break:break-word}.sdg-chart .legend{font-size:10px}}</style>
 <script>
 function parseCsvRows(text) {
   const rows = []; let row = [], cell = '', q = false;
@@ -1063,13 +1120,14 @@ function parseCsvRows(text) {
 }
 function toObjects(rows) { const h = rows[0] || []; return rows.slice(1).map(r => Object.fromEntries(h.map((k,i)=>[k,r[i] ?? '']))); }
 async function csv(path) { return toObjects(parseCsvRows(await fetch(path).then(r => { if (!r.ok) throw new Error(path + ' HTTP ' + r.status); return r.text(); }))); }
-function num(v) { const n = Number(v); return Number.isFinite(n) ? n : null; }
+function num(v) { if (v === null || v === undefined || String(v).trim() === '') return null; const n = Number(v); return Number.isFinite(n) && n > -900 ? n : null; }
 const LABEL_KO = {
   'South Korea':'한국', World:'세계', 'GDP (current US$)':'GDP(현재 US$)', 'Life expectancy at birth, total (years)':'기대수명(년)', 'Population, total':'총인구', 'School enrollment, secondary (% gross)':'중등교육 등록률(%)',
   'Day-ahead demand forecast':'하루 전 수요 예측', Demand:'전력 수요', 'Net generation':'순발전량', 'Total interchange':'총 전력 교환량'
 };
 function koLabel(value){ return LABEL_KO[value] || value; }
 const PLOT_CONFIG = {responsive:true, displaylogo:false, displayModeBar:false};
+function mobileLayout(extra={}) { const mobile = window.innerWidth < 760; return Object.assign({legend:{orientation: mobile ? 'h' : 'v', x:0, y: mobile ? -0.25 : 1.05}, font:{size: mobile ? 10 : 12}}, extra); }
 function validRows(rows, valueField) { return rows.filter(r => num(r[valueField]) !== null); }
 function indexRows(rows, valueField) {
   const clean = validRows(rows, valueField);
@@ -1085,14 +1143,14 @@ async function drawSdgCharts() {
     Plotly.newPlot('sdg-chart-0', [
       {type:'scatter',mode:'lines',name:'PM10',x:airRecent.map(r=>r.time),y:airRecent.map(r=>num(r.pm10))},
       {type:'scatter',mode:'lines',name:'PM2.5',x:airRecent.map(r=>r.time),y:airRecent.map(r=>num(r.pm2_5))}
-    ], {title:'최근 시간대 서울 대기질 변화', margin:{t:50,r:20,b:80,l:55}, yaxis:{title:'㎍/m³'}}, PLOT_CONFIG);
+    ], mobileLayout({title:'최근 시간대 서울 대기질 변화', margin:{t:50,r:20,b:90,l:50}, yaxis:{title:'㎍/m³'}, xaxis:{nticks:5}}), PLOT_CONFIG);
 
     const nasa = await csv('../data/nasa_power_seoul_daily.csv');
     const nasaRecent = nasa.slice(-365);
     Plotly.newPlot('sdg-chart-1', [
       {type:'scatter',mode:'lines',name:'평균기온',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.temperature_2m_c))},
       {type:'bar',name:'강수량',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),yaxis:'y2',opacity:.35}
-    ], {title:'최근 1년 서울 기온·강수', margin:{t:50,r:50,b:80,l:55}, yaxis:{title:'°C'}, yaxis2:{title:'mm/day',overlaying:'y',side:'right'}}, PLOT_CONFIG);
+    ], mobileLayout({title:'최근 1년 서울 기온·강수', margin:{t:50,r:45,b:95,l:45}, yaxis:{title:'°C'}, yaxis2:{title:'mm/day',overlaying:'y',side:'right'}, xaxis:{nticks:5}}), PLOT_CONFIG);
 
     const co2 = await csv('../data/owid_co2_korea_world.csv');
     const co2Groups = [...new Set(co2.map(r=>r.Entity))];
@@ -1121,7 +1179,7 @@ async function drawSdgCharts() {
     const life = latestBy(fact.filter(r=>r.indicator_id==='SP.DYN.LE00.IN'), 'countryiso3code', 'value');
     Plotly.newPlot('sdg-chart-7', [{type:'bar',x:life.map(r=>koLabel(r.country)),y:life.map(r=>num(r.value)),text:life.map(r=>r.date),marker:{color:'#f97316'}}], {title:'팩트풀니스: 최신 기대수명 비교', margin:{t:50,r:20,b:110,l:55}, yaxis:{title:'년'}}, PLOT_CONFIG);
 
-    Plotly.newPlot('sdg-chart-8', [{type:'bar',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),marker:{color:'#38bdf8'}}], {title:'물·가뭄 수업용: 서울 일별 강수량', margin:{t:50,r:20,b:80,l:55}, yaxis:{title:'mm/일'}}, PLOT_CONFIG);
+    Plotly.newPlot('sdg-chart-8', [{type:'bar',x:nasaRecent.map(r=>r.date),y:nasaRecent.map(r=>num(r.precipitation_mm_day)),marker:{color:'#38bdf8'}}], mobileLayout({title:'물·가뭄 수업용: 서울 일별 강수량', margin:{t:50,r:20,b:90,l:50}, yaxis:{title:'mm/일', rangemode:'tozero'}, xaxis:{nticks:5}}), PLOT_CONFIG);
 
     const eia = await csv('../data/eia_california_electricity_daily.csv');
     const recentEia = eia.slice(-600); const types = [...new Set(recentEia.map(r=>r.type_name))].slice(0,5);
@@ -1234,6 +1292,7 @@ const CSV_URL = '../data/factfulness_global_indicators.csv';
 const COUNTRIES = ['KOR','WLD','IND','NGA','SWE'];
 const COUNTRY_LABELS = {KOR:'한국', WLD:'세계', IND:'인도', NGA:'나이지리아', SWE:'스웨덴'};
 const PLOT_CONFIG = {responsive:true, displaylogo:false, displayModeBar:false};
+function mobileLayout(extra={}) { const mobile = window.innerWidth < 760; return Object.assign({legend:{orientation: mobile ? 'h' : 'v', x:0, y: mobile ? -0.25 : 1.05}, font:{size: mobile ? 10 : 12}}, extra); }
 const INDICATOR_LABELS = {
   'Access to electricity (% of population)':'전기 접근성(인구 %)',
   'GDP per capita (current US$)':'1인당 GDP(현재 US$)',
@@ -1381,7 +1440,7 @@ def main() -> None:
 </div>
 <div id="dataset-cards"></div>
 <h2>추가 API 후보</h2>
-<table><thead><tr><th>이름</th><th>분야</th><th>인증</th><th>공식 문서</th></tr></thead><tbody>{more_rows}</tbody></table>
+<table><thead><tr><th>이름</th><th>분야</th><th>이용 조건</th><th>공식 문서</th></tr></thead><tbody>{more_rows}</tbody></table>
 '''
     (DOCS / "index.html").write_text(layout("무료 데이터 과학 교육 API & CSV", index + supabase_config_script() + likes_script()), encoding="utf-8")
     (DOCS / "datasets.json").write_text(json.dumps(DATASETS, ensure_ascii=False, indent=2), encoding="utf-8")

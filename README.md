@@ -78,9 +78,15 @@ python3 scripts/generate_pages.py
 python3 scripts/validate_datasets.py
 ```
 
-## 실 지도 시각화
+## 실 지도 시각화와 수업 샘플
 
-`examples/svg-map-visualization.html`은 위키미디어 커먼즈의 실제 대한민국 행정구역 SVG와 배포 CSV의 실제 좌표/지표 데이터를 사용합니다. SVG 원본과 라이선스 정보는 `docs/assets/administrative-divisions-south-korea.SOURCE.txt`에 기록했습니다.
+`examples/svg-map-visualization.html`은 데이터 유형별 지도 수업 샘플입니다.
+
+- 행정구역 통계: 전국 광역시도, 서울 구별, 서울 동별 경계 지도
+- 위치점 데이터: 지진, 병원, 자전거, 생물종 등 위경도 점 지도
+- 수업 자료: 데이터 출처 표, pandas/Plotly/JavaScript 샘플 코드, 학생 활동 질문
+
+경계 원본과 라이선스/출처 정보는 `docs/assets/*.SOURCE.txt`에 기록했습니다. 현재 인구 CSV는 키 없이 재현 가능한 Wikidata 샘플이며, 공식 통계 수업에서는 행정안전부 주민등록 인구통계(`https://jumin.mois.go.kr/`) CSV로 교체하는 확장 과제를 권장합니다.
 
 ## 좋아요 순위 기능
 

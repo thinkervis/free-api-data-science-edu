@@ -7,19 +7,19 @@
 <style>
 * { box-sizing: border-box; }
 html { overflow-x: hidden; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: clamp(1rem, 4vw, 2rem); line-height: 1.6; max-width: 1120px; overflow-x: hidden; }
-a { color: #0969da; overflow-wrap: anywhere; }
-h1, h2, h3, p, li, div { overflow-wrap: anywhere; word-break: keep-all; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: clamp(1rem, 4vw, 2rem); line-height: 1.6; max-width: 1120px; overflow-x: hidden; padding-bottom: 4rem; }
+a { color: #0969da; overflow-wrap: anywhere; word-break: break-word; }
+h1, h2, h3, p, li, div { overflow-wrap: anywhere; word-break: normal; }
 .card { border: 1px solid #d0d7de; border-radius: 12px; padding: 1rem; margin: 1rem 0; max-width: 100%; min-width: 0; }
 select, button { max-width: 100%; }
 label { max-width: 100%; }
 table { border-collapse: collapse; width: 100%; overflow-x: auto; display: block; }
 th, td { border: 1px solid #d0d7de; padding: .4rem .6rem; font-size: .9rem; }
 th { background: #f6f8fa; }
-pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 8px; }
-.badge { display: inline-block; background: #eef; border-radius: 999px; padding: .15rem .55rem; margin-right: .25rem; }
+pre { background: #f6f8fa; padding: 1rem; overflow-x: auto; border-radius: 8px; max-width: 100%; } code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.badge { display: inline-block; background: #eef; border-radius: 12px; padding: .15rem .55rem; margin: 0 .25rem .25rem 0; max-width: 100%; white-space: normal; line-height: 1.35; vertical-align: top; overflow-wrap: anywhere; word-break: break-word; }
 button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; background: white; cursor: pointer; }
-@media (max-width: 760px) { body { width: auto; max-width: none; margin: .75rem; } select, button { width: 100%; } label { display: block; margin: .45rem 0; } .js-plotly-plot, .plot-container, .svg-container { max-width: 100% !important; } }
+@media (max-width: 760px) { body { width: auto; max-width: none; margin: .5rem; font-size: 15px; } h1 { font-size:1.45rem; line-height:1.28; } select, button { width: 100%; } label { display: block; margin: .45rem 0; } .js-plotly-plot, .plot-container, .svg-container { max-width: 100% !important; } }
 .dataset-toolbar { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin: 1rem 0; }
 .dataset-card { position: relative; }
 .like-button { border-color: #ffb3c1; color: #c9184a; font-weight: 700; }
@@ -32,7 +32,7 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 
 <p><a href="../index.html">← 전체 목록</a></p>
 <h1>서울 실시간 도시데이터 샘플</h1>
-<p><span class="badge">도시/혼잡도/안전</span><span class="badge">인증: 샘플키 가능 / 정식은 무료 키 권장</span><span class="badge">행 수: 5</span></p>
+<p><span class="badge">도시/혼잡도/안전</span><span class="badge">이용 조건: 샘플키 가능 · 안정 사용은 무료 API 키 권장</span><span class="badge">행 수: 5</span></p>
 <div class="card">
   <p><b>원천:</b> 서울 열린데이터광장 실시간 도시데이터</p>
   <p><b>설명:</b> 서울 주요 장소의 혼잡도와 추정 인구를 비교해 안전한 방문 시간·도시 운영 질문으로 연결</p>
@@ -141,8 +141,9 @@ function column(rows, name) { const headers = rows[0] || []; const idx = headers
 function numericColumn(rows, name, cfg={}) {
   return column(rows, name).map(v => Number(v)).map(v => {
     if (!Number.isFinite(v)) return null;
-    if (cfg.invalid_below !== undefined && v <= cfg.invalid_below) return null;
-    return v;
+    if (cfg.invalid_below !== undefined && n <= cfg.invalid_below) return null;
+    if (n <= -900) return null;
+    return n;
   });
 }
 function limitedRows(rows, maxPoints) { if (!maxPoints || rows.length <= maxPoints + 1) return rows; return [rows[0]].concat(rows.slice(-maxPoints)); }
