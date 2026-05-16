@@ -255,3 +255,12 @@ gh run list --limit 5
 - `audits/public_apis_catalog.csv`: public-apis 전체 파싱 목록
 - `audits/public_apis_education_candidates.csv`: 교육 후보 1차 필터
 - `hardware/pico2wh-grove-shield.md`: Pico 2 WH + Grove Shield 기준
+
+## 14. 추천/TOP 10 선정 기준
+
+데이터 추천 목록은 작업자가 임의로 확정하지 않는다.
+
+- 교육적 활용도가 높아 보이는 목록은 “추천 후보”로만 표시한다.
+- 최종 “TOP 10” 명칭은 운영자 확인 후 사용한다.
+- 애매한 데이터는 Slack/Issue에서 논의한 뒤 확정한다.
+- 선정 기준은 수업 활용성, 데이터 안정성, 시각화 품질, Pico 2 WH 활용 가능성, 인증 부담을 함께 본다.

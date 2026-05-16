@@ -250,12 +250,12 @@ DATASETS = [
 
 ]
 
-TOP10_DATASET_IDS = [
+RECOMMENDED_CANDIDATE_IDS = [
     "open-meteo-weather", "open-meteo-air-quality", "nasa-power-seoul", "usgs-earthquakes", "frankfurter-usd-krw",
     "worldbank-korea", "restcountries-world", "nager-korea-holidays", "spacex-launches", "gbif-korea",
 ]
 
-TOP10_REASONS = {
+RECOMMENDED_CANDIDATE_REASONS = {
     "open-meteo-weather": "날씨 시계열·그래프·평균/최댓값 비교 수업에 가장 쉽게 활용",
     "open-meteo-air-quality": "미세먼지와 환경 데이터 탐구에 적합",
     "nasa-power-seoul": "NASA 공식 데이터로 기상·에너지·태양광 주제 연결 가능",
@@ -555,18 +555,19 @@ def main() -> None:
 
     more_rows = "".join(f"<tr><td>{html.escape(a)}</td><td>{html.escape(b)}</td><td>{html.escape(c)}</td><td><a href='{html.escape(d)}'>문서</a></td></tr>" for a, b, c, d in MORE_CANDIDATES)
     by_id = {ds["id"]: ds for ds in DATASETS}
-    top10_items = []
-    for rank, dataset_id in enumerate(TOP10_DATASET_IDS, start=1):
+    recommended_items = []
+    for rank, dataset_id in enumerate(RECOMMENDED_CANDIDATE_IDS, start=1):
         ds = by_id[dataset_id]
         _, _, count = read_preview(ds["csv"])
-        top10_items.append(f"""<li><b>{rank}. <a href="datasets/{ds['id']}.html">{html.escape(ds['title'])}</a></b> <span class="badge">{count} rows</span><br>{html.escape(TOP10_REASONS[dataset_id])}</li>""")
+        recommended_items.append(f"""<li><b>{rank}. <a href="datasets/{ds['id']}.html">{html.escape(ds['title'])}</a></b> <span class="badge">{count} rows</span><br>{html.escape(RECOMMENDED_CANDIDATE_REASONS[dataset_id])}</li>""")
     index = f'''
 <h1>초·중·고 정보 교육을 위한 무료 데이터 과학 API & CSV</h1>
 <p>모든 기본 CSV는 최근 5년치 중심으로 생성되며, <code>python3 scripts/update_datasets.py --scope all</code>로 가능한 전체 기간을 받을 수 있습니다.</p>
 <p>데이터별 페이지에서 CSV 직접 로드, 원천 API 테스트, 브라우저 시각화, Streamlit 기본 코드, Pico 2 WH + Grove Shield 기본 코드를 제공합니다.</p>
 <p><a href="data/manifest.json">갱신 manifest</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub repo</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/CONTRIBUTING.md">사람용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/AI_CONTRIBUTING.md">AI용 기여 안내</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/REWARDS.md">리워드 설계</a></p>
-<h2>베스트 추천 데이터 TOP 10</h2>
-<ol>{''.join(top10_items)}</ol>
+<h2>추천 데이터 후보 10개 (운영자 확인 전)</h2>
+<p>아래 목록은 교육적 활용도가 높아 보이는 후보이며, 최종 TOP 10은 운영자와 논의 후 확정합니다.</p>
+<ol>{''.join(recommended_items)}</ol>
 <h2>바로 테스트 가능한 데이터셋</h2>
 {''.join(cards)}
 <h2>추가 API 후보</h2>
