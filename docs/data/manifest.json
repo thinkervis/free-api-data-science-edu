@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-05-17T07:46:50.854105+00:00",
+  "updated_at_utc": "2026-05-17T21:36:31.713462+00:00",
   "default_scope": "recent5",
   "files": [
     "data/artic_recent_artworks_sample.csv",
@@ -42,13 +42,13 @@
       "file": "data/open_meteo_seoul_daily_weather.csv",
       "rows": 1826,
       "scope": "recent5",
-      "source": "https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&longitude=126.978&start_date=2021-05-17&end_date=2026-05-16&daily=temperature_2m_max%2Ctemperature_2m_min%2Ctemperature_2m_mean%2Cprecipitation_sum%2Cwind_speed_10m_max&timezone=Asia%2FSeoul"
+      "source": "https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&longitude=126.978&start_date=2021-05-18&end_date=2026-05-17&daily=temperature_2m_max%2Ctemperature_2m_min%2Ctemperature_2m_mean%2Cprecipitation_sum%2Cwind_speed_10m_max&timezone=Asia%2FSeoul"
     },
     {
       "file": "data/open_meteo_seoul_air_quality_hourly.csv",
       "rows": 43824,
       "scope": "recent5",
-      "source": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.5665&longitude=126.978&start_date=2021-05-17&end_date=2026-05-16&hourly=pm10%2Cpm2_5%2Ccarbon_monoxide%2Cnitrogen_dioxide%2Cozone&timezone=Asia%2FSeoul"
+      "source": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.5665&longitude=126.978&start_date=2021-05-18&end_date=2026-05-17&hourly=pm10%2Cpm2_5%2Ccarbon_monoxide%2Cnitrogen_dioxide%2Cozone&timezone=Asia%2FSeoul"
     },
     {
       "file": "data/worldbank_korea_indicators.csv",
@@ -64,21 +64,21 @@
     },
     {
       "file": "data/usgs_major_earthquakes.csv",
-      "rows": 653,
+      "rows": 654,
       "scope": "recent5",
-      "source": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-05-17&endtime=2026-05-16&minmagnitude=6&orderby=time-asc&limit=20000"
+      "source": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-05-18&endtime=2026-05-17&minmagnitude=6&orderby=time-asc&limit=20000"
     },
     {
       "file": "data/mlb_schedule.csv",
-      "rows": 2784,
+      "rows": 2791,
       "scope": "recent5",
-      "source": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=2021-05-17&endDate=2026-05-16"
+      "source": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=2021-05-18&endDate=2026-05-17"
     },
     {
       "file": "data/fred_fedfunds.csv",
       "rows": 60,
       "scope": "recent5",
-      "source": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS&cosd=2021-05-17&coed=2026-05-16 (fallback: existing checked-in CSV)"
+      "source": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS&cosd=2021-05-18&coed=2026-05-17"
     },
     {
       "file": "data/owid_co2_korea_world.csv",
@@ -108,7 +108,7 @@
       "file": "data/nasa_power_seoul_daily.csv",
       "rows": 1826,
       "scope": "recent5",
-      "source": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CWS2M&community=RE&longitude=126.978&latitude=37.5665&start=20210517&end=20260516&format=JSON"
+      "source": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M%2CT2M_MAX%2CT2M_MIN%2CPRECTOTCORR%2CWS2M&community=RE&longitude=126.978&latitude=37.5665&start=20210518&end=20260517&format=JSON"
     },
     {
       "file": "data/bls_us_cpi_monthly.csv",
@@ -130,9 +130,9 @@
     },
     {
       "file": "data/frankfurter_usd_krw_daily.csv",
-      "rows": 1281,
+      "rows": 1280,
       "scope": "recent5",
-      "source": "https://api.frankfurter.app/2021-05-17..2026-05-16?from=USD&to=KRW"
+      "source": "https://api.frankfurter.app/2021-05-18..2026-05-17?from=USD&to=KRW"
     },
     {
       "file": "data/who_korea_life_expectancy.csv",
@@ -150,19 +150,19 @@
       "file": "data/eia_california_electricity_daily.csv",
       "rows": 5000,
       "scope": "recent5",
-      "source": "https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&data%5B0%5D=value&facets%5Brespondent%5D%5B%5D=CAL&start=2021-05-17&end=2026-05-16&sort%5B0%5D%5Bcolumn%5D=period&sort%5B0%5D%5Bdirection%5D=asc&offset=0&length=5000&api_key=DEMO_KEY"
+      "source": "https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&data%5B0%5D=value&facets%5Brespondent%5D%5B%5D=CAL&start=2021-05-18&end=2026-05-17&sort%5B0%5D%5Bcolumn%5D=period&sort%5B0%5D%5Bdirection%5D=asc&offset=0&length=5000&api_key=DEMO_KEY"
     },
     {
       "file": "data/noaa_coops_seattle_water_level.csv",
-      "rows": 7440,
+      "rows": 7415,
       "scope": "recent5",
-      "source": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20260416&end_date=20260516&station=9447130&product=water_level&datum=MLLW&time_zone=gmt&units=metric&format=json"
+      "source": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20260417&end_date=20260517&station=9447130&product=water_level&datum=MLLW&time_zone=gmt&units=metric&format=json"
     },
     {
       "file": "data/gb_carbon_intensity.csv",
       "rows": 672,
       "scope": "recent5",
-      "source": "https://api.carbonintensity.org.uk/intensity/date/2026-05-16"
+      "source": "https://api.carbonintensity.org.uk/intensity/date/2026-05-17"
     },
     {
       "file": "data/citi_bike_station_snapshot.csv",

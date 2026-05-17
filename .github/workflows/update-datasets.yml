@@ -12,8 +12,8 @@ on:
           - recent5
           - all
   schedule:
-    # 22:00 UTC = 07:00 KST
-    - cron: "0 22 * * *"
+    # 21:15 UTC = 06:15 KST, so yesterday data is ready before school starts
+    - cron: "15 21 * * *"
 
 permissions:
   contents: write

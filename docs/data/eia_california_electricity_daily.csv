@@ -1,24 +1,4 @@
 date,respondent,respondent_name,type,type_name,value,unit
-2021-05-17,CAL,California,D,Demand,694154,megawatthours
-2021-05-17,CAL,California,D,Demand,689306,megawatthours
-2021-05-17,CAL,California,D,Demand,686393,megawatthours
-2021-05-17,CAL,California,D,Demand,691942,megawatthours
-2021-05-17,CAL,California,D,Demand,694154,megawatthours
-2021-05-17,CAL,California,DF,Day-ahead demand forecast,662519,megawatthours
-2021-05-17,CAL,California,DF,Day-ahead demand forecast,659994,megawatthours
-2021-05-17,CAL,California,DF,Day-ahead demand forecast,657899,megawatthours
-2021-05-17,CAL,California,DF,Day-ahead demand forecast,661487,megawatthours
-2021-05-17,CAL,California,DF,Day-ahead demand forecast,662519,megawatthours
-2021-05-17,CAL,California,NG,Net generation,565505,megawatthours
-2021-05-17,CAL,California,NG,Net generation,562942,megawatthours
-2021-05-17,CAL,California,NG,Net generation,561319,megawatthours
-2021-05-17,CAL,California,NG,Net generation,564123,megawatthours
-2021-05-17,CAL,California,NG,Net generation,565505,megawatthours
-2021-05-17,CAL,California,TI,Total interchange,-113820,megawatthours
-2021-05-17,CAL,California,TI,Total interchange,-111644,megawatthours
-2021-05-17,CAL,California,TI,Total interchange,-110463,megawatthours
-2021-05-17,CAL,California,TI,Total interchange,-112942,megawatthours
-2021-05-17,CAL,California,TI,Total interchange,-113820,megawatthours
 2021-05-18,CAL,California,D,Demand,710284,megawatthours
 2021-05-18,CAL,California,D,Demand,708784,megawatthours
 2021-05-18,CAL,California,D,Demand,707686,megawatthours
@@ -4999,3 +4979,23 @@ date,respondent,respondent_name,type,type_name,value,unit
 2022-01-21,CAL,California,TI,Total interchange,-223901,megawatthours
 2022-01-21,CAL,California,TI,Total interchange,-220213,megawatthours
 2022-01-21,CAL,California,TI,Total interchange,-218893,megawatthours
+2022-01-22,CAL,California,D,Demand,632869,megawatthours
+2022-01-22,CAL,California,D,Demand,633962,megawatthours
+2022-01-22,CAL,California,D,Demand,635365,megawatthours
+2022-01-22,CAL,California,D,Demand,632869,megawatthours
+2022-01-22,CAL,California,D,Demand,631919,megawatthours
+2022-01-22,CAL,California,DF,Day-ahead demand forecast,612843,megawatthours
+2022-01-22,CAL,California,DF,Day-ahead demand forecast,613713,megawatthours
+2022-01-22,CAL,California,DF,Day-ahead demand forecast,614806,megawatthours
+2022-01-22,CAL,California,DF,Day-ahead demand forecast,612843,megawatthours
+2022-01-22,CAL,California,DF,Day-ahead demand forecast,612174,megawatthours
+2022-01-22,CAL,California,NG,Net generation,425429,megawatthours
+2022-01-22,CAL,California,NG,Net generation,425772,megawatthours
+2022-01-22,CAL,California,NG,Net generation,426989,megawatthours
+2022-01-22,CAL,California,NG,Net generation,425429,megawatthours
+2022-01-22,CAL,California,NG,Net generation,425627,megawatthours
+2022-01-22,CAL,California,TI,Total interchange,-188642,megawatthours
+2022-01-22,CAL,California,TI,Total interchange,-188682,megawatthours
+2022-01-22,CAL,California,TI,Total interchange,-188610,megawatthours
+2022-01-22,CAL,California,TI,Total interchange,-188642,megawatthours
+2022-01-22,CAL,California,TI,Total interchange,-187890,megawatthours
