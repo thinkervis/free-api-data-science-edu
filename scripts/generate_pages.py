@@ -591,14 +591,15 @@ SDG_TOPICS = [
 ]
 
 
-def read_preview(csv_name: str, max_rows: int = 5) -> tuple[list[str], list[list[str]], int]:
+def read_preview(csv_name: str, max_rows: int = 5) -> tuple[list[str], list[list[str]], list[list[str]], int]:
     path = DATA / csv_name
     with path.open(newline="", encoding="utf-8") as f:
         reader = csv.reader(f)
         rows = list(reader)
     if not rows:
-        return [], [], 0
-    return rows[0], rows[1 : max_rows + 1], max(0, len(rows) - 1)
+        return [], [], [], 0
+    data_rows = rows[1:]
+    return rows[0], data_rows[:max_rows], data_rows[-max_rows:] if len(data_rows) > max_rows else [], len(data_rows)
 
 
 def streamlit_code(csv_name: str) -> str:
@@ -624,7 +625,7 @@ window.DATASET_LIKES_SUPABASE = window.DATASET_LIKES_SUPABASE || null;
 
 def likes_script() -> str:
     datasets = [
-        {"id": ds["id"], "title": ds["title"], "category": ds["category"], "rows": read_preview(ds["csv"])[2]}
+        {"id": ds["id"], "title": ds["title"], "category": ds["category"], "rows": read_preview(ds["csv"])[3]}
         for ds in DATASETS
     ]
     payload = json.dumps(datasets, ensure_ascii=False)
@@ -877,8 +878,10 @@ async function testCsvAndChart(url) {
 
 
 def dataset_page(ds: dict[str, str]) -> str:
-    headers, rows, count = read_preview(ds["csv"])
-    preview = html_table(headers, rows)
+    headers, head_rows, tail_rows, count = read_preview(ds["csv"])
+    preview = f"<h3>Head: 처음 5행</h3>{html_table(headers, head_rows)}"
+    if tail_rows:
+        preview += f"<h3>Tail: 마지막 5행</h3>{html_table(headers, tail_rows)}"
     csv_url = f"../data/{ds['csv']}"
     body = f'''
 <p><a href="../index.html">← 전체 목록</a></p>
@@ -1482,7 +1485,7 @@ def main() -> None:
     recommended_items = []
     for rank, rec in enumerate(TOP_RECOMMENDATIONS, start=1):
         ds = by_id[rec["id"]]
-        _, _, count = read_preview(ds["csv"])
+        _, _, _, count = read_preview(ds["csv"])
         recommended_items.append(f"""
 <li class="recommendation-card">
   <h3>{rank}. <a href="datasets/{ds['id']}.html">{html.escape(ds['title'])}</a> <span class="badge">{count} rows</span></h3>

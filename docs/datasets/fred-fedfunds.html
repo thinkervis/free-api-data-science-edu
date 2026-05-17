@@ -46,7 +46,7 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
   <div id="chart" aria-label="브라우저 직접 시각화 결과"></div>
 </div>
 <h2>CSV 미리보기</h2>
-<table><thead><tr><th>observation_date</th><th>FEDFUNDS</th></tr></thead><tbody><tr><td>2021-05-01</td><td>0.06</td></tr><tr><td>2021-06-01</td><td>0.08</td></tr><tr><td>2021-07-01</td><td>0.10</td></tr><tr><td>2021-08-01</td><td>0.09</td></tr><tr><td>2021-09-01</td><td>0.08</td></tr></tbody></table>
+<h3>Head: 처음 5행</h3><table><thead><tr><th>observation_date</th><th>FEDFUNDS</th></tr></thead><tbody><tr><td>2021-05-01</td><td>0.06</td></tr><tr><td>2021-06-01</td><td>0.08</td></tr><tr><td>2021-07-01</td><td>0.10</td></tr><tr><td>2021-08-01</td><td>0.09</td></tr><tr><td>2021-09-01</td><td>0.08</td></tr></tbody></table><h3>Tail: 마지막 5행</h3><table><thead><tr><th>observation_date</th><th>FEDFUNDS</th></tr></thead><tbody><tr><td>2025-12-01</td><td>3.72</td></tr><tr><td>2026-01-01</td><td>3.64</td></tr><tr><td>2026-02-01</td><td>3.64</td></tr><tr><td>2026-03-01</td><td>3.64</td></tr><tr><td>2026-04-01</td><td>3.64</td></tr></tbody></table>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st
