@@ -1784,10 +1784,6 @@ def main() -> None:
     <li><b>분석 방법:</b> {html.escape(rec['analysis'])}</li>
   </ul>
 </li>""")
-    excluded_items = []
-    for item in EXCLUDED_FROM_TOP:
-        ds = by_id[item["id"]]
-        excluded_items.append(f"<li><a href='datasets/{ds['id']}.html'>{html.escape(ds['title'])}</a>: {html.escape(item['reason'])}</li>")
     index = f'''
 <h1>초·중·고 정보 교육을 위한 무료 데이터 과학 API & CSV</h1>
 <p>교육적 가치가 높은 무료 데이터셋을 골라, 바로 열어 보고 시각화하고 수업 예제로 바꿀 수 있게 정리했습니다. 팩트풀니스 수업용 세계 지표처럼 장기 변화가 중요한 자료는 1960년대부터의 긴 흐름을 우선 보여 주고, 날씨·대기질처럼 최근성이 중요한 자료는 최근 데이터 중심으로 제공합니다.</p>
@@ -1796,13 +1792,7 @@ def main() -> None:
 <h2>수업 추천 데이터 {len(TOP_RECOMMENDATIONS)}가지</h2>
 <p>처음 방문한 선생님과 학생이 바로 써 보기 좋은 데이터만 골라, 데이터별 교육적 관점·시각화 예시·사용 방법·분석 방법을 함께 제안했습니다.</p>
 <ol class="recommendation-list">{''.join(recommended_items)}</ol>
-<h2>추천 목록에서 잠시 낮춘 데이터</h2>
-<p>데이터 자체는 유용하지만, 첫 화면 top 추천에는 분석 질문이 더 강한 자료를 우선했습니다.</p>
-<ul>{''.join(excluded_items)}</ul>
-<h2>지속가능발전(SDG) 주제 데이터 10가지</h2>
-<p>기후·대기질·생물다양성·도시 이동·건강 형평성 등 SDG 수업용 주제는 <a href="examples/sdg-topics.html">별도 페이지</a>로 분리했습니다.</p>
 <h2>바로 테스트 가능한 데이터셋</h2>
-<p class="small-muted">좋아요는 로그인 없이 누를 수 있습니다. Supabase 설정 전에는 이 브라우저 기준으로 저장되고, 설정 후에는 공용 관심도 순위로 집계됩니다.</p>
 <div class="dataset-toolbar">
   <label>정렬 <select id="sort-mode"><option value="default">기본 순서</option><option value="likes">좋아요 많은 순</option></select></label>
   <span id="likes-status" class="small-muted">좋아요 상태 확인 중…</span>
