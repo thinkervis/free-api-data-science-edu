@@ -22,7 +22,6 @@ DATASETS = [
         "doc_url": "https://open-meteo.com/en/docs/historical-weather-api",
         "test_url": "https://archive-api.open-meteo.com/v1/archive?latitude=37.5665&longitude=126.9780&start_date=2021-01-01&end_date=2021-01-03&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Asia%2FSeoul",
         "auth": "키 없음",
-        "pico": "높음",
         "streamlit": "높음",
         "note": "최근 5년치 CSV 기본 제공, --scope all로 가능한 전체 기간 요청 가능",
     },
@@ -35,9 +34,8 @@ DATASETS = [
         "doc_url": "https://open-meteo.com/en/docs/air-quality-api",
         "test_url": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=37.5665&longitude=126.9780&hourly=pm10,pm2_5&start_date=2021-01-01&end_date=2021-01-03&timezone=Asia%2FSeoul",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
-        "note": "시간별 데이터라 CSV가 큼. Pico 2 WH + Grove Shield에서는 최근 몇 줄만 쓰는 예제로 권장",
+        "note": "시간별 데이터라 CSV가 커서 최근 일부 기간부터 다루는 예제로 권장",
     },
     {
         "id": "worldbank-korea",
@@ -48,7 +46,6 @@ DATASETS = [
         "doc_url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
         "test_url": "https://api.worldbank.org/v2/country/KOR/indicator/SP.POP.TOTL?format=json&date=2021:2025",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "인구/GDP/기대수명/중등교육 등록률 포함",
     },
@@ -61,7 +58,6 @@ DATASETS = [
         "doc_url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
         "test_url": "https://api.worldbank.org/v2/country/KOR;USA;CHN;IND;BRA;NGA;SWE;WLD/indicator/SP.DYN.LE00.IN?format=json&per_page=20&date=2021:2026",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "팩트풀니스 수업용: 기대수명, 5세 미만 사망률, 전기 접근성, 1인당 GDP, 초등교육 이수율을 최신 World Bank 데이터로 다시 확인",
     },
@@ -74,7 +70,6 @@ DATASETS = [
         "doc_url": "https://earthquake.usgs.gov/fdsnws/event/1/",
         "test_url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2021-01-01&endtime=2021-01-31&minmagnitude=6",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "지도 시각화/GeoJSON 수업에 적합",
     },
@@ -87,7 +82,6 @@ DATASETS = [
         "doc_url": "https://github.com/toddrob99/MLB-StatsAPI/wiki",
         "test_url": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&date=2024-03-28",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "스코어보드, 승률, 팀별 득점 분석 가능",
     },
@@ -100,7 +94,6 @@ DATASETS = [
         "doc_url": "https://fred.stlouisfed.org/docs/api/fred/",
         "test_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=FEDFUNDS&cosd=2021-01-01&coed=2026-05-15",
         "auth": "CSV 다운로드는 불필요 / 정식 API는 키 필요",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "CSV 엔드포인트로 금리 시계열을 바로 읽을 수 있음",
     },
@@ -113,7 +106,6 @@ DATASETS = [
         "doc_url": "https://docs.owid.io/projects/etl/api/",
         "test_url": "https://ourworldindata.org/grapher/annual-co2-emissions-per-country.csv",
         "auth": "키 없음",
-        "pico": "낮음",
         "streamlit": "높음",
         "note": "기본은 최근 5년, --scope all로 전체 역사 범위 필터 가능",
     },
@@ -126,7 +118,6 @@ DATASETS = [
         "doc_url": "https://techdocs.gbif.org/en/openapi/",
         "test_url": "https://api.gbif.org/v1/occurrence/search?country=KR&limit=3",
         "auth": "키 없음",
-        "pico": "낮음~중간",
         "streamlit": "높음",
         "note": "위치 기반 생물종 관측 지도 샘플. 기본 300건 제한",
     },
@@ -139,7 +130,6 @@ DATASETS = [
         "doc_url": "https://api.artic.edu/docs/",
         "test_url": "https://api.artic.edu/api/v1/artworks/search?q=monet&fields=id,title,artist_title,date_display&limit=3",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "문화 데이터 검색/분류/카드 UI 예제로 적합",
     },
@@ -152,7 +142,6 @@ DATASETS = [
         "doc_url": "https://data.seoul.go.kr/",
         "test_url": "http://openapi.seoul.go.kr:8088/sample/json/bikeList/1/5/",
         "auth": "샘플키 가능 · 안정 사용은 무료 API 키 권장",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "샘플키는 5건 제한. 정식키로 전체 대여소 자동화 가능",
     },
@@ -165,7 +154,6 @@ DATASETS = [
         "doc_url": "https://power.larc.nasa.gov/docs/services/api/",
         "test_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M,PRECTOTCORR&community=RE&longitude=126.9780&latitude=37.5665&start=20210101&end=20210105&format=JSON",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "public-apis 확장 후보에서 승격. 최근 5년치 기본, --scope all은 NASA POWER 일별 제공 시작 시점부터 요청",
     },
@@ -178,7 +166,6 @@ DATASETS = [
         "doc_url": "https://www.bls.gov/developers/api_signature_v2.htm",
         "test_url": "https://api.bls.gov/publicAPI/v2/timeseries/data/CUUR0000SA0?startyear=2021&endyear=2025",
         "auth": "제한 내 불필요 / 대량 사용은 무료 키 권장",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "물가/인플레이션 수업용 월별 시계열. --scope all은 공개 API 제한을 고려해 2005년 이후로 제한",
     },
@@ -191,7 +178,6 @@ DATASETS = [
         "doc_url": "https://date.nager.at/Api",
         "test_url": "https://date.nager.at/api/v3/PublicHolidays/2024/KR",
         "auth": "키 없음",
-        "pico": "높음",
         "streamlit": "높음",
         "note": "날짜/캘린더/지역 문화 수업에 적합. --scope all은 1970년 이후 연도별 조회",
     },
@@ -204,7 +190,6 @@ DATASETS = [
         "doc_url": "https://ll.thespacedevs.com/2.2.0/swagger/",
         "test_url": "https://ll.thespacedevs.com/2.2.0/launch/previous/?search=SpaceX&limit=3",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "최신 발사를 포함한 최근 6년치 SpaceX 발사 기록. 연도별 발사 빈도·성공 여부·임무 유형 분석에 적합",
     },
@@ -217,7 +202,6 @@ DATASETS = [
         "doc_url": "https://www.frankfurter.app/docs/",
         "test_url": "https://api.frankfurter.app/2021-01-01..2021-01-05?from=USD&to=KRW",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "환율 시계열/변화율 수업용. --scope all은 API 제공 시작 시점 이후",
     },
@@ -230,7 +214,6 @@ DATASETS = [
         "doc_url": "https://www.who.int/data/gho/info/gho-odata-api",
         "test_url": "https://ghoapi.azureedge.net/api/WHOSIS_000001?$filter=SpatialDim%20eq%20%27KOR%27&$top=5",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "보건/인구/국제비교 수업용. 최근 5년 범위에 값이 적을 수 있어 WHO 제공 연도 기준으로 검증",
     },
@@ -243,7 +226,6 @@ DATASETS = [
         "doc_url": "https://restcountries.com/",
         "test_url": "https://restcountries.com/v3.1/all?fields=name,cca3,region,population,area,latlng",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "시계열이 아닌 현재 스냅샷 데이터. 국가별 인구/면적/지역 비교와 지도 수업용",
     },
@@ -256,7 +238,6 @@ DATASETS = [
         "doc_url": "https://www.eia.gov/opendata/documentation.php",
         "test_url": "https://api.eia.gov/v2/electricity/rto/daily-region-data/data/?frequency=daily&data[0]=value&facets[respondent][]=CAL&start=2021-01-01&end=2021-01-05&sort[0][column]=period&sort[0][direction]=asc&api_key=DEMO_KEY",
         "auth": "DEMO_KEY 가능 · 안정 사용은 무료 API 키 권장",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "전력 수요/공급/에너지 데이터 수업용. DEMO_KEY 제한을 명시하고 무료 키 사용 권장",
     },
@@ -269,7 +250,6 @@ DATASETS = [
         "doc_url": "https://api.tidesandcurrents.noaa.gov/api/prod/",
         "test_url": "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=20240501&end_date=20240503&station=9447130&product=water_level&datum=MLLW&time_zone=gmt&units=metric&format=json",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "해수면·조위 변화를 시간축으로 읽고 해안 도시와 기후 적응을 토론하는 수업용 샘플",
     },
@@ -282,7 +262,6 @@ DATASETS = [
         "doc_url": "https://carbon-intensity.github.io/api-definitions/",
         "test_url": "https://api.carbonintensity.org.uk/intensity/date/2024-05-01",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "30분 단위 전력 탄소집약도를 보고 전기 사용 시간대와 탄소 배출의 관계를 탐구",
     },
@@ -295,7 +274,6 @@ DATASETS = [
         "doc_url": "https://www.citibikenyc.com/system-data",
         "test_url": "https://gbfs.citibikenyc.com/gbfs/en/station_status.json",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "자전거 대여소별 잔여 자전거와 거치대를 지도/막대그래프로 보고 도시 이동을 분석",
     },
@@ -308,7 +286,6 @@ DATASETS = [
         "doc_url": "https://metmuseum.github.io/",
         "test_url": "https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=sunflower",
         "auth": "키 없음",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "작품 주제·제작연도·부서 메타데이터로 예술 데이터 검색과 분류 활동을 구성",
     },
@@ -321,7 +298,6 @@ DATASETS = [
         "doc_url": "https://dev.socrata.com/",
         "test_url": "https://data.cdc.gov/resource/cwsq-ngmh.json?$limit=5",
         "auth": "토큰 선택 / 소량 조회 불필요",
-        "pico": "낮음",
         "streamlit": "높음",
         "note": "지역별 건강 지표를 비교하며 보건 격차와 데이터 기반 정책 질문을 만드는 샘플",
     },
@@ -334,7 +310,6 @@ DATASETS = [
         "doc_url": "https://wiki.openstreetmap.org/wiki/Overpass_API",
         "test_url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A10%5D%3Bnode%5Bamenity%3Dhospital%5D%2837.4%2C126.8%2C37.7%2C127.2%29%3Bout%205%3B",
         "auth": "불필요 / 사용 정책 준수",
-        "pico": "낮음",
         "streamlit": "높음",
         "note": "서울 병원 위치를 지도에 표시하고 의료 접근성·생활권 분석 수업으로 연결",
     },
@@ -347,7 +322,6 @@ DATASETS = [
         "doc_url": "https://nominatim.org/release-docs/latest/api/Search/",
         "test_url": "https://nominatim.openstreetmap.org/search?q=Seoul%20City%20Hall&format=json&limit=3",
         "auth": "불필요 / 사용 정책 준수",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "장소 이름을 위도·경도로 바꾸는 과정을 통해 지도 데이터 전처리를 설명",
     },
@@ -361,7 +335,6 @@ DATASETS = [
         "doc_url": "https://data.seoul.go.kr/dataList/OA-21285/S/1/datasetView.do",
         "test_url": "http://openapi.seoul.go.kr:8088/sample/json/citydata/1/5/%EA%B4%91%ED%99%94%EB%AC%B8%C2%B7%EB%8D%95%EC%88%98%EA%B6%81",
         "auth": "샘플키 가능 · 안정 사용은 무료 API 키 권장",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "서울 주요 장소의 혼잡도와 추정 인구를 비교해 안전한 방문 시간·도시 운영 질문으로 연결",
     },
@@ -374,7 +347,6 @@ DATASETS = [
         "doc_url": "https://data.seoul.go.kr/",
         "test_url": "http://openapi.seoul.go.kr:8088/sample/json/RealtimeCityAir/1/5/",
         "auth": "샘플키 가능 · 안정 사용은 무료 API 키 권장",
-        "pico": "중간",
         "streamlit": "높음",
         "note": "권역·측정소별 PM10/PM2.5와 통합대기환경지수를 비교해 건강·환경 수업에 활용",
     },
@@ -632,44 +604,6 @@ def read_preview(csv_name: str, max_rows: int = 5) -> tuple[list[str], list[list
 def streamlit_code(csv_name: str) -> str:
     return f'''import pandas as pd\nimport streamlit as st\n\nURL = "https://thinkervis.github.io/free-api-data-science-edu/data/{csv_name}"\n\nst.title("{csv_name}")\ndf = pd.read_csv(URL)\nst.write(df.shape)\nst.dataframe(df.head(100))\n\n# 숫자 컬럼이 있으면 빠르게 차트 확인\nnum_cols = df.select_dtypes("number").columns.tolist()\nif num_cols:\n    st.line_chart(df[num_cols[:3]])\n'''
 
-
-def pico_code(csv_name: str) -> str:
-    return f'''# Raspberry Pi Pico 2 WH + Grove Shield / MicroPython basic CSV fetch
-# 기본 출력: USB 시리얼. 선택 출력: Grove I2C OLED/LCD(SDA=GP4, SCL=GP5 예시).
-import network, urequests, time
-from machine import Pin
-
-SSID = "YOUR_WIFI"
-PASSWORD = "YOUR_PASSWORD"
-URL = "https://thinkervis.github.io/free-api-data-science-edu/data/{csv_name}"
-
-led = Pin("LED", Pin.OUT)
-wlan = network.WLAN(network.STA_IF)
-wlan.active(True)
-wlan.connect(SSID, PASSWORD)
-while not wlan.isconnected():
-    led.toggle()
-    time.sleep(0.5)
-led.on()
-
-r = urequests.get(URL)
-text = r.text
-r.close()
-
-# Pico 메모리 보호: 큰 CSV는 앞부분만 확인
-lines = text.split("\\n")[:6]
-for line in lines:
-    print(line)
-
-# 선택: Grove I2C OLED/LCD 표시
-# from machine import I2C
-# import ssd1306
-# i2c = I2C(0, scl=Pin(5), sda=Pin(4))
-# oled = ssd1306.SSD1306_I2C(128, 64, i2c)
-# for i, line in enumerate(lines[:4]):
-#     oled.text(line[:16], 0, i * 12)
-# oled.show()
-'''
 
 
 def html_table(headers: list[str], rows: list[list[str]]) -> str:
@@ -963,8 +897,6 @@ def dataset_page(ds: dict[str, str]) -> str:
 {preview}
 <h2>Streamlit 기본 코드</h2>
 <pre>{html.escape(streamlit_code(ds['csv']))}</pre>
-<h2>Pico 2 WH + Grove Shield 기본 코드</h2>
-<pre>{html.escape(pico_code(ds['csv']))}</pre>
 {dataset_script(ds)}
 '''
     return layout(ds["title"], body)
@@ -1569,7 +1501,7 @@ def main() -> None:
     index = f'''
 <h1>초·중·고 정보 교육을 위한 무료 데이터 과학 API & CSV</h1>
 <p>교육적 가치가 높은 무료 데이터셋을 골라, 바로 열어 보고 시각화하고 수업 예제로 바꿀 수 있게 정리했습니다. 팩트풀니스 수업용 세계 지표처럼 장기 변화가 중요한 자료는 1960년대부터의 긴 흐름을 우선 보여 주고, 날씨·대기질처럼 최근성이 중요한 자료는 최근 데이터 중심으로 제공합니다.</p>
-<p>데이터별 페이지에서 CSV 직접 열기, 원천 API 확인, 브라우저 시각화, Streamlit 기본 코드, Pico 2 WH + Grove Shield 기본 코드를 확인할 수 있습니다.</p>
+<p>데이터별 페이지에서 CSV 직접 열기, 원천 API 확인, 브라우저 시각화, Streamlit 기본 코드를 확인할 수 있습니다.</p>
 <p><a href="examples/factfulness-literacy.html">팩트풀니스 데이터 리터러시 수업</a> · <a href="examples/sdg-topics.html">지속가능발전 주제 데이터 10가지</a> · <a href="examples/svg-map-visualization.html">SVG 지도 시각화 예제</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu">GitHub 저장소</a> · <a href="https://github.com/thinkervis/free-api-data-science-edu/blob/main/CONTRIBUTING.md">기여 안내</a></p>
 <h2>수업 추천 데이터 {len(TOP_RECOMMENDATIONS)}가지</h2>
 <p>처음 방문한 선생님과 학생이 바로 써 보기 좋은 데이터만 골라, 데이터별 교육적 관점·시각화 예시·사용 방법·분석 방법을 함께 제안했습니다.</p>

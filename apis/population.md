@@ -7,7 +7,6 @@
 - 테스트 URL: https://api.worldbank.org/v2/country/KOR/indicator/SP.POP.TOTL?format=json&per_page=5
 - 교육 포인트: 장기 시계열, 국가 비교, 결측치, 지표 코드
 - Streamlit 적합도: 높음
-- Pico W 적합도: 중간. 응답 구조가 중첩 배열이라 단순 파싱 예제 권장
 
 ## KOSIS 공유서비스
 - 주제: 한국 국가통계, 인구/가구/고용/지역 통계
@@ -15,7 +14,6 @@
 - 공식 포털: https://kosis.kr/openapi/index/index.jsp
 - 교육 포인트: 한국 지역 통계, 표/분류 코드, 행정구역 비교
 - Streamlit 적합도: 높음
-- Pico W 적합도: 낮음. 코드 체계와 응답 파싱이 데스크톱 Python에 더 적합
 
 ## 행정안전부 주민등록 인구통계 후보
 - 주제: 시도/시군구/읍면동별 주민등록 인구

@@ -5,7 +5,7 @@
 | 이름/핸들 | 역할 | 주요 기여 | 링크 | 누적 포인트 |
 |---|---|---|---|---:|
 | @greatsong | 기획/리뷰 | 초중고 정보 교육 방향 제안, API+CSV 통합, 5년치 데이터/Pages 요구사항, 공동작업 방향 제안 | https://github.com/greatsong | 30 |
-| @thinkervis | 구현/자동화 | 초기 레포 구성, API/CSV 자동화, GitHub Pages, Streamlit/Pico W 예제 생성, 검증 스크립트 | https://github.com/thinkervis | 30 |
+| @thinkervis | 구현/자동화 | 초기 레포 구성, API/CSV 자동화, GitHub Pages, Streamlit 예제 생성, 검증 스크립트 | https://github.com/thinkervis | 30 |
 
 ## 포인트 기준
 

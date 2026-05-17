@@ -2,19 +2,18 @@
 
 **초·중·고 정보 교육을 위한 무료 데이터 과학 교육 자료**입니다.
 
-무료 API와 자동 갱신 CSV 데이터로 데이터 과학 수업, Streamlit 대시보드, Raspberry Pi Pico 2 WH + Grove Shield 프로젝트를 만들기 위한 레포입니다.
+무료 API와 자동 갱신 CSV 데이터로 데이터 과학 수업과 Streamlit 대시보드를 만들기 위한 레포입니다.
 
 기준:
 - 무료로 시작 가능
 - 직접 테스트 가능한 엔드포인트 또는 공식 문서 확인 가능
 - JSON/CSV 등 교육용으로 다루기 쉬운 형식 우선
 - 가입 필요 / API 키 필요 / 결제 가능성 여부를 구분
-- Pico 2 WH + Grove Shield에서는 HTTPS, 응답 크기, 인증키 저장 난이도를 별도 표시
 
 ## GitHub Pages에서 바로 테스트
 
 - Pages: https://thinkervis.github.io/free-api-data-science-edu/
-- 각 데이터 페이지에서 CSV 직접 열기, 원천 API 테스트, 브라우저 fetch 테스트, Streamlit/Pico 2 WH + Grove Shield 기본 코드를 확인할 수 있습니다.
+- 각 데이터 페이지에서 CSV 직접 열기, 원천 API 테스트, 브라우저 fetch 테스트, Streamlit 기본 코드를 확인할 수 있습니다.
 
 ## 빠른 시작
 
@@ -104,7 +103,7 @@ GitHub Pages 첫 화면에는 데이터셋별 좋아요 버튼과 `좋아요 많
 - `apis/movies.md` — 영화 API
 - `apis/maps.md` — 지도/지오코딩 API
 - `apis/stocks.md` — 주식/금융 API
-- `apis/use-cases.md` — Streamlit/Pico 2 WH + Grove Shield 프로젝트 아이디어
+- `apis/use-cases.md` — Streamlit 프로젝트 아이디어
 - `apis/brainstorm.md` — 수업 주제 브레인스토밍
 - `apis/transit.md` — 대중교통 API
 - `apis/population.md` — 인구 API
@@ -112,7 +111,6 @@ GitHub Pages 첫 화면에는 데이터셋별 좋아요 버튼과 `좋아요 많
 - `apis/foot-traffic.md` — 유동인구 API
 - `CONTRIBUTING.md` — 기여하고 싶은 선생님/시민을 위한 안내
 - `CONTRIBUTORS.md` — 기여자 표기
-- `hardware/pico2wh-grove-shield.md` — Pico 2 WH + Grove Shield 기준
 
 ## 수업 아이디어
 
@@ -125,7 +123,6 @@ GitHub Pages 첫 화면에는 데이터셋별 좋아요 버튼과 `좋아요 많
 - 주식 이동평균/수익률 대시보드
 - 주소 검색 후 지도 표시/거리 계산
 - 버스 도착/야구 스코어보드/유동인구 히트맵
-- Pico 2 WH + Grove Shield로 현재 날씨/공공 데이터 받아 Grove OLED/LCD 또는 USB 시리얼 출력
 
 
 
@@ -136,8 +133,8 @@ GitHub Pages 첫 화면에는 데이터셋별 좋아요 버튼과 `좋아요 많
 - 사람용 안내: `CONTRIBUTING.md`
 - 기여자 표기: `CONTRIBUTORS.md`
 
-기여는 데이터 추천, 공식 문서 확인, CSV 자동화, Streamlit/Pico 2 WH + Grove Shield 예제, 수업 활동지, 현장 적용 후기까지 모두 환영합니다.
+기여는 데이터 추천, 공식 문서 확인, CSV 자동화, Streamlit 예제, 수업 활동지, 현장 적용 후기까지 모두 환영합니다.
 
 ## 레포 상태
 
-GitHub Pages, CSV 데이터, 수업 예제, Streamlit/Pico 2 WH + Grove Shield 시작 코드를 포함합니다. 공식 문서와 직접 테스트 가능한 데이터 출처를 기준으로 계속 확장합니다.
+GitHub Pages, CSV 데이터, 수업 예제, Streamlit 시작 코드를 포함합니다. 공식 문서와 직접 테스트 가능한 데이터 출처를 기준으로 계속 확장합니다.

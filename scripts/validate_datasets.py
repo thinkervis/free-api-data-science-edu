@@ -89,7 +89,6 @@ def main() -> None:
                 "browser preview code": "renderPreview" in text and "browser-preview" in text,
                 "browser visualization code": "drawCsvChart" in text and "Plotly.newPlot" in text,
                 "Streamlit code": "streamlit" in text.lower(),
-                "Pico 2 WH Grove code": "Pico 2 WH" in text and "Grove Shield" in text,
             }
             for label, ok in checks.items():
                 if not ok:

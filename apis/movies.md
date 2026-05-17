@@ -17,7 +17,6 @@
   - 포스터 이미지 URL 조합
   - 영화 추천/콘텐츠 기반 필터링
 - Streamlit 적합도: 높음. 검색 UI, 포스터 카드, 장르 필터 만들기 좋음
-- Pico W 적합도: 낮음~중간. 인증 토큰과 응답 크기 때문에 간단 검색/카운트 정도만 권장
 
 ### TMDB 가입/키 발급 방법
 1. https://www.themoviedb.org/ 에 가입/로그인
@@ -42,7 +41,6 @@ TMDB_API_KEY=your_v3_key_here
   - IMDb 평점/메타스코어 비교
   - 간단한 REST 쿼리 파라미터
 - Streamlit 적합도: 높음. 검색 폼과 결과 카드 만들기 쉬움
-- Pico W 적합도: 중간. 응답이 비교적 작지만 키 보관 필요
 
 ### OMDb 키 발급 방법
 1. https://www.omdbapi.com/ 접속

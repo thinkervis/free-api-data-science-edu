@@ -63,43 +63,6 @@ num_cols = df.select_dtypes(&quot;number&quot;).columns.tolist()
 if num_cols:
     st.line_chart(df[num_cols[:3]])
 </pre>
-<h2>Pico 2 WH + Grove Shield 기본 코드</h2>
-<pre># Raspberry Pi Pico 2 WH + Grove Shield / MicroPython basic CSV fetch
-# 기본 출력: USB 시리얼. 선택 출력: Grove I2C OLED/LCD(SDA=GP4, SCL=GP5 예시).
-import network, urequests, time
-from machine import Pin
-
-SSID = &quot;YOUR_WIFI&quot;
-PASSWORD = &quot;YOUR_PASSWORD&quot;
-URL = &quot;https://thinkervis.github.io/free-api-data-science-edu/data/bls_us_cpi_monthly.csv&quot;
-
-led = Pin(&quot;LED&quot;, Pin.OUT)
-wlan = network.WLAN(network.STA_IF)
-wlan.active(True)
-wlan.connect(SSID, PASSWORD)
-while not wlan.isconnected():
-    led.toggle()
-    time.sleep(0.5)
-led.on()
-
-r = urequests.get(URL)
-text = r.text
-r.close()
-
-# Pico 메모리 보호: 큰 CSV는 앞부분만 확인
-lines = text.split(&quot;\n&quot;)[:6]
-for line in lines:
-    print(line)
-
-# 선택: Grove I2C OLED/LCD 표시
-# from machine import I2C
-# import ssd1306
-# i2c = I2C(0, scl=Pin(5), sda=Pin(4))
-# oled = ssd1306.SSD1306_I2C(128, 64, i2c)
-# for i, line in enumerate(lines[:4]):
-#     oled.text(line[:16], 0, i * 12)
-# oled.show()
-</pre>
 
 <script>
 const VIZ_CONFIG = {"kind": "line", "title": "미국 CPI 월별 변화", "x": "date", "y": ["cpi_value"], "labels": ["CPI"]};

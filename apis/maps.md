@@ -13,7 +13,6 @@
   - 위도/경도와 지도 시각화
   - API 사용 정책과 공공 자원 예절
 - Streamlit 적합도: 높음. `st.map`, pydeck, folium과 연결 가능
-- Pico W 적합도: 중간. 키는 없지만 HTTPS/응답 크기와 정책상 반복 호출 주의
 
 ## Kakao 지도 / Local API
 - 주제: 한국 주소 검색, 좌표 변환, 지도 표시, 키워드 검색
@@ -30,7 +29,6 @@
   - 장소 검색 결과 페이지네이션
   - 지도 마커/클러스터링
 - Streamlit 적합도: 중간~높음. REST Local API는 Python에서 좋고, 지도 렌더링은 folium/HTML 컴포넌트 활용
-- Pico W 적합도: 낮음~중간. 헤더 인증과 한글 URL 인코딩 처리 필요
 
 ### Kakao 키 발급 방법
 1. https://developers.kakao.com/ 로그인
@@ -56,4 +54,3 @@ KAKAO_JAVASCRIPT_KEY=your_js_key_here
   - Maps Demo Key는 결제 정보 없이 일부 기능 프로토타입 가능하나 production 용도 아님
 - 교육 포인트: 글로벌 지도, 장소 검색, 경로 최적화
 - Streamlit 적합도: 중간. 비용/키 제한 때문에 고급반 또는 데모 중심 권장
-- Pico W 적합도: 낮음. 응답/요금/키 관리 부담 큼

@@ -7,7 +7,6 @@
 1. `PROJECT_SPEC.md`
 2. `README.md`
 3. `AI_CONTRIBUTING.md`
-4. `hardware/pico2wh-grove-shield.md`
 5. `scripts/validate_datasets.py`
 
 ## 절대 잊지 말 것
@@ -17,7 +16,6 @@
 - 가능하면 `--scope all`도 지원한다.
 - 모든 정식 데이터셋은 GitHub Pages에서 직접 테스트 가능해야 한다.
 - 직접 테스트는 **CSV fetch + CSV 직접 로드 + 브라우저 시각화**까지 포함한다.
-- Pico는 **Pico 2 WH + Grove Shield** 전제다.
 - 검증 없는 완료 보고 금지.
 
 ## 정식 데이터셋 추가 체크리스트
@@ -48,7 +46,6 @@
 
 - `Add NASA POWER teaching dataset`
 - `Promote verified API candidates to Pages datasets`
-- `Document Pico 2 WH Grove Shield examples`
 - `Harden dataset validation for browser tests`
 
 ## 완료 보고 템플릿

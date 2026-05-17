@@ -12,7 +12,6 @@
   - OHLCV 컬럼
   - 종목 심볼 체계
 - Streamlit 적합도: 높음. 키 없이 빠른 차트 가능
-- Pico W 적합도: 중간. CSV 파싱은 가능하지만 HTTPS와 네트워크 예외 처리 필요
 
 ## Alpha Vantage
 - 주제: 미국/글로벌 주식 시계열, 기술지표, 환율, 암호화폐, 뉴스 감성 등
@@ -26,7 +25,6 @@
   - 이동평균/RSI 등 기술지표
   - API rate limit 체험과 캐싱
 - Streamlit 적합도: 높음
-- Pico W 적합도: 낮음~중간. 응답이 커서 `GLOBAL_QUOTE` 같은 작은 엔드포인트 권장
 
 ### Alpha Vantage 키 발급 방법
 1. https://www.alphavantage.co/support/#api-key 접속
@@ -50,7 +48,6 @@ ALPHA_VANTAGE_API_KEY=your_key_here
   - 재무제표 기반 기초 분석
   - 가격 데이터와 재무 데이터 결합
 - Streamlit 적합도: 높음
-- Pico W 적합도: 낮음. 재무 데이터 응답이 커서 데스크톱 Python 권장
 
 ## Finnhub
 - 주제: 실시간 주식/외환/암호화폐, 기업 기본정보, 경제 데이터
@@ -60,7 +57,6 @@ ALPHA_VANTAGE_API_KEY=your_key_here
 - 테스트 URL 예시: `https://finnhub.io/api/v1/quote?symbol=AAPL&token=YOUR_KEY`
 - 교육 포인트: 현재가 조회, 종목 검색, 경제지표 결합
 - Streamlit 적합도: 높음
-- Pico W 적합도: 중간. quote 엔드포인트처럼 작은 응답 위주 권장
 
 ## 공공데이터포털 - 금융위원회 주식시세정보
 - 주제: 한국거래소 상장 주식 시세, 종가/고가/저가/거래량
@@ -77,4 +73,3 @@ ALPHA_VANTAGE_API_KEY=your_key_here
   - 등락률/거래량 순위
   - 공공 API 서비스키와 URL 인코딩
 - Streamlit 적합도: 높음
-- Pico W 적합도: 낮음~중간. 서비스키 보관과 응답 크기 주의
