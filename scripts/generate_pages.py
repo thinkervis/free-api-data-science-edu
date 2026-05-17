@@ -591,6 +591,275 @@ SDG_TOPICS = [
 ]
 
 
+COLUMN_DESCRIPTIONS: dict[str, dict[str, str]] = {
+    "open_meteo_seoul_daily_weather.csv": {
+        "location": "이 저장소에서 붙인 관측 위치 이름입니다.",
+        "latitude": "요청 지점의 위도입니다.",
+        "longitude": "요청 지점의 경도입니다.",
+        "time": "일별 관측 날짜입니다.",
+        "temperature_2m_max": "지상 2m 기준 일 최고기온입니다.",
+        "temperature_2m_min": "지상 2m 기준 일 최저기온입니다.",
+        "temperature_2m_mean": "지상 2m 기준 일 평균기온입니다.",
+        "precipitation_sum": "하루 동안의 강수량 합계입니다.",
+        "wind_speed_10m_max": "지상 10m 기준 일 최대 풍속입니다.",
+    },
+    "open_meteo_seoul_air_quality_hourly.csv": {
+        "location": "이 저장소에서 붙인 측정 위치 이름입니다.",
+        "latitude": "요청 지점의 위도입니다.",
+        "longitude": "요청 지점의 경도입니다.",
+        "time": "시간별 대기질 데이터의 기준 시각입니다.",
+        "pm10": "PM10 미세먼지 농도입니다.",
+        "pm2_5": "PM2.5 초미세먼지 농도입니다.",
+        "carbon_monoxide": "일산화탄소 농도입니다.",
+        "nitrogen_dioxide": "이산화질소 농도입니다.",
+        "ozone": "오존 농도입니다.",
+    },
+    "worldbank_korea_indicators.csv": {
+        "country": "World Bank가 제공하는 국가 이름입니다.",
+        "countryiso3code": "국가 ISO 3자리 코드입니다.",
+        "indicator_id": "World Bank 지표 코드입니다.",
+        "indicator": "World Bank 지표 이름입니다.",
+        "date": "지표 값의 기준 연도입니다.",
+        "value": "해당 국가·연도·지표의 값입니다.",
+    },
+    "factfulness_global_indicators.csv": {
+        "country": "World Bank가 제공하는 국가/지역 이름입니다.",
+        "countryiso3code": "국가/지역 ISO 3자리 코드입니다.",
+        "indicator_id": "World Bank 지표 코드입니다.",
+        "indicator": "World Bank 지표 이름입니다.",
+        "date": "지표 값의 기준 연도입니다.",
+        "value": "해당 국가/지역·연도·지표의 값입니다.",
+        "factfulness_question": "이 저장소에서 수업 질문과 연결하기 위해 붙인 분류 문구입니다.",
+    },
+    "usgs_major_earthquakes.csv": {
+        "id": "USGS 지진 이벤트 식별자입니다.",
+        "time_utc": "지진 발생 시각입니다(UTC).",
+        "magnitude": "USGS가 제공하는 지진 규모 값입니다.",
+        "place": "USGS가 제공하는 발생 위치 설명입니다.",
+        "longitude": "지진 위치의 경도입니다.",
+        "latitude": "지진 위치의 위도입니다.",
+        "depth_km": "진원 깊이입니다(km).",
+        "type": "USGS 이벤트 유형입니다.",
+        "url": "USGS 상세 페이지 URL입니다.",
+    },
+    "mlb_schedule.csv": {
+        "date": "경기 일정의 날짜입니다.",
+        "gamePk": "MLB Stats API의 경기 고유 식별자입니다.",
+        "gameDate": "경기 시작 일시입니다.",
+        "season": "경기가 속한 시즌 연도입니다.",
+        "gameType": "MLB Stats API의 경기 유형 코드입니다.",
+        "status": "경기 진행 상태입니다.",
+        "away_team": "원정 팀 이름입니다.",
+        "home_team": "홈 팀 이름입니다.",
+        "away_score": "원정 팀 점수입니다.",
+        "home_score": "홈 팀 점수입니다.",
+    },
+    "fred_fedfunds.csv": {
+        "observation_date": "FRED 관측 날짜입니다.",
+        "FEDFUNDS": "FRED의 Effective Federal Funds Rate 계열 값입니다.",
+    },
+    "owid_co2_korea_world.csv": {
+        "Entity": "Our World in Data의 국가/지역 이름입니다.",
+        "Code": "국가/지역 코드입니다.",
+        "Year": "자료의 기준 연도입니다.",
+        "Annual CO₂ emissions": "연간 이산화탄소 배출량 값입니다.",
+    },
+    "gbif_korea_occurrences_sample.csv": {
+        "key": "GBIF occurrence 고유 키입니다.",
+        "scientificName": "학명입니다.",
+        "vernacularName": "일반명/국명입니다. 원천에 값이 없을 수 있습니다.",
+        "eventDate": "관측 또는 채집 이벤트 날짜입니다.",
+        "year": "관측 또는 채집 이벤트 연도입니다.",
+        "country": "관측 국가입니다.",
+        "locality": "관측 지역 설명입니다.",
+        "decimalLatitude": "십진수 위도입니다.",
+        "decimalLongitude": "십진수 경도입니다.",
+        "basisOfRecord": "GBIF 기록 근거 유형입니다.",
+    },
+    "artic_recent_artworks_sample.csv": {
+        "_score": "Art Institute of Chicago API 검색 결과의 관련도 점수입니다.",
+        "id": "작품 고유 식별자입니다.",
+        "title": "작품 제목입니다.",
+        "date_start": "작품 제작 시작 연도입니다.",
+        "date_end": "작품 제작 종료 연도입니다.",
+        "medium_display": "작품 재료/기법 설명입니다.",
+        "artist_title": "작가 이름입니다.",
+        "place_of_origin": "작품의 출처/제작 지역입니다.",
+    },
+    "seoul_bike_sample.csv": {
+        "rackTotCnt": "대여소의 전체 거치대 수입니다.",
+        "stationName": "따릉이 대여소 이름입니다.",
+        "parkingBikeTotCnt": "현재 대여 가능한 자전거 수입니다.",
+        "shared": "서울 열린데이터광장 응답의 shared 필드 값입니다.",
+        "stationLatitude": "대여소 위도입니다.",
+        "stationLongitude": "대여소 경도입니다.",
+        "stationId": "대여소 식별자입니다.",
+    },
+    "nasa_power_seoul_daily.csv": {
+        "location": "이 저장소에서 붙인 관측 위치 이름입니다.",
+        "date": "일별 자료의 기준 날짜입니다.",
+        "temperature_2m_c": "NASA POWER T2M 값을 섭씨로 저장한 일 평균 기온입니다.",
+        "temperature_max_c": "NASA POWER T2M_MAX 값을 섭씨로 저장한 일 최고기온입니다.",
+        "temperature_min_c": "NASA POWER T2M_MIN 값을 섭씨로 저장한 일 최저기온입니다.",
+        "precipitation_mm_day": "NASA POWER PRECTOTCORR 값을 mm/day 단위로 저장한 강수량입니다.",
+        "wind_speed_2m_m_s": "NASA POWER WS2M 값을 m/s 단위로 저장한 2m 풍속입니다.",
+    },
+    "bls_us_cpi_monthly.csv": {
+        "series_id": "BLS 시계열 식별자입니다.",
+        "year": "자료의 기준 연도입니다.",
+        "month": "자료의 기준 월 코드입니다.",
+        "date": "이 저장소에서 year와 month로 만든 월별 날짜입니다.",
+        "cpi_value": "소비자물가지수(CPI) 값입니다.",
+        "footnotes": "BLS 응답에 포함된 주석/각주입니다.",
+    },
+    "nager_korea_public_holidays.csv": {
+        "date": "공휴일 날짜입니다.",
+        "localName": "현지 언어 공휴일 이름입니다.",
+        "name": "영문 공휴일 이름입니다.",
+        "countryCode": "국가 코드입니다.",
+        "global": "전국 공휴일 여부입니다.",
+        "types": "Nager.Date API가 제공하는 공휴일 유형 목록입니다.",
+    },
+    "spacex_launches.csv": {
+        "flight_number": "발사 번호입니다.",
+        "name": "발사 임무 이름입니다.",
+        "date_utc": "발사 예정/실제 일시입니다(UTC).",
+        "success": "발사 성공 여부입니다. 값이 비어 있으면 원천에서 확정되지 않은 상태일 수 있습니다.",
+        "status": "Launch Library 2가 제공하는 발사 상태 이름입니다.",
+        "rocket": "로켓 이름입니다.",
+        "mission_type": "임무 유형입니다.",
+        "orbit": "목표 궤도 이름입니다.",
+        "pad": "발사대 이름입니다.",
+        "location": "발사 장소 이름입니다.",
+        "details": "임무 설명입니다.",
+        "wikipedia": "관련 Wikipedia URL입니다.",
+        "webcast": "관련 영상/중계 URL입니다.",
+    },
+    "frankfurter_usd_krw_daily.csv": {
+        "date": "환율 기준 날짜입니다.",
+        "base": "기준 통화입니다.",
+        "quote": "상대 통화입니다.",
+        "rate": "기준 통화 1단위에 대한 상대 통화 환율입니다.",
+    },
+    "who_korea_life_expectancy.csv": {
+        "indicator": "WHO GHO 지표 코드입니다.",
+        "year": "자료의 기준 연도입니다.",
+        "country": "국가 코드 또는 국가 식별 값입니다.",
+        "sex": "성별 구분입니다.",
+        "value": "지표의 수치 값입니다.",
+        "display": "WHO API가 제공하는 표시용 값입니다.",
+    },
+    "restcountries_world_snapshot.csv": {
+        "name": "국가의 일반 이름입니다.",
+        "official_name": "국가의 공식 이름입니다.",
+        "cca3": "ISO 3166-1 alpha-3 국가 코드입니다.",
+        "region": "대륙/권역 분류입니다.",
+        "subregion": "세부 권역 분류입니다.",
+        "population": "REST Countries가 제공하는 인구 값입니다.",
+        "area": "국가 면적입니다.",
+        "latitude": "국가 대표 좌표의 위도입니다.",
+        "longitude": "국가 대표 좌표의 경도입니다.",
+    },
+    "eia_california_electricity_daily.csv": {
+        "date": "전력 데이터의 기준 날짜입니다.",
+        "respondent": "EIA respondent 코드입니다.",
+        "respondent_name": "EIA respondent 이름입니다.",
+        "type": "EIA 전력 데이터 유형 코드입니다.",
+        "type_name": "EIA 전력 데이터 유형 이름입니다.",
+        "value": "해당 날짜·유형의 전력 데이터 값입니다.",
+        "unit": "값의 단위입니다.",
+    },
+    "noaa_coops_seattle_water_level.csv": {
+        "station_id": "NOAA CO-OPS 관측소 ID입니다.",
+        "station_name": "이 저장소에서 붙인 관측소 이름입니다.",
+        "time_utc": "관측 시각입니다(UTC).",
+        "water_level_m": "수위 관측값입니다(m).",
+        "sigma": "NOAA 응답의 sigma 값입니다.",
+        "quality": "NOAA 응답의 품질 플래그입니다.",
+    },
+    "gb_carbon_intensity.csv": {
+        "from_utc": "탄소집약도 구간 시작 시각입니다.",
+        "to_utc": "탄소집약도 구간 종료 시각입니다.",
+        "forecast_gco2_kwh": "예측 전력 탄소집약도입니다(gCO₂/kWh).",
+        "actual_gco2_kwh": "실측 전력 탄소집약도입니다(gCO₂/kWh).",
+        "index": "Carbon Intensity API가 제공하는 등급 문자열입니다.",
+    },
+    "citi_bike_station_snapshot.csv": {
+        "station_id": "GBFS 대여소 식별자입니다.",
+        "name": "대여소 이름입니다.",
+        "latitude": "대여소 위도입니다.",
+        "longitude": "대여소 경도입니다.",
+        "capacity": "대여소 총 거치 용량입니다.",
+        "num_bikes_available": "현재 이용 가능한 자전거 수입니다.",
+        "num_docks_available": "현재 비어 있는 거치대 수입니다.",
+        "is_renting": "현재 대여 가능 여부를 나타내는 GBFS 상태 값입니다.",
+    },
+    "met_museum_sunflower_objects.csv": {
+        "objectID": "Met Collection API의 작품 고유 식별자입니다.",
+        "title": "작품 제목입니다.",
+        "artistDisplayName": "작가 표시 이름입니다.",
+        "objectDate": "작품 제작 시기 표시 문자열입니다.",
+        "objectBeginDate": "작품 제작 시작 연도입니다.",
+        "objectEndDate": "작품 제작 종료 연도입니다.",
+        "department": "소장 부서입니다.",
+        "culture": "문화권/문화 분류입니다.",
+        "repository": "소장 기관 정보입니다.",
+        "objectURL": "Met 작품 상세 페이지 URL입니다.",
+    },
+    "cdc_places_health_sample.csv": {
+        "year": "자료의 기준 연도입니다.",
+        "stateabbr": "미국 주 약어입니다.",
+        "state": "미국 주 이름입니다.",
+        "county": "카운티 이름입니다.",
+        "measure": "CDC PLACES 건강 지표 이름입니다.",
+        "data_value": "해당 지표의 값입니다.",
+        "low_confidence_limit": "신뢰구간 하한입니다.",
+        "high_confidence_limit": "신뢰구간 상한입니다.",
+    },
+    "osm_seoul_hospitals.csv": {
+        "osm_id": "OpenStreetMap 객체 식별자입니다.",
+        "name": "시설 이름입니다.",
+        "amenity": "OpenStreetMap amenity 태그 값입니다.",
+        "emergency": "OpenStreetMap emergency 태그 값입니다.",
+        "latitude": "시설 위도입니다.",
+        "longitude": "시설 경도입니다.",
+    },
+    "nominatim_seoul_landmarks.csv": {
+        "query": "이 저장소가 Nominatim에 보낸 검색어입니다.",
+        "display_name": "Nominatim이 반환한 표시용 장소 이름입니다.",
+        "latitude": "검색 결과의 위도입니다.",
+        "longitude": "검색 결과의 경도입니다.",
+        "type": "Nominatim이 반환한 장소 유형입니다.",
+        "importance": "Nominatim 검색 결과의 중요도 점수입니다.",
+    },
+    "seoul_realtime_citydata_sample.csv": {
+        "area_name": "서울 실시간 도시데이터의 장소 이름입니다.",
+        "area_code": "서울 실시간 도시데이터의 장소 코드입니다.",
+        "congestion_level": "장소의 혼잡도 단계입니다.",
+        "congestion_message": "혼잡도에 대한 설명 문구입니다.",
+        "min_population": "추정 인구 최솟값입니다.",
+        "max_population": "추정 인구 최댓값입니다.",
+        "male_rate": "남성 비율입니다.",
+        "female_rate": "여성 비율입니다.",
+        "updated_at": "데이터 갱신 시각입니다.",
+    },
+    "seoul_realtime_air_quality.csv": {
+        "measured_at": "대기질 측정 시각입니다.",
+        "area": "측정 권역/지역 이름입니다.",
+        "station": "측정소 이름입니다.",
+        "pm10": "미세먼지(PM10) 농도입니다.",
+        "pm25": "초미세먼지(PM2.5) 농도입니다.",
+        "ozone": "오존 농도입니다.",
+        "no2": "이산화질소 농도입니다.",
+        "co": "일산화탄소 농도입니다.",
+        "so2": "아황산가스 농도입니다.",
+        "cai_grade": "통합대기환경지수 등급입니다.",
+        "cai_index": "통합대기환경지수 값입니다.",
+    },
+}
+
+
+
 def read_preview(csv_name: str, max_rows: int = 5) -> tuple[list[str], list[list[str]], list[list[str]], int]:
     path = DATA / csv_name
     with path.open(newline="", encoding="utf-8") as f:
@@ -611,6 +880,22 @@ def html_table(headers: list[str], rows: list[list[str]]) -> str:
     head = "".join(f"<th>{html.escape(h)}</th>" for h in headers)
     body = "".join("<tr>" + "".join(f"<td>{html.escape(c)}</td>" for c in row) + "</tr>" for row in rows)
     return f"<table><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>"
+
+
+def column_descriptions_table(ds: dict[str, str], headers: list[str]) -> str:
+    descriptions = COLUMN_DESCRIPTIONS.get(ds["csv"], {})
+    missing = [h for h in headers if h not in descriptions]
+    if missing:
+        raise ValueError(f"missing column descriptions for {ds['csv']}: {', '.join(missing)}")
+    rows = "".join(
+        f"<tr><td><code>{html.escape(h)}</code></td><td>{html.escape(descriptions[h])}</td></tr>"
+        for h in headers
+    )
+    return f'''<div class="card">
+  <h2>열 설명</h2>
+  <p class="small-muted">공식 문서와 이 저장소의 데이터 생성 스크립트(<code>scripts/update_datasets.py</code>)에서 확인한 필드만 설명했습니다. 원천별 단위·코드 체계는 위의 공식 문서 링크를 함께 확인하세요.</p>
+  <table><thead><tr><th>열</th><th>의미</th></tr></thead><tbody>{rows}</tbody></table>
+</div>'''
 
 
 def supabase_config_script() -> str:
@@ -882,6 +1167,7 @@ def dataset_page(ds: dict[str, str]) -> str:
     preview = f"<h3>Head: 처음 5행</h3>{html_table(headers, head_rows)}"
     if tail_rows:
         preview += f"<h3>Tail: 마지막 5행</h3>{html_table(headers, tail_rows)}"
+    column_descriptions = column_descriptions_table(ds, headers)
     csv_url = f"../data/{ds['csv']}"
     body = f'''
 <p><a href="../index.html">← 전체 목록</a></p>
@@ -898,6 +1184,7 @@ def dataset_page(ds: dict[str, str]) -> str:
 </div>
 <h2>CSV 미리보기</h2>
 {preview}
+{column_descriptions}
 <h2>Streamlit 기본 코드</h2>
 <pre>{html.escape(streamlit_code(ds['csv']))}</pre>
 {dataset_script(ds)}

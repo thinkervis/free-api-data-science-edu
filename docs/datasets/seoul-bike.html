@@ -47,6 +47,11 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 </div>
 <h2>CSV 미리보기</h2>
 <h3>Head: 처음 5행</h3><table><thead><tr><th>rackTotCnt</th><th>stationName</th><th>parkingBikeTotCnt</th><th>shared</th><th>stationLatitude</th><th>stationLongitude</th><th>stationId</th></tr></thead><tbody><tr><td>15</td><td>102. 망원역 1번출구 앞</td><td>8</td><td>53</td><td>37.55564880</td><td>126.91062927</td><td>ST-4</td></tr><tr><td>14</td><td>103. 망원역 2번출구 앞</td><td>0</td><td>0</td><td>37.55495071</td><td>126.91083527</td><td>ST-5</td></tr><tr><td>13</td><td>104. 합정역 1번출구 앞</td><td>0</td><td>0</td><td>37.55073929</td><td>126.91508484</td><td>ST-6</td></tr><tr><td>5</td><td>105. 합정역 5번출구 앞</td><td>0</td><td>0</td><td>37.55000687</td><td>126.91482544</td><td>ST-7</td></tr><tr><td>12</td><td>106. 합정역 7번출구 앞</td><td>0</td><td>0</td><td>37.54864502</td><td>126.91282654</td><td>ST-8</td></tr></tbody></table>
+<div class="card">
+  <h2>열 설명</h2>
+  <p class="small-muted">공식 문서와 이 저장소의 데이터 생성 스크립트(<code>scripts/update_datasets.py</code>)에서 확인한 필드만 설명했습니다. 원천별 단위·코드 체계는 위의 공식 문서 링크를 함께 확인하세요.</p>
+  <table><thead><tr><th>열</th><th>의미</th></tr></thead><tbody><tr><td><code>rackTotCnt</code></td><td>대여소의 전체 거치대 수입니다.</td></tr><tr><td><code>stationName</code></td><td>따릉이 대여소 이름입니다.</td></tr><tr><td><code>parkingBikeTotCnt</code></td><td>현재 대여 가능한 자전거 수입니다.</td></tr><tr><td><code>shared</code></td><td>서울 열린데이터광장 응답의 shared 필드 값입니다.</td></tr><tr><td><code>stationLatitude</code></td><td>대여소 위도입니다.</td></tr><tr><td><code>stationLongitude</code></td><td>대여소 경도입니다.</td></tr><tr><td><code>stationId</code></td><td>대여소 식별자입니다.</td></tr></tbody></table>
+</div>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st

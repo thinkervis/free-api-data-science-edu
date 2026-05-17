@@ -47,6 +47,11 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 </div>
 <h2>CSV 미리보기</h2>
 <h3>Head: 처음 5행</h3><table><thead><tr><th>series_id</th><th>year</th><th>month</th><th>date</th><th>cpi_value</th><th>footnotes</th></tr></thead><tbody><tr><td>CUUR0000SA0</td><td>2021</td><td>M01</td><td>2021-01-01</td><td>261.582</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2021</td><td>M02</td><td>2021-02-01</td><td>263.014</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2021</td><td>M03</td><td>2021-03-01</td><td>264.877</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2021</td><td>M04</td><td>2021-04-01</td><td>267.054</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2021</td><td>M05</td><td>2021-05-01</td><td>269.195</td><td></td></tr></tbody></table><h3>Tail: 마지막 5행</h3><table><thead><tr><th>series_id</th><th>year</th><th>month</th><th>date</th><th>cpi_value</th><th>footnotes</th></tr></thead><tbody><tr><td>CUUR0000SA0</td><td>2025</td><td>M12</td><td>2025-12-01</td><td>324.054</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2026</td><td>M01</td><td>2026-01-01</td><td>325.252</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2026</td><td>M02</td><td>2026-02-01</td><td>326.785</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2026</td><td>M03</td><td>2026-03-01</td><td>330.213</td><td></td></tr><tr><td>CUUR0000SA0</td><td>2026</td><td>M04</td><td>2026-04-01</td><td>333.020</td><td></td></tr></tbody></table>
+<div class="card">
+  <h2>열 설명</h2>
+  <p class="small-muted">공식 문서와 이 저장소의 데이터 생성 스크립트(<code>scripts/update_datasets.py</code>)에서 확인한 필드만 설명했습니다. 원천별 단위·코드 체계는 위의 공식 문서 링크를 함께 확인하세요.</p>
+  <table><thead><tr><th>열</th><th>의미</th></tr></thead><tbody><tr><td><code>series_id</code></td><td>BLS 시계열 식별자입니다.</td></tr><tr><td><code>year</code></td><td>자료의 기준 연도입니다.</td></tr><tr><td><code>month</code></td><td>자료의 기준 월 코드입니다.</td></tr><tr><td><code>date</code></td><td>이 저장소에서 year와 month로 만든 월별 날짜입니다.</td></tr><tr><td><code>cpi_value</code></td><td>소비자물가지수(CPI) 값입니다.</td></tr><tr><td><code>footnotes</code></td><td>BLS 응답에 포함된 주석/각주입니다.</td></tr></tbody></table>
+</div>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st

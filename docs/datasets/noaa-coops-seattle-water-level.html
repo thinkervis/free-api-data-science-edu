@@ -47,6 +47,11 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 </div>
 <h2>CSV 미리보기</h2>
 <h3>Head: 처음 5행</h3><table><thead><tr><th>station_id</th><th>station_name</th><th>time_utc</th><th>water_level_m</th><th>sigma</th><th>quality</th></tr></thead><tbody><tr><td>9447130</td><td>Seattle</td><td>2026-04-17 00:00</td><td>3.206</td><td>0.007</td><td>v</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-04-17 00:06</td><td>3.21</td><td>0.008</td><td>v</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-04-17 00:12</td><td>3.218</td><td>0.006</td><td>v</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-04-17 00:18</td><td>3.218</td><td>0.006</td><td>v</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-04-17 00:24</td><td>3.216</td><td>0.008</td><td>v</td></tr></tbody></table><h3>Tail: 마지막 5행</h3><table><thead><tr><th>station_id</th><th>station_name</th><th>time_utc</th><th>water_level_m</th><th>sigma</th><th>quality</th></tr></thead><tbody><tr><td>9447130</td><td>Seattle</td><td>2026-05-17 21:00</td><td>0.0</td><td>0.031</td><td>p</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-05-17 21:06</td><td>0.086</td><td>0.028</td><td>p</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-05-17 21:12</td><td>0.17</td><td>0.026</td><td>p</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-05-17 21:18</td><td>0.264</td><td>0.033</td><td>p</td></tr><tr><td>9447130</td><td>Seattle</td><td>2026-05-17 21:24</td><td>0.354</td><td>0.026</td><td>p</td></tr></tbody></table>
+<div class="card">
+  <h2>열 설명</h2>
+  <p class="small-muted">공식 문서와 이 저장소의 데이터 생성 스크립트(<code>scripts/update_datasets.py</code>)에서 확인한 필드만 설명했습니다. 원천별 단위·코드 체계는 위의 공식 문서 링크를 함께 확인하세요.</p>
+  <table><thead><tr><th>열</th><th>의미</th></tr></thead><tbody><tr><td><code>station_id</code></td><td>NOAA CO-OPS 관측소 ID입니다.</td></tr><tr><td><code>station_name</code></td><td>이 저장소에서 붙인 관측소 이름입니다.</td></tr><tr><td><code>time_utc</code></td><td>관측 시각입니다(UTC).</td></tr><tr><td><code>water_level_m</code></td><td>수위 관측값입니다(m).</td></tr><tr><td><code>sigma</code></td><td>NOAA 응답의 sigma 값입니다.</td></tr><tr><td><code>quality</code></td><td>NOAA 응답의 품질 플래그입니다.</td></tr></tbody></table>
+</div>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st

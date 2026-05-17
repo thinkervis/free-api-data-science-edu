@@ -47,6 +47,11 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 </div>
 <h2>CSV 미리보기</h2>
 <h3>Head: 처음 5행</h3><table><thead><tr><th>date</th><th>localName</th><th>name</th><th>countryCode</th><th>global</th><th>types</th></tr></thead><tbody><tr><td>2021-01-01</td><td>새해</td><td>New Year&#x27;s Day</td><td>KR</td><td>True</td><td>Public</td></tr><tr><td>2021-02-11</td><td>설날</td><td>Lunar New Year</td><td>KR</td><td>True</td><td>Public</td></tr><tr><td>2021-02-12</td><td>설날</td><td>Lunar New Year</td><td>KR</td><td>True</td><td>Public</td></tr><tr><td>2021-02-13</td><td>설날</td><td>Lunar New Year</td><td>KR</td><td>True</td><td>Public</td></tr><tr><td>2021-03-01</td><td>3·1절</td><td>Independence Movement Day</td><td>KR</td><td>True</td><td>Public</td></tr></tbody></table><h3>Tail: 마지막 5행</h3><table><thead><tr><th>date</th><th>localName</th><th>name</th><th>countryCode</th><th>global</th><th>types</th></tr></thead><tbody><tr><td>2026-09-25</td><td>추석</td><td>Chuseok</td><td>KR</td><td>True</td><td>Public</td></tr><tr><td>2026-09-26</td><td>추석</td><td>Chuseok</td><td>KR</td><td>True</td><td>Public</td></tr><tr><td>2026-10-03</td><td>개천절</td><td>National Foundation Day</td><td>KR</td><td>True</td><td>Public</td></tr><tr><td>2026-10-09</td><td>한글날</td><td>Hangul Day</td><td>KR</td><td>True</td><td>Public</td></tr><tr><td>2026-12-25</td><td>크리스마스</td><td>Christmas Day</td><td>KR</td><td>True</td><td>Public</td></tr></tbody></table>
+<div class="card">
+  <h2>열 설명</h2>
+  <p class="small-muted">공식 문서와 이 저장소의 데이터 생성 스크립트(<code>scripts/update_datasets.py</code>)에서 확인한 필드만 설명했습니다. 원천별 단위·코드 체계는 위의 공식 문서 링크를 함께 확인하세요.</p>
+  <table><thead><tr><th>열</th><th>의미</th></tr></thead><tbody><tr><td><code>date</code></td><td>공휴일 날짜입니다.</td></tr><tr><td><code>localName</code></td><td>현지 언어 공휴일 이름입니다.</td></tr><tr><td><code>name</code></td><td>영문 공휴일 이름입니다.</td></tr><tr><td><code>countryCode</code></td><td>국가 코드입니다.</td></tr><tr><td><code>global</code></td><td>전국 공휴일 여부입니다.</td></tr><tr><td><code>types</code></td><td>Nager.Date API가 제공하는 공휴일 유형 목록입니다.</td></tr></tbody></table>
+</div>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st

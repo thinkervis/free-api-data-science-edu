@@ -47,6 +47,11 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 </div>
 <h2>CSV 미리보기</h2>
 <h3>Head: 처음 5행</h3><table><thead><tr><th>measured_at</th><th>area</th><th>station</th><th>pm10</th><th>pm25</th><th>ozone</th><th>no2</th><th>co</th><th>so2</th><th>cai_grade</th><th>cai_index</th></tr></thead><tbody><tr><td>202605180600</td><td>도심권</td><td>중구</td><td>26.0</td><td>18.0</td><td>0.019</td><td>0.026</td><td>0.3</td><td>0.003</td><td>보통</td><td>54.0</td></tr><tr><td>202605180600</td><td>도심권</td><td>종로구</td><td>25.0</td><td>20.0</td><td>0.021</td><td>0.019</td><td>0.3</td><td>0.003</td><td>보통</td><td>61.0</td></tr><tr><td>202605180600</td><td>도심권</td><td>용산구</td><td>35.0</td><td>19.0</td><td>0.015</td><td>0.023</td><td>0.3</td><td>0.003</td><td>보통</td><td>56.0</td></tr><tr><td>202605180600</td><td>서북권</td><td>은평구</td><td>17.0</td><td>13.0</td><td>0.032</td><td>0.011</td><td>0.3</td><td>0.003</td><td>보통</td><td>52.0</td></tr><tr><td>202605180600</td><td>서북권</td><td>서대문구</td><td>24.0</td><td>15.0</td><td>0.028</td><td>0.018</td><td>0.4</td><td>0.003</td><td>좋음</td><td>47.0</td></tr></tbody></table>
+<div class="card">
+  <h2>열 설명</h2>
+  <p class="small-muted">공식 문서와 이 저장소의 데이터 생성 스크립트(<code>scripts/update_datasets.py</code>)에서 확인한 필드만 설명했습니다. 원천별 단위·코드 체계는 위의 공식 문서 링크를 함께 확인하세요.</p>
+  <table><thead><tr><th>열</th><th>의미</th></tr></thead><tbody><tr><td><code>measured_at</code></td><td>대기질 측정 시각입니다.</td></tr><tr><td><code>area</code></td><td>측정 권역/지역 이름입니다.</td></tr><tr><td><code>station</code></td><td>측정소 이름입니다.</td></tr><tr><td><code>pm10</code></td><td>미세먼지(PM10) 농도입니다.</td></tr><tr><td><code>pm25</code></td><td>초미세먼지(PM2.5) 농도입니다.</td></tr><tr><td><code>ozone</code></td><td>오존 농도입니다.</td></tr><tr><td><code>no2</code></td><td>이산화질소 농도입니다.</td></tr><tr><td><code>co</code></td><td>일산화탄소 농도입니다.</td></tr><tr><td><code>so2</code></td><td>아황산가스 농도입니다.</td></tr><tr><td><code>cai_grade</code></td><td>통합대기환경지수 등급입니다.</td></tr><tr><td><code>cai_index</code></td><td>통합대기환경지수 값입니다.</td></tr></tbody></table>
+</div>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st

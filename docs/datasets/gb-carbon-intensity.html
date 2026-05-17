@@ -47,6 +47,11 @@ button { padding: .5rem .8rem; border-radius: 8px; border: 1px solid #d0d7de; ba
 </div>
 <h2>CSV 미리보기</h2>
 <h3>Head: 처음 5행</h3><table><thead><tr><th>from_utc</th><th>to_utc</th><th>forecast_gco2_kwh</th><th>actual_gco2_kwh</th><th>index</th></tr></thead><tbody><tr><td>2026-05-03T23:00Z</td><td>2026-05-03T23:30Z</td><td>178</td><td>174</td><td>high</td></tr><tr><td>2026-05-03T23:30Z</td><td>2026-05-04T00:00Z</td><td>175</td><td>174</td><td>high</td></tr><tr><td>2026-05-04T00:00Z</td><td>2026-05-04T00:30Z</td><td>169</td><td>173</td><td>high</td></tr><tr><td>2026-05-04T00:30Z</td><td>2026-05-04T01:00Z</td><td>176</td><td>174</td><td>high</td></tr><tr><td>2026-05-04T01:00Z</td><td>2026-05-04T01:30Z</td><td>164</td><td>170</td><td>high</td></tr></tbody></table><h3>Tail: 마지막 5행</h3><table><thead><tr><th>from_utc</th><th>to_utc</th><th>forecast_gco2_kwh</th><th>actual_gco2_kwh</th><th>index</th></tr></thead><tbody><tr><td>2026-05-17T20:30Z</td><td>2026-05-17T21:00Z</td><td>206</td><td>195</td><td>high</td></tr><tr><td>2026-05-17T21:00Z</td><td>2026-05-17T21:30Z</td><td>209</td><td></td><td>high</td></tr><tr><td>2026-05-17T21:30Z</td><td>2026-05-17T22:00Z</td><td>203</td><td></td><td>high</td></tr><tr><td>2026-05-17T22:00Z</td><td>2026-05-17T22:30Z</td><td>195</td><td></td><td>high</td></tr><tr><td>2026-05-17T22:30Z</td><td>2026-05-17T23:00Z</td><td>188</td><td></td><td>high</td></tr></tbody></table>
+<div class="card">
+  <h2>열 설명</h2>
+  <p class="small-muted">공식 문서와 이 저장소의 데이터 생성 스크립트(<code>scripts/update_datasets.py</code>)에서 확인한 필드만 설명했습니다. 원천별 단위·코드 체계는 위의 공식 문서 링크를 함께 확인하세요.</p>
+  <table><thead><tr><th>열</th><th>의미</th></tr></thead><tbody><tr><td><code>from_utc</code></td><td>탄소집약도 구간 시작 시각입니다.</td></tr><tr><td><code>to_utc</code></td><td>탄소집약도 구간 종료 시각입니다.</td></tr><tr><td><code>forecast_gco2_kwh</code></td><td>예측 전력 탄소집약도입니다(gCO₂/kWh).</td></tr><tr><td><code>actual_gco2_kwh</code></td><td>실측 전력 탄소집약도입니다(gCO₂/kWh).</td></tr><tr><td><code>index</code></td><td>Carbon Intensity API가 제공하는 등급 문자열입니다.</td></tr></tbody></table>
+</div>
 <h2>Streamlit 기본 코드</h2>
 <pre>import pandas as pd
 import streamlit as st
