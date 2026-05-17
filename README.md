@@ -130,7 +130,7 @@ GitHub Pages 첫 화면에는 데이터셋별 좋아요 버튼과 `좋아요 많
 
 선생님, 학생, 개발자, 시민 누구나 기여할 수 있습니다.
 
-- 사람용 안내: `CONTRIBUTING.md`
+- 기여 안내: `CONTRIBUTING.md`
 - 기여자 표기: `CONTRIBUTORS.md`
 
 기여는 데이터 추천, 공식 문서 확인, CSV 자동화, Streamlit 예제, 수업 활동지, 현장 적용 후기까지 모두 환영합니다.
