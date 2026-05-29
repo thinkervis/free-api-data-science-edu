@@ -1,18 +1,4 @@
 date,gamePk,gameDate,season,gameType,status,away_team,home_team,away_score,home_score
-2021-05-28,634024,2021-05-28T18:20:00Z,2021,R,Final,Cincinnati Reds,Chicago Cubs,0,1
-2021-05-28,633966,2021-05-28T23:10:00Z,2021,R,Completed Early,Toronto Blue Jays,Cleveland Indians,11,2
-2021-05-28,634040,2021-05-28T23:10:00Z,2021,R,Completed Early,Miami Marlins,Boston Red Sox,2,5
-2021-05-28,633961,2021-05-28T23:10:00Z,2021,R,Final,New York Yankees,Detroit Tigers,2,3
-2021-05-28,633918,2021-05-29T00:10:00Z,2021,R,Final,San Diego Padres,Houston Astros,10,3
-2021-05-28,633932,2021-05-29T00:10:00Z,2021,R,Final,Kansas City Royals,Minnesota Twins,8,3
-2021-05-28,634006,2021-05-29T01:40:00Z,2021,R,Final,Los Angeles Angels,Oakland Athletics,1,3
-2021-05-28,633987,2021-05-29T01:40:00Z,2021,R,Final,St. Louis Cardinals,Arizona Diamondbacks,8,6
-2021-05-28,633921,2021-05-29T02:10:00Z,2021,R,Final,San Francisco Giants,Los Angeles Dodgers,8,5
-2021-05-28,633997,2021-05-29T02:10:00Z,2021,R,Final,Texas Rangers,Seattle Mariners,2,3
-2021-05-28,634005,2021-05-28T22:35:00Z,2021,R,Postponed,Colorado Rockies,Pittsburgh Pirates,,
-2021-05-28,633916,2021-05-28T23:05:00Z,2021,R,Postponed,Milwaukee Brewers,Washington Nationals,,
-2021-05-28,633899,2021-05-28T23:10:00Z,2021,R,Postponed,Atlanta Braves,New York Mets,,
-2021-05-28,633887,2021-05-29T00:10:00Z,2021,R,Postponed,Baltimore Orioles,Chicago White Sox,,
 2021-05-29,634005,2021-05-29T16:05:00Z,2021,R,Final,Colorado Rockies,Pittsburgh Pirates,0,7
 2021-05-29,633936,2021-05-29T20:05:00Z,2021,R,Final,Colorado Rockies,Pittsburgh Pirates,0,4
 2021-05-29,633894,2021-05-29T17:10:00Z,2021,R,Final,Philadelphia Phillies,Tampa Bay Rays,3,5
@@ -2779,6 +2765,21 @@ date,gamePk,gameDate,season,gameType,status,away_team,home_team,away_score,home_
 2022-05-28,663400,2022-05-29T02:07:00Z,2022,R,Final,Toronto Blue Jays,Los Angeles Angels,6,5
 2022-05-28,662280,2022-05-29T02:10:00Z,2022,R,Final,Pittsburgh Pirates,San Diego Padres,4,2
 2022-05-28,662131,2022-05-29T02:10:00Z,2022,R,Final,Houston Astros,Seattle Mariners,0,6
+2022-05-29,663072,2022-05-29T15:35:00Z,2022,R,Final,San Francisco Giants,Cincinnati Reds,6,4
+2022-05-29,663299,2022-05-29T17:35:00Z,2022,R,Final,Baltimore Orioles,Boston Red Sox,2,12
+2022-05-29,662512,2022-05-29T17:35:00Z,2022,R,Final,Colorado Rockies,Washington Nationals,5,6
+2022-05-29,661517,2022-05-29T17:35:00Z,2022,R,Final,Miami Marlins,Atlanta Braves,3,6
+2022-05-29,662840,2022-05-29T17:40:00Z,2022,R,Final,Cleveland Guardians,Detroit Tigers,1,2
+2022-05-29,661910,2022-05-29T17:40:00Z,2022,R,Final,New York Yankees,Tampa Bay Rays,2,4
+2022-05-29,661731,2022-05-29T18:10:00Z,2022,R,Final,Kansas City Royals,Minnesota Twins,3,7
+2022-05-29,661461,2022-05-29T18:10:00Z,2022,R,Final,Chicago Cubs,Chicago White Sox,4,5
+2022-05-29,661990,2022-05-29T18:15:00Z,2022,R,Final,Milwaukee Brewers,St. Louis Cardinals,8,0
+2022-05-29,662374,2022-05-29T20:07:00Z,2022,R,Final,Texas Rangers,Oakland Athletics,5,6
+2022-05-29,663414,2022-05-29T20:07:00Z,2022,R,Final,Toronto Blue Jays,Los Angeles Angels,11,10
+2022-05-29,663328,2022-05-29T20:10:00Z,2022,R,Final,Los Angeles Dodgers,Arizona Diamondbacks,3,1
+2022-05-29,662279,2022-05-29T20:10:00Z,2022,R,Final,Pittsburgh Pirates,San Diego Padres,2,4
+2022-05-29,662130,2022-05-29T20:10:00Z,2022,R,Final,Houston Astros,Seattle Mariners,2,1
+2022-05-29,662555,2022-05-29T23:08:00Z,2022,R,Final,Philadelphia Phillies,New York Mets,4,5
 2022-05-30,663147,2022-05-30T23:40:00Z,2022,R,Final,Milwaukee Brewers,Chicago Cubs,3,1
 2022-06-14,662018,2022-06-14T17:15:00Z,2022,R,Final,Pittsburgh Pirates,St. Louis Cardinals,1,3
 2022-07-04,662841,2022-07-04T22:40:00Z,2022,R,Final,Cleveland Guardians,Detroit Tigers,3,5
