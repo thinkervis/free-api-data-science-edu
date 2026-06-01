@@ -1,5 +1,4 @@
 id,time_utc,magnitude,place,longitude,latitude,depth_km,type,url
-ak0216xu2rod,2021-05-31T06:59:55.581000+00:00,6.1,"73 km N of Chickaloon, Alaska",-148.2512,62.4492,44,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/ak0216xu2rod
 us7000e9bi,2021-06-03T10:09:58.295000+00:00,6.2,"132 km WSW of Ternate, Indonesia",126.2911,0.3165,26,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000e9bi
 us7000eeq4,2021-06-20T17:05:50.681000+00:00,6.5,"Kermadec Islands, New Zealand",-177.8449,-30.2162,25,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000eeq4
 us7000eicj,2021-07-02T20:14:37.663000+00:00,6.1,Fiji region,-179.416,-21.8116,599.56,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000eicj
