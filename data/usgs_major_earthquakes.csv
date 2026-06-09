@@ -650,5 +650,9 @@ us6000sz1d,2026-05-20T17:43:01.910000+00:00,6.6,southern East Pacific Rise,-122.
 us6000t04s,2026-05-25T21:52:20.045000+00:00,6.9,"26 km ENE of Calama, Chile",-68.6779,-22.3975,109,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us6000t04s
 us7000snvr,2026-05-27T14:51:04.419000+00:00,6,western Indian-Antarctic Ridge,139.3678,-50.5174,10,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000snvr
 us7000snvt,2026-05-27T15:01:11.567000+00:00,6,western Indian-Antarctic Ridge,139.3037,-50.5213,10,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000snvt
-us7000spqc,2026-05-31T21:34:18.026000+00:00,6,"33 km NW of Valparaíso, Chile",-71.8593,-32.8047,25,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000spqc
-us7000spxm,2026-06-01T22:12:36.284000+00:00,6.2,"22 km WSW of Scarcelli, Italy",15.7796,39.325,243,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000spxm
+us7000spqc,2026-05-31T21:34:17.983000+00:00,6,"33 km NW of Valparaíso, Chile",-71.8796,-32.8194,25,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000spqc
+us7000spxm,2026-06-01T22:12:36.092000+00:00,6.2,"23 km WSW of San Lucido, Italy",15.7869,39.2548,243,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000spxm
+us7000sr7l,2026-06-07T10:41:58.596000+00:00,6.1,"124 km SE of Severo-Kuril’sk, Russia",157.3799,49.8993,35,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000sr7l
+us7000srb1,2026-06-07T23:37:41.803000+00:00,7.8,"26 km SW of Kablalan, Philippines",125.0469,5.5918,55.193,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000srb1
+us7000srbe,2026-06-07T23:48:11.405000+00:00,6,"16 km WSW of Balangonan, Philippines",125.2096,5.5222,81.843,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000srbe
+us7000src3,2026-06-07T23:49:14.512000+00:00,6,"6 km SSW of Pangyan, Philippines",125.2591,5.6489,42.911,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000src3
