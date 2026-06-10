@@ -644,7 +644,7 @@ us7000sh0a,2026-04-20T07:56:49.716000+00:00,6,"100 km E of Miyako, Japan",143.10
 us7000si2z,2026-05-04T06:09:47.173000+00:00,6,"8 km WSW of Nena, Philippines",125.3411,11.7423,43,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000si2z
 aka2026jcufoy,2026-05-09T04:42:21.975000+00:00,6.1,"Rat Islands, Aleutian Islands, Alaska",179.214,50.981,16.3,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/aka2026jcufoy
 us6000sxqf,2026-05-14T17:53:13.718000+00:00,6.2,"268 km WSW of Tual, Indonesia",130.3809,-6.1497,137,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us6000sxqf
-us6000sxwq,2026-05-15T11:22:01.649000+00:00,6.7,"49 km ESE of Ōfunato, Japan",142.2498,38.9127,43.592,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us6000sxwq
+us6000sxwq,2026-05-15T11:22:01.566000+00:00,6.7,"44 km ESE of Ōfunato, Japan",142.1826,38.9095,42,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us6000sxwq
 us6000sy84,2026-05-16T14:50:05.948000+00:00,6,"60 km ESE of Codrington, Antigua and Barbuda",-61.2938,17.4295,51.245,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us6000sy84
 us6000sz1d,2026-05-20T17:43:01.910000+00:00,6.6,southern East Pacific Rise,-122.2988,-55.984,10,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us6000sz1d
 us6000t04s,2026-05-25T21:52:20.045000+00:00,6.9,"26 km ENE of Calama, Chile",-68.6779,-22.3975,109,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us6000t04s
@@ -656,3 +656,5 @@ us7000sr7l,2026-06-07T10:41:58.596000+00:00,6.1,"124 km SE of Severo-Kuril’sk,
 us7000srb1,2026-06-07T23:37:41.803000+00:00,7.8,"26 km SW of Kablalan, Philippines",125.0469,5.5918,55.193,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000srb1
 us7000srbe,2026-06-07T23:48:11.405000+00:00,6,"16 km WSW of Balangonan, Philippines",125.2096,5.5222,81.843,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000srbe
 us7000src3,2026-06-07T23:49:14.512000+00:00,6,"6 km SSW of Pangyan, Philippines",125.2591,5.6489,42.911,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000src3
+us7000srcg,2026-06-08T00:55:11.958000+00:00,6.5,"20 km WSW of Balangonan, Philippines",125.1951,5.4762,69.004,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000srcg
+us7000srjx,2026-06-08T18:00:27.508000+00:00,6.1,"102 km WNW of Mantua, Cuba",-85.1254,22.7854,26,earthquake,https://earthquake.usgs.gov/earthquakes/eventpage/us7000srjx
